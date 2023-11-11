@@ -69,18 +69,27 @@ services:
       retries: 3
       start_period: 30s
 
-  nginx:
+  swag:
     profiles:
       - production
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    restart: always
-    command: ['nginx', '-g', 'daemon off;']
+    image: lscr.io/linuxserver/swag:latest
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=America/New_York
+      - URL=cssplice.duckdns.org
+      - VALIDATION=http
+      - SUBDOMAINS=www #optional
+      - DNSPLUGIN=cloudflare #optional
+      - STAGING=false #optional
+    volumes:
+      - ./config:/config
     ports:
-      - 80:80
-    depends_on:
-      - prod
+      - 443:443
+    restart: unless-stopped
     networks:
       - splice
 
@@ -89,3 +98,4 @@ volumes:
 
 networks:
   splice:
+
