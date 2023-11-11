@@ -14,9 +14,9 @@ services:
     networks:
       - splice
     ports:
-      - "3306:3306"
+      - '3306:3306'
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
       interval: 5s
       timeout: 5s
       retries: 5
@@ -36,16 +36,16 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "3000:3000"
+      - '3000:3000'
     networks:
       - splice
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
       interval: 1m30s
       timeout: 10s
       retries: 3
       start_period: 30s
-  
+
   prod:
     profiles:
       - production
@@ -59,11 +59,11 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "3000:3000"
+      - '3000:3000'
     networks:
       - splice
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
       interval: 1m30s
       timeout: 10s
       retries: 3
@@ -76,7 +76,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     restart: always
-    command: ["nginx", "-g", "daemon off;"]
+    command: ['nginx', '-g', 'daemon off;']
     ports:
       - 80:80
     depends_on:

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const yargs = require("yargs");
-const { execSync } = require("child_process");
+const yargs = require('yargs');
+const { execSync } = require('child_process');
 
 // Parse the command-line arguments
 const {
@@ -13,4 +13,4 @@ const {
 const migrationPath = `src/db/migrations/${name}`;
 
 // Run the typeorm command
-execSync(`typeorm migration:create ${migrationPath}`, { stdio: "inherit" });
+execSync(`typeorm migration:create ${migrationPath}`, { stdio: 'inherit' });

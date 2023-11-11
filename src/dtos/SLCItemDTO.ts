@@ -1,39 +1,39 @@
-import { IsNotEmpty, IsString } from "class-validator"
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateSLCItemDTO {
   @IsNotEmpty()
   @IsString()
-  platform_name!: string
+  platform_name!: string;
 
   @IsNotEmpty()
   @IsString()
-  url!: string
+  url!: string;
 
   @IsNotEmpty()
   @IsString()
-  keywords!: string
+  keywords!: string;
 
   @IsString()
-  lti_instructions_url!: string
+  lti_instructions_url!: string;
 
   @IsString()
-  exercise_type!: string
+  exercise_type!: string;
 
   @IsString()
-  description!: string
+  description!: string;
 
   @IsString()
-  author!: string
+  author!: string;
 
   @IsString()
-  institution!: string
+  institution!: string;
 
   @IsString()
-  exercise_name!: string
+  exercise_name!: string;
 
   @IsString()
-  iframe_url!: string
+  iframe_url!: string;
 
   @IsString()
-  lti_url!: string
+  lti_url!: string;
 }
