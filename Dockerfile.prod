@@ -1,0 +1,29 @@
+FROM node:21-alpine AS node
+
+FROM node AS builder
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+RUN yarn install
+RUN yarn global add ts-node
+
+COPY . .
+RUN yarn build
+
+FROM node AS final
+
+RUN adduser -D deploy
+
+ENV NODE_ENV production
+RUN apk --no-cache -U upgrade
+RUN mkdir -p /home/deploy/app/dist && chown -R deploy:deploy /home/deploy/app
+WORKDIR /home/deploy/app
+
+RUN yarn global add pm2
+COPY package.json yarn.lock process.yml ./
+USER deploy
+RUN yarn install --production
+COPY --chown=deploy:deploy --from=builder /app/dist ./dist
+
+ENTRYPOINT [ "pm2-runtime", "./process.yml" ]

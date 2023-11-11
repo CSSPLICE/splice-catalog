@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+  db:
+    profiles:
+      - catalog
+      - production
+    image: mysql:8
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - splice
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  catalog:
+    profiles:
+      - catalog
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    networks:
+      - splice
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+  
+  prod:
+    profiles:
+      - production
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    networks:
+      - splice
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  nginx:
+    profiles:
+      - production
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    command: ["nginx", "-g", "daemon off;"]
+    ports:
+      - 80:80
+    depends_on:
+      - prod
+    networks:
+      - splice
+
+volumes:
+  db:
+
+networks:
+  splice:
