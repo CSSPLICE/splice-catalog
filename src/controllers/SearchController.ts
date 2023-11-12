@@ -7,8 +7,8 @@ import { ILike } from 'typeorm';
 export class SearchController {
   async searchCatalog(req: Request, res: Response): Promise<Response> {
     const query = req.body.query;
-    const search_data = await AppDataSource.getRepository(Catalog).findBy({
-      keywords: ILike(`%${query}%`),
+    const search_data = await AppDataSource.getRepository(Catalog).find({
+      where: [{ keywords: ILike(`%${query}%`) }, { platform_name: ILike(`%${query}%`) }],
     });
     return ResponseUtil.sendResponse(res, search_data, 200);
   }
