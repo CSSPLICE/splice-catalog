@@ -14,7 +14,7 @@ down: ## This takes down the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) down
 
 nuke: ## This removes all the volumes as well as taking down the app
-	(COMPOSE_COMMAND) $(DEV_PROFILE) down -v
+	$(COMPOSE_COMMAND) $(DEV_PROFILE) down -v
 
 restart: down up ## This restarts the app
 
@@ -25,7 +25,7 @@ build-prod: ## This builds prod
 	$(COMPOSE_COMMAND) $(PROD_PROFILE) build
 
 down-prod: ## This takes down prod
-	$(COMPOSE_COMMAND) $(PROD_PROFILE) build down
+	$(COMPOSE_COMMAND) $(PROD_PROFILE) down
 
 help: ## This is the help dialog
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)

@@ -16,7 +16,7 @@ export class CatalogController {
     const dto = new CreateSLCItemDTO();
     Object.assign(dto, SLCItemData);
     const err = await validate(dto);
-    if (err.length != 0) {
+    if (err.length !== 0) {
       return ResponseUtil.sendError(res, 'Invalid data', 400, err);
     }
     const repo = AppDataSource.getRepository(Catalog);
