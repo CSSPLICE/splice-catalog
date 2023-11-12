@@ -22,6 +22,4 @@ EOF
 
 USER deploy
 
-COPY --from=gloursdocker/docker / /
-
 ENTRYPOINT [ "yarn", "dev" ]

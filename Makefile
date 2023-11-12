@@ -14,7 +14,7 @@ down: ## This takes down the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) down
 
 nuke: ## This removes all the volumes as well as taking down the app
-	(COMPOSE_COMMAND) $(DEV_PROFILE) down -v
+	$(COMPOSE_COMMAND) $(DEV_PROFILE) down -v
 
 restart: down up ## This restarts the app
 

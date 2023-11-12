@@ -4,12 +4,13 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project ./tsconfig.json",
     "dev": "nodemon --watch src --exec 'ts-node' -r tsconfig-paths/register src/index.ts",
     "start": "node dist/index.ts",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**.ts --fix",
     "pretty": "prettier . --write",
+    "gulp": "gulp",
     "typeorm": "typeorm-ts-node-commonjs -d src/db/data-source.ts",
     "migration:show": "yarn typeorm migration:show",
     "migration:create": "node scripts/migration-create.js",
@@ -23,9 +24,11 @@
     "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "helmet": "^7.1.0",
     "mysql2": "^3.6.3",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.17",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.5",
@@ -36,6 +39,8 @@
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint": "^8.53.0",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",
