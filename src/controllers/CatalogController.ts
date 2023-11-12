@@ -32,6 +32,6 @@ export class CatalogController {
       id: Number(id),
     });
     await repo.remove(SLCItem);
-    return ResponseUtil.sendResponse(res, "Successfully deleted the SLCItem", 201);
+    return ResponseUtil.sendResponse(res, 'Successfully deleted the SLCItem', 201);
   }
 }
