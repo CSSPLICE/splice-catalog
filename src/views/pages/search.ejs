@@ -5,21 +5,26 @@
 <body>
     <div class="container">
         <h1 class="header">Search Results</h1>
-        <ul>
-            <% results.forEach((SLCItem) => { %>
-                <li>
-                    <h2> <a href="<%= SLCItem.url %>"><%= SLCItem.platform_name %></a> </h2>
-                    <p>
-                        URL: <a href="<%= SLCItem.url %>"><%= SLCItem.url %></a>
-                        <br>
-                        Keywords: <%= SLCItem.keywords %>
-                        <br>
-                        etc
-                    </p>
-                </li>
-                <hr />
-            <% }) %>
-        </ul>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Keywords</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% results.forEach((SLCItem) => { %> 
+                    <tr>
+                        <th scope="row"><%= SLCItem.id %></th>
+                        <td><%= SLCItem.platform_name %></td>
+                        <td><a href="<%= SLCItem.url %>"><%= SLCItem.url %></a></td>
+                        <td><%= SLCItem.keywords %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
     </div>
 </body>
 <%- include('../partials/footer') -%>
