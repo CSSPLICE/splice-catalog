@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head') -%>
+<%- include('../partials/header') -%>
+<body>
+    <div class="container">
+        <h1 class="header">SPLICE Catalog</h1>
+        <ul>
+            <% catalog.forEach((SLCItem) => { %>
+                <li>
+                    <h2> <a href="<%= SLCItem.url %>"><%= SLCItem.platform_name %></a> </h2>
+                    <p>
+                        URL: <a href="<%= SLCItem.url %>"><%= SLCItem.url %></a>
+                        <br>
+                        Keywords: <%= SLCItem.keywords %>
+                        <br>
+                        etc
+                    </p>
+                </li>
+                <hr />
+            <% }) %>
+        </ul>
+    </div>
+</body>
+<%- include('../partials/footer') -%>
+</html>

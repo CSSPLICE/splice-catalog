@@ -1,8 +1,8 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
-import { AppDataSource } from './../db/data-source';
+import { AppDataSource } from '../db/data-source';
 import { Catalog } from '../db/entities/catalog';
-import { ResponseUtil } from './../utils/Response';
+import { ResponseUtil } from '../utils/Response';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 
 export class CatalogController {
