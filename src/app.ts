@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express, { Express, Request, Response } from 'express';
 import catalogRoutes from './routes/catalog';
+import searchRoutes from './routes/search';
 import { ErrorHandler } from './utils/ErrorHandler';
 
 const app: Express = express();
@@ -11,6 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/catalog', catalogRoutes);
+app.use('/search', searchRoutes);
 
 app.all('*', (req: Request, res: Response) => {
   return res.status(404).send({
