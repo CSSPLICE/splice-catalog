@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head') -%>
+<%- include('../partials/header') -%>
+<body>
+    <div class="container">
+        <h1 class="header">SPLICE Catalog</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Keywords</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <% catalog.forEach((SLCItem) => { %> 
+                    <tr>
+                        <th scope="row"><%= SLCItem.id %></th>
+                        <td><%= SLCItem.platform_name %></td>
+                        <td><a href="<%= SLCItem.url %>"><%= SLCItem.url %></a></td>
+                        <td><%= SLCItem.keywords %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+<%- include('../partials/footer') -%>
+</html>

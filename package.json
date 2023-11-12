@@ -17,13 +17,12 @@
     "migration:revert": "yarn typeorm migration:revert"
   },
   "dependencies": {
-    "@types/express": "^4.17.21",
     "body-parser": "^1.20.2",
     "class-validator": "^0.14.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "express-async-errors": "^3.1.1",
     "mysql2": "^3.6.3",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.17"
@@ -31,6 +30,8 @@
   "devDependencies": {
     "@types/body-parser": "^1.19.5",
     "@types/cors": "^2.8.16",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^4.17.21",
     "@types/node": "^20.9.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
