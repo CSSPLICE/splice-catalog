@@ -9,6 +9,10 @@ export class SearchController {
     const search_data = await AppDataSource.getRepository(Catalog).find({
       where: [{ keywords: ILike(`%${query}%`) }, { platform_name: ILike(`%${query}%`) }],
     });
-    res.render('pages/search', { results: search_data, title: 'Search Results' });
+    res.render('pages/search', {
+      results: search_data,
+      title: 'Search Results',
+      user: req.oidc.user,
+    });
   }
 }
