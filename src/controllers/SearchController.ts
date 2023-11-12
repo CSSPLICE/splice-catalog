@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source';
 import { Catalog } from '../db/entities/catalog';
-import { ResponseUtil } from '../utils/Response';
 import { ILike } from 'typeorm';
 
 export class SearchController {
@@ -10,6 +9,6 @@ export class SearchController {
     const search_data = await AppDataSource.getRepository(Catalog).find({
       where: [{ keywords: ILike(`%${query}%`) }, { platform_name: ILike(`%${query}%`) }],
     });
-    res.render("pages/search", {results: search_data, title: "Search Results"})
+    res.render('pages/search', { results: search_data, title: 'Search Results' });
   }
 }
