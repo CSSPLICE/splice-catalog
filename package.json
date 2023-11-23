@@ -12,10 +12,10 @@
     "pretty": "prettier . --write",
     "gulp": "gulp",
     "typeorm": "typeorm-ts-node-commonjs -d src/db/data-source.ts",
-    "migration:show": "yarn typeorm migration:show",
-    "migration:create": "node scripts/migration-create.js",
-    "migration:run": "yarn typeorm migration:run",
-    "migration:revert": "yarn typeorm migration:revert"
+    "migrate:show": "yarn typeorm migration:show",
+    "migrate:create": "node scripts/migration-create.js",
+    "migrate": "yarn typeorm migration:run",
+    "migrate:revert": "yarn typeorm migration:revert"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
