@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head') -%>
+<%- include('../partials/header') -%>
+<body>
+    <div class="container">
+        <h1 class="header">Upload Data</h1>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" id="">
+            <button>Upload</button>
+        </form>
+    </div>
+</body>
+<%- include('../partials/footer') -%>
+</html>
