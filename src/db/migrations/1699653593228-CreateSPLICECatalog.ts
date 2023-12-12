@@ -4,7 +4,7 @@ export class CreateSPLICECatalog1699653593228 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'catalog',
+        name: 'slc_item_catalog',
         columns: [
           {
             name: 'id',
@@ -14,7 +14,7 @@ export class CreateSPLICECatalog1699653593228 implements MigrationInterface {
             generationStrategy: 'increment',
           },
           {
-            name: 'platform_name',
+            name: 'catalog_type',
             type: 'varchar',
             length: '255',
             isNullable: false,
@@ -23,22 +23,10 @@ export class CreateSPLICECatalog1699653593228 implements MigrationInterface {
             name: 'url',
             type: 'varchar',
             length: '255',
-            isNullable: false,
-          },
-          {
-            name: 'keywords',
-            type: 'varchar',
-            length: '255',
-            isNullable: false,
-          },
-          {
-            name: 'lti_instructions_url',
-            type: 'varchar',
-            length: '255',
             isNullable: true,
           },
           {
-            name: 'exercise_type',
+            name: 'keywords',
             type: 'varchar',
             length: '255',
             isNullable: true,
@@ -57,6 +45,30 @@ export class CreateSPLICECatalog1699653593228 implements MigrationInterface {
           },
           {
             name: 'institution',
+            type: 'varchar',
+            length: '255',
+            isNullable: true,
+          },
+          {
+            name: 'language',
+            type: 'varchar',
+            length: '255',
+            isNullable: true,
+          },
+          {
+            name: 'platform_name',
+            type: 'varchar',
+            length: '255',
+            isNullable: true,
+          },
+          {
+            name: 'lti_instructions_url',
+            type: 'varchar',
+            length: '255',
+            isNullable: true,
+          },
+          {
+            name: 'exercise_type',
             type: 'varchar',
             length: '255',
             isNullable: true,
@@ -86,6 +98,6 @@ export class CreateSPLICECatalog1699653593228 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('catalog');
+    await queryRunner.dropTable('slc_item_catalog');
   }
 }

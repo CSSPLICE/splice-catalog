@@ -9,7 +9,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">Title</th>
                     <th scope="col">URL</th>
                     <th scope="col">Keywords</th>
                 </tr>
@@ -18,8 +18,8 @@
                 <% catalog.forEach((SLCItem) => { %> 
                     <tr>
                         <th scope="row"><%= SLCItem.id %></th>
-                        <td><%= SLCItem.platform_name %></td>
-                        <td><a href="<%= SLCItem.url %>"><%= SLCItem.url %></a></td>
+                        <td><%= SLCItem.exercise_name %></td>
+                        <td><a href="<%= SLCItem.iframe_url %>"><%= SLCItem.iframe_url %></a></td>
                         <td><%= SLCItem.keywords %></td>
                     </tr>
                 <% }) %>

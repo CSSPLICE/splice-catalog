@@ -1,8 +1,7 @@
 import * as dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
-import { Catalog } from './entities/catalog';
+import { slc_item_catalog } from './entities/SLCItemCatalog';
 import { CreateSPLICECatalog1699653593228 } from './migrations/1699653593228-CreateSPLICECatalog';
-import { SeedInitialData1699653979099 } from './migrations/1699653979099-SeedInitialData';
 
 dotenv.config();
 
@@ -13,9 +12,9 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER || 'splice',
   password: process.env.DB_PASSWORD || 'splice',
   database: process.env.DB_DATABASE || 'splice',
-  migrations: [CreateSPLICECatalog1699653593228, SeedInitialData1699653979099],
+  migrations: [CreateSPLICECatalog1699653593228],
   logging: process.env.ORM_LOGGING === 'true',
-  entities: [Catalog],
+  entities: [slc_item_catalog],
   synchronize: false,
   subscribers: [],
   migrationsRun: true,
