@@ -6,7 +6,7 @@ const catalogController = new CatalogController();
 const router = express.Router();
 
 router.get('/', catalogController.getCatalog);
-router.post('/', catalogController.createSLCItem);
-router.post('/:id', catalogController.deleteSLCItem);
+router.post('/', catalogController.createCatalogItem);
+router.post('/:id', catalogController.deleteCatalogItem);
 
 export default router;
