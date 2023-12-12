@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 import express, { Express, Request, Response } from 'express';
@@ -12,8 +11,8 @@ import path from 'path';
 const app: Express = express();
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(helmet());
