@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source';
-import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
-import logger from 'src/utils/logger';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
+import logger from '../utils/logger';
 import path from 'path';
 import fs from 'fs';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { validate } from 'class-validator';
-import { ResponseUtil } from 'src/utils/Response';
+import { ResponseUtil } from '../utils/Response';
 
 export class ViewController {
   async homeView(req: Request, res: Response) {
