@@ -4,6 +4,7 @@ FROM node AS builder
 
 WORKDIR /app
 
+ENV NODE_ENV production
 COPY package.json yarn.lock ./
 RUN yarn install
 RUN yarn global add ts-node
