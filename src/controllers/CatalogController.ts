@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source';
 import { ResponseUtil } from '../utils/Response';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
 
 export class CatalogController {
   async getCatalog(req: Request, res: Response): Promise<Response> {

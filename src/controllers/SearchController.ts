@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source';
 import { ILike } from 'typeorm';
-import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
