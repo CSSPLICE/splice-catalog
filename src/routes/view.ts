@@ -6,7 +6,7 @@ const viewController = new ViewController();
 
 const router = express.Router();
 
-const upload = multer({ dest: 'upload' });
+const upload = multer({ dest: './upload' });
 
 router.get('/', viewController.homeView);
 router.post('/upload', upload.single('file'), viewController.uploadPost);
