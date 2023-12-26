@@ -24,6 +24,9 @@ export class ViewController {
     }
 
     const absolutePath = path.join('/app/', req.file.path);
+    if (process.env.NODE_ENV === 'production') {
+      const absolutePath = path.join('/home/deploy/app/dist', req.file.path);
+    }
     const jsonString = fs.readFileSync(absolutePath, 'utf-8');
     const jsonObject = JSON.parse(jsonString);
     let count = 0;
