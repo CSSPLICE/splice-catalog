@@ -69,20 +69,20 @@ services:
       retries: 3
       start_period: 30s
 
-  nginx:		
-    profiles:		
-      - production		
-    build:		
-      context: ./nginx		
-      dockerfile: Dockerfile		
-    restart: always		
-    command: ['nginx', '-g', 'daemon off;']		
-    ports:		
-      - 80:80		
-    depends_on:		
-      - prod		
-    networks:		
-      - splice		
+  nginx:
+    profiles:
+      - production
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    command: ['nginx', '-g', 'daemon off;']
+    ports:
+      - 80:80
+    depends_on:
+      - prod
+    networks:
+      - splice
 
 volumes:
   db:
