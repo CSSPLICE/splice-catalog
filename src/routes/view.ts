@@ -6,10 +6,7 @@ const viewController = new ViewController();
 
 const router = express.Router();
 
-const upload = multer({ dest: './upload' });
-if (process.env.NODE_ENV === 'production') {
-    const upload = multer({ dest: './dist/upload' }); 
-}
+const upload = multer({ dest: '/tmp' });
 
 router.get('/', viewController.homeView);
 router.post('/upload', upload.single('file'), viewController.uploadPost);

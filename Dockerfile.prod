@@ -6,8 +6,8 @@ WORKDIR /app
 
 ENV NODE_ENV production
 COPY package.json yarn.lock ./
-RUN yarn install
 RUN yarn global add ts-node
+RUN yarn install
 
 COPY . .
 RUN yarn build
