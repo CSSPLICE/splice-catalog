@@ -2,16 +2,24 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
 import logger from '../utils/logger';
-import path from 'path';
 import fs from 'fs';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { validate } from 'class-validator';
 import { ResponseUtil } from '../utils/Response';
+import { ILike } from 'typeorm';
 
 export class ViewController {
   async homeView(req: Request, res: Response) {
     const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find();
     res.render('pages/index', { catalog: catalog_data, title: 'SPLICE Catalog' });
+  }
+
+  async itemView(req: Request, res: Response) {
+    const query = req.body.item_link;
+    const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
+      where: [{ exercise_name: ILike(`%${query}%`) }],
+    });
+    res.render('pages/item', { item: item, title: 'Item View' });
   }
 
   async uploadView(req: Request, res: Response) {

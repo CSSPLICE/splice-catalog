@@ -4,7 +4,65 @@
 <%- include('../partials/header') -%>
 <body>
     <div class="container">
-        
+        <h1 class="header">SLCItem</h1>
+        <table class="table table-striped">
+            <!-- <thead>
+                <tr>
+                    <th scope="col">Key</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead> -->
+            <tbody class="table-group-divider">
+                <tr>
+                    <td>Exercise Name</td>
+                    <td><%= item[0].exercise_name %></td>
+                </tr>
+                <tr>
+                    <td>Platform Name</td>
+                    <td><%= item[0].platform_name %></td>
+                </tr>
+                <tr>
+                    <td>Exercise Type</td>
+                    <td><%= item[0].exercise_type %></td>
+                </tr>
+                <tr>
+                    <td>Language</td>
+                    <td><%= item[0].language %></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><%= item[0].description %></td>
+                </tr>
+                <tr>
+                    <td>Keywords</td>
+                    <td><%= item[0].keywords %></td>
+                </tr>
+                <tr>
+                    <td>URL</td>
+                    <td><a href="<%= item[0].url %>" target=_blank><%= item[0].url %></a></td>
+                </tr>
+                <tr>
+                    <td>Author</td>
+                    <td><%= item[0].author %></td>
+                </tr>
+                <tr>
+                    <td>Institution</td>
+                    <td><%= item[0].institution %></td>
+                </tr>
+                <tr>
+                    <td>Iframe URL</td>
+                    <td><a href="<%= item[0].iframe_url %>" target=_blank><%= item[0].iframe_url %></a></td>
+                </tr>
+                <tr>
+                    <td>LTI URL</td>
+                    <td><a href="<%= item[0].lti_url %>" target=_blank><%= item[0].lti_url %></a></td>
+                </tr>
+                <tr>
+                    <td>LTI Instructions URL</td>
+                    <td><a href="<%= item[0].lti_instructions_url %>" target=_blank><%= item[0].lti_instructions_url %></a></td>
+                </tr>
+            </tbody>
+        </table> 
     </div>
 </body>
 <%- include('../partials/footer') -%>
