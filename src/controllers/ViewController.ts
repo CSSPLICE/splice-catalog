@@ -22,6 +22,10 @@ export class ViewController {
     res.render('pages/item', { item: item, title: 'Item View' });
   }
 
+  async instructionsView(req: Request, res: Response) {
+    res.render('pages/instructions', { title: 'Instructions' });
+  }
+
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', { title: 'Upload Data' });
   }

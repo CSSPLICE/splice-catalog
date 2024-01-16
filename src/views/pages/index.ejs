@@ -24,8 +24,13 @@
                             <label style="text-decoration: underline; color: #0000EE" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
                         </td>
                         <td><a href="<%= SLCItem.iframe_url %>" target=_blank>See in iframe</a></td>
-                        <td><%= SLCItem.platform_name %></td>
-                        <td><%= SLCItem.keywords %></td>
+                        <td><a href="<%= SLCItem.url%>"</a><%= SLCItem.platform_name %></td>
+                        <td>
+                            <form style="display: none" action="/search/" method="post">
+                                <input type="submit" value="<%= SLCItem.keywords %>" name="query" id="query<%= SLCItem.keywords %>"></input>
+                            </form>
+                            <label style="text-decoration: underline; color: #0000EE" for="query<%= SLCItem.keywords %>"><%= SLCItem.keywords %></label>
+                        </td>
                     </tr>
                 <% }) %>
             </tbody>
