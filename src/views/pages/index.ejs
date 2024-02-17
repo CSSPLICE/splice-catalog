@@ -4,7 +4,33 @@
 <%- include('../partials/header') -%>
 <body>
     <div class="container">
-        <h1 class="header">SPLICE Catalog</h1>
+        <!-- SPLICE Tools Catalog -->
+        <h3 class="header"> Tools Catalog</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Tool Name</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">License</th>
+                    <th scope="col">Standard Support</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% toolsCatalog.forEach((tool) => { %> 
+                    <tr>
+                        <td scope="row"><%= tool.platform_name %></td>
+                        <td><a href="<%= tool.url %>" target="_blank">Visit</a></td>
+                        <td><%= tool.tool_description %></td>
+                        <td><%= tool.license %></td>
+                        <td><%= tool.standard_support %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <!-- SPLICE SLC Items Catalog (Unchanged) -->
+        <h3 class="header">SLC Item Catalog</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
