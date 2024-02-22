@@ -12,12 +12,12 @@ import { CreateSLCToolsDTO } from 'src/dtos/SLCToolsDTO';
 import { slc_tools_catalog } from 'src/db/entities/SLCToolsCatalog';
 
 export class ViewController {
-  async homeView(req: Request, res: Response) {
+  async catalogView(req: Request, res: Response) {
     const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find();
 
     // Fetch SLC tools catalog data
     const toolsCatalog_data = await AppDataSource.getRepository(slc_tools_catalog).find();
-    res.render('pages/index', { catalog: catalog_data, toolsCatalog: toolsCatalog_data, title: 'SPLICE Catalog' });
+    res.render('pages/catalog', { catalog: catalog_data, toolsCatalog: toolsCatalog_data, title: 'SPLICE Catalog' });
   }
 
   async itemView(req: Request, res: Response) {
@@ -31,6 +31,21 @@ export class ViewController {
   async instructionsView(req: Request, res: Response) {
     res.render('pages/instructions', { title: 'Instructions' });
   }
+
+  async homeView(req: Request, res: Response) {
+     // Fetch counts from the database
+     const toolCatalogCount = await AppDataSource.getRepository(slc_tools_catalog).count();
+     const slcItemCount = await AppDataSource.getRepository(slc_item_catalog).count();
+     //#to do Fetch dataset count similarly
+
+     // Render the home page with counts
+     res.render('pages/index', {
+         title: 'Home',
+         toolCatalogCount: toolCatalogCount,
+         slcItemCount: slcItemCount,
+         datasetCount: 0, // to be replaced with actual dataset count
+     });
+ }
 
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', { title: 'Upload Data' });
