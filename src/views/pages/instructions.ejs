@@ -1,11 +1,153 @@
 <!DOCTYPE html>
 <html>
 <%- include('../partials/head') -%>
+<link rel="stylesheet" href="/css/instructions.css"> 
 <%- include('../partials/header') -%>
 <body>
     <div class="container">
-        <h1 class="header">Instructions</h1>
-        <p></p>
+        <h4 class="header">Instructions for Submitting Smart Learning Contents to SPLICE Catalog</h4>
+        <div class="instruction-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h5>Prepare Your SLC Data as</h5>
+                    <p>- SLC items catalog.</p>
+                    <p>- SLC Tool.</p>
+                    <p>- Dataset.</p>
+                    <p>Export your collection of Smart Learning Content (SLC) items using the SPLICE Catalog Schema.</p>
+                    <pre><code>{
+    "catalog": "SLCItemCatalog",
+    "platform_name": "...",
+    "url": "...",
+    "lti_instructions_url(required if LTI URL)": "...",
+    "exercise_type": "...",
+    "license (optional)": "...",
+    "description (optional)": "...",
+    "author (optional)": "...",
+    "institution": "...",
+    "keywords": "...",
+    "exercise_name": "...",
+    "language (optional)": "...",
+    "iframe_url": "...",
+    "lti_url": "...",
+}</code></pre>
+                <p>SLC tools catalog</p>
+                    <pre><code>{
+    "catalog": "SLCToolsCatalog",
+    "platform_name": "...",
+    "url": "...",
+    "tool_description": "...",
+    "license" (optional): "...",
+    "standard_support": "...", 
+    "keywords": "...",
+    "contact_email": "..." 
+}</code></pre>
+                  
+                  <p>Dataset catalog</p>
+                  <pre><code>{
+    “catalog”: "dataset",
+    “title”: "..."
+    “publisher”: "...",
+    "dataset_name": "...",
+    "url": "...",
+    "description": "...",
+    "data_format": "..."
+    “data_type”: "..."
+    "keywords": "...",
+    "population": "...",
+    "affiliation": "...",
+    "language": "...",
+    "date": "...",
+}</code></pre>
+                    <p>Learning and Data Analysis Tools Catalog</p>
+                    <pre><code>{
+    "Catalog": "analysistool",
+    "tool_name": ""...",",
+    "url": ""...",
+    "tool_description": "...",
+    "license": "...",
+    "data_formats_supported": "...",
+    "keywords": "..."
+}</code></pre>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h5>Generate the JSON File</h5>
+                    <p>Use the provided format to create a JSON file with your SLC items or datasets.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h5>Send to the SPLICE Community</h5>
+                    <p>Navigate to the SPLICE endpoint to publish your data. The endpoint URL will be made public soon.</p>
+                </div>
+            </div>
+            <div class="examples">
+                <h6>Examples</h6>
+                <p>Here are sample JSON exports for OpenDSA and CodeWorkout SLC items catalog:</p>
+                <pre><code>{
+    "catalog": "SLCItemCatalog",
+    "platform_name": "OpenDSA",
+    “URL”: “https://opendsa-server.cs.vt.edu”,
+    “exercise_type”: “KA”,
+    “license”: “Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)”
+    “description”: “Introduction Summary Questions”
+    "author":"Cliff Shaffer"
+    “keywords”: “Introduction”
+    “exercise_name”: “Introduction Summary Questions”
+    “language”: “N/A”,
+    “iframe_url”: “https://opendsax.cs.vt.edu/embed/IntroSumm”,
+    “lti_url”: “https://opendsax.cs.vt.edu/lti/launch?custom_ex_short_name=IntroSumm”
+    “lti_instructions_url”: “https://opendsa-server.cs.vt.edu/guides/opendsa-canvas”,
+}</code></pre>
+                <pre><code>{
+    "Catalog": "SLCItemCatalog",
+    "Platform Name": "CodeWorkout",
+    “URL”: "https://codeworkout.cs.vt.edu",
+    “exercise_type”: "Coding Question",
+    “license”: “Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)”
+    “description”: “Introduction Summary Questions”
+    "author":"Stephen Edwards"
+    “keywords”: “programming, coding”
+    “exercise_name”: “Introduction Summary Questions”
+    “language”: “N/A”,
+    “iframe_url”: “https://codeworkout.cs.vt.edu/gym/exercises/1/practice”,
+    “lti_url”: “https://codeworkout.cs.vt.edu/lti/launch/gym/exercises/1/practice”
+    “lti_instructions_url”: “https://codeworkout.cs.vt.edu”,
+}</code></pre>
+<p>SLC tools catalog</p>
+                    <pre><code>{
+    "Ccatalog": "SLCToolsCatalog",
+    "platform_name": "OpenDSA",
+    "url": "https://opendsa.server.vt.edu/",
+    "tool_description": "CS e-textbook platform.",
+    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International",
+    "standard_support": "LTI", 
+    "keywords": "Algorithm visualization", "practice", "auto-assessment",
+    "contact_email": "opendsa@cs.vt.edu" 
+}</code></pre>
+<p>Dataset catalog</p>
+                  <pre><code>{
+    “catalog”: "dataset",
+    “title”: "CS1 Intro Programming"
+    “publisher”: "Datashop",
+    "dataset_name": "CS1 Intro Programming",
+    "url": "https://datashop.web.cmu.edu/DatasetInfo?datasetId=1234",
+    "description": "A dataset of introductory programming course interactions.",
+    "data_format": "CSV"
+    “Data type”: "Interaction?
+    "keywords": "programming", "cs1", "student interactions",
+    "population": "150"
+    "affiliation": "Virgnia Tech"
+    "language": "Python"
+    "dates": "2021"
+}</code></pre>
+
+            </div>
+        </div>
     </div>
 </body>
 <%- include('../partials/footer') -%>
