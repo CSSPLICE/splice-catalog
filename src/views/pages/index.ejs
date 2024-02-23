@@ -1,41 +1,34 @@
 <!DOCTYPE html>
 <html>
 <%- include('../partials/head') -%>
+<link rel="stylesheet" href="/css/style.css">
 <%- include('../partials/header') -%>
 <body>
-    <div class="container">
-        <h1 class="header">SPLICE Catalog</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Exercise Title</th>
-                    <th scope="col">iframe_URL</th>
-                    <th scope="col">Platform</th>
-                    <th scope="col">Keywords</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <% catalog.forEach((SLCItem) => { %> 
-                    <tr>
-                        <td scope="row">
-                            <form style="display: none" action="/item/" method="post">
-                                <input type="submit" value="<%= SLCItem.exercise_name %>" name="item_link" id="item_link<%= SLCItem.exercise_name %>"></input>
-                            </form>
-                            <label style="text-decoration: underline; color: #0000EE" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
-                        </td>
-                        <td><a href="<%= SLCItem.iframe_url %>" target=_blank>See in iframe</a></td>
-                        <td><a href="<%= SLCItem.url%>"</a><%= SLCItem.platform_name %></td>
-                        <td>
-                            <form style="display: none" action="/search/" method="post">
-                                <input type="submit" value="<%= SLCItem.keywords %>" name="query" id="query<%= SLCItem.keywords %>"></input>
-                            </form>
-                            <label style="text-decoration: underline; color: #0000EE" for="query<%= SLCItem.keywords %>"><%= SLCItem.keywords %></label>
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
+    <div class="hero-image bg-primary text-white text-center py-5">
+        <div class="hero-text">
+            <h4 class="display-4">SPLICE Catalog</h4>
+            <p class="lead">Splice Catalog provides access to curated online learning and support materials and content creation for CS Education, led by the Splice Working group.</p>
+        </div>
     </div>
+    
+    <div class="container my-5">
+        <h3 class="mb-4">Statistics</h3>
+        <div class="row text-center">
+            <div class="col-4">
+                <h3><%= toolCatalogCount %>+</h3>
+                <p>Learning Resources</p>
+            </div>
+            <div class="col-4">
+                <h3><%= slcItemCount %>+</h3>
+                <p>Smart Learning Contents</p>
+            </div>
+            <div class="col-4">
+                <h3><%= datasetCount %>+</h3>
+                <p>Datasets</p>
+            </div>
+        </div>
+    </div>
+    
+    <%- include('../partials/footer') -%>
 </body>
-<%- include('../partials/footer') -%>
 </html>
