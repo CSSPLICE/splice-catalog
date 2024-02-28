@@ -8,8 +8,8 @@ import { validate } from 'class-validator';
 import { ResponseUtil } from '../utils/Response';
 import { ILike } from 'typeorm';
 import { ToolsCatalogController } from './ToolsCatalogController';
-import { CreateSLCToolsDTO } from 'src/dtos/SLCToolsDTO';
-import { slc_tools_catalog } from 'src/db/entities/SLCToolsCatalog';
+import { CreateSLCToolsDTO } from '../dtos/SLCToolsDTO';
+import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {
