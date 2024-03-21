@@ -11,8 +11,11 @@ export abstract class slc_item_catalog {
   @Column()
   url!: string;
 
-  @Column()
-  keywords!: string;
+  // @Column()
+  // keywords!: string;
+
+  @Column('json')
+  keywords!: string[];
 
   @Column()
   description!: string;
