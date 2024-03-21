@@ -16,5 +16,7 @@ router.get('/upload', viewController.uploadView);
 router.post('/item', viewController.itemView);
 router.get('/instructions', viewController.instructionsView);
 router.get('/catalog', viewController.catalogView);
+router.get('/datasetcatalog', viewController.datasetCatalogView);
+router.get('/toolcatalog', viewController.toolView)
 
 export default router;
