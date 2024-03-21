@@ -3,32 +3,7 @@
 <%- include('../partials/head') -%>
 <%- include('../partials/header') -%>
 <body>
-    <div class="container">
-        <!-- SPLICE Tools Catalog -->
-        <h3 class="header"> Tools Catalog</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Tool Name</th>
-                    <th scope="col">URL</th>
-                    <th scope="col">Description</th>
-                    <!-- <th scope="col">License</th> -->
-                    <th scope="col">Standard Support</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% toolsCatalog.forEach((tool) => { %> 
-                    <tr>
-                        <td scope="row"><%= tool.platform_name %></td>
-                        <td><a href="<%= tool.url %>" target="_blank">Visit</a></td>
-                        <td><%= tool.tool_description %></td>
-                        <!-- <td><%= tool.license %></td> -->
-                        <td><%= tool.standard_support %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-
+    <div class="container">       
         <!-- SPLICE SLC Items Catalog -->
         <h3 class="header">SLC Item Catalog</h3>
         <table class="table table-striped">
@@ -62,6 +37,9 @@
             </tbody>
         </table>
     </div>
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 <%- include('../partials/footer') -%>
 </html>

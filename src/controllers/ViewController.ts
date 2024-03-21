@@ -10,6 +10,9 @@ import { ILike } from 'typeorm';
 import { ToolsCatalogController } from './ToolsCatalogController';
 import { CreateSLCToolsDTO } from '../dtos/SLCToolsDTO';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
+import { dataset_catalog } from '../db/entities/DatasetCatalog';
+import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
+
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {
@@ -36,6 +39,7 @@ export class ViewController {
      // Fetch counts from the database
      const toolCatalogCount = await AppDataSource.getRepository(slc_tools_catalog).count();
      const slcItemCount = await AppDataSource.getRepository(slc_item_catalog).count();
+     const  datasetCount = await AppDataSource.getRepository(dataset_catalog).count() ;
      //#to do Fetch dataset count similarly
 
      // Render the home page with counts
@@ -43,12 +47,28 @@ export class ViewController {
          title: 'Home',
          toolCatalogCount: toolCatalogCount,
          slcItemCount: slcItemCount,
-         datasetCount: 0, // to be replaced with actual dataset count
+         datasetCount: datasetCount, // to be replaced with actual dataset count
      });
  }
 
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', { title: 'Upload Data' });
+  }
+
+  async toolView(req: Request, res: Response) {
+ // Fetch SLC tools catalog data
+    const toolsCatalog_data = await AppDataSource.getRepository(slc_tools_catalog).find();
+    res.render('pages/toolcatalog', { toolsCatalog: toolsCatalog_data, title: 'Tools Catalog' });
+  }
+
+    async datasetCatalogView(req: Request, res: Response) {
+    try {
+      const datasetCatalog_data = await AppDataSource.getRepository(dataset_catalog).find();
+      res.render('pages/datasetcatalog', { datasets: datasetCatalog_data, title: 'Dataset Catalog' });
+    } catch (error) {
+      console.error("Failed to fetch dataset catalog data:", error);
+      res.status(500).send("Internal Server Error");
+    }
   }
 
   async uploadPost(req: Request, res: Response) {
@@ -61,49 +81,37 @@ export class ViewController {
     const jsonArray = JSON.parse(jsonString);
   
     let processedCount = 0;
-    let slcToolsProcessed = false;
   
     for (const item of jsonArray) {
       let dto, repo;
-      // Log the presence and value of lti_url for the current item
-      logger.info(`Processing item with platform_name: ${item.platform_name}, lti_url: ${item.lti_url}`);
 
       switch (item.catalog_type) {
-        case 'SLCItemCatalog':
+        case 'SLCItemCatalog': {
           dto = new CreateSLCItemDTO();
           Object.assign(dto, item); // Assuming the structure matches, adjust as needed
           repo = AppDataSource.getRepository(slc_item_catalog);
-  
-          // Check for lti_url presence and only process the first SLC Tools Catalog entry
-          if (item.lti_url && !slcToolsProcessed) {
-            logger.info(`Processing SLC Tools Catalog entry for platform: ${item.platform_name} with lti_url: ${item.lti_url}`);
-  
-            const existingEntry = await AppDataSource.getRepository(slc_tools_catalog)
-              .findOneBy({ platform_name: item.platform_name });
-  
-            if (!existingEntry) {
-              const toolsDto = new CreateSLCToolsDTO();
-              Object.assign(toolsDto, {
-                platform_name: item.platform_name,
-                url: item.url,
-                tool_description: item.description || 'No description provided',
-                license: item.license || 'License not specified',
-                standard_support: 'LTI', // Directly setting 'LTI' if lti_url is present
-                keywords: item.keywords,
-                contact_email: item.contact_email || 'DefaultEmail@example.com',
-              });
-              const toolsRepo = AppDataSource.getRepository(slc_tools_catalog);
-              const toolsCatalogItem = toolsRepo.create(toolsDto);
-              // Log the standardSupport value before saving
-              logger.info(`standardSupport value before saving: ${toolsCatalogItem.standard_support}`);
-              await toolsRepo.save(toolsCatalogItem);
-              slcToolsProcessed = true; //only one entry is processed for SLCToolsCatalog
-            }
-          }
           break;
-        case 'DatasetCatalog':
-          //  DatasetCatalog entry creation logic 
-          break;       
+        }
+          
+        case 'DatasetCatalog': {
+          const dto = new CreateDatasetCatalogDTO();
+          Object.assign(dto, item);
+          const validationErrors = await validate(dto);
+          if (validationErrors.length > 0) {
+            console.error(`Validation errors for ${item.catalog_type}:`, validationErrors);
+            continue; // Skip this item if validation fails
+          }
+          const repo = AppDataSource.getRepository(dataset_catalog);
+          const catalogItem = repo.create(dto);
+          await repo.save(catalogItem);
+          processedCount++;
+          break;
+        }  
+
+        default:
+          logger.warn(`Unrecognized catalog type: ${item.catalog_type}`);
+          continue; // Skip this item
+          
       }
   
       // Common validation and saving logic for the catalog types

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsOptional, IsUrl, ValidateIf } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsUrl, ValidateIf, IsArray } from 'class-validator';
 
 export class CreateSLCItemDTO {
   @IsNotEmpty()
@@ -14,15 +14,21 @@ export class CreateSLCItemDTO {
   @IsString()
   url!: string;
 
-  @IsNotEmpty()
-  @IsString()
-  keywords!: string;
+  // @IsNotEmpty()
+  // @IsString()
+  // keywords!: string;
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  keywords!: string[];
 
   @IsString()
   @IsUrl()
   @ValidateIf((o) => o.lti_url !== null)
   lti_instructions_url!: string;
 
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
   exercise_type!: string;
@@ -35,7 +41,8 @@ export class CreateSLCItemDTO {
   @IsString()
   author!: string;
 
-  @IsNotEmpty()
+  @IsOptional()
+  // @IsNotEmpty()
   @IsString()
   institution!: string;
 

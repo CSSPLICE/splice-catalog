@@ -3,7 +3,19 @@
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
-                <li><a href="/catalog/" class="nav-link px-2 text-white">Catalog</a></li>
+                
+                <!-- Dropdown for Catalog -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle px-2 text-white" href="#" id="catalogDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Catalog
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
+                        <li><a class="dropdown-item" href="/toolcatalog/">Tool Catalog</a></li>
+                        <li><a class="dropdown-item" href="/catalog/">Content Catalog</a></li>
+                        <li><a class="dropdown-item" href="/datasetcatalog/">Dataset Catalog</a></li>
+                    </ul>
+                </li>
+                
                 <li><a href="https://cssplice.github.io" class="nav-link px-2 text-white">CSSPLICE</a></li>
                 <li><a href="/instructions/" class="nav-link px-2 text-white">Instructions</a></li>
             </ul>
@@ -11,6 +23,7 @@
                 <input type="search" class="form-control form-control-dark" placeholder="Search" aria-label="Search" name="query" id="query">
             </form>
             <div class="text-end">
+                <!-- Optional Login/Sign-up buttons -->
                 <!-- <button type="button" class="btn btn-outline-light me-2">Login</button>
                 <button type="button" class="btn btn-warning">Sign-up</button> -->
             </div>
