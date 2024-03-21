@@ -13,8 +13,8 @@ services:
       - db:/var/lib/mysql
     networks:
       - splice
-    ports:
-      - '3306:3306'
+    expose:
+      - '3306'
     healthcheck:
       test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
       interval: 5s
