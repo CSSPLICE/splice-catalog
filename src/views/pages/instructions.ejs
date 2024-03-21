@@ -120,7 +120,7 @@
 }</code></pre>
 <p>SLC tools catalog</p>
                     <pre><code>{
-    "Ccatalog": "SLCToolsCatalog",
+    "catalog": "SLCToolsCatalog",
     "platform_name": "OpenDSA",
     "url": "https://opendsa.server.vt.edu/",
     "tool_description": "CS e-textbook platform.",
@@ -131,24 +131,32 @@
 }</code></pre>
 <p>Dataset catalog</p>
                   <pre><code>{
-    “catalog”: "dataset",
-    “title”: "CS1 Intro Programming"
-    “publisher”: "Datashop",
-    "dataset_name": "CS1 Intro Programming",
+    "catalogType": "DatasetCatalog",
+    "title": "CS1 Intro Programming",
+    "platform": "DataShop",
+    "datasetName": "CS1 Intro Programming",
     "url": "https://datashop.web.cmu.edu/DatasetInfo?datasetId=1234",
-    "description": "A dataset of introductory programming course interactions.",
-    "data_format": "CSV"
-    “Data type”: "Interaction?
+    "description": "A dataset of introductory programming course interactions, capturing student performance and engagement.",
+    "dataFormats": ["DataShop", "ProgSnap2", "CSV"],
+    "dataType": ["Programming", "Interaction"],
     "keywords": "programming", "cs1", "student interactions",
-    "population": "150"
-    "affiliation": "Virgnia Tech"
-    "language": "Python"
-    "dates": "2021"
+    "population": "Undergraduate Students",
+    "contributors": [
+        {
+        “Name”: “ Ken Koidenger”
+        "affiliation": "Carnegie Mellon University"
+        }
+    ],
+    <!-- "language": ["Python", "Java"], -->
+    "yearPublished": 2020
 }</code></pre>
 
             </div>
         </div>
     </div>
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 <%- include('../partials/footer') -%>
 </html>
