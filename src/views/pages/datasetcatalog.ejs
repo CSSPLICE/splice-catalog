@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head') -%>
+<body>
+    <%- include('../partials/header') -%>
+    <div class="container mt-5">
+        <h2>Dataset Catalog</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Platform/Publisher</th>
+                    <th>Dataset Name</th>
+                    <th>Description</th>
+                    <th>URL</th>
+                    <th>Year</th>
+                    <th>Data Formats</th>
+                    <!-- <th>Keywords</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <% datasets.forEach(function(dataset) { %>
+                <tr>
+                    <td><%= dataset.title %></td>
+                    <td><%= dataset.platform %></td>
+                    <td><%= dataset.datasetName %></td>
+                    <td><%= dataset.description %></td>
+                    <td><a href="<%= dataset.url %>" target="_blank">Link</a></td>
+                    <td><%= dataset.publicationYear %></td>
+                    <td><%= dataset.dataFormats.join(', ') %></td>
+                    <!-- <td><%= dataset.keywords %></td> -->
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <%- include('../partials/footer') -%>
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
