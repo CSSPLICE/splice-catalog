@@ -13,7 +13,6 @@ import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
 import { dataset_catalog } from '../db/entities/DatasetCatalog';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
 
-
 export class ViewController {
   async catalogView(req: Request, res: Response) {
     const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find();
@@ -36,38 +35,38 @@ export class ViewController {
   }
 
   async homeView(req: Request, res: Response) {
-     // Fetch counts from the database
-     const toolCatalogCount = await AppDataSource.getRepository(slc_tools_catalog).count();
-     const slcItemCount = await AppDataSource.getRepository(slc_item_catalog).count();
-     const  datasetCount = await AppDataSource.getRepository(dataset_catalog).count() ;
-     //#to do Fetch dataset count similarly
+    // Fetch counts from the database
+    const toolCatalogCount = await AppDataSource.getRepository(slc_tools_catalog).count();
+    const slcItemCount = await AppDataSource.getRepository(slc_item_catalog).count();
+    const datasetCount = await AppDataSource.getRepository(dataset_catalog).count();
+    //#to do Fetch dataset count similarly
 
-     // Render the home page with counts
-     res.render('pages/index', {
-         title: 'Home',
-         toolCatalogCount: toolCatalogCount,
-         slcItemCount: slcItemCount,
-         datasetCount: datasetCount, // to be replaced with actual dataset count
-     });
- }
+    // Render the home page with counts
+    res.render('pages/index', {
+      title: 'Home',
+      toolCatalogCount: toolCatalogCount,
+      slcItemCount: slcItemCount,
+      datasetCount: datasetCount, // to be replaced with actual dataset count
+    });
+  }
 
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', { title: 'Upload Data' });
   }
 
   async toolView(req: Request, res: Response) {
- // Fetch SLC tools catalog data
+    // Fetch SLC tools catalog data
     const toolsCatalog_data = await AppDataSource.getRepository(slc_tools_catalog).find();
     res.render('pages/toolcatalog', { toolsCatalog: toolsCatalog_data, title: 'Tools Catalog' });
   }
 
-    async datasetCatalogView(req: Request, res: Response) {
+  async datasetCatalogView(req: Request, res: Response) {
     try {
       const datasetCatalog_data = await AppDataSource.getRepository(dataset_catalog).find();
       res.render('pages/datasetcatalog', { datasets: datasetCatalog_data, title: 'Dataset Catalog' });
     } catch (error) {
-      console.error("Failed to fetch dataset catalog data:", error);
-      res.status(500).send("Internal Server Error");
+      console.error('Failed to fetch dataset catalog data:', error);
+      res.status(500).send('Internal Server Error');
     }
   }
 
@@ -75,13 +74,13 @@ export class ViewController {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
-  
+
     const absolutePath = req.file.path;
     const jsonString = fs.readFileSync(absolutePath, 'utf-8');
     const jsonArray = JSON.parse(jsonString);
-  
+
     let processedCount = 0;
-  
+
     for (const item of jsonArray) {
       let dto, repo;
 
@@ -92,7 +91,7 @@ export class ViewController {
           repo = AppDataSource.getRepository(slc_item_catalog);
           break;
         }
-          
+
         case 'DatasetCatalog': {
           const dto = new CreateDatasetCatalogDTO();
           Object.assign(dto, item);
@@ -106,14 +105,13 @@ export class ViewController {
           await repo.save(catalogItem);
           processedCount++;
           break;
-        }  
+        }
 
         default:
           logger.warn(`Unrecognized catalog type: ${item.catalog_type}`);
           continue; // Skip this item
-          
       }
-  
+
       // Common validation and saving logic for the catalog types
       if (dto && repo) {
         const validationErrors = await validate(dto);
@@ -126,8 +124,7 @@ export class ViewController {
         }
       }
     }
-  
+
     return ResponseUtil.sendResponse(res, `${processedCount} entries processed successfully`, 201);
   }
-  
 }

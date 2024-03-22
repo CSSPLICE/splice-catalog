@@ -7,7 +7,6 @@ import viewRoutes from './routes/view';
 import { ErrorHandler } from './utils/ErrorHandler';
 import path from 'path';
 
-
 const app: Express = express();
 
 app.use(cors());
@@ -19,10 +18,10 @@ if (process.env.NODE_ENV === 'production') {
     helmet({
       contentSecurityPolicy: {
         directives: {
-	  "frame-src": ["codeworkoutdev.cs.vt.edu", "opendsax.cs.vt.edu"],
+          'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu'],
         },
       },
-    })
+    }),
   );
 }
 
@@ -33,8 +32,6 @@ app.use('/', viewRoutes);
 
 app.use('/catalog', catalogRoutes);
 app.use('/search', searchRoutes);
-
-app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.all('*', (req: Request, res: Response) => {
   return res.status(404).send({

@@ -6,9 +6,9 @@ const viewController = new ViewController();
 
 const router = express.Router();
 
-const maxSize = 1000000*50
+const maxSize = 1000000 * 50;
 
-const upload = multer({ dest: '/tmp', limits: {fieldSize: maxSize} });
+const upload = multer({ dest: '/tmp', limits: { fieldSize: maxSize } });
 
 router.get('/', viewController.homeView);
 router.post('/upload', upload.single('file'), viewController.uploadPost);
@@ -17,6 +17,6 @@ router.post('/item', viewController.itemView);
 router.get('/instructions', viewController.instructionsView);
 router.get('/catalog', viewController.catalogView);
 router.get('/datasetcatalog', viewController.datasetCatalogView);
-router.get('/toolcatalog', viewController.toolView)
+router.get('/toolcatalog', viewController.toolView);
 
 export default router;

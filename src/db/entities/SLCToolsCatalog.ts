@@ -14,7 +14,7 @@ export class slc_tools_catalog {
   @Column({ nullable: true })
   license!: string;
 
-  @Column({ nullable: true})
+  @Column({ nullable: true })
   standard_support!: string;
 
   @Column({ nullable: true })
