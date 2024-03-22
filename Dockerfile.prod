@@ -26,4 +26,4 @@ RUN yarn global add pm2
 COPY package.json yarn.lock process.yml ./
 RUN yarn install --production
 USER deploy
-COPY --chown=deploy:deploy --from=builder /app/dist/src ./dist
+COPY --chown=deploy:deploy --from=builder /app/dist ./dist
