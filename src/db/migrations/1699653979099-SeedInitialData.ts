@@ -8,7 +8,7 @@ export class SeedInitialData1699653979099 implements MigrationInterface {
         // "   (1, 'OpenDSA', 'https://opendsa-server.cs.vt.edu', 'eTextbook, LTI', 'Virginia Tech'), \n" +
         // "   (2, 'CodeWorkout', 'https://codeworkout.cs.vt.edu', 'programming practice, LTI', 'Virginia Tech')",
         "   ('OpenDSA', 'https://opendsa-server.cs.vt.edu', 'eTextbook, LTI', 'Virginia Tech'), \n" +
-        "   ('CodeWorkout', 'https://codeworkout.cs.vt.edu', 'programming practice, LTI', 'Virginia Tech')"
+        "   ('CodeWorkout', 'https://codeworkout.cs.vt.edu', 'programming practice, LTI', 'Virginia Tech')",
     );
     // Inserting initial data into slc_tools_catalog
     await queryRunner.query(`
@@ -51,8 +51,6 @@ export class SeedInitialData1699653979099 implements MigrationInterface {
         2021
       )
     `);
-
-
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

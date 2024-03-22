@@ -30,6 +30,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/app
+    command: ["yarn", "dev"]
     env_file:
       - .env
     depends_on:
@@ -55,9 +56,12 @@ services:
     env_file:
       - .env
     restart: always
+    entrypoint: ["pm2-runtime", "./process.yml"]
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - staticvolume:/home/deploy/app/dist/public
     ports:
       - '3000:3000'
     networks:
@@ -79,6 +83,7 @@ services:
     command: ['nginx', '-g', 'daemon off;']
     volumes:
       - ./certs:/etc/certs
+      - staticvolume:/collected-static
     ports:
       - 80:80
       - 443:443
@@ -89,6 +94,7 @@ services:
 
 volumes:
   db:
+  staticvolume:
 
 networks:
   splice:

@@ -33,7 +33,7 @@ export class dataset_catalog {
   population?: string;
 
   @Column('json', { nullable: true })
-  contributors!: Contributor[];  
+  contributors!: Contributor[];
 
   @Column({ nullable: true })
   language?: string;
@@ -46,7 +46,3 @@ interface Contributor {
   name?: string;
   affiliation: string;
 }
-
-
-
-

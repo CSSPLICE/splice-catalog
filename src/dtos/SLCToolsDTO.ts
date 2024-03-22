@@ -20,11 +20,11 @@ export class CreateSLCToolsDTO {
 
   @IsString()
   @IsOptional()
-  standard_support!: string; 
+  standard_support!: string;
 
   @IsString()
   @IsOptional()
-  keywords!: string; 
+  keywords!: string;
 
   @IsEmail()
   @IsOptional()
