@@ -9,6 +9,6 @@ gulp.task('views', function () {
   return gulp.src('./src/views/**/*.ejs').pipe(gulp.dest('./dist/views'));
 });
 
-gulp.task('default', gulp.series('views'), () => {
+gulp.task('default', gulp.series('assets', 'views'), () => {
   console.log('gulp done');
 });
