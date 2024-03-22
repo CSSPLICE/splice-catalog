@@ -60,6 +60,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - staticvolume:/home/deploy/app/dist/public
     ports:
       - '3000:3000'
     networks:
@@ -81,6 +83,7 @@ services:
     command: ['nginx', '-g', 'daemon off;']
     volumes:
       - ./certs:/etc/certs
+      - staticvolume:/collected-static
     ports:
       - 80:80
       - 443:443
@@ -91,6 +94,7 @@ services:
 
 volumes:
   db:
+  staticvolume:
 
 networks:
   splice:
