@@ -21,5 +21,3 @@ RUN <<EOF
 EOF
 
 USER deploy
-
-ENTRYPOINT [ "yarn", "dev" ]

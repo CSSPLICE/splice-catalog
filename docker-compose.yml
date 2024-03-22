@@ -30,6 +30,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/app
+    command: ["yarn", "dev"]
     env_file:
       - .env
     depends_on:
