@@ -18,7 +18,8 @@ if (process.env.NODE_ENV === 'production') {
     helmet({
       contentSecurityPolicy: {
         directives: {
-          'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu'],
+          'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu', 'acos.cs.vt.edu'],
+	  'script-src': ['splice.cs.vt.edu', 'cdn.jsdelivr.net'],
         },
       },
     }),
