@@ -15,11 +15,18 @@ import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {
-    const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find();
+    const currentPage = Number(req.query.page) || 1;
+    const ITEMS_PER_PAGE = 25;  // subject to change
+    const totalItems = await AppDataSource.getRepository(slc_item_catalog).count();
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
-    // Fetch SLC tools catalog data
-    const toolsCatalog_data = await AppDataSource.getRepository(slc_tools_catalog).find();
-    res.render('pages/catalog', { catalog: catalog_data, toolsCatalog: toolsCatalog_data, title: 'SPLICE Catalog' });
+    const catalog_data = await AppDataSource.getRepository(slc_item_catalog)
+        .find({
+            skip: offset,
+            take: ITEMS_PER_PAGE
+        });
+    res.render('pages/catalog', { catalog: catalog_data, currentPage, totalPages, title: 'SPLICE Catalog' });
   }
 
   async itemView(req: Request, res: Response) {
