@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <%- include('../partials/head') -%>
+<link rel="stylesheet" href="/css/style.css">
 <%- include('../partials/header') -%>
 <body>
     <div class="container">       
@@ -36,7 +37,22 @@
                 <% }) %>
             </tbody>
         </table>
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <% if (currentPage > 1) { %>
+                <a href="?page=<%= currentPage - 1 %>">Previous</a>
+            <% } %>
+
+            <% for (let i = 1; i <= totalPages; i++) { %>
+                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+            <% } %>
+
+            <% if (currentPage < totalPages) { %>
+                <a href="?page=<%= currentPage + 1 %>">Next</a>
+            <% } %>
+        </div>
     </div>
+
     <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
