@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') -%>
+<%- include('../partials/header') -%>
+<body>
+  <div class="container">
+    <h3 class="header">Review Dashboard</h3>
+    <div class="summary">
+      <p>Total Submissions: <%= totalSubmissions %></p>
+      <p>Successful Verifications: <%= successfulVerifications %></p>
+      <p>Submissions with Issues: <%= issues.length %></p>
+      <ul>
+        <% const issueCounts = { missingFields: 0, invalidUrls: 0, formatInconsistencies: 0 }; %>
+        <% issues.forEach(issue => { %>
+          <% issue.validationErrors.forEach(error => { %>
+            <% if (error.constraints) { %>
+              <% Object.keys(error.constraints).forEach(constraint => { %>
+                <% if (constraint === 'isNotEmpty') issueCounts.missingFields++; %>
+                <% if (constraint === 'isUrl') issueCounts.invalidUrls++; %>
+                <% if (constraint === 'isString') issueCounts.formatInconsistencies++; %>
+              <% }); %>
+            <% } %>
+          <% }); %>
+        <% }); %>
+        <li>Missing Fields: <%= issueCounts.missingFields %></li>
+        <li>Invalid URLs: <%= issueCounts.invalidUrls %></li>
+        <li>Format Inconsistencies: <%= issueCounts.formatInconsistencies %></li>
+      </ul>
+    </div>
+
+    <% if (issues.length > 0) { %>
+      <h5>Entries with Issues</h5>
+      <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#issues-list" aria-expanded="false" aria-controls="issues-list">
+        Toggle Issues
+      </button>
+      <div class="collapse" id="issues-list">
+        <% issues.forEach((issue, index) => { %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title"><%= issue.item.exercise_name %></h4>
+              <div class="status-indicator text-warning"><%= issue.summary %></div>
+              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#details-<%= index %>" aria-expanded="false" aria-controls="details-<%= index %>">
+                View Details
+              </button>
+              <div class="collapse" id="details-<%= index %>">
+                <div class="metadata">
+                  <p><strong>Catalog Type:</strong> <%= issue.item.catalog_type %></p>
+                  <p><strong>Platform Name:</strong> <%= issue.item.platform_name %></p>
+                  <p><strong>URL:</strong> <%= issue.item.url %></p>
+                  <p><strong>Keywords:</strong> <%= issue.item.keywords.join(', ') %></p>
+                  <p><strong>LTI Instructions URL:</strong> <%= issue.item.lti_instructions_url %></p>
+                  <p><strong>Exercise Type:</strong> <%= issue.item.exercise_type %></p>
+                  <p><strong>Author:</strong> <%= issue.item.author %></p>
+                  <p><strong>Institution:</strong> <%= issue.item.institution %></p>
+                  <p><strong>Exercise Name:</strong> <%= issue.item.exercise_name %></p>
+                  <p><strong>Language:</strong> <%= issue.item.language %></p>
+                  <p><strong>iFrame URL:</strong> <%= issue.item.iframe_url %></p>
+                  <p><strong>LTI URL:</strong> <%= issue.item.lti_url %></p>
+                </div>
+                <div class="validation-errors">
+                  <p class="text-warning"><strong>Validation Errors:</strong></p>
+                  <ul>
+                    <% issue.validationErrors.forEach(error => { %>
+                      <li><%= error.property %>: <%= error.constraints ? Object.values(error.constraints).join(', ') : 'Unknown error' %></li>
+                    <% }) %>
+                  </ul>
+                </div>
+                <% if (issue.error || issue.validationErrors.length > 0) { %>
+                  <div class="recommendations">
+                    <p class="text-info"><strong>Recommendations:</strong></p>
+                    <ul>
+                      <% if (issue.error) { %>
+                        <li>Fix the URL or ensure the server is reachable: <%= issue.error %></li>
+                      <% } %>
+                      <% issue.validationErrors.forEach(error => { %>
+                        <li>Correct <%= error.property %>: <%= error.constraints ? Object.values(error.constraints).join(', ') : 'Refer to the guidelines' %></li>
+                      <% }) %>
+                    </ul>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+      <div class="actions mt-3">
+        <p><strong>Resources:</strong></p>
+        <ul>
+          <li><a href="instructions" target="_blank">Metadata Guidelines</a></li>
+          <li><a href="https://splice.cs.vt.edu/instructions" target="_blank">Common URLs Issues</a></li>
+          <li><a href="https://splice.cs.vt.edu/instructions" target="_blank">Example Metadata</a></li>
+        </ul>
+        <form action="/approve" method="post" class="d-inline">
+          <input type="hidden" name="data" value='<%= JSON.stringify(issues.map(issue => issue.item)) %>' />
+          <button type="submit" class="btn btn-success">Approve</button>
+        </form>
+        <form action="/reject-all" method="post" class="d-inline">
+          <button type="submit" class="btn btn-danger">Reject</button>
+        </form>
+      </div>
+    <% } else { %>
+      <p>No issues found!</p>
+    <% } %>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <%- include('../partials/footer') -%>
+</body>
+</html>
+
