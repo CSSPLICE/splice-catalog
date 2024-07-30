@@ -10,6 +10,7 @@ const logger = createLogger({
   transports: [
     new transports.File({ filename: 'logs/error.log', level: 'error' }),
     new transports.File({ filename: 'logs/status.log' }),
+    new transports.File({ filename: 'logs/verification.log' }),
   ],
   exceptionHandlers: [new transports.File({ filename: 'logs/exceptions.log' })],
 });
