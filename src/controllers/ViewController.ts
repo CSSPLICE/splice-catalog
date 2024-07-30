@@ -12,6 +12,10 @@ import { CreateSLCToolsDTO } from '../dtos/SLCToolsDTO';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
 import { dataset_catalog } from '../db/entities/DatasetCatalog';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
+import { ReviewController } from './ReviewController';
+
+
+const reviewController = new ReviewController();
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {
@@ -87,6 +91,15 @@ export class ViewController {
     const jsonString = fs.readFileSync(absolutePath, 'utf-8');
     const jsonArray = JSON.parse(jsonString);
 
+    // Call the reviewController's validateAndReview method
+    return reviewController.validateAndReview(req, res, jsonArray);
+  }
+  async approveAll(req: Request, res: Response) {
+    const data = req.body.data;
+    console.log("ApproveAll called with data:", data);
+    const jsonArray = JSON.parse(data);
+    console.log("Parsed JSON data:", jsonArray);
+
     let processedCount = 0;
 
     for (const item of jsonArray) {
@@ -95,7 +108,7 @@ export class ViewController {
       switch (item.catalog_type) {
         case 'SLCItemCatalog': {
           dto = new CreateSLCItemDTO();
-          Object.assign(dto, item); // Assuming the structure matches, adjust as needed
+          Object.assign(dto, item); 
           repo = AppDataSource.getRepository(slc_item_catalog);
           break;
         }
@@ -145,5 +158,9 @@ export class ViewController {
   profileView(req: Request, res: Response) {
     // res.render('pages/profile', { title: 'Profile', user: JSON.stringify(req.oidc.user, null, 2) });
     res.render('pages/profile', { title: 'Profile', user: req.oidc.user });
+  }
+
+  async rejectAll(req: Request, res: Response) {
+    return res.redirect('/upload');
   }
 }
