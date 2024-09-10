@@ -1,6 +1,10 @@
-import { IsNotEmpty, IsString, IsOptional, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsUrl, ValidateIf, IsArray } from 'class-validator';
 
 export class CreateSLCItemDTO {
+  @IsNotEmpty()
+  @IsString()
+  catalog_type!: string;
+
   @IsNotEmpty()
   @IsString()
   platform_name!: string;
@@ -10,35 +14,47 @@ export class CreateSLCItemDTO {
   @IsString()
   url!: string;
 
-  @IsNotEmpty()
-  @IsString()
-  keywords!: string;
+  // @IsNotEmpty()
+  // @IsString()
+  // keywords!: string;
 
+  @IsArray()
+  @IsString({ each: true })
   @IsOptional()
+  keywords!: string[];
+
   @IsString()
+  @IsUrl()
+  @ValidateIf((o) => o.lti_url !== null)
   lti_instructions_url!: string;
 
   @IsOptional()
+  @IsNotEmpty()
   @IsString()
   exercise_type!: string;
 
-  @IsOptional()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsString()
   description!: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   author!: string;
 
   @IsOptional()
+  // @IsNotEmpty()
   @IsString()
   institution!: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   exercise_name!: string;
 
-  @IsOptional()
+  // @IsNotEmpty()
+  // @IsString()
+  language!: string;
+
+  @IsNotEmpty()
   @IsUrl()
   @IsString()
   iframe_url!: string;

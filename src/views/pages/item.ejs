@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<%- include('../partials/head') -%>
+<%- include('../partials/header') -%>
+<body>
+    <div class="container">
+        <h1 class="header"><%= item.exercise_name %></h1>
+        <table class="table table-striped">
+            <!-- <thead>
+                <tr>
+                    <th scope="col">Key</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead> -->
+            <tbody class="table-group-divider">
+                <tr>
+                    <td>Platform Name</td>
+                    <td><%= item.platform_name %></td>
+                </tr>
+                <tr>
+                    <td>Exercise Type</td>
+                    <td><%= item.exercise_type %></td>
+                </tr>
+                <tr>
+                    <td>Language</td>
+                    <td><%= item.language %></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><%= item.description %></td>
+                </tr>
+                <tr>
+                    <td>Keywords</td>
+                    <td>
+                        <form style="display: none" action="/search/" method="post">
+                            <input type="submit" value="<%= item.keywords %>" name="query" id="query<%= item.keywords %>"></input>
+                        </form>
+                        <label style="text-decoration: underline; color: #0000EE" for="query<%= item.keywords %>"><%= item.keywords %></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>URL</td>
+                    <td><a href="<%= item.url %>" target=_blank><%= item.url %></a></td>
+                </tr>
+                <tr>
+                    <td>Author</td>
+                    <td><%= item.author %></td>
+                </tr>
+                <tr>
+                    <td>Institution</td>
+                    <td><%= item.institution %></td>
+                </tr>
+                <tr>
+                    <td>Iframe URL</td>
+                    <td><a href="<%= item.iframe_url %>" target=_blank><%= item.iframe_url %></a></td>
+                </tr>
+                <tr>
+                    <td>LTI URL</td>
+                    <td><a href="<%= item.lti_url %>" target=_blank><%= item.lti_url %></a></td>
+                </tr>
+                <tr>
+                    <td>LTI Instructions URL</td>
+                    <td><a href="<%= item.lti_instructions_url %>" target=_blank><%= item.lti_instructions_url %></a></td>
+                </tr>
+            </tbody>
+        </table> 
+        <div class="iframe-preview">
+            <h4>Preview</h4>
+            <iframe src="<%= item.iframe_url %>" width="100%" height="600px" allowfullscreen></iframe>
+        </div>
+    </div>
+</body>
+<%- include('../partials/footer') -%>
+</html>

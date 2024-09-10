@@ -4,9 +4,10 @@ FROM node AS builder
 
 WORKDIR /app
 
+ENV NODE_ENV production
 COPY package.json yarn.lock ./
-RUN yarn install
 RUN yarn global add ts-node
+RUN yarn install
 
 COPY . .
 RUN yarn build
@@ -23,8 +24,6 @@ WORKDIR /home/deploy/app
 
 RUN yarn global add pm2
 COPY package.json yarn.lock process.yml ./
-USER deploy
 RUN yarn install --production
+USER deploy
 COPY --chown=deploy:deploy --from=builder /app/dist ./dist
-
-ENTRYPOINT [ "pm2-runtime", "./process.yml" ]

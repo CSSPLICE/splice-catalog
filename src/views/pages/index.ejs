@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html>
 <%- include('../partials/head') -%>
+<link rel="stylesheet" href="/css/style.css">
 <%- include('../partials/header') -%>
 <body>
-    <div class="container">
-        <h1 class="header">SPLICE Catalog</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">URL</th>
-                    <th scope="col">Keywords</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <% catalog.forEach((SLCItem) => { %> 
-                    <tr>
-                        <th scope="row"><%= SLCItem.id %></th>
-                        <td><%= SLCItem.platform_name %></td>
-                        <td><a href="<%= SLCItem.url %>"><%= SLCItem.url %></a></td>
-                        <td><%= SLCItem.keywords %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
+    <div class="hero-image bg-primary text-white text-center py-5">
+        <div class="hero-text">
+            <h4 class="display-4">SPLICE Catalog</h4>
+            <p class="lead">The SPLICE Catalog provides access to a wide collection of Smart Learning Content, SLC delivery systems, and CS Education Datasets.</p>
+        </div>
     </div>
+    <div class="container my-5">
+        <h3 class="mb-4">Statistics</h3>
+        <div class="row text-center">
+            <div class="col-4">
+                <h3><%= toolCatalogCount %>+</h3>
+                <p>Learning Resources</p>
+            </div>
+            <div class="col-4">
+                <h3><%= slcItemCount %>+</h3>
+                <p>Smart Learning Contents</p>
+            </div>
+            <div class="col-4">
+                <h3><%= datasetCount %>+</h3>
+                <p>Datasets</p>
+            </div>
+        </div>
+    </div>
+    
+    <%- include('../partials/footer') -%>
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
-<%- include('../partials/footer') -%>
 </html>

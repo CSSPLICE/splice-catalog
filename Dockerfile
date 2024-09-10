@@ -10,7 +10,7 @@ COPY . .
 
 FROM development as dev-envs
 RUN <<EOF
-    apt-get update
+    apt-get update --allow-releaseinfo-change
     apt-get install -y --no-install-recommends git
 EOF
 
@@ -21,5 +21,3 @@ RUN <<EOF
 EOF
 
 USER deploy
-
-ENTRYPOINT [ "yarn", "dev" ]

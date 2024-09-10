@@ -13,8 +13,8 @@ services:
       - db:/var/lib/mysql
     networks:
       - splice
-    ports:
-      - '3306:3306'
+    expose:
+      - '3306'
     healthcheck:
       test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
       interval: 5s
@@ -30,6 +30,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/app
+    command: ["yarn", "dev"]
     env_file:
       - .env
     depends_on:
@@ -55,9 +56,12 @@ services:
     env_file:
       - .env
     restart: always
+    entrypoint: ["pm2-runtime", "./process.yml"]
     depends_on:
       db:
         condition: service_healthy
+    volumes:
+      - staticvolume:/home/deploy/app/dist/public
     ports:
       - '3000:3000'
     networks:
@@ -77,8 +81,12 @@ services:
       dockerfile: Dockerfile
     restart: always
     command: ['nginx', '-g', 'daemon off;']
+    volumes:
+      - ./certs:/etc/certs
+      - staticvolume:/collected-static
     ports:
       - 80:80
+      - 443:443
     depends_on:
       - prod
     networks:
@@ -86,6 +94,8 @@ services:
 
 volumes:
   db:
+  staticvolume:
 
 networks:
   splice:
+

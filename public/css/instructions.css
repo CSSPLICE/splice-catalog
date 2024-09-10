@@ -1,0 +1,59 @@
+.step {
+  /* display: flex;  */
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Step Number Styling */
+.step-number {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 50%;
+  background: #003671f5;
+  color: white;
+  margin-right: 15px;
+  font-size: 20px;
+}
+
+/* Step Content Styling */
+.step-content h5 {
+  color: #003671f5;
+  margin: 0;
+  font-size: 18px;
+}
+
+.step-content p,
+.examples p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+/* Code Block Styling */
+pre {
+  background-color: #f4f4f4;
+  border-left: 5px solid #003671f5;
+  color: #333;
+  page-break-inside: avoid;
+  font-family: monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 100%;
+  overflow: auto;
+  display: block;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  margin: 20px 0;
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+  .step-number {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+  }
+}

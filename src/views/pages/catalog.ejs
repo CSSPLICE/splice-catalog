@@ -4,8 +4,9 @@
 <link rel="stylesheet" href="/css/style.css">
 <%- include('../partials/header') -%>
 <body>
-    <div class="container">
-        <h1 class="header">Search Results</h1>
+    <div class="container">       
+        <!-- SPLICE SLC Items Catalog -->
+        <h3 class="header">SLC Item Catalog</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -16,13 +17,13 @@
                 </tr>
             </thead>
             <tbody class="table-group-divider">
-                <% results.forEach((SLCItem) => { %> 
+                <% catalog.forEach((SLCItem) => { %> 
                     <tr>
                         <td scope="row">
                             <form style="display: none" action="/item/" method="post">
                                 <input type="submit" value="<%= SLCItem.exercise_name %>" name="item_link" id="item_link<%= SLCItem.exercise_name %>"></input>
                             </form>
-                            <label style="text-decoration: underline; color: #0000EE" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
+                            <label style="text-decoration: underline; color: #0303b4" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
                         </td>
                         <td><a href="<%= SLCItem.iframe_url %>" target=_blank>See in iframe</a></td>
                         <td><a href="<%= SLCItem.url%>"</a><%= SLCItem.platform_name %></td>
@@ -30,8 +31,7 @@
                             <form style="display: none" action="/search/" method="post">
                                 <input type="submit" value="<%= SLCItem.keywords %>" name="query" id="query<%= SLCItem.keywords %>"></input>
                             </form>
-                            <label style="text-decoration: underline; color: #0000EE" for="query<%= SLCItem.keywords %>"><%= SLCItem.keywords %></label>
-                        </td>
+                            <label style="text-decoration: underline; color: #0303b4" for="query<%= SLCItem.keywords %>"><%= SLCItem.keywords %></label>
                         </td>
                     </tr>
                 <% }) %>
@@ -40,18 +40,22 @@
         <!-- Pagination Controls -->
         <div class="pagination">
             <% if (currentPage > 1) { %>
-              <a href="?page=<%= currentPage - 1 %>">Previous</a>
+                <a href="?page=<%= currentPage - 1 %>">Previous</a>
             <% } %>
-      
+
             <% for (let i = 1; i <= totalPages; i++) { %>
-              <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
             <% } %>
-      
+
             <% if (currentPage < totalPages) { %>
-              <a href="?page=<%= currentPage + 1 %>">Next</a>
+                <a href="?page=<%= currentPage + 1 %>">Next</a>
             <% } %>
-          </div>
+        </div>
     </div>
+
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 <%- include('../partials/footer') -%>
 </html>

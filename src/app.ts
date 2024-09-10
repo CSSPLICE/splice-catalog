@@ -1,4 +1,3 @@
-import bodyParser from 'body-parser';
 import cors from 'cors';
 import helmet from 'helmet';
 import express, { Express, Request, Response } from 'express';
@@ -15,11 +14,20 @@ dotenv.config();
 const app: Express = express();
 
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu', 'acos.cs.vt.edu'],
+	  'script-src': ['splice.cs.vt.edu', 'cdn.jsdelivr.net'],
+        },
+      },
+    }),
+  );
 }
 
 app.set('views', path.join(__dirname, 'views'));

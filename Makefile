@@ -7,11 +7,17 @@ PROD_PROFILE := --profile production
 build: ## This builds the images
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) build
 
+rebuild: ## This builds the images with no-cache
+	$(COMPOSE_COMMAND) $(DEV_PROFILE) build --no-cache
+
 up: build ## This brings up the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) up
 
 down: ## This takes down the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) down
+
+exec: ## This execs into the running catalog container
+	$(COMPOSE_COMMAND) $(DEV_PROFILE) exec catalog sh
 
 nuke: ## This removes all the volumes as well as taking down the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) down -v

@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateSPLICECatalog1699653593228 implements MigrationInterface {
+export class CreateSpliceCatalog1710861730789 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -27,8 +27,7 @@ export class CreateSPLICECatalog1699653593228 implements MigrationInterface {
           },
           {
             name: 'keywords',
-            type: 'varchar',
-            length: '255',
+            type: 'json',
             isNullable: true,
           },
           {
