@@ -134,7 +134,7 @@ export class ViewController {
     }
 
     return ResponseUtil.sendResponse(res, `${processedCount} entries processed successfully`, 201);
-    const catalog_data = await AppDataSource.getRepository(Catalog).find();
+    const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find();
     res.render('pages/index', {
       catalog: catalog_data,
       title: 'SPLICE Catalog',
