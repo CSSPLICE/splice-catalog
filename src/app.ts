@@ -23,12 +23,15 @@ if (process.env.NODE_ENV === 'production') {
       contentSecurityPolicy: {
         directives: {
           'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu', 'acos.cs.vt.edu'],
-	  'script-src': ['splice.cs.vt.edu', 'cdn.jsdelivr.net'],
+      	  'script-src': ['splice.cs.vt.edu', 'cdn.jsdelivr.net'],
         },
       },
     }),
   );
 }
+
+// Serve static files from 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

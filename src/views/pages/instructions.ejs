@@ -1,21 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <%- include('../partials/head') -%>
 <link rel="stylesheet" href="/css/instructions.css"> 
 <%- include('../partials/header') -%>
 <body>
     <div class="container">
-        <h4 class="header">Instructions for Submitting Smart Learning Contents to SPLICE Catalog</h4>
+        <h4 class="header">Instructions for Submitting Smart Learning Contents to the SPLICE Catalog</h4>
+        <p class="intro-text">
+            Follow the step-by-step guide below to prepare, format, and submit your Smart Learning Content (SLC) items, tools, or datasets for inclusion in the SPLICE catalog.
+        </p>
+
         <div class="instruction-steps">
             <div class="step">
                 <div class="step-number">1</div>
                 <div class="step-content">
-                    <h5>Prepare Your SLC Data as</h5>
-                    <p>- SLC items catalog.</p>
-                    <p>- SLC Tool.</p>
-                    <p>- Dataset.</p>
-                    <p>Export your collection of Smart Learning Content (SLC) items using the SPLICE Catalog Schema.</p>
-                    <pre><code>{
+                    <h3>Prepare Your Data as one of the following</h3>
+                    <p>To contribute to the SPLICE Catalog, categorize your Smart Learning Content (SLC) into one of the following types:</p>
+                    <ul>
+                        <li>SLC Items Catalog</li>
+                        <li>SLC Tools Catalog</li>
+                        <li>Dataset Catalog</li>
+                    </ul>
+                    <p>Each type has a specific JSON format. Below are examples and field descriptions for each category:</p>
+                    
+                    <div class="content-section">
+                        <h5>SLC Items Catalog</h5>
+                        <p>A collection of Smart Learning Content (SLC) items should be described as a series of JSON records, each formatted as follows:</p>
+                        <pre><code>{
     "catalog": "SLCItemCatalog",
     "platform_name": "...",
     "url": "...",
@@ -29,10 +40,31 @@
     "exercise_name": "...",
     "language (optional)": "...",
     "iframe_url": "...",
-    "lti_url": "...",
+    "lti_url": "..."
 }</code></pre>
-                <p>SLC tools catalog</p>
-                    <pre><code>{
+                        <p><strong>Field Descriptions:</strong></p>
+                        <ul>
+                            <li><strong>catalog</strong>: The type of catalog, e.g., "SLCItemCatalog".</li>
+                            <li><strong>platform_name</strong>: Name of the platform offering the SLC item.</li>
+                            <li><strong>url</strong>: URL of the SLC item.</li>
+                            <li><strong>lti_instructions_url</strong>: Required if an LTI URL is provided.</li>
+                            <li><strong>exercise_type</strong>: Type of exercise, e.g., "KA" for Khan Academy.</li>
+                            <li><strong>license</strong>: Content license (optional).</li>
+                            <li><strong>description</strong>: Brief description of the SLC item (optional).</li>
+                            <li><strong>author</strong>: Author of the SLC item (optional).</li>
+                            <li><strong>institution</strong>: Institution associated with the SLC item.</li>
+                            <li><strong>keywords</strong>: Relevant keywords.</li>
+                            <li><strong>exercise_name</strong>: Name of the exercise.</li>
+                            <li><strong>language</strong>: Language of the content (optional).</li>
+                            <li><strong>iframe_url</strong>: URL for embedding the exercise.</li>
+                            <li><strong>lti_url</strong>: LTI launch URL.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h5>SLC Tools Catalog</h5>
+                        <p>Describe tools that support Smart Learning Content using this format:</p>
+                        <pre><code>{
     "catalog": "SLCToolsCatalog",
     "platform_name": "...",
     "url": "...",
@@ -42,81 +74,103 @@
     "keywords": "...",
     "contact_email": "..." 
 }</code></pre>
-                  
-                  <p>Dataset catalog</p>
-                  <pre><code>{
-    “catalog”: "dataset",
-    “title”: "..."
-    “publisher”: "...",
+                        <p><strong>Field Descriptions:</strong></p>
+                        <ul>
+                            <li><strong>catalog</strong>: Type of catalog, e.g., "SLCToolsCatalog".</li>
+                            <li><strong>platform_name</strong>: Name of the platform offering the tool.</li>
+                            <li><strong>url</strong>: URL of the tool.</li>
+                            <li><strong>tool_description</strong>: Brief description of the tool.</li>
+                            <li><strong>license</strong>: Content license (optional).</li>
+                            <li><strong>standard_support</strong>: Standards supported by the tool.</li>
+                            <li><strong>keywords</strong>: Relevant keywords.</li>
+                            <li><strong>contact_email</strong>: Contact email for the tool provider.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-section">
+                        <h5>Dataset Catalog</h5>
+                        <p>Describe datasets available for Smart Learning Content with the following JSON format:</p>
+                        <pre><code>{
+    "catalog": "dataset",
+    "title": "...",
+    "publisher": "...",
     "dataset_name": "...",
     "url": "...",
     "description": "...",
-    "data_format": "..."
-    “data_type”: "..."
+    "data_format": "...",
+    "data_type": "...",
     "keywords": "...",
     "population": "...",
     "affiliation": "...",
     "language": "...",
-    "date": "...",
+    "date": "..."
 }</code></pre>
-                    <p>Learning and Data Analysis Tools Catalog</p>
-                    <pre><code>{
-    "Catalog": "analysistool",
-    "tool_name": ""...",",
-    "url": ""...",
-    "tool_description": "...",
-    "license": "...",
-    "data_formats_supported": "...",
-    "keywords": "..."
-}</code></pre>
+                        <p><strong>Field Descriptions:</strong></p>
+                        <ul>
+                            <li><strong>catalog</strong>: The type of catalog, e.g., "dataset".</li>
+                            <li><strong>title</strong>: Title of the dataset.</li>
+                            <li><strong>publisher</strong>: Publisher of the dataset.</li>
+                            <li><strong>dataset_name</strong>: Name of the dataset.</li>
+                            <li><strong>url</strong>: URL where the dataset can be accessed.</li>
+                            <li><strong>description</strong>: Brief description of the dataset.</li>
+                            <li><strong>data_format</strong>: Format of the dataset.</li>
+                            <li><strong>data_type</strong>: Type of data in the dataset.</li>
+                            <li><strong>keywords</strong>: Relevant keywords.</li>
+                            <li><strong>population</strong>: Target population of the dataset.</li>
+                            <li><strong>affiliation</strong>: Affiliation associated with the dataset.</li>
+                            <li><strong>language</strong>: Language of the dataset.</li>
+                            <li><strong>date</strong>: Publication date of the dataset.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+            <!-- Step 3 -->
             <div class="step">
                 <div class="step-number">2</div>
                 <div class="step-content">
-                    <h5>Generate the JSON File</h5>
-                    <p>Use the provided format to create a JSON file with your SLC items or datasets.</p>
+                    <h3>Submit Your JSON File to SPLICE</h3>
+                    <p>Once your JSON file is ready, you have two options to submit your Smart Learning Content (SLC) to the SPLICE Catalog:</p>
+                    <ol>
+                        <li><strong>Upload Directly:</strong><span class="submission"> You can upload your collection of any SLC type directly using our submission portal. <a href="https://splice.cs.vt.edu/upload/" target="_blank" rel="noopener">here</a>.</li>
+                        <li><strong>Send Submissions:</strong><span class="submission"> If you prefer, you can also send your JSON file to the SPLICE community <a href="https://groups.google.com/g/cssplice">here</a>.</li>
+                    </ol>
+                    <p>We look forward to your contribution to the SPLICE Catalog!</p>
                 </div>
             </div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h5>Send to the SPLICE Community</h5>
-                    <p>Navigate to the SPLICE endpoint to publish your data. The endpoint URL will be made public soon.</p>
-                </div>
-            </div>
+            
+            <!-- Examples -->
             <div class="examples">
-                <h6>Examples</h6>
-                <p>Here are sample JSON exports for OpenDSA and CodeWorkout SLC items catalog:</p>
+                <h4>Examples</h4>
+                <p>Here are JSON exports examples for OpenDSA, CodeWorkout SLC items submission, OpenDSA tool submission and a Dataset submission:</p>
                 <pre><code>{
     "catalog": "SLCItemCatalog",
     "platform_name": "OpenDSA",
-    “URL”: “https://opendsa-server.cs.vt.edu”,
-    “exercise_type”: “KA”,
-    “license”: “Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)”
-    “description”: “Introduction Summary Questions”
-    "author":"Cliff Shaffer"
-    “keywords”: “Introduction”
-    “exercise_name”: “Introduction Summary Questions”
-    “language”: “N/A”,
-    “iframe_url”: “https://opendsax.cs.vt.edu/embed/IntroSumm”,
-    “lti_url”: “https://opendsax.cs.vt.edu/lti/launch?custom_ex_short_name=IntroSumm”
-    “lti_instructions_url”: “https://opendsa-server.cs.vt.edu/guides/opendsa-canvas”,
+    "url": "https://opendsa-server.cs.vt.edu",
+    "exercise_type": "KA",
+    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+    "description": "Introduction Summary Questions",
+    "author": "Cliff Shaffer",
+    "keywords": ["Introduction"],
+    "exercise_name": "Introduction Summary Questions",
+    "language": "N/A",
+    "iframe_url": "https://opendsax.cs.vt.edu/embed/IntroSumm",
+    "lti_url": "https://opendsax.cs.vt.edu/lti/launch?custom_ex_short_name=IntroSumm",
+    "lti_instructions_url": "https://opendsa-server.cs.vt.edu/guides/opendsa-canvas"
 }</code></pre>
                 <pre><code>{
-    "Catalog": "SLCItemCatalog",
-    "Platform Name": "CodeWorkout",
-    “URL”: "https://codeworkout.cs.vt.edu",
-    “exercise_type”: "Coding Question",
-    “license”: “Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)”,
-    “description”: “Introduction Summary Questions”,
-    "author":"Stephen Edwards",
-    “keywords”: [“programming", "coding”],
-    “exercise_name”: “Introduction Summary Questions”,
-    “language”: “N/A”,
-    “iframe_url”: “https://codeworkout.cs.vt.edu/gym/exercises/1/practice”,
-    “lti_url”: “https://codeworkout.cs.vt.edu/lti/launch/gym/exercises/1/practice”,
-    “lti_instructions_url”: “https://codeworkout.cs.vt.edu”,
+    "catalog": "SLCItemCatalog",
+    "platform_name": "CodeWorkout",
+    "url": "https://codeworkout.cs.vt.edu",
+    "exercise_type": "Coding Question",
+    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+    "description": "Introduction Summary Questions",
+    "author": "Stephen Edwards",
+    "keywords": ["programming", "coding"],
+    "exercise_name": "Introduction Summary Questions",
+    "language": "N/A",
+    "iframe_url": "https://codeworkout.cs.vt.edu/gym/exercises/1/practice",
+    "lti_url": "https://codeworkout.cs.vt.edu/lti/launch/gym/exercises/1/practice",
+    "lti_instructions_url": "https://codeworkout.cs.vt.edu"
 }</code></pre>
 <p>SLC tools catalog</p>
                     <pre><code>{
@@ -143,8 +197,8 @@
     "population": "CS0 (non-majors)",
     "contributors": [
         {
-        “Name”: “Thomas Price”
-        "affiliation": "North Carolina State University"
+            "Name": "Thomas Price",
+            "affiliation": "North Carolina State University"
         }
     ],
     <!-- "language": ["Python", "Java"], -->
