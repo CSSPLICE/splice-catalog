@@ -40,6 +40,7 @@ export class SearchController {
       currentPage,
       totalPages,
       title: 'Search Results',
+      user: req.oidc.user,
     });
   }
 }

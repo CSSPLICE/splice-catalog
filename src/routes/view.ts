@@ -1,6 +1,7 @@
 import express from 'express';
 import { ViewController } from '../controllers/ViewController';
 import multer from 'multer';
+import { requiresAuth } from 'express-openid-connect';
 
 const viewController = new ViewController();
 
@@ -18,5 +19,6 @@ router.get('/instructions', viewController.instructionsView);
 router.get('/catalog', viewController.catalogView);
 router.get('/datasetcatalog', viewController.datasetCatalogView);
 router.get('/toolcatalog', viewController.toolView);
+router.get('/profile', requiresAuth(), viewController.profileView);
 
 export default router;

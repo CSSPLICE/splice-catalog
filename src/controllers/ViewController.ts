@@ -54,6 +54,7 @@ export class ViewController {
       toolCatalogCount: toolCatalogCount,
       slcItemCount: slcItemCount,
       datasetCount: datasetCount, // to be replaced with actual dataset count
+      user: req.oidc.user,
     });
   }
 
@@ -133,5 +134,16 @@ export class ViewController {
     }
 
     return ResponseUtil.sendResponse(res, `${processedCount} entries processed successfully`, 201);
+    const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find();
+    res.render('pages/index', {
+      catalog: catalog_data,
+      title: 'SPLICE Catalog',
+      user: req.oidc.user,
+    });
+  }
+
+  profileView(req: Request, res: Response) {
+    // res.render('pages/profile', { title: 'Profile', user: JSON.stringify(req.oidc.user, null, 2) });
+    res.render('pages/profile', { title: 'Profile', user: req.oidc.user });
   }
 }

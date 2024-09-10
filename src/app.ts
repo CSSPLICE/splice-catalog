@@ -6,6 +6,10 @@ import searchRoutes from './routes/search';
 import viewRoutes from './routes/view';
 import { ErrorHandler } from './utils/ErrorHandler';
 import path from 'path';
+import { auth } from 'express-openid-connect';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const app: Express = express();
 
@@ -31,6 +35,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+const oidc_config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.SECRET,
+  baseURL: process.env.baseURL,
+  clientID: process.env.clientID,
+  issuerBaseURL: process.env.issuerBaseURL,
+};
+
+app.use(auth(oidc_config));
 
 app.use('/', viewRoutes);
 
