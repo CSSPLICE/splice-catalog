@@ -9,6 +9,9 @@
       <p>Total Submissions: <%= totalSubmissions %></p>
       <p>Successful Verifications: <%= successfulVerifications %></p>
       <p>Submissions with Issues: <%= issues.length %></p>
+      <p>URLs Checked: <span id="urls-checked"><%= urlsChecked %></span></p>
+      <p>Successful URLs: <span id="successful-urls"><%= successfulUrls %></span></p>
+      <p>Unsuccessful URLs: <span id="unsuccessful-urls"><%= unsuccessfulUrls %></span></p>
       <ul>
         <% const issueCounts = { missingFields: 0, invalidUrls: 0, formatInconsistencies: 0 }; %>
         <% issues.forEach(issue => { %>
@@ -92,16 +95,32 @@
         </ul>
         <form action="/approve" method="post" class="d-inline">
           <input type="hidden" name="data" value='<%= JSON.stringify(issues.map(issue => issue.item)) %>' />
-          <button type="submit" class="btn btn-success">Approve</button>
+          <button type="submit" class="btn btn-success">Submit to Catalog</button>
         </form>
-        <form action="/reject-all" method="post" class="d-inline">
-          <button type="submit" class="btn btn-danger">Reject</button>
+        <!-- <form action="/reject-all" method="post" class="d-inline">
+          <button type="submit" class="btn btn-danger">Reject</button> -->
         </form>
       </div>
     <% } else { %>
       <p>No issues found!</p>
     <% } %>
-  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const spinner = document.getElementById('url-validation-spinner');
+    spinner.style.display = 'block';
+
+    const socket = io();
+
+    socket.on('urlValidationComplete', (data) => {
+      document.getElementById('urls-checked').textContent = data.urlsChecked;
+      document.getElementById('successful-urls').textContent = data.successfulUrls;
+      document.getElementById('unsuccessful-urls').textContent = data.unsuccessfulUrls;
+
+      spinner.style.display = 'none';
+    });
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <%- include('../partials/footer') -%>
 </body>
