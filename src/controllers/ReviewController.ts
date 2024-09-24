@@ -5,57 +5,74 @@ import { validate } from 'class-validator';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { ResponseUtil } from '../utils/Response';
 import logger from '../utils/logger';
+import { ValidationManager } from 'src/services/ValidationManager';
+import { ToolsCatalogController } from './ToolsCatalogController';
 
 export class ReviewController {
-  async validateAndReview(req: Request, res: Response, jsonArray: any[]) {
-    const issues = [];
-    let processedCount = 0;
+  async validateAndReview(req: Request, res: Response) {
+    const jsonArray = Array.isArray(req.body) ? req.body : [req.body]; 
+    const validationManager = new ValidationManager();
+    const toolsCatalogController = new ToolsCatalogController();
 
-    for (const item of jsonArray) {
-      let dto, repo;
+    let metadataIssues = [];
+    let totalSubmissions = 0;
+    let successfulVerifications = 0;
+    let allValidItems = [];
 
-      switch (item.catalog_type) {
-        case 'SLCItemCatalog': {
-          dto = new CreateSLCItemDTO();
-          Object.assign(dto, item);
-          repo = AppDataSource.getRepository(slc_item_catalog);
-          break;
-        }
-        default:
-          console.log(`Unrecognized catalog type: ${item.catalog_type}`);
-          continue;
-      }
+    try {
+      logger.info('Starting metadata validation');
 
-      if (dto && repo) {
-        const validationErrors = await validate(dto);
-        if (validationErrors.length > 0) {
-          console.log(`Validation errors for ${item.catalog_type}:`, validationErrors);
-          issues.push({
-            item,
-            summary: `${validationErrors.length} validation error(s) found`,
-            validationErrors,
-            resources: [
-              { label: 'Metadata Guidelines', url: '/instructions' },
-              { label: 'Common URLs Issues', url: 'https://splice.cs.vt.edu/instructions' },
-              { label: 'Example Metadata', url: 'https://splice.cs.vt.edu/instructions' }
-            ]
-          });
-          continue;
+      // Separate the items by catalog type
+      const slcItemCatalogs = jsonArray.filter(item => item.catalog_type === 'SLCItemCatalog');
+      const slcToolsCatalogs = jsonArray.filter(item => item.catalog_type === 'SLCToolsCatalog');
+
+      // Process SLCItemCatalogs
+      if (slcItemCatalogs.length > 0) {
+        logger.info(`Processing ${slcItemCatalogs.length} SLCItemCatalog items`);
+        
+        // Validate metadata 
+        const metadataResult = await validationManager.validateMetadata(slcItemCatalogs);
+        metadataIssues = metadataResult.issues;
+        successfulVerifications += metadataResult.successfulVerifications;
+        totalSubmissions += metadataResult.totalSubmissions;
+        allValidItems = metadataResult.validItems;
+
+        if (res.locals.io) {
+          res.locals.io.emit('metadataValidationComplete', metadataResult);
         }
 
-        const catalogItem = repo.create(dto);
-        await repo.save(catalogItem);
-        processedCount++;
+        // Provide metadata validation results
+        res.render('pages/review-dashboard', {
+          issues: metadataIssues,
+          totalSubmissions,
+          successfulVerifications,
+          urlsChecked: 0,
+          successfulUrls: 0,
+          unsuccessfulUrls: 0,
+          title: 'Review Dashboard',
+          urlValidationComplete: false,
+        });
+
+        logger.info('Starting URL validation for SLCItemCatalog');
+        const urlResult = await validationManager.validateUrls(allValidItems);
+
+        if (res.locals.io) {
+          res.locals.io.emit('urlValidationComplete', urlResult);
+        }
+        logger.info(`URL Validation Completed: ${urlResult.urlsChecked} checked`);
+      }
+
+      // Process SLCToolsCatalog
+      for (const item of slcToolsCatalogs) {
+        logger.info('Processing SLCToolsCatalog');
+        await toolsCatalogController.createToolsCatalogItem(req, res);
+      }
+
+    } catch (error) {
+      logger.error('Error during validation:', error);
+      if (!res.headersSent) {
+        res.status(500).send('Error during validation');
       }
     }
-
-    const totalSubmissions = jsonArray.length;
-    const successfulVerifications = processedCount;
-
-    if (issues.length > 0) {
-      return res.render('pages/review-dashboard', { issues, totalSubmissions, successfulVerifications, title: 'Review Dashboard' });
-    }
-
-    return ResponseUtil.sendResponse(res, `${processedCount} entries processed successfully`, 201);
   }
 }
