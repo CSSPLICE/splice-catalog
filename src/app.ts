@@ -1,6 +1,8 @@
 import cors from 'cors';
 import helmet from 'helmet';
 import express, { Express, Request, Response } from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
 import catalogRoutes from './routes/catalog';
 import searchRoutes from './routes/search';
 import viewRoutes from './routes/view';
@@ -13,6 +15,9 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const app: Express = express();
+
+const server = http.createServer(app);
+const io = new Server(server);
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -30,6 +35,13 @@ if (process.env.NODE_ENV === 'production') {
     }),
   );
 }
+
+// Middleware to add Socket.IO 
+app.use((req, res, next) => {
+  console.log('Socket instance assigned');
+  res.locals.io = io;
+  next();
+});
 
 // Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
