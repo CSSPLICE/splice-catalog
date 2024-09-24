@@ -87,13 +87,18 @@ export class ViewController {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    const absolutePath = req.file.path;
-    const jsonString = fs.readFileSync(absolutePath, 'utf-8');
-    const jsonArray = JSON.parse(jsonString);
-
-    // Call the reviewController's validateAndReview method
-    return reviewController.validateAndReview(req, res, jsonArray);
+    try {
+      const absolutePath = req.file.path;
+      const jsonString = fs.readFileSync(absolutePath, 'utf-8'); 
+      req.body = JSON.parse(jsonString); 
+  
+      await reviewController.validateAndReview(req, res);
+    } catch (error) {
+      logger.error('Error processing upload:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
+
   async approveAll(req: Request, res: Response) {
     const data = req.body.data;
     console.log("ApproveAll called with data:", data);
