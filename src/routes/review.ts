@@ -7,6 +7,5 @@ const viewController = new ViewController();
 router.get('/catalog', viewController.catalogView);
 router.post('/upload', viewController.uploadPost);
 router.post('/approve', viewController.approveAll);
-router.post('/reject-all', viewController.rejectAll);
 
 export default router;
