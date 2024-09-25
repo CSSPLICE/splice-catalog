@@ -5,7 +5,7 @@ import { validate } from 'class-validator';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { ResponseUtil } from '../utils/Response';
 import logger from '../utils/logger';
-import { ValidationManager } from 'src/services/ValidationManager';
+import { ValidationManager } from '../services/ValidationManager';
 import { ToolsCatalogController } from './ToolsCatalogController';
 
 export class ReviewController {
