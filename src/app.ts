@@ -36,9 +36,8 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 
-// Middleware to add Socket.IO 
+//add Socket
 app.use((req, res, next) => {
-  console.log('Socket instance assigned');
   res.locals.io = io;
   next();
 });
