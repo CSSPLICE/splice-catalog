@@ -1,9 +1,12 @@
 import cors from 'cors';
 import helmet from 'helmet';
 import express, { Express, Request, Response } from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
 import catalogRoutes from './routes/catalog';
 import searchRoutes from './routes/search';
 import viewRoutes from './routes/view';
+import reviewRoutes from './routes/review'
 import { ErrorHandler } from './utils/ErrorHandler';
 import path from 'path';
 import { auth } from 'express-openid-connect';
@@ -12,6 +15,9 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const app: Express = express();
+
+const server = http.createServer(app);
+const io = new Server(server);
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -29,6 +35,12 @@ if (process.env.NODE_ENV === 'production') {
     }),
   );
 }
+
+//add Socket
+app.use((req, res, next) => {
+  res.locals.io = io;
+  next();
+});
 
 // Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -51,6 +63,9 @@ app.use('/', viewRoutes);
 
 app.use('/catalog', catalogRoutes);
 app.use('/search', searchRoutes);
+
+app.use('/', reviewRoutes); 
+app.use('/approve', reviewRoutes);
 
 app.all('*', (req: Request, res: Response) => {
   return res.status(404).send({
