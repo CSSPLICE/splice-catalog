@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export abstract class slc_item_catalog {
-  // @PrimaryGeneratedColumn()
-  // id!: number;
+export class slc_item_catalog {
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   @Column({ nullable: false })
   catalog_type!: string;
@@ -38,9 +38,8 @@ export abstract class slc_item_catalog {
   @Column()
   exercise_type!: string;
 
-  @PrimaryColumn()
-  // @Column()
-  exercise_name!: string;
+  @Column({ unique: true })
+  exercise_name!: string;  
 
   @Column()
   iframe_url!: string;
