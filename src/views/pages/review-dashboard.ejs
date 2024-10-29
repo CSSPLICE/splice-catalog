@@ -9,6 +9,7 @@
       <p>Total Submissions: <%= totalSubmissions %></p>
       <p>Successful Verifications: <%= successfulVerifications %></p>
       <p>Submissions with Issues: <%= issues.length %></p>
+      <p>Total Categorized Items: <%= categorizationResults.length %></p>
       <p>URLs Checked: <span id="urls-checked"><%= urlsChecked %></span></p>
       <p>Successful URLs: <span id="successful-urls"><%= successfulUrls %></span></p>
       <p>Unsuccessful URLs: <span id="unsuccessful-urls"><%= unsuccessfulUrls %></span></p>
@@ -30,6 +31,26 @@
         <li>Format Inconsistencies: <%= issueCounts.formatInconsistencies %></li>
       </ul>
     </div>
+
+    <!-- categorization results -->
+
+    <% if (categorizationResults.length > 0) { %>
+      <h5>Automatic Categorization Results</h5>
+      <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#categorization-list" aria-expanded="false" aria-controls="categorization-list">
+        Toggle Categorization Results
+      </button>
+      <div class="collapse" id="categorization-list">
+        <% categorizationResults.forEach((result, index) => { %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h4 class="card-title">Item: <%= result.item %></h4>
+              <p><strong>Matched Class:</strong> <%= result.matchedClass %></p>
+              <p><strong>Status:</strong> <%= result.status %></p>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
 
     <% if (issues.length > 0) { %>
       <h5>Entries with Issues</h5>
