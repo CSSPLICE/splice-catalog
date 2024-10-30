@@ -13,9 +13,11 @@ import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
 import { dataset_catalog } from '../db/entities/DatasetCatalog';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
 import { ReviewController } from './ReviewController';
+import { ValidationManager } from '../services/ValidationManager';
 
 
 const reviewController = new ReviewController();
+const validationManager = new ValidationManager();
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {
@@ -106,15 +108,23 @@ export class ViewController {
     console.log("Parsed JSON data:", jsonArray);
 
     let processedCount = 0;
+    const itemsToClassify: CreateSLCItemDTO[] = [];
 
     for (const item of jsonArray) {
       let dto, repo;
+
+      // Check if the item has an exercise_name
+      if (!item.exercise_name || item.exercise_name.trim() === "") {
+        console.log("Skipping item without exercise_name:", item);
+        continue;  // Skip this item if it doesn't have an exercise_name
+      }
 
       switch (item.catalog_type) {
         case 'SLCItemCatalog': {
           dto = new CreateSLCItemDTO();
           Object.assign(dto, item); 
           repo = AppDataSource.getRepository(slc_item_catalog);
+          itemsToClassify.push(dto); // Add to classification list 
           break;
         }
 
@@ -149,6 +159,12 @@ export class ViewController {
           processedCount++;
         }
       }
+    }
+
+    // Proceed to store and classify items after processing all entries
+    if (itemsToClassify.length > 0) {
+      const categoryReport = await validationManager.generateCategoryReport(itemsToClassify);
+      await validationManager.storeAndClassifyItems(categoryReport);
     }
 
     return ResponseUtil.sendResponse(res, `${processedCount} entries processed successfully`, 201);

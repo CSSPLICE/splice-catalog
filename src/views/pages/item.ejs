@@ -32,12 +32,18 @@
                 <tr>
                     <td>Keywords</td>
                     <td>
+                      <% item.keywords.forEach((keyword, index) => { %>
                         <form style="display: none" action="/search/" method="post">
-                            <input type="submit" value="<%= item.keywords %>" name="query" id="query<%= item.keywords %>"></input>
+                          <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>"></input>
                         </form>
-                        <label style="text-decoration: underline; color: #0000EE" for="query<%= item.keywords %>"><%= item.keywords %></label>
+                        <label style="text-decoration: underline; color: #0000EE" for="query<%= keyword %>">
+                          <%= keyword %>
+                        </label>
+                        <% if (index < item.keywords.length - 1) { %>, <% } %>
+                      <% }); %>
                     </td>
-                </tr>
+                  </tr>
+                  
                 <tr>
                     <td>URL</td>
                     <td><a href="<%= item.url %>" target=_blank><%= item.url %></a></td>
@@ -69,6 +75,11 @@
             <iframe src="<%= item.iframe_url %>" width="100%" height="600px" allowfullscreen></iframe>
         </div>
     </div>
+
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </body>
 <%- include('../partials/footer') -%>
 </html>

@@ -7,6 +7,7 @@ import { ResponseUtil } from '../utils/Response';
 import logger from '../utils/logger';
 import { ValidationManager } from '../services/ValidationManager';
 import { ToolsCatalogController } from './ToolsCatalogController';
+import { MetadataIssue, CategorizationResult } from '../types/ValidationTypes';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
@@ -14,7 +15,8 @@ export class ReviewController {
     const validationManager = new ValidationManager();
     const toolsCatalogController = new ToolsCatalogController();
 
-    let metadataIssues = [];
+    let metadataIssues: MetadataIssue[] = [];
+    let categorizationResults: CategorizationResult[] = [];
     let totalSubmissions = 0;
     let successfulVerifications = 0;
     let allValidItems = [];
@@ -32,7 +34,7 @@ export class ReviewController {
         
         // Validate metadata 
         const metadataResult = await validationManager.validateMetadata(slcItemCatalogs);
-        metadataIssues = metadataResult.issues;
+        metadataIssues = metadataResult.issues as MetadataIssue[];
         successfulVerifications += metadataResult.successfulVerifications;
         totalSubmissions += metadataResult.totalSubmissions;
         allValidItems = metadataResult.validItems;
@@ -41,32 +43,49 @@ export class ReviewController {
           res.locals.io.emit('metadataValidationComplete', metadataResult);
         }
 
-        // Provide metadata validation results
-        res.render('pages/review-dashboard', {
-          issues: metadataIssues,
-          totalSubmissions,
-          successfulVerifications,
-          urlsChecked: 0,
-          successfulUrls: 0,
-          unsuccessfulUrls: 0,
-          title: 'Review Dashboard',
-          urlValidationComplete: false,
-        });
-
+        // URL Validation
         logger.info('Starting URL validation for SLCItemCatalog');
         const urlResult = await validationManager.validateUrls(allValidItems);
-
         if (res.locals.io) {
           res.locals.io.emit('urlValidationComplete', urlResult);
         }
         logger.info(`URL Validation Completed: ${urlResult.urlsChecked} checked`);
-      }
+
+        // Categorization Process
+        logger.info('Starting category report generation for validated items');
+        const categoryReport = await validationManager.generateCategoryReport(allValidItems);
+        if (res.locals.io) {
+          res.locals.io.emit('categoryReportComplete', categoryReport);
+        }
+
+        categorizationResults = [
+          ...categoryReport.matched.map(item => ({ item: item.item.exercise_name, status: 'Matched', matchedClass: item.matchedClass })),
+          ...categoryReport.unclassified.map(item => ({ item: item.item.exercise_name, status: 'Unclassified', matchedClass: 'Unclassified' })),
+          ...categoryReport.unmatched.map(item => ({ item: item.item.exercise_name, status: 'Unmatched', matchedClass: 'None' })),
+        ];
+        if (res.locals.io) {
+          res.locals.io.emit('categorizationComplete', categorizationResults);
+        }
+      }  
 
       // Process SLCToolsCatalog
       for (const item of slcToolsCatalogs) {
         logger.info('Processing SLCToolsCatalog');
         await toolsCatalogController.createToolsCatalogItem(req, res);
       }
+
+      // Provide metadata validation results
+      res.render('pages/review-dashboard', {
+        issues: metadataIssues,
+        categorizationResults,
+        totalSubmissions,
+        successfulVerifications,
+        urlsChecked: 0,
+        successfulUrls: 0,
+        unsuccessfulUrls: 0,
+        title: 'Review Dashboard',
+        urlValidationComplete: false,
+      });
 
     } catch (error) {
       logger.error('Error during validation:', error);
