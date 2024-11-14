@@ -1,0 +1,659 @@
+[
+    {
+      "ontology_class_label": "Complexity Theory",
+      "alias_label": "Computational Complexity"
+    },
+    {
+      "ontology_class_label": "Complexity Theory",
+      "alias_label": "Algorithm Complexity"
+    },
+    {
+      "ontology_class_label": "Complexity Theory",
+      "alias_label": "Complexity Classes"
+    },
+    {
+      "ontology_class_label": "Complexity Theory",
+      "alias_label": "P vs NP Problems"
+    },
+    {
+      "ontology_class_label": "Complexity Theory",
+      "alias_label": "Time Complexity Analysis"
+    },
+    {
+      "ontology_class_label": "Complexity Theory",
+      "alias_label": "Space Complexity"
+    },
+    {
+      "ontology_class_label": "Asymptotic Algorithm Analysis",
+      "alias_label": "Asymptotic Analysis"
+    },
+    {
+      "ontology_class_label": "Asymptotic Algorithm Analysis",
+      "alias_label": "Big O Analysis"
+    },
+    {
+      "ontology_class_label": "Asymptotic Algorithm Analysis",
+      "alias_label": "Algorithm Growth Rates"
+    },
+    {
+      "ontology_class_label": "Asymptotic Algorithm Analysis",
+      "alias_label": "Upper Bound Analysis"
+    },
+    {
+      "ontology_class_label": "Asymptotic Algorithm Analysis",
+      "alias_label": "Order of Growth"
+    },
+    {
+      "ontology_class_label": "Asymptotic Algorithm Analysis",
+      "alias_label": "Big Omega and Big Theta"
+    },
+    {
+      "ontology_class_label": "Non-Deterministic Finite Automata",
+      "alias_label": "NFA"
+    },
+    {
+      "ontology_class_label": "Non-Deterministic Finite Automata",
+      "alias_label": "Non-Deterministic Finite Automaton"
+    },
+    {
+      "ontology_class_label": "Non-Deterministic Finite Automata",
+      "alias_label": "Non-Deterministic FSM"
+    },
+    {
+      "ontology_class_label": "Non-Deterministic Finite Automata",
+      "alias_label": "State Machine with Multiple Transitions"
+    },
+    {
+      "ontology_class_label": "Non-Deterministic Finite Automata",
+      "alias_label": "Automata Theory"
+    },
+    {
+      "ontology_class_label": "Implementing Recursion with a Stack",
+      "alias_label": "Recursion Stack Implementation"
+    },
+    {
+      "ontology_class_label": "Implementing Recursion with a Stack",
+      "alias_label": "Stack-Based Recursion"
+    },
+    {
+      "ontology_class_label": "Implementing Recursion with a Stack",
+      "alias_label": "Simulating Recursion"
+    },
+    {
+      "ontology_class_label": "Implementing Recursion with a Stack",
+      "alias_label": "Manual Recursion Implementation"
+    },
+    {
+      "ontology_class_label": "Implementing Recursion with a Stack",
+      "alias_label": "Stack Frame Simulation"
+    },
+    {
+      "ontology_class_label": "Hash Table Deletion",
+      "alias_label": "Deleting from Hash Tables"
+    },
+    {
+      "ontology_class_label": "Hash Table Deletion",
+      "alias_label": "Hash Table Remove Operation"
+    },
+    {
+      "ontology_class_label": "Hash Table Deletion",
+      "alias_label": "Hash Deletion Strategies"
+    },
+    {
+      "ontology_class_label": "Hash Table Deletion",
+      "alias_label": "Handling Deletion in Hash Tables"
+    },
+    {
+      "ontology_class_label": "Hash Table Deletion",
+      "alias_label": "Hash Entry Removal"
+    },
+    {
+      "ontology_class_label": "Sets",
+      "alias_label": "Mathematical Sets"
+    },
+    {
+      "ontology_class_label": "Sets",
+      "alias_label": "Set Theory"
+    },
+    {
+      "ontology_class_label": "Sets",
+      "alias_label": "Collection of Elements"
+    },
+    {
+      "ontology_class_label": "Sets",
+      "alias_label": "Set Operations"
+    },
+    {
+      "ontology_class_label": "Sets",
+      "alias_label": "Union, Intersection, Difference"
+    },
+    {
+      "ontology_class_label": "Balanced Binary Trees",
+      "alias_label": "Self-Balancing Trees"
+    },
+    {
+      "ontology_class_label": "Balanced Binary Trees",
+      "alias_label": "Height-Balanced Trees"
+    },
+    {
+      "ontology_class_label": "Balanced Binary Trees",
+      "alias_label": "AVL Trees"
+    },
+    {
+      "ontology_class_label": "Balanced Binary Trees",
+      "alias_label": "Red-Black Trees"
+    },
+    {
+      "ontology_class_label": "Balanced Binary Trees",
+      "alias_label": "Balanced Search Trees"
+    },
+    {
+      "ontology_class_label": "Balanced Binary Trees",
+      "alias_label": "Maintaining Tree Balance"
+    },
+    {
+      "ontology_class_label": "Disjoint Sets",
+      "alias_label": "Union-Find"
+    },
+    {
+      "ontology_class_label": "Disjoint Sets",
+      "alias_label": "Disjoint Set Union"
+    },
+    {
+      "ontology_class_label": "Disjoint Sets",
+      "alias_label": "Disjoint Set Forests"
+    },
+    {
+      "ontology_class_label": "Disjoint Sets",
+      "alias_label": "Connected Components"
+    },
+    {
+      "ontology_class_label": "Disjoint Sets",
+      "alias_label": "Union by Rank and Path Compression"
+    },
+    {
+      "ontology_class_label": "Recursive Tree Functions",
+      "alias_label": "Tree Recursion"
+    },
+    {
+      "ontology_class_label": "Recursive Tree Functions",
+      "alias_label": "Recursion on Trees"
+    },
+    {
+      "ontology_class_label": "Recursive Tree Functions",
+      "alias_label": "Recursive Tree Algorithms"
+    },
+    {
+      "ontology_class_label": "Recursive Tree Functions",
+      "alias_label": "Tree-Based Recursion Methods"
+    },
+    {
+      "ontology_class_label": "Recursive Tree Functions",
+      "alias_label": "Tree Function Recursion"
+    },
+    {
+      "ontology_class_label": "Inorder Traversal",
+      "alias_label": "In-Order Traversal"
+    },
+    {
+      "ontology_class_label": "Inorder Traversal",
+      "alias_label": "Left-Root-Right Traversal"
+    },
+    {
+      "ontology_class_label": "Inorder Traversal",
+      "alias_label": "Symmetric Traversal"
+    },
+    {
+      "ontology_class_label": "Inorder Traversal",
+      "alias_label": "Tree In-Order Walk"
+    },
+    {
+      "ontology_class_label": "Inorder Traversal",
+      "alias_label": "Depth-First In-Order Traversal"
+    },
+    {
+      "ontology_class_label": "KMP String Match Algorithm",
+      "alias_label": "Knuth-Morris-Pratt Algorithm"
+    },
+    {
+      "ontology_class_label": "KMP String Match Algorithm",
+      "alias_label": "KMP Algorithm"
+    },
+    {
+      "ontology_class_label": "KMP String Match Algorithm",
+      "alias_label": "KMP Pattern Matching"
+    },
+    {
+      "ontology_class_label": "KMP String Match Algorithm",
+      "alias_label": "Knuth-Morris-Pratt String Search"
+    },
+    {
+      "ontology_class_label": "KMP String Match Algorithm",
+      "alias_label": "Substring Search using KMP"
+    },
+    {
+      "ontology_class_label": "Binary Tree Terminology",
+      "alias_label": "Binary Tree Concepts"
+    },
+    {
+      "ontology_class_label": "Binary Tree Terminology",
+      "alias_label": "Binary Tree Definitions"
+    },
+    {
+      "ontology_class_label": "Binary Tree Terminology",
+      "alias_label": "Binary Tree Vocabulary"
+    },
+    {
+      "ontology_class_label": "Binary Tree Terminology",
+      "alias_label": "Terms Related to Binary Trees"
+    },
+    {
+      "ontology_class_label": "Binary Tree Terminology",
+      "alias_label": "Binary Tree Structure Vocabulary"
+    },
+    {
+      "ontology_class_label": "Huffman Coding Tree",
+      "alias_label": "Huffman Tree"
+    },
+    {
+      "ontology_class_label": "Huffman Coding Tree",
+      "alias_label": "Huffman Compression Tree"
+    },
+    {
+      "ontology_class_label": "Huffman Coding Tree",
+      "alias_label": "Optimal Prefix Code Tree"
+    },
+    {
+      "ontology_class_label": "Huffman Coding Tree",
+      "alias_label": "Data Compression Tree"
+    },
+    {
+        "ontology_class_label": "Huffman Coding Tree",
+        "alias_label": "Huffman Coding Algorithm Tree"
+    },
+    {
+        "ontology_class_label": "Huffman Coding Tree",
+        "alias_label": "Huffman Encoding"
+    },
+    {
+        "ontology_class_label": "Huffman Coding Tree",
+        "alias_label": "Huffman Compression"
+    },
+    {
+        "ontology_class_label": "Huffman Coding Tree",
+        "alias_label": "Huffman Tree"
+    },
+    {
+        "ontology_class_label": "Huffman Coding Tree",
+        "alias_label": "Huffman Data Compression"
+    },
+    {
+        "ontology_class_label": "Huffman Coding Tree",
+        "alias_label": "Variable-Length Coding Tree"
+    },
+    {
+        "ontology_class_label": "Math Background",
+        "alias_label": "Mathematical Foundations"
+    },
+    {
+        "ontology_class_label": "Math Background",
+        "alias_label": "Math Prerequisites"
+    },
+    {
+        "ontology_class_label": "Math Background",
+        "alias_label": "Mathematical Concepts"
+    },
+    {
+        "ontology_class_label": "Math Background",
+        "alias_label": "Mathematics Essentials"
+    },
+    {
+        "ontology_class_label": "Math Background",
+        "alias_label": "Math Fundamentals"
+    },
+    {
+        "ontology_class_label": "Math Background",
+        "alias_label": "Basic Mathematics for CS"
+    },
+    {
+        "ontology_class_label": "Regular Expression",
+        "alias_label": "Regex"
+    },
+    {
+        "ontology_class_label": "Regular Expression",
+        "alias_label": "Pattern Matching"
+    },
+    {
+        "ontology_class_label": "Regular Expression",
+        "alias_label": "Regex Patterns"
+    },
+    {
+        "ontology_class_label": "Regular Expression",
+        "alias_label": "Regular Pattern"
+    },
+    {
+        "ontology_class_label": "Regular Expression",
+        "alias_label": "Text Pattern Matching"
+    },
+    {
+        "ontology_class_label": "Regular Expression",
+        "alias_label": "String Pattern Matching"
+    },
+    {
+        "ontology_class_label": "Quicksort",
+        "alias_label": "Quick Sort"
+    },
+    {
+        "ontology_class_label": "Quicksort",
+        "alias_label": "Partition Sort"
+    },
+    {
+        "ontology_class_label": "Quicksort",
+        "alias_label": "Divide and Conquer Sort"
+    },
+    {
+        "ontology_class_label": "Quicksort",
+        "alias_label": "Fast Sorting Algorithm"
+    },
+    {
+        "ontology_class_label": "Quicksort",
+        "alias_label": "Hoare Sorting Algorithm"
+    },
+    {
+        "ontology_class_label": "Quicksort",
+        "alias_label": "Quick Partitioning Sort"
+    },
+    {
+        "ontology_class_label": "Postorder Traversal",
+        "alias_label": "Post-Order Traversal"
+    },
+    {
+        "ontology_class_label": "Postorder Traversal",
+        "alias_label": "Left-Right-Root Traversal"
+    },
+    {
+        "ontology_class_label": "Postorder Traversal",
+        "alias_label": "Postfix Traversal"
+    },
+    {
+        "ontology_class_label": "Postorder Traversal",
+        "alias_label": "Tree Postorder Walk"
+    },
+    {
+        "ontology_class_label": "Postorder Traversal",
+        "alias_label": "Post-order Tree Traversal"
+    },
+    {
+        "ontology_class_label": "Francis Bacon",
+        "alias_label": "Sir Francis Bacon"
+    },
+    {
+        "ontology_class_label": "Francis Bacon",
+        "alias_label": "Philosopher Francis Bacon"
+    },
+    {
+        "ontology_class_label": "Francis Bacon",
+        "alias_label": "Scientist Francis Bacon"
+    },
+    {
+        "ontology_class_label": "Francis Bacon",
+        "alias_label": "Francis Bacon, Statesman"
+    },
+    {
+        "ontology_class_label": "Francis Bacon",
+        "alias_label": "Francis Bacon, Thinker"
+    },
+    {
+        "ontology_class_label": "Hamiltonian Cycle Problem",
+        "alias_label": "Hamiltonian Circuit"
+    },
+    {
+        "ontology_class_label": "Hamiltonian Cycle Problem",
+        "alias_label": "Hamiltonian Path Problem"
+    },
+    {
+        "ontology_class_label": "Hamiltonian Cycle Problem",
+        "alias_label": "Finding Hamiltonian Cycles"
+    },
+    {
+        "ontology_class_label": "Hamiltonian Cycle Problem",
+        "alias_label": "Hamiltonian Graph Problem"
+    },
+    {
+        "ontology_class_label": "Hamiltonian Cycle Problem",
+        "alias_label": "Hamiltonian Circuit Detection"
+    },
+    {
+        "ontology_class_label": "Hamiltonian Cycle Problem",
+        "alias_label": "Hamilton Cycle in Graphs"
+    },
+    {
+        "ontology_class_label": "Splay Trees",
+        "alias_label": "Self-Adjusting Trees"
+    },
+    {
+        "ontology_class_label": "Splay Trees",
+        "alias_label": "Splay Tree Data Structure"
+    },
+    {
+        "ontology_class_label": "Splay Trees",
+        "alias_label": "Splaying Trees"
+    },
+    {
+        "ontology_class_label": "Splay Trees",
+        "alias_label": "Balanced Search Tree"
+    },
+    {
+        "ontology_class_label": "Splay Trees",
+        "alias_label": "Dynamic Search Tree"
+    },
+    {
+        "ontology_class_label": "Splay Trees",
+        "alias_label": "Self-Balancing Splay Tree"
+    },
+    {
+        "ontology_class_label": "Randomized Algorithms",
+        "alias_label": "Probabilistic Algorithms"
+    },
+    {
+        "ontology_class_label": "Randomized Algorithms",
+        "alias_label": "Monte Carlo Algorithms"
+    },
+    {
+        "ontology_class_label": "Randomized Algorithms",
+        "alias_label": "Las Vegas Algorithms"
+    },
+    {
+        "ontology_class_label": "Randomized Algorithms",
+        "alias_label": "Random Algorithms"
+    },
+    {
+        "ontology_class_label": "Randomized Algorithms",
+        "alias_label": "Stochastic Algorithms"
+    },
+    {
+        "ontology_class_label": "Randomized Algorithms",
+        "alias_label": "Randomized Computation"
+    },
+    {
+        "ontology_class_label": "Bucket Hashing",
+        "alias_label": "Hash Buckets"
+    },
+    {
+        "ontology_class_label": "Bucket Hashing",
+        "alias_label": "Bucketed Hashing"
+    },
+    {
+        "ontology_class_label": "Bucket Hashing",
+        "alias_label": "Hash Table Buckets"
+    },
+    {
+        "ontology_class_label": "Bucket Hashing",
+        "alias_label": "Bucket Hash Table"
+    },
+    {
+        "ontology_class_label": "Bucket Hashing",
+        "alias_label": "Open Addressing with Buckets"
+    },
+    {
+        "ontology_class_label": "Bucket Hashing",
+        "alias_label": "Hash Collisions with Buckets"
+    },
+    {
+        "ontology_class_label": "Selection Sort",
+        "alias_label": "Simple Sorting"
+    },
+    {
+        "ontology_class_label": "Selection Sort",
+        "alias_label": "Sorting by Selection"
+    },
+    {
+        "ontology_class_label": "Selection Sort",
+        "alias_label": "In-Place Selection Sort"
+    },
+    {
+        "ontology_class_label": "Selection Sort",
+        "alias_label": "Direct Selection Sort"
+    },
+    {
+        "ontology_class_label": "Selection Sort",
+        "alias_label": "Selection Sorting Algorithm"
+    },
+    {
+        "ontology_class_label": "Selection Sort",
+        "alias_label": "Iterative Selection Sort"
+    },
+    {
+      "ontology_class_label": "Lower Bound",
+      "alias_label": "Algorithm Lower Bound"
+    },
+    {
+      "ontology_class_label": "Lower Bound",
+      "alias_label": "Minimum Complexity"
+    },
+    {
+      "ontology_class_label": "Lower Bound",
+      "alias_label": "Lower Limit of Performance"
+    },
+    {
+      "ontology_class_label": "Perfect Hashing",
+      "alias_label": "Collision-Free Hashing"
+    },
+    {
+      "ontology_class_label": "Perfect Hashing",
+      "alias_label": "Minimal Perfect Hash Functions"
+    },
+    {
+      "ontology_class_label": "Perfect Hashing",
+      "alias_label": "Perfect Hash Functions"
+    },
+    {
+      "ontology_class_label": "Binary Search Tree",
+      "alias_label": "BST"
+    },
+    {
+      "ontology_class_label": "Binary Search Tree",
+      "alias_label": "Ordered Binary Tree"
+    },
+    {
+      "ontology_class_label": "Binary Search Tree",
+      "alias_label": "Binary Search Trees"
+    },
+    {
+      "ontology_class_label": "AVL Trees",
+      "alias_label": "Adelson-Velsky and Landis Trees"
+    },
+    {
+      "ontology_class_label": "AVL Trees",
+      "alias_label": "Height-Balanced Trees"
+    },
+    {
+      "ontology_class_label": "AVL Trees",
+      "alias_label": "Self-Balancing Binary Search Trees"
+    },
+    {
+      "ontology_class_label": "B-Trees",
+      "alias_label": "Balanced Tree"
+    },
+    {
+      "ontology_class_label": "B-Trees",
+      "alias_label": "Database Indexing Trees"
+    },
+    {
+      "ontology_class_label": "B-Trees",
+      "alias_label": "Multiway Search Trees"
+    },
+    {
+      "ontology_class_label": "Union/Find Algorithm",
+      "alias_label": "Disjoint Set Union"
+    },
+    {
+      "ontology_class_label": "Union/Find Algorithm",
+      "alias_label": "Union-Find Algorithm"
+    },
+    {
+      "ontology_class_label": "Union/Find Algorithm",
+      "alias_label": "Find and Union Operations"
+    },
+    {
+      "ontology_class_label": "Minimum-Cost Spanning Trees",
+      "alias_label": "Minimum Spanning Tree"
+    },
+    {
+      "ontology_class_label": "Minimum-Cost Spanning Trees",
+      "alias_label": "MST"
+    },
+    {
+      "ontology_class_label": "Minimum-Cost Spanning Trees",
+      "alias_label": "Minimum Weight Spanning Tree"
+    },
+    {
+      "ontology_class_label": "Deterministic Pushdown Automaton",
+      "alias_label": "DPDA"
+    },
+    {
+      "ontology_class_label": "Deterministic Pushdown Automaton",
+      "alias_label": "Deterministic PDA"
+    },
+    {
+      "ontology_class_label": "Deterministic Pushdown Automaton",
+      "alias_label": "Deterministic Stack Automaton"
+    },
+    {
+      "ontology_class_label": "Hashing Cost Analysis",
+      "alias_label": "Hashing Performance"
+    },
+    {
+      "ontology_class_label": "Hashing Cost Analysis",
+      "alias_label": "Hash Table Efficiency"
+    },
+    {
+      "ontology_class_label": "Hashing Cost Analysis",
+      "alias_label": "Hash Function Analysis"
+    },
+    {
+      "ontology_class_label": "Boyer-Moore String Match Algorithm",
+      "alias_label": "Boyer-Moore Algorithm"
+    },
+    {
+      "ontology_class_label": "Boyer-Moore String Match Algorithm",
+      "alias_label": "BM Algorithm"
+    },
+    {
+      "ontology_class_label": "Boyer-Moore String Match Algorithm",
+      "alias_label": "String Searching Algorithm"
+    },
+    {
+      "ontology_class_label": "Trie",
+      "alias_label": "Prefix Tree"
+    },
+    {
+      "ontology_class_label": "Trie",
+      "alias_label": "Digital Tree"
+    },
+    {
+      "ontology_class_label": "Trie",
+      "alias_label": "Radix Tree"
+    }
+]
+  

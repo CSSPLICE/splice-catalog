@@ -600,14 +600,6 @@
         "is_active (default)": "TRUE"
     },
     {
-        "#": "95",
-        "class_uri": "http://opendsa.org/ontology#Linear_Structures",
-        "label": "Linear Structures",
-        "comment": "Data structures that maintain elements in a linear sequence, such as arrays, lists, and queues, where the order of elements is significant.",
-        "description (optional)": "",
-        "is_active (default)": "TRUE"
-    },
-    {
         "#": "96",
         "class_uri": "http://opendsa.org/ontology#Record_Keys",
         "label": "Record Keys",
@@ -1781,6 +1773,110 @@
         "label": "Debugging",
         "comment": "The process of identifying, analyzing, and fixing bugs or defects in software to ensure correct operation.",
         "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "256",
+        "class_uri": "http://opendsa.org/ontology#Problem_Solving_Heuristics",
+        "label": "Problem Solving Heuristics",
+        "comment": "Techniques and strategies used to solve computational problems efficiently, often used as a basis for algorithms.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "257",
+        "class_uri": "http://opendsa.org/ontology#Algorithm_Definition",
+        "label": "Algorithm Definition",
+        "comment": "An explicit, step-by-step description of a process to solve a problem or perform a computation.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "258",
+        "class_uri": "http://opendsa.org/ontology#Problem_Definition",
+        "label": "Problem Definition",
+        "comment": "Formal representation and specification of a problem to determine its computational solution.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "259",
+        "class_uri": "http://opendsa.org/ontology#Command_Line_Interface",
+        "label": "Command Line Interface",
+        "comment": "Text-based interface used to interact with software systems by entering commands.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "260",
+        "class_uri": "http://opendsa.org/ontology#Java_Scanner_Class",
+        "label": "Java Scanner Class",
+        "comment": "A class in Java used to parse and read input from various sources like strings, files, and streams.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "261",
+        "class_uri": "http://opendsa.org/ontology#Command_Line_Parameters",
+        "label": "Command Line Parameters",
+        "comment": "Arguments passed to programs via the command line to control the program's behavior.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "262",
+        "class_uri": "http://opendsa.org/ontology#Factorial_Algorithms",
+        "label": "Factorial Algorithms",
+        "comment": "Algorithms to calculate the factorial of a number, commonly used in combinatorics and probability.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "263",
+        "class_uri": "http://opendsa.org/ontology#Math_Background",
+        "label": "Math Background",
+        "comment": "Extended topics in mathematics such as modulus, summations, and recurrence relations, relevant to computer science.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "264",
+        "class_uri": "http://opendsa.org/ontology#File_Processing",
+        "label": "File Processing",
+        "comment": "A method to read or write data at arbitrary locations in a file, allowing non-sequential access.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "265",
+        "class_ri": "http://opendsa.org/ontology#Data_Compression",
+        "label": "Data Compression",
+        "comment": "the process of encoding, restructuring or otherwise modifying data in order to reduce its size.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "266",
+        "class_uri": "http://opendsa.org/ontology#Exception_Handling",
+        "label": "Exception Handling",
+        "comment": "Programming techniques to manage errors or exceptional cases, ensuring robustness and preventing program crashes.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "267",
+        "class_uri": "http://opendsa.org/ontology#Control_Structures",
+        "label": "Control Structures",
+        "comment": "Focus on the use of programming control flow elements like conditional statements, loops, and decision-making structures.",
+        "description (optional)": "",
+        "is_active (default)": "TRUE"
+    },
+    {
+        "#": "268",
+        "class_uri": "http://opendsa.org/ontology#Programming_Concepts",
+        "label": "Programming Concepts",
+        "comment": "A foundational class covering fundamental programming concepts such as loops, variables, functions, and basic constructs for understanding programming.",
+        "description (optional)": "This class covers essential programming topics for beginner programmers, introducing fundamental concepts needed to write and understand code.",
         "is_active (default)": "TRUE"
     }
 ]
