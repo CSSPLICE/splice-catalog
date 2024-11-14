@@ -1,13 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { OntologyClasses } from './OntologyClass';
 
-@Entity()
+@Entity('ontology_aliases') 
 export class OntologyAliases {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => OntologyClasses)
-  @JoinColumn({ name: 'ontology_class_id' }) 
+  @ManyToOne(() => OntologyClasses, (ontologyClass) => ontologyClass.aliases, {
+    nullable: false, 
+    onDelete: 'CASCADE', 
+  })
+  @JoinColumn({ name: 'class_id' }) 
   class!: OntologyClasses;
 
   @Column({ type: 'varchar', unique: true })
@@ -16,9 +19,9 @@ export class OntologyAliases {
   @Column({ type: 'boolean', default: true })
   is_active!: boolean;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn()
   created_at!: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn()
   updated_at!: Date;
 }

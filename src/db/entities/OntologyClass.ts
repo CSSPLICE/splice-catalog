@@ -1,6 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { OntologyAliases } from './OntologyAlias';
+import { OntologyRelations } from './OntologyRelation';
 
-@Entity()
+@Entity('ontology_classes') 
 export class OntologyClasses {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -19,4 +21,15 @@ export class OntologyClasses {
 
   @Column({ type: 'boolean', default: true })
   is_active!: boolean;
+
+  @OneToMany(() => OntologyAliases, (ontologyAlias) => ontologyAlias.class, {
+    cascade: true, 
+  })
+  aliases!: OntologyAliases[];
+
+  @OneToMany(() => OntologyRelations, (ontologyRelation) => ontologyRelation.parent_class)
+  parentRelations!: OntologyRelations[];
+
+  @OneToMany(() => OntologyRelations, (ontologyRelation) => ontologyRelation.child_class)
+  childRelations!: OntologyRelations[];
 }

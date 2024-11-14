@@ -1528,5 +1528,23 @@
         "parent_class": "Search_Structures",
         "child_class": "Trie",
         "relation_type": "subClassOf"
-    }
+    },
+    {
+        "#": "256",
+        "parent_class": "Algorithms",
+        "child_class": "Control_Structures",
+        "relation_type": "subClassOf"
+    },
+    {
+        "#": "257",
+        "parent_class": "Software_Engineering",
+        "child_class": "Exception_Handling",
+        "relation_type": "subClassOf"
+    },
+    {
+        "#": "258",
+        "parent_class": "Software_Engineering",
+        "child_class": "Programming_Concepts",
+        "relation_type": "subClassOf"
+    }   
 ]
