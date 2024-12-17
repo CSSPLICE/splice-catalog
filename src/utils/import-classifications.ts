@@ -1,10 +1,10 @@
 import 'reflect-metadata';
-import { AppDataSource } from '../src/db/data-source';
-import { OntologyClasses } from '../src/db/entities/OntologyClass';
-import { OntologyAliases } from '../src/db/entities/OntologyAlias';
-import { OntologyRelations } from '../src/db/entities/OntologyRelation';
-import { slc_item_catalog } from '../src/db/entities/SLCItemCatalog';
-import { ItemClassification } from '../src/db/entities/ItemClassification';
+import { AppDataSource } from '../db/data-source';
+import { OntologyClasses } from '../db/entities/OntologyClass';
+import { OntologyAliases } from '../db/entities/OntologyAlias';
+import { OntologyRelations } from '../db/entities/OntologyRelation';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
+import { ItemClassification } from '../db/entities/ItemClassification';
 import * as winston from 'winston';
 import { lemmatizer } from 'lemmatizer'; 
 

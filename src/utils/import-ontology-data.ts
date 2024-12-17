@@ -1,8 +1,8 @@
 import 'reflect-metadata';
-import { AppDataSource } from '../src/db/data-source';
-import { OntologyClasses } from '../src/db/entities/OntologyClass';
-import { OntologyRelations } from '../src/db/entities/OntologyRelation';
-import { OntologyAliases } from '../src/db/entities/OntologyAlias';
+import { AppDataSource } from '../db/data-source';
+import { OntologyClasses } from '../db/entities/OntologyClass';
+import { OntologyRelations } from '../db/entities/OntologyRelation';
+import { OntologyAliases } from '../db/entities/OntologyAlias';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -57,9 +57,9 @@ async function importOntologyData() {
   await AppDataSource.initialize();
 
   try {
-    const ontologyClassesPath = path.join(__dirname, '../src/db/seed_data/ontology_classes.json');
-    const ontologyRelationsPath = path.join(__dirname, '../src/db/seed_data/ontology_relations.json');
-    const ontologyAliasesPath = path.join(__dirname, '../src/db/seed_data/ontology_aliases.json');
+    const ontologyClassesPath = path.join(__dirname, '../db/seed_data/ontology_classes.json');
+    const ontologyRelationsPath = path.join(__dirname, '../db/seed_data/ontology_relations.json');
+    const ontologyAliasesPath = path.join(__dirname, '../db/seed_data/ontology_aliases.json');
 
     const ontologyClassesData = JSON.parse(fs.readFileSync(ontologyClassesPath, 'utf8'));
     const ontologyRelationsData = JSON.parse(fs.readFileSync(ontologyRelationsPath, 'utf8'));
