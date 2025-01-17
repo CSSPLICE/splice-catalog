@@ -4,7 +4,7 @@ An overview of the controllers implemented in the splice-catalog. They are respo
 
 ---
 
-## **[CatalogController](../../src/controllers/CatalogController.ts)**
+## **[CatalogController](../src/controllers/CatalogController.ts)**
 
 The `CatalogController` manages operations related to the catalog, including retrieving, creating, and deleting catalog items.
 
@@ -13,7 +13,7 @@ The `CatalogController` manages operations related to the catalog, including ret
 
 ---
 
-## **[ViewController](../../src/controllers/ViewController.ts)**
+## **[ViewController](../src/controllers/ViewController.ts)**
 
 The `ViewController` is responsible for rendering views and managing the display of various pages in the system.
 
@@ -24,7 +24,7 @@ The `ViewController` is responsible for rendering views and managing the display
 
 ---
 
-## **[ReviewController](../../src/controllers/ReviewController.ts)**
+## **[ReviewController](../src/controllers/ReviewController.ts)**
 
 The `ReviewController` manages the validation and review process for uploaded catalog data, called from the View Controller during uploads/contributions. it calls the services to:
 
@@ -35,7 +35,7 @@ The `ReviewController` manages the validation and review process for uploaded ca
 
 ---
 
-## **[SearchController](../../src/controllers/SearchController.ts)**
+## **[SearchController](../src/controllers/SearchController.ts)**
 
 The `SearchController` provides functionality for searching catalog items based on user queries.
 
@@ -44,7 +44,7 @@ The `SearchController` provides functionality for searching catalog items based 
 
 ---
 
-## **[ToolsCatalogController](../../src/controllers/ToolsCatalogController.ts)**
+## **[ToolsCatalogController](../src/controllers/ToolsCatalogController.ts)**
 
 The `ToolsCatalogController` handles operations related to the tools catalog.
 
