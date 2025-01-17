@@ -13,6 +13,7 @@
 
 `docker compose exec splice-catalog-catalog-1 yarn import:ontology`
 
+**See documentation here:** [docs](docs) 
 
 ## Production
 
