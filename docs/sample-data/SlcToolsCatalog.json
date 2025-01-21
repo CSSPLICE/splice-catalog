@@ -1,0 +1,11 @@
+{
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "codespec",
+    "url": "https://www.codespec.org/",
+    "tool_description": "Codespec, a computer programming tutor that offers learners multiple means of engagement. It features a problem space area that supports learners in seamlessly transitioning between different research-based computer programming problem types and, if learners get stuck, there's a Help button that provides step by step guidance.",
+    "license": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)",
+    "standard_support": "Null",
+    "keywords": "Parsons Problems, Practice, Code-Writing, Debugging, Auto-Assessment",
+    "contact_email": "cchmagyar@gmail.com"
+  }
+  
