@@ -85,7 +85,7 @@ Links content in the `SLCItemCatalog` table to ontology classes
 
 ### ER Diagram
 
-[ER Diagram](docs/ontology_schema.png)
+![ER Diagram](./images/ontology_schema.png)
 
 
 
