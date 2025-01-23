@@ -17,7 +17,7 @@ down: ## This takes down the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) down
 
 exec: ## This execs into the running catalog container
-	$(COMPOSE_COMMAND) $(DEV_PROFILE) exec catalog sh
+	$(COMPOSE_COMMAND) $(DEV_PROFILE) exec catalog bash
 
 nuke: ## This removes all the volumes as well as taking down the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) down -v
