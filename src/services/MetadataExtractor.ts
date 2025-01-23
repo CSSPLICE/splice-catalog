@@ -1,4 +1,3 @@
-// import { SLCItemDTO } from '../dtos/SLCItemDTO';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 
 export class MetadataExtractor {
