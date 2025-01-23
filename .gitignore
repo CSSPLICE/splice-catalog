@@ -132,3 +132,5 @@ dist
 upload/**/*
 certs/*
 config/log/**/*
+
+**/*.DS_Store
