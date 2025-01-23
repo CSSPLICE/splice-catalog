@@ -134,3 +134,4 @@ certs/*
 config/log/**/*
 
 **/*.DS_Store
+env.student
