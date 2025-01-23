@@ -64,7 +64,7 @@ export class ReviewController {
       }  
 
       // Process SLCToolsCatalog
-      for (const item of slcToolsCatalogs) {
+      for (let i = 0; i < slcToolsCatalogs.length; i++) {
         logger.info('Processing SLCToolsCatalog');
         await toolsCatalogController.createToolsCatalogItem(req, res);
       }
