@@ -9,15 +9,11 @@ RUN yarn global add ts-node
 COPY . .
 
 FROM development as dev-envs
-RUN <<EOF
-    apt-get update --allow-releaseinfo-change
-    apt-get install -y --no-install-recommends git
-EOF
+RUN apt-get update --allow-releaseinfo-change
+RUN apt-get install -y --no-install-recommends git
 
-RUN <<EOF
-    useradd -s /bin/bash -m deploy
-    groupadd docker
-    usermod -aG docker deploy
-EOF
+RUN useradd -s /bin/bash -m deploy
+RUN groupadd docker
+RUN usermod -aG docker deploy
 
 USER deploy
