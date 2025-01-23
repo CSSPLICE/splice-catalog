@@ -51,7 +51,7 @@ const generateNGrams = (words: string[], n: number): string[] => {
 const normalizeText = (text: string): string => {
   return text
     .toLowerCase()
-    .replace(/[_\-]+/g, ' ')  // Replace underscores and hyphens with spaces
+    .replace(/[_-]+/g, ' ')  // Replace underscores and hyphens with spaces
     .replace(/[^a-z0-9 ]/g, '')       
     .replace(/\s+/g, ' ')             
     .trim()

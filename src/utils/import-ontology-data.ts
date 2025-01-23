@@ -16,7 +16,7 @@ import * as path from 'path';
  */
 const normalizeLabel = (label: string): string => {
   return label
-    .replace(/[_\-]+/g, ' ')
+    .replace(/[_-]+/g, ' ')
     .replace(/\s+/g, ' ')     
     .trim()
     .toLowerCase();
