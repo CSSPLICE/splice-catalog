@@ -2,7 +2,7 @@
 
 This guide provides step-by-step instructions for testing the validation and classification processes within the SPLICE Catalog. This is basically a two-step workflow that contributors use to add content to the catalog:
 
-1. **Using the `/upload` endpoint** – Submit content to the system. 
+1. **Using the `/upload` endpoint** – Submit content to the system.
 2. **Uploading sample data** – Upload catalog types with provided in sample-data.
 
 ---
@@ -14,8 +14,6 @@ This guide provides step-by-step instructions for testing the validation and cla
 The `/upload` endpoint is where to submit catalog data for validation and classification. Go to http://localhost:3000/upload/
 
 ![Upload page](./images/upload-page.png)
-
-
 
 ---
 
@@ -44,7 +42,6 @@ Once data is uploaded, the system performs comprehensive checks to ensure integr
    - Validity of URLs.
 2. If validation errors are found, they will be displayed in the review dashboard.
 
-
 ![validation results](./images/review-dashboard-validation-system.png)
 
 ---
@@ -52,7 +49,6 @@ Once data is uploaded, the system performs comprehensive checks to ensure integr
 ## 4. Categorization Process
 
 The process also includes a classifcation process attempts to categorize based on the keywords of contained in the content against the ontology in the catalog.
-
 
 1. Validated items are matched against the ontology.
 2. Keywords and metadata fields are mapped to predefined ontology classes.
@@ -67,10 +63,4 @@ The process also includes a classifcation process attempts to categorize based o
 1. Access the review dashboard at [http://localhost:3000/review-dashboard](http://localhost:3000/review-dashboard).
 2. Review validation issues and categorized items.
 
-
 ![Review Dashboard](./images/review-dashboard-collasped.png)
-
-
-
-
-

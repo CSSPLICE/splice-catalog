@@ -6,7 +6,7 @@ import { Server } from 'socket.io';
 import catalogRoutes from './routes/catalog';
 import searchRoutes from './routes/search';
 import viewRoutes from './routes/view';
-import reviewRoutes from './routes/review'
+import reviewRoutes from './routes/review';
 import { ErrorHandler } from './utils/ErrorHandler';
 import path from 'path';
 import { auth } from 'express-openid-connect';
@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
       contentSecurityPolicy: {
         directives: {
           'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu', 'acos.cs.vt.edu'],
-      	  'script-src': ['splice.cs.vt.edu', 'cdn.jsdelivr.net'],
+          'script-src': ['splice.cs.vt.edu', 'cdn.jsdelivr.net'],
         },
       },
     }),
@@ -64,7 +64,7 @@ app.use('/', viewRoutes);
 app.use('/catalog', catalogRoutes);
 app.use('/search', searchRoutes);
 
-app.use('/', reviewRoutes); 
+app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
 
 app.all('*', (req: Request, res: Response) => {

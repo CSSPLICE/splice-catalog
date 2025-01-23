@@ -4,11 +4,11 @@ import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
 import logger from '../utils/logger';
 
 export class MetadataValidator {
-  async validate(jsonArray: any[]): Promise<{ 
-    issues: { item: any; validationErrors: ValidationError[] }[]; 
-    validItems: CreateSLCItemDTO[]; 
-    totalSubmissions: number; 
-    successfulVerifications: number; 
+  async validate(jsonArray: any[]): Promise<{
+    issues: { item: any; validationErrors: ValidationError[] }[];
+    validItems: CreateSLCItemDTO[];
+    totalSubmissions: number;
+    successfulVerifications: number;
   }> {
     const issues: { item: any; validationErrors: ValidationError[] }[] = [];
     const validItems: CreateSLCItemDTO[] = [];
@@ -17,7 +17,7 @@ export class MetadataValidator {
     for (const item of jsonArray) {
       const dto = new CreateSLCItemDTO();
       Object.assign(dto, item);
-      
+
       const validationErrors: ValidationError[] = await validate(dto);
       if (validationErrors.length > 0) {
         issues.push({ item, validationErrors });

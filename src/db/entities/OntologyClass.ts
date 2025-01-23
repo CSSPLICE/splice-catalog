@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { OntologyAliases } from './OntologyAlias';
 import { OntologyRelations } from './OntologyRelation';
 
-@Entity('ontology_classes') 
+@Entity('ontology_classes')
 export class OntologyClasses {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -23,7 +23,7 @@ export class OntologyClasses {
   is_active!: boolean;
 
   @OneToMany(() => OntologyAliases, (ontologyAlias) => ontologyAlias.class, {
-    cascade: true, 
+    cascade: true,
   })
   aliases!: OntologyAliases[];
 

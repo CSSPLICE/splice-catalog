@@ -6,7 +6,7 @@ import logger from '../utils/logger';
 
 export class Categorizer {
   private itemRepo = AppDataSource.getRepository(slc_item_catalog);
-  private classificationRepo = AppDataSource.getRepository(ItemClassification); 
+  private classificationRepo = AppDataSource.getRepository(ItemClassification);
   private ontologyRepo = AppDataSource.getRepository(OntologyClasses);
 
   /**
@@ -30,11 +30,11 @@ export class Categorizer {
 
         if (!itemRecord || !itemRecord.id) {
           logger.error(`Item ${item.exercise_name} could not be saved or retrieved from slc_item_catalog.`);
-          continue;  // Skip if itemRecord is null
+          continue; // Skip if itemRecord is null
         }
 
         //Find or assign class
-        const matchedItem = matchedItems.find(m => m.item.exercise_name === item.exercise_name);
+        const matchedItem = matchedItems.find((m) => m.item.exercise_name === item.exercise_name);
         let classEntity: OntologyClasses | null = null;
 
         if (matchedItem && matchedItem.matchedClass) {
@@ -52,8 +52,8 @@ export class Categorizer {
 
         // Create classification instance by assigning entities directly
         const classification = this.classificationRepo.create({
-          item: itemRecord,       
-          ontologyClass: classEntity,    
+          item: itemRecord,
+          ontologyClass: classEntity,
         });
 
         // Log the classification object to ensure values are set correctly
@@ -69,4 +69,3 @@ export class Categorizer {
     }
   }
 }
-

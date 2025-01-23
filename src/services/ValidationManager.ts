@@ -36,13 +36,16 @@ export class ValidationManager {
   async storeAndClassifyItems(report: { matched: any[]; unclassified: any[]; unmatched: any[] }) {
     logger.info('Storing items and classifying...');
     const items = [...report.matched, ...report.unclassified, ...report.unmatched];
-    await this.categorizer.storeItemsAndClassify(items.map(item => item.item), report.matched);
+    await this.categorizer.storeItemsAndClassify(
+      items.map((item) => item.item),
+      report.matched,
+    );
   }
 
   async fullValidationWorkflow(items: any[]) {
     // Validate metadata and extract the valid items
     const metadataResult = await this.validateMetadata(items);
-    const validatedMetadataItems = metadataResult.validItems; 
+    const validatedMetadataItems = metadataResult.validItems;
 
     // Validate URLs for the valid metadata items
     const urlValidationResult = await this.validateUrls(validatedMetadataItems);
