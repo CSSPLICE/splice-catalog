@@ -6,8 +6,13 @@
 
 ## Development
 
-`docker compose --profile catalog build`
-`docker compose --profile catalog up`
+To build the catalog container: `docker compose --profile catalog build`
+
+To run the splice catalog application: `docker compose --profile catalog up`
+
+To exec into the running container: `docker compose --profile catalog exec catalog bash`
+
+This is where you can do things like running yarn commands (yarn install, yarn add <package>, etc) from within the docker container
 
 ## Import Ontology Data
 
@@ -18,6 +23,7 @@
 ## Production
 
 `docker compose --profile production build`
+
 `docker compose --profile production up -d`
 
 
