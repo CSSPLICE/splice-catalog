@@ -8,7 +8,7 @@ RUN yarn global add ts-node
 
 COPY . .
 
-FROM development as dev-envs
+FROM development AS dev-envs
 RUN apt-get update --allow-releaseinfo-change
 RUN apt-get install -y --no-install-recommends git
 
