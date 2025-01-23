@@ -210,6 +210,8 @@ const processItems = async (
       } catch (error) {
         logger.error(`Item ID ${item.id}: Error parsing keywords JSON - ${error}`);
         keywords = [];
+      }
+    }
     const exerciseName: string = item.exercise_name || '';
 
     const terms = [...keywords, exerciseName]
