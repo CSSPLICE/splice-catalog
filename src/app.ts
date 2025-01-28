@@ -7,6 +7,7 @@ import catalogRoutes from './routes/catalog';
 import searchRoutes from './routes/search';
 import viewRoutes from './routes/view';
 import reviewRoutes from './routes/review';
+import ontologyRoutes from './routes/ontology';
 import { ErrorHandler } from './utils/ErrorHandler';
 import path from 'path';
 import { auth } from 'express-openid-connect';
