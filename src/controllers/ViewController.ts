@@ -13,23 +13,21 @@ import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
 import { ReviewController } from './ReviewController';
 import { ValidationManager } from '../services/ValidationManager';
 
-
 const reviewController = new ReviewController();
 const validationManager = new ValidationManager();
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {
     const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25;  // subject to change
+    const ITEMS_PER_PAGE = 25; // subject to change
     const totalItems = await AppDataSource.getRepository(slc_item_catalog).count();
     const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
     const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
-    const catalog_data = await AppDataSource.getRepository(slc_item_catalog)
-        .find({
-            skip: offset,
-            take: ITEMS_PER_PAGE
-        });
+    const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find({
+      skip: offset,
+      take: ITEMS_PER_PAGE,
+    });
     res.render('pages/catalog', { catalog: catalog_data, currentPage, totalPages, title: 'SPLICE Catalog' });
   }
 
@@ -89,9 +87,9 @@ export class ViewController {
 
     try {
       const absolutePath = req.file.path;
-      const jsonString = fs.readFileSync(absolutePath, 'utf-8'); 
-      req.body = JSON.parse(jsonString); 
-  
+      const jsonString = fs.readFileSync(absolutePath, 'utf-8');
+      req.body = JSON.parse(jsonString);
+
       await reviewController.validateAndReview(req, res);
     } catch (error) {
       logger.error('Error processing upload:', error);
@@ -101,9 +99,9 @@ export class ViewController {
 
   async approveAll(req: Request, res: Response) {
     const data = req.body.data;
-    console.log("ApproveAll called with data:", data);
+    console.log('ApproveAll called with data:', data);
     const jsonArray = JSON.parse(data);
-    console.log("Parsed JSON data:", jsonArray);
+    console.log('Parsed JSON data:', jsonArray);
 
     let processedCount = 0;
     const itemsToClassify: CreateSLCItemDTO[] = [];
@@ -112,17 +110,17 @@ export class ViewController {
       let dto, repo;
 
       // Check if the item has an exercise_name
-      if (!item.exercise_name || item.exercise_name.trim() === "") {
-        console.log("Skipping item without exercise_name:", item);
-        continue;  // Skip this item if it doesn't have an exercise_name
+      if (!item.exercise_name || item.exercise_name.trim() === '') {
+        console.log('Skipping item without exercise_name:', item);
+        continue; // Skip this item if it doesn't have an exercise_name
       }
 
       switch (item.catalog_type) {
         case 'SLCItemCatalog': {
           dto = new CreateSLCItemDTO();
-          Object.assign(dto, item); 
+          Object.assign(dto, item);
           repo = AppDataSource.getRepository(slc_item_catalog);
-          itemsToClassify.push(dto); // Add to classification list 
+          itemsToClassify.push(dto); // Add to classification list
           break;
         }
 

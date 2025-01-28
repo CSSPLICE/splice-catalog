@@ -31,7 +31,7 @@ export class CategoryReport {
     return {
       matched,
       unclassified,
-      unmatched
+      unmatched,
     };
   }
 }

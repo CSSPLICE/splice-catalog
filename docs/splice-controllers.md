@@ -39,8 +39,7 @@ The `ReviewController` manages the validation and review process for uploaded ca
 
 The `SearchController` provides functionality for searching catalog items based on user queries.
 
-- Retrieve catalog items that match query parameters across multiple fields 
-
+- Retrieve catalog items that match query parameters across multiple fields
 
 ---
 

@@ -39,7 +39,7 @@ export class slc_item_catalog {
   exercise_type!: string;
 
   @Column({ unique: true })
-  exercise_name!: string;  
+  exercise_name!: string;
 
   @Column()
   iframe_url!: string;

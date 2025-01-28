@@ -14,7 +14,7 @@ export class KeywordMatch {
 
     for (const keyword of metadata.keywords) {
       logger.info(`Attempting to match keyword: ${keyword}`);
-      
+
       const classMatch = await this.ontologyRepo
         .createQueryBuilder('oc')
         .where('oc.label LIKE :keyword', { keyword: `%${keyword}%` })
@@ -40,7 +40,10 @@ export class KeywordMatch {
       }
     }
 
-    logger.info('Keyword matching completed with matched classes:', matchedClasses.map(mc => mc?.label));
+    logger.info(
+      'Keyword matching completed with matched classes:',
+      matchedClasses.map((mc) => mc?.label),
+    );
 
     return matchedClasses.length > 0 ? matchedClasses : null;
   }

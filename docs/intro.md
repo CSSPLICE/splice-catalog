@@ -8,7 +8,6 @@ Currently the splice catalog does the following:
 - **Content Classification:** Classify contributions based on keywords upon uplaod
 - **Metadata Validation:** Validate content metadata and provide feedback of validations
 
-
 See the ontology:
 
 [doc](https://docs.google.com/spreadsheets/d/1kKJy5FLu5i_QQbTnfpxtRZPU1HX37WisQix-eCxDpC8/edit?gid=16304243#gid=16304243)

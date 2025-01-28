@@ -1,12 +1,12 @@
 import axios from 'axios';
-import * as https from 'https';  
+import * as https from 'https';
 
 export class URLValidator {
-  async validate(validItems: any[]): Promise<{ 
-    urlsChecked: number; 
-    successfulUrls: number; 
-    unsuccessfulUrls: number; 
-    issues: { item: any; error: string }[]; 
+  async validate(validItems: any[]): Promise<{
+    urlsChecked: number;
+    successfulUrls: number;
+    unsuccessfulUrls: number;
+    issues: { item: any; error: string }[];
   }> {
     let urlsChecked = 0;
     let successfulUrls = 0;
@@ -19,8 +19,8 @@ export class URLValidator {
         urlsChecked++;
         // const response = await axios.get(item.url);
         // Disable SSL certificate validation for axios
-        const response = await axios.get(item.url, { 
-          httpsAgent: new https.Agent({ rejectUnauthorized: false }) 
+        const response = await axios.get(item.url, {
+          httpsAgent: new https.Agent({ rejectUnauthorized: false }),
         });
 
         if (response.status === 200) {
@@ -41,4 +41,3 @@ export class URLValidator {
     return { urlsChecked, successfulUrls, unsuccessfulUrls, issues };
   }
 }
-

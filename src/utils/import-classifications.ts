@@ -6,15 +6,13 @@ import { OntologyRelations } from '../db/entities/OntologyRelation';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
 import { ItemClassification } from '../db/entities/ItemClassification';
 import * as winston from 'winston';
-import { lemmatizer } from 'lemmatizer'; 
+import { lemmatizer } from 'lemmatizer';
 
 const logger = winston.createLogger({
   level: 'debug',
   format: winston.format.combine(
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-    winston.format.printf(
-      ({ timestamp, level, message }) => `${timestamp} [${level.toUpperCase()}]: ${message}`
-    )
+    winston.format.printf(({ timestamp, level, message }) => `${timestamp} [${level.toUpperCase()}]: ${message}`),
   ),
   transports: [
     new winston.transports.Console(),
@@ -22,18 +20,28 @@ const logger = winston.createLogger({
   ],
 });
 
-
 // Defines a set of stop words to be removed
 const stopWords = new Set([
-  'exercise', 'sum', 'count', 'check',
-  'largest', 'multiply', 'gcd', 'is', 'reverse', 'add', 'of', 'the',
-  'and', 'by'
+  'exercise',
+  'sum',
+  'count',
+  'check',
+  'largest',
+  'multiply',
+  'gcd',
+  'is',
+  'reverse',
+  'add',
+  'of',
+  'the',
+  'and',
+  'by',
 ]);
 
 /**
- * @param words 
- * @param n 
- * @returns 
+ * @param words
+ * @param n
+ * @returns
  */
 const generateNGrams = (words: string[], n: number): string[] => {
   const ngrams: string[] = [];
@@ -44,23 +52,22 @@ const generateNGrams = (words: string[], n: number): string[] => {
 };
 
 /**
- * Normalizes strings 
- * @param text 
- * @returns 
+ * Normalizes strings
+ * @param text
+ * @returns
  */
 const normalizeText = (text: string): string => {
   return text
     .toLowerCase()
-    .replace(/[_-]+/g, ' ')  // Replace underscores and hyphens with spaces
-    .replace(/[^a-z0-9 ]/g, '')       
-    .replace(/\s+/g, ' ')             
+    .replace(/[_\-]+/g, ' ') // Replace underscores and hyphens with spaces
+    .replace(/[^a-z0-9 ]/g, '')
+    .replace(/\s+/g, ' ')
     .trim()
     .split(' ')
-    .filter(word => !stopWords.has(word)) 
-    .map(word => lemmatizer(word))   
+    .filter((word) => !stopWords.has(word))
+    .map((word) => lemmatizer(word))
     .join(' ');
 };
-
 
 const initializeDataSource = async () => {
   try {
@@ -73,7 +80,7 @@ const initializeDataSource = async () => {
 };
 
 /**
- * Builds a lookup map 
+ * Builds a lookup map
  * @returns normalized terms(key) and OntologyClasses(values)
  */
 const buildOntologyLookupMap = async (): Promise<Map<string, OntologyClasses>> => {
@@ -89,7 +96,7 @@ const buildOntologyLookupMap = async (): Promise<Map<string, OntologyClasses>> =
 
   ontologyClasses.forEach((ontologyClass) => {
     const normalizedLabel = normalizeText(ontologyClass.label);
-    if (normalizedLabel) { 
+    if (normalizedLabel) {
       lookupMap.set(normalizedLabel, ontologyClass);
       logger.debug(`Added class label to lookup: "${normalizedLabel}" -> ID ${ontologyClass.id}`);
     } else {
@@ -97,9 +104,9 @@ const buildOntologyLookupMap = async (): Promise<Map<string, OntologyClasses>> =
     }
 
     ontologyClass.aliases.forEach((alias) => {
-      if (alias.is_active) { 
+      if (alias.is_active) {
         const normalizedAlias = normalizeText(alias.alias);
-        if (normalizedAlias) { 
+        if (normalizedAlias) {
           lookupMap.set(normalizedAlias, ontologyClass);
           logger.debug(`Added alias to lookup: "${normalizedAlias}" -> ID ${ontologyClass.id}`);
         } else {
@@ -172,15 +179,15 @@ const fetchAllItems = async (): Promise<slc_item_catalog[]> => {
 /**
  * Processes and classifies each item in the slc_item_catalog.
  * @param items
- * @param lookupMap 
- * @param hierarchyMap 
- * @param unclassifiedClass 
+ * @param lookupMap
+ * @param hierarchyMap
+ * @param unclassifiedClass
  */
 const processItems = async (
   items: slc_item_catalog[],
   lookupMap: Map<string, OntologyClasses>,
   hierarchyMap: Map<number, OntologyClasses[]>,
-  unclassifiedClass: OntologyClasses
+  unclassifiedClass: OntologyClasses,
 ) => {
   const itemClassificationRepository = AppDataSource.getRepository(ItemClassification);
 
@@ -214,9 +221,7 @@ const processItems = async (
     }
     const exerciseName: string = item.exercise_name || '';
 
-    const terms = [...keywords, exerciseName]
-      .map(term => normalizeText(term))
-      .filter(term => term.length > 0);
+    const terms = [...keywords, exerciseName].map((term) => normalizeText(term)).filter((term) => term.length > 0);
 
     logger.debug(`Processing Item ID ${item.id} with terms: [${terms.join(', ')}]`);
 
@@ -228,12 +233,12 @@ const processItems = async (
 
         // Add parent classes
         if (hierarchyMap.has(ontologyClass.id)) {
-          hierarchyMap.get(ontologyClass.id)!.forEach(parentClass => {
+          hierarchyMap.get(ontologyClass.id)!.forEach((parentClass) => {
             classifications.add(parentClass);
             logger.debug(`Also adding parent class ID ${parentClass.id} for class ID ${ontologyClass.id}`);
           });
         }
-        continue; 
+        continue;
       } else {
         logger.debug(`No exact match found for term "${term}" in item ID ${item.id}`);
       }
@@ -248,7 +253,7 @@ const processItems = async (
 
           // Add parent classes
           if (hierarchyMap.has(ontologyClass.id)) {
-            hierarchyMap.get(ontologyClass.id)!.forEach(parentClass => {
+            hierarchyMap.get(ontologyClass.id)!.forEach((parentClass) => {
               classifications.add(parentClass);
               logger.debug(`Also adding parent class ID ${parentClass.id} for class ID ${ontologyClass.id}`);
             });
@@ -268,7 +273,7 @@ const processItems = async (
 
             // Add parent classes
             if (hierarchyMap.has(ontologyClass.id)) {
-              hierarchyMap.get(ontologyClass.id)!.forEach(parentClass => {
+              hierarchyMap.get(ontologyClass.id)!.forEach((parentClass) => {
                 classifications.add(parentClass);
                 logger.debug(`Also adding parent class ID ${parentClass.id} for class ID ${ontologyClass.id}`);
               });
@@ -280,15 +285,15 @@ const processItems = async (
       matchNGrams(triGrams);
       matchNGrams(biGrams);
 
-      ontologyKeys.forEach(ontologyKey => {
-        if (ontologyKey && term.includes(ontologyKey)) { 
+      ontologyKeys.forEach((ontologyKey) => {
+        if (ontologyKey && term.includes(ontologyKey)) {
           const ontologyClass = lookupMap.get(ontologyKey)!;
           classifications.add(ontologyClass);
           logger.debug(`Substring match: "${ontologyKey}" found in term "${term}" -> Class ID ${ontologyClass.id}`);
 
           // Add parent classes
           if (hierarchyMap.has(ontologyClass.id)) {
-            hierarchyMap.get(ontologyClass.id)!.forEach(parentClass => {
+            hierarchyMap.get(ontologyClass.id)!.forEach((parentClass) => {
               classifications.add(parentClass);
               logger.debug(`Also adding parent class ID ${parentClass.id} for class ID ${ontologyClass.id}`);
             });
@@ -308,10 +313,10 @@ const processItems = async (
     }
 
     // Prepare classification entries
-    const classificationEntries = Array.from(classifications).map(ontologyClass => {
+    const classificationEntries = Array.from(classifications).map((ontologyClass) => {
       const classification = new ItemClassification();
-      classification.item = item; 
-      classification.ontologyClass = ontologyClass; 
+      classification.item = item;
+      classification.ontologyClass = ontologyClass;
       return classification;
     });
 
@@ -326,8 +331,7 @@ const processItems = async (
   logger.info(`Classification Summary: ${classifiedCount} classified items, ${unclassifiedCount} unclassified items.`);
 };
 
-
- //execute the import and classification process.
+//execute the import and classification process.
 const importAndClassify = async () => {
   await initializeDataSource();
 
@@ -354,7 +358,7 @@ const importAndClassify = async () => {
 };
 
 // Execute the import and classification process
-importAndClassify().catch(error => {
+importAndClassify().catch((error) => {
   logger.error(`Unhandled error: ${error}`);
   process.exit(1);
 });

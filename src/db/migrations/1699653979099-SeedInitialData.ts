@@ -4,7 +4,7 @@ import * as path from 'path';
 
 export class SeedInitialData1699653979099 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    try {     
+    try {
       // Inserting initial data into slc_item_catalog
       await queryRunner.query(
         // 'INSERT IGNORE INTO slc_item_catalog (id, platform_name, url, keywords, institution) VALUES \n' +
@@ -12,9 +12,9 @@ export class SeedInitialData1699653979099 implements MigrationInterface {
         // "   (2, 'CodeWorkout', 'https://codeworkout.cs.vt.edu', 'programming practice, LTI', 'Virginia Tech')",
         `INSERT IGNORE INTO slc_item_catalog (platform_name, url, keywords, institution) VALUES 
         ('OpenDSA', 'https://opendsa-server.cs.vt.edu', '["eTextbook", "LTI"]', 'Virginia Tech'),
-        ('CodeWorkout', 'https://codeworkout.cs.vt.edu', '["programming practice", "LTI"]', 'Virginia Tech')`
+        ('CodeWorkout', 'https://codeworkout.cs.vt.edu', '["programming practice", "LTI"]', 'Virginia Tech')`,
       );
-      
+
       // Inserting initial data into slc_tools_catalog
       await queryRunner.query(`
         INSERT IGNORE INTO slc_tools_catalog (platform_name, url, tool_description, license, standard_support, keywords, contact_email) VALUES 
@@ -59,9 +59,7 @@ export class SeedInitialData1699653979099 implements MigrationInterface {
 
       // Check "Unclassified" category exists
       console.log('Checking for "Unclassified" category in ontology_classes');
-      const unclassifiedClass = await queryRunner.query(
-        `SELECT * FROM ontology_classes WHERE label = 'Unclassified'`
-      );
+      const unclassifiedClass = await queryRunner.query(`SELECT * FROM ontology_classes WHERE label = 'Unclassified'`);
 
       if (unclassifiedClass.length === 0) {
         console.log('Inserting "Unclassified" category');
@@ -69,12 +67,12 @@ export class SeedInitialData1699653979099 implements MigrationInterface {
           `INSERT INTO ontology_classes (class_uri, label, comment, description, is_active)
           VALUES (?, ?, ?, ?, ?);`,
           [
-            'http://opendsa.org/ontology#Unclassified', 
-            'Unclassified', 
-            'Category for unclassified items', 
-            'Items unclassified iaccoeding to current ontology category', 
-            true
-          ]
+            'http://opendsa.org/ontology#Unclassified',
+            'Unclassified',
+            'Category for unclassified items',
+            'Items unclassified iaccoeding to current ontology category',
+            true,
+          ],
         );
       } else {
         console.log('"Unclassified" category already exists');
@@ -84,13 +82,13 @@ export class SeedInitialData1699653979099 implements MigrationInterface {
       console.log('Seeding ontology_classes');
       const ontologyClassesPath = path.join(__dirname, '../seed_data/ontology_classes.json');
       const ontologyClasses = JSON.parse(fs.readFileSync(ontologyClassesPath, 'utf8'));
-      
+
       for (const ontologyClass of ontologyClasses) {
         console.log(`Inserting class: ${ontologyClass.label}`);
         await queryRunner.query(
           `INSERT IGNORE INTO ontology_classes (class_uri, label, comment, description, is_active)
           VALUES (?, ?, ?, ?, ?);`,
-          [ontologyClass.class_uri, ontologyClass.label, ontologyClass.comment, ontologyClass.description, true]
+          [ontologyClass.class_uri, ontologyClass.label, ontologyClass.comment, ontologyClass.description, true],
         );
       }
 
@@ -107,7 +105,7 @@ export class SeedInitialData1699653979099 implements MigrationInterface {
             (SELECT id FROM ontology_classes WHERE SUBSTRING_INDEX(class_uri, '#', -1) = ?),
             (SELECT id FROM ontology_classes WHERE SUBSTRING_INDEX(class_uri, '#', -1) = ?),
             ?);`,
-          [relation.parent_class, relation.child_class, relation.relation_type]
+          [relation.parent_class, relation.child_class, relation.relation_type],
         );
       }
 

@@ -6,7 +6,7 @@ import { MetadataIssue, CategorizationResult } from '../types/ValidationTypes';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
-    const jsonArray = Array.isArray(req.body) ? req.body : [req.body]; 
+    const jsonArray = Array.isArray(req.body) ? req.body : [req.body];
     const validationManager = new ValidationManager();
     const toolsCatalogController = new ToolsCatalogController();
 
@@ -20,14 +20,14 @@ export class ReviewController {
       logger.info('Starting metadata validation');
 
       // Separate the items by catalog type
-      const slcItemCatalogs = jsonArray.filter(item => item.catalog_type === 'SLCItemCatalog');
-      const slcToolsCatalogs = jsonArray.filter(item => item.catalog_type === 'SLCToolsCatalog');
+      const slcItemCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCItemCatalog');
+      const slcToolsCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCToolsCatalog');
 
       // Process SLCItemCatalogs
       if (slcItemCatalogs.length > 0) {
         logger.info(`Processing ${slcItemCatalogs.length} SLCItemCatalog items`);
-        
-        // Validate metadata 
+
+        // Validate metadata
         const metadataResult = await validationManager.validateMetadata(slcItemCatalogs);
         metadataIssues = metadataResult.issues as MetadataIssue[];
         successfulVerifications += metadataResult.successfulVerifications;
@@ -54,14 +54,26 @@ export class ReviewController {
         }
 
         categorizationResults = [
-          ...categoryReport.matched.map(item => ({ item: item.item.exercise_name, status: 'Matched', matchedClass: item.matchedClass })),
-          ...categoryReport.unclassified.map(item => ({ item: item.item.exercise_name, status: 'Unclassified', matchedClass: 'Unclassified' })),
-          ...categoryReport.unmatched.map(item => ({ item: item.item.exercise_name, status: 'Unmatched', matchedClass: 'None' })),
+          ...categoryReport.matched.map((item) => ({
+            item: item.item.exercise_name,
+            status: 'Matched',
+            matchedClass: item.matchedClass,
+          })),
+          ...categoryReport.unclassified.map((item) => ({
+            item: item.item.exercise_name,
+            status: 'Unclassified',
+            matchedClass: 'Unclassified',
+          })),
+          ...categoryReport.unmatched.map((item) => ({
+            item: item.item.exercise_name,
+            status: 'Unmatched',
+            matchedClass: 'None',
+          })),
         ];
         if (res.locals.io) {
           res.locals.io.emit('categorizationComplete', categorizationResults);
         }
-      }  
+      }
 
       // Process SLCToolsCatalog
       for (let i = 0; i < slcToolsCatalogs.length; i++) {
@@ -81,7 +93,6 @@ export class ReviewController {
         title: 'Review Dashboard',
         urlValidationComplete: false,
       });
-
     } catch (error) {
       logger.error('Error during validation:', error);
       if (!res.headersSent) {
