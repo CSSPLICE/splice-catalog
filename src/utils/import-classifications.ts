@@ -207,7 +207,7 @@ const processItems = async (
           keywords = item.keywords;
         } else {
           const parsedKeywords = JSON.parse(item.keywords);
-          if (Array.isArray(parsedKeywords) && parsedKeywords.every(k => typeof k === 'string')) {
+          if (Array.isArray(parsedKeywords) && parsedKeywords.every((k) => typeof k === 'string')) {
             keywords = parsedKeywords;
           } else {
             logger.warn(`Item ID ${item.id}: Keywords field is not an array of strings after parsing.`);

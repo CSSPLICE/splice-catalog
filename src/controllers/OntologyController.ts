@@ -75,7 +75,7 @@ export class OntologyController {
             SELECT 1 
             FROM ontology_relations rel 
             WHERE rel.child_class_id = class.id
-          )`
+          )`,
         )
         .andWhere('class.label NOT IN (:...excludedLabels)', {
           excludedLabels: this.excludedLabels(),
@@ -96,7 +96,7 @@ export class OntologyController {
     return { categories, breadcrumb };
   }
 
-  // Build the breadcrumb trail 
+  // Build the breadcrumb trail
   private async buildBreadcrumb(parentId: number | null): Promise<{ id: number; label: string }[]> {
     const breadcrumb: { id: number; label: string }[] = [];
     if (parentId === null) {
@@ -121,7 +121,16 @@ export class OntologyController {
   }
   // exclude this labels from the results
   private excludedLabels(): string[] {
-    return ['unclassified', 'root', 'java scanner class', 'command line parameters', 'command line interface', 'factorial algorithms', 'Problem Solving Heuristics', 'Algorithm Definition'];
+    return [
+      'unclassified',
+      'root',
+      'java scanner class',
+      'command line parameters',
+      'command line interface',
+      'factorial algorithms',
+      'Problem Solving Heuristics',
+      'Algorithm Definition',
+    ];
   }
 
   // Fetch the full parent-child ontology tree

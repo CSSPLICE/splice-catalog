@@ -14,7 +14,7 @@ $(document).ready(function () {
       },
       error: function (xhr, status, error) {
         console.error('Error fetching ontology data:', error);
-      }
+      },
     });
   }
 
@@ -53,7 +53,7 @@ $(document).ready(function () {
   $('#ontology-container').on('click', '.tile', function () {
     const categoryId = $(this).data('category-id');
     history.pushState({ parentId: categoryId }, '', `?parentId=${categoryId}`);
-    loadCategories(categoryId); 
+    loadCategories(categoryId);
   });
 
   // Method for breadcrumb clicks
