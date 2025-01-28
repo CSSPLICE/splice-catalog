@@ -3,7 +3,6 @@ import { MetadataValidator } from './MetadataValidator';
 import { URLValidator } from './URLValidator';
 import { CategoryReport } from './CategoryReport';
 import { Categorizer } from './Categorizer';
-import { CategorizationResult } from '../types/ValidationTypes';
 
 export class ValidationManager {
   private metadataValidator: MetadataValidator;

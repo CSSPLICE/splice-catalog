@@ -10,9 +10,13 @@ To build the catalog container: `docker compose --profile catalog build`
 
 To run the splice catalog application: `docker compose --profile catalog up`
 
+Once the container starts you'll want to
+
 To exec into the running container: `docker compose --profile catalog exec catalog bash`
 
-This is where you can do things like running yarn commands (yarn install, yarn add <package>, etc) from within the docker container
+And run `yarn migrate` to instantiate the database
+
+From inside this container, you can also run other yarn commands (install, add <package>, etc)
 
 ## Import Ontology Data
 

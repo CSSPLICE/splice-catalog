@@ -1,9 +1,4 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import { validate } from 'class-validator';
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { ResponseUtil } from '../utils/Response';
 import logger from '../utils/logger';
 import { ValidationManager } from '../services/ValidationManager';
 import { ToolsCatalogController } from './ToolsCatalogController';
@@ -81,7 +76,7 @@ export class ReviewController {
       }
 
       // Process SLCToolsCatalog
-      for (const item of slcToolsCatalogs) {
+      for (let i = 0; i < slcToolsCatalogs.length; i++) {
         logger.info('Processing SLCToolsCatalog');
         await toolsCatalogController.createToolsCatalogItem(req, res);
       }

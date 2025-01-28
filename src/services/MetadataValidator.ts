@@ -1,7 +1,5 @@
 import { validate, ValidationError } from 'class-validator';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import logger from '../utils/logger';
 
 export class MetadataValidator {
   async validate(jsonArray: any[]): Promise<{

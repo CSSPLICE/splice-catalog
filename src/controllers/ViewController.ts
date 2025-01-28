@@ -7,8 +7,6 @@ import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { validate } from 'class-validator';
 import { ResponseUtil } from '../utils/Response';
 import { ILike } from 'typeorm';
-import { ToolsCatalogController } from './ToolsCatalogController';
-import { CreateSLCToolsDTO } from '../dtos/SLCToolsDTO';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
 import { dataset_catalog } from '../db/entities/DatasetCatalog';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
