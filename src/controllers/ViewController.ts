@@ -101,7 +101,8 @@ export class ViewController {
 
   async approveAll(req: Request, res: Response) {
     const data = req.body.data;
-    console.log("ApproveAll called with data:", data);
+    console.log('Approve All called with data:', data);
+    logger.info('Approve All called with data, logger');
     const jsonArray = JSON.parse(data);
     console.log("Parsed JSON data:", jsonArray);
 
@@ -119,6 +120,7 @@ export class ViewController {
 
       switch (item.catalog_type) {
         case 'SLCItemCatalog': {
+          logger.info('SLCItemCatalog called with data, logger');
           dto = new CreateSLCItemDTO();
           Object.assign(dto, item); 
           repo = AppDataSource.getRepository(slc_item_catalog);
@@ -161,6 +163,7 @@ export class ViewController {
 
     // Proceed to store and classify items after processing all entries
     if (itemsToClassify.length > 0) {
+      logger.info("calling storeAndClassifyItems")
       const categoryReport = await validationManager.generateCategoryReport(itemsToClassify);
       await validationManager.storeAndClassifyItems(categoryReport);
     }

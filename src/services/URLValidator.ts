@@ -1,17 +1,18 @@
 import axios from 'axios';
-import * as https from 'https';  
+import * as https from 'https';
+import { URLValidationItem, URLValidationIssue } from '../types/ValidationTypes';
 
 export class URLValidator {
-  async validate(validItems: any[]): Promise<{ 
-    urlsChecked: number; 
-    successfulUrls: number; 
-    unsuccessfulUrls: number; 
-    issues: { item: any; error: string }[]; 
+  async validate(validItems: URLValidationItem[]): Promise<{
+    urlsChecked: number;
+    successfulUrls: number;
+    unsuccessfulUrls: number;
+    issues: URLValidationIssue[];
   }> {
     let urlsChecked = 0;
     let successfulUrls = 0;
     let unsuccessfulUrls = 0;
-    const issues: { item: any; error: string }[] = [];
+    const issues: URLValidationIssue[] = [];
 
     const urlPromises = validItems.map(async (item) => {
       try {
