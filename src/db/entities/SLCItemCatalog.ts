@@ -5,6 +5,10 @@ export class slc_item_catalog {
   @PrimaryGeneratedColumn()
   id!: number;
 
+  // change # 1
+  @PrimaryColumn()
+  persistent_identifier!: string;
+
   @Column({ nullable: false })
   catalog_type!: string;
 

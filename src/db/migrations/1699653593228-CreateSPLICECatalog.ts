@@ -13,6 +13,13 @@ export class CreateSPLICECatalog1699653593228 implements MigrationInterface {
             isGenerated: true,
             generationStrategy: 'increment',
           },
+          //change #4
+          {
+            name: 'persistent_identifier',
+            type: 'varchar',
+            isPrimary: true,
+            isNullable: false,
+          },
           {
             name: 'catalog_type',
             type: 'varchar',

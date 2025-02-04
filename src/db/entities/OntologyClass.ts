@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, PrimaryColumn } from 'typeorm';
 import { OntologyAliases } from './OntologyAlias';
 import { OntologyRelations } from './OntologyRelation';
 
@@ -6,6 +6,10 @@ import { OntologyRelations } from './OntologyRelation';
 export class OntologyClasses {
   @PrimaryGeneratedColumn()
   id!: number;
+
+  //change #5
+  @PrimaryColumn()
+  persistent_identifier!: string;
 
   @Column({ type: 'varchar', unique: true })
   class_uri!: string;

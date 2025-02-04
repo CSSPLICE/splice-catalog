@@ -5,6 +5,11 @@ export class CreateSLCItemDTO {
   @IsString()
   catalog_type!: string;
 
+  ///change #2
+  @IsNotEmpty()
+  @IsString()
+  persistent_identifier!: string;
+
   @IsNotEmpty()
   @IsString()
   platform_name!: string;

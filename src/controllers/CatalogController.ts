@@ -37,13 +37,15 @@ export class CatalogController {
   }
 
   async deleteCatalogItem(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params;
+    const { id, persistent_identifier } = req.params;
     const CatalogData = req.body;
     switch (CatalogData.catalog_type) {
       case 'SLCItemCatalog': {
         const repo = AppDataSource.getRepository(CatalogData.catalog_type);
         const CatalogItem = await repo.findOneByOrFail({
           id: Number(id),
+          //change 3
+          persistent_identifier,
         });
         await repo.remove(CatalogItem);
         return ResponseUtil.sendResponse(res, 'successfully deleted the CatalogItem', 201);
