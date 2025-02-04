@@ -14,6 +14,11 @@ export interface SLCItem {
   lti_url?: string;
 }
 
-export interface metadata {}
+export interface MatchedItem {
+  item: SLCItem; // Item being matched
+  matchedClass?: string;
+}
 
-export interface matchedClass {}
+export interface Metadata {
+  keywords: string[];
+}

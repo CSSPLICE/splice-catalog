@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { AppDataSource } from '../db/data-source';
 import { OntologyClasses } from '../db/entities/OntologyClass';
 // import { OntologyAliases } from '../db/entities/OntologyAlias';
+// import { OntologyAliases } from '../db/entities/OntologyAlias';
 import { OntologyRelations } from '../db/entities/OntologyRelation';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
 import { ItemClassification } from '../db/entities/ItemClassification';
@@ -59,7 +60,7 @@ const generateNGrams = (words: string[], n: number): string[] => {
 const normalizeText = (text: string): string => {
   return text
     .toLowerCase()
-    .replace(/[_\-]+/g, ' ') // Replace underscores and hyphens with spaces
+    .replace(/[_-]+/g, ' ') // Replace underscores and hyphens with spaces
     .replace(/[^a-z0-9 ]/g, '')
     .replace(/\s+/g, ' ')
     .trim()
@@ -85,6 +86,7 @@ const initializeDataSource = async () => {
  */
 const buildOntologyLookupMap = async (): Promise<Map<string, OntologyClasses>> => {
   const ontologyClassRepository = AppDataSource.getRepository(OntologyClasses);
+  // const ontologyAliasRepository = AppDataSource.getRepository(OntologyAliases);
   // const ontologyAliasRepository = AppDataSource.getRepository(OntologyAliases);
 
   const ontologyClasses = await ontologyClassRepository.find({

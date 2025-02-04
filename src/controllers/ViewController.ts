@@ -75,7 +75,7 @@ export class ViewController {
       const datasetCatalog_data = await AppDataSource.getRepository(dataset_catalog).find();
       res.render('pages/datasetcatalog', { datasets: datasetCatalog_data, title: 'Dataset Catalog' });
     } catch (error) {
-      console.error('Failed to fetch dataset catalog data:', error);
+      logger.error('Failed to fetch dataset catalog data:', error);
       res.status(500).send('Internal Server Error');
     }
   }
@@ -99,9 +99,9 @@ export class ViewController {
 
   async approveAll(req: Request, res: Response) {
     const data = req.body.data;
-    console.log('ApproveAll called with data:', data);
+    logger.info('Approve All called with data:', data);
     const jsonArray = JSON.parse(data);
-    console.log('Parsed JSON data:', jsonArray);
+    logger.info('Parsed JSON data:', jsonArray);
 
     let processedCount = 0;
     const itemsToClassify: CreateSLCItemDTO[] = [];
@@ -111,12 +111,13 @@ export class ViewController {
 
       // Check if the item has an exercise_name
       if (!item.exercise_name || item.exercise_name.trim() === '') {
-        console.log('Skipping item without exercise_name:', item);
+        logger.info('Skipping item without exercise_name:', item);
         continue; // Skip this item if it doesn't have an exercise_name
       }
 
       switch (item.catalog_type) {
         case 'SLCItemCatalog': {
+          logger.info('SLCItemCatalog called with data, logger');
           dto = new CreateSLCItemDTO();
           Object.assign(dto, item);
           repo = AppDataSource.getRepository(slc_item_catalog);
@@ -129,7 +130,7 @@ export class ViewController {
           Object.assign(dto, item);
           const validationErrors = await validate(dto);
           if (validationErrors.length > 0) {
-            console.error(`Validation errors for ${item.catalog_type}:`, validationErrors);
+            logger.error(`Validation errors for ${item.catalog_type}:`, validationErrors);
             continue; // Skip this item if validation fails
           }
           const repo = AppDataSource.getRepository(dataset_catalog);
@@ -148,7 +149,7 @@ export class ViewController {
       if (dto && repo) {
         const validationErrors = await validate(dto);
         if (validationErrors.length > 0) {
-          console.error(`Validation errors for ${item.catalog_type}:`, validationErrors);
+          logger.error(`Validation errors for ${item.catalog_type}:`, validationErrors);
         } else {
           const catalogItem = repo.create(dto);
           await repo.save(catalogItem);
@@ -159,6 +160,7 @@ export class ViewController {
 
     // Proceed to store and classify items after processing all entries
     if (itemsToClassify.length > 0) {
+      logger.info('calling storeAndClassifyItems');
       const categoryReport = await validationManager.generateCategoryReport(itemsToClassify);
       await validationManager.storeAndClassifyItems(categoryReport);
     }
