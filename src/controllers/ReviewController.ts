@@ -6,7 +6,7 @@ import { MetadataIssue, CategorizationResult } from '../types/ValidationTypes';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
-    const jsonArray = Array.isArray(req.body) ? req.body : [req.body]; 
+    const jsonArray = Array.isArray(req.body) ? req.body : [req.body];
     const validationManager = new ValidationManager();
     const toolsCatalogController = new ToolsCatalogController();
 
@@ -20,14 +20,14 @@ export class ReviewController {
       logger.info('Starting metadata validation');
 
       // Separate the items by catalog type
-      const slcItemCatalogs = jsonArray.filter(item => item.catalog_type === 'SLCItemCatalog');
-      const slcToolsCatalogs = jsonArray.filter(item => item.catalog_type === 'SLCToolsCatalog');
+      const slcItemCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCItemCatalog');
+      const slcToolsCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCToolsCatalog');
 
       // Process SLCItemCatalogs
       if (slcItemCatalogs.length > 0) {
         logger.info(`Processing ${slcItemCatalogs.length} SLCItemCatalog items`);
-        
-        // Validate metadata 
+
+        // Validate metadata
         const metadataResult = await validationManager.validateMetadata(slcItemCatalogs);
         metadataIssues = metadataResult.issues as MetadataIssue[];
         successfulVerifications += metadataResult.successfulVerifications;
@@ -82,7 +82,7 @@ export class ReviewController {
         if (res.locals.io) {
           res.locals.io.emit('categorizationComplete', categorizationResults);
         }
-      }  
+      }
 
       // Process SLCToolsCatalog items
       if (slcToolsCatalogs.length > 0) {

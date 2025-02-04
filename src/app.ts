@@ -6,7 +6,8 @@ import { Server } from 'socket.io';
 import catalogRoutes from './routes/catalog';
 import searchRoutes from './routes/search';
 import viewRoutes from './routes/view';
-import reviewRoutes from './routes/review'
+import reviewRoutes from './routes/review';
+import ontologyRoutes from './routes/ontology';
 import { ErrorHandler } from './utils/ErrorHandler';
 import path from 'path';
 import { auth } from 'express-openid-connect';
@@ -64,8 +65,10 @@ app.use('/', viewRoutes);
 app.use('/catalog', catalogRoutes);
 app.use('/search', searchRoutes);
 
-app.use('/', reviewRoutes); 
+app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
+
+app.use('/ontology', ontologyRoutes);
 
 app.all('*', (req: Request, res: Response) => {
   return res.status(404).send({

@@ -20,8 +20,8 @@ export class URLValidator {
         urlsChecked++;
         // const response = await axios.get(item.url);
         // Disable SSL certificate validation for axios
-        const response = await axios.get(item.url, { 
-          httpsAgent: new https.Agent({ rejectUnauthorized: false }) 
+        const response = await axios.get(item.url, {
+          httpsAgent: new https.Agent({ rejectUnauthorized: false }),
         });
 
         if (response.status === 200) {
@@ -42,4 +42,3 @@ export class URLValidator {
     return { urlsChecked, successfulUrls, unsuccessfulUrls, issues };
   }
 }
-

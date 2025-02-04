@@ -15,7 +15,7 @@ export class ToolsCatalogController {
     try {
       const toolsCatalogData = req.body;
 
-    // Assign default values, might serve from a utility file soon
+      // Assign default values, might serve from a utility file soon
       toolsCatalogData.tool_description = toolsCatalogData.tool_description || 'No tool description';
       toolsCatalogData.keywords = toolsCatalogData.keywords || 'no, Keywords';
       toolsCatalogData.contact_email = toolsCatalogData.contact_email || 'default@email.com';
@@ -35,7 +35,6 @@ export class ToolsCatalogController {
       const toolsCatalogItem = repo.create(toolsCatalogData);
       await repo.save(toolsCatalogItem);
       return ResponseUtil.sendResponse(res, toolsCatalogItem, 201);
-
     } catch (error) {
       console.error('Error in saving tool:', error);
       return ResponseUtil.sendError(res, 'Server Error', 500, error);

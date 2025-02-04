@@ -7,7 +7,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 /**
- * Normalizes 
+ * Normalizes
  * - Replacing underscores and hyphens with spaces
  * - Converting to lowercase
  * - Trimming whitespace
@@ -23,13 +23,13 @@ const normalizeLabel = (label: string): string => {
 };
 
 /**
- * Creates OntologyClass entry 
+ * Creates OntologyClass entry
  * @param label The label of the class.
  * @returns
  */
 const createMissingClass = async (label: string): Promise<OntologyClasses> => {
   const classUri = `http://opendsa.org/ontology#${label.replace(/\s+/g, '_')}`;
-  
+
   // Check if a class with this class_uri already exists
   const existingClass = await AppDataSource.getRepository(OntologyClasses).findOne({
     where: { class_uri: classUri },
@@ -150,7 +150,7 @@ async function importOntologyData() {
 
         if (existingRelation) {
           console.log(
-            `Relation "${relationItem.parent_class}" -> "${relationItem.child_class}" already exists. Skipping.`
+            `Relation "${relationItem.parent_class}" -> "${relationItem.child_class}" already exists. Skipping.`,
           );
           continue;
         }
@@ -162,12 +162,12 @@ async function importOntologyData() {
 
         await AppDataSource.manager.save(ontologyRelation);
         console.log(
-          `Inserted relation: "${parentClass.label}" (${parentClass.id}) -> "${childClass.label}" (${childClass.id})`
+          `Inserted relation: "${parentClass.label}" (${parentClass.id}) -> "${childClass.label}" (${childClass.id})`,
         );
       } catch (error) {
         console.error(
           `Error inserting relation "${relationItem.parent_class}" -> "${relationItem.child_class}":`,
-          error
+          error,
         );
       }
     }
@@ -202,7 +202,9 @@ async function importOntologyData() {
 
     // Report any missing labels
     if (missingLabels.size > 0) {
-      console.warn('The following class labels referenced in relations or aliases were not found in ontology_classes.json and were auto-created:');
+      console.warn(
+        'The following class labels referenced in relations or aliases were not found in ontology_classes.json and were auto-created:',
+      );
       missingLabels.forEach((label) => console.warn(`- "${label}"`));
       console.warn('Please review the auto-created classes for accuracy and completeness.');
     }

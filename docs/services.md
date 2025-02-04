@@ -12,9 +12,9 @@ The catalog is designed with modular services to handle specific functionalities
 
 ---
 
-## Services 
+## Services
 
-### 1. **[Categorizer](../src/services/Categorizer.ts)** 
+### 1. **[Categorizer](../src/services/Categorizer.ts)**
 
 The `Categorizer` is responsible for classifying content items into ontology classes based on their metadata. It utilizes keyword matching and ontology lookups to determine the appropriate classification.
 
@@ -36,13 +36,11 @@ The `KeywordMatch` service is responsible for mapping metadata keywords to ontol
 
 The `MetadataExtractor` service extracts `keywords` from the uploaded content items.
 
-
 ---
 
 ### 4. **[MetadataValidator](../src/services/MetadataValidator.ts)**
 
 The `MetadataValidator` service is responsible for ensuring that the metadata of items in the catalog meets predefined standards and requirements. It checks fields such as `title`, `description`, `keywords`, and `author` for completeness and consistency.
-
 
 ---
 
@@ -54,13 +52,11 @@ The `URLValidator` service ensures that URLs provided in the catalog, such as co
 - Check the availability and accessibility of URLs via HTTP requests.
 - Report invalid or unreachable URLs for further review
 
-
 ---
 
 ### 6. **[CategoryReport](../src/services/CategoryReport.ts)**
 
 The `CategoryReport` service generates detailed reports on the classification and distribution of content within the ontology.
-
 
 ---
 

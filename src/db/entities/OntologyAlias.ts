@@ -1,16 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { OntologyClasses } from './OntologyClass';
 
-@Entity('ontology_aliases') 
+@Entity('ontology_aliases')
 export class OntologyAliases {
   @PrimaryGeneratedColumn()
   id!: number;
 
   @ManyToOne(() => OntologyClasses, (ontologyClass) => ontologyClass.aliases, {
-    nullable: false, 
-    onDelete: 'CASCADE', 
+    nullable: false,
+    onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'class_id' }) 
+  @JoinColumn({ name: 'class_id' })
   class!: OntologyClasses;
 
   @Column({ type: 'varchar', unique: true })

@@ -1,0 +1,45 @@
+/* public/css/ontologyTiles.css */
+
+#ontology-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.tile {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  flex: 1 1 calc(25% - 30px);
+  min-width: 200px;
+  padding: 20px;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
+}
+
+.tile:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-5px);
+}
+
+.tile h3 {
+  margin-top: 0;
+  font-size: 1em;
+}
+
+.breadcrumb {
+  margin-bottom: 20px;
+}
+
+.breadcrumb a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
