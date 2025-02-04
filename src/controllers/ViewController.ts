@@ -161,7 +161,7 @@ export class ViewController {
 
     // Proceed to store and classify items after processing all entries
     if (itemsToClassify.length > 0) {
-      logger.info("calling storeAndClassifyItems")
+      logger.info('calling storeAndClassifyItems');
       const categoryReport = await validationManager.generateCategoryReport(itemsToClassify);
       await validationManager.storeAndClassifyItems(categoryReport);
     }

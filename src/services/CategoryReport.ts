@@ -2,7 +2,7 @@ import { KeywordMatch } from './KeywordMatch';
 import { OntologyClasses } from '../db/entities/OntologyClass';
 import logger from '../utils/logger';
 import { AppDataSource } from '../db/data-source';
-import { SLCItem,  MatchedItem } from '../types/ItemTypes';
+import { SLCItem, MatchedItem } from '../types/ItemTypes';
 
 export class CategoryReport {
   private matcher = new KeywordMatch();
@@ -20,7 +20,7 @@ export class CategoryReport {
     for (const item of items) {
       logger.info(`Processing item: ${item.exercise_name}`);
       const matchedClasses = await this.matcher.matchKeywordsToOntology({
-        keywords: item.keywords || [], 
+        keywords: item.keywords || [],
       });
 
       if (matchedClasses && matchedClasses.length > 0 && matchedClasses[0]) {

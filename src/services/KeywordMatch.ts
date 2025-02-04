@@ -47,11 +47,10 @@ export class KeywordMatch {
 
       logger.info(
         'Keyword matching completed. Matched classes:',
-        matchedClasses.map(mc => mc.label)
+        matchedClasses.map((mc) => mc.label),
       );
 
       return matchedClasses.length > 0 ? matchedClasses : null;
-
     } catch (error) {
       logger.error('Error in matchKeywordsToOntology:', error);
       throw error;

@@ -2,7 +2,7 @@ import { AppDataSource } from '../db/data-source';
 import { ItemClassification } from '../db/entities/ItemClassification';
 import { OntologyClasses } from '../db/entities/OntologyClass';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import { SLCItem,  MatchedItem } from '../types/ItemTypes';
+import { SLCItem, MatchedItem } from '../types/ItemTypes';
 import logger from '../utils/logger';
 
 export class Categorizer {

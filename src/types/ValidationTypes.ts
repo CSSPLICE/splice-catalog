@@ -2,24 +2,24 @@ import { ValidationError } from 'class-validator';
 import { SLCItem } from './ItemTypes'; // Use SLCItem as the primary item type
 
 export interface MetadataIssue {
-  item: SLCItem; 
+  item: SLCItem;
   validationErrors: ValidationError[];
 }
 
 export interface CategorizationResult {
   item: string; //`exercise_name` of the item
   status: 'success' | 'failed' | 'Matched' | 'Unclassified' | 'Unmatched';
-  matchedClass?: string; 
-  error?: string | Error; 
+  matchedClass?: string;
+  error?: string | Error;
 }
 
 export interface ValidationIssue {
-  item: SLCItem; 
+  item: SLCItem;
   validationErrors: ValidationError[];
 }
 
 export interface URLValidationItem extends SLCItem {
-  url: string; 
+  url: string;
 }
 
 export interface URLValidationIssue {

@@ -93,7 +93,7 @@ export class ReviewController {
           } catch (error) {
             logger.error(`Error processing tools catalog item:`, error);
           }
-        });     
+        });
       }
 
       //provide metadata validation results

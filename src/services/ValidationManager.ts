@@ -4,7 +4,7 @@ import { URLValidator } from './URLValidator';
 import { CategoryReport } from './CategoryReport';
 import { Categorizer } from './Categorizer';
 import { MetadataIssue, URLValidationResult } from '../types/ValidationTypes';
-import { SLCItem, MatchedItem } from '../types/ItemTypes';
+import { SLCItem } from '../types/ItemTypes';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { CategorizationReport } from '../types/CategorizationTypes';
 
@@ -38,7 +38,7 @@ export class ValidationManager {
       // 1. Transform SLCItem[] -> CreateSLCItemDTO[]
       const createDtoArray: CreateSLCItemDTO[] = jsonArray.map((item) => ({
         ...item,
-        keywords: item.keywords ?? [],                    // Ensure keywords is string[]
+        keywords: item.keywords ?? [], // Ensure keywords is string[]
         lti_instructions_url: item.lti_instructions_url ?? '',
         // You can do the same for other fields that must be string (instead of string | undefined)
       }));
@@ -62,7 +62,6 @@ export class ValidationManager {
         totalSubmissions: result.totalSubmissions,
         successfulVerifications: result.successfulVerifications,
       };
-    
     } catch (error) {
       logger.error('Error in metadata validation:', error);
       throw error;
@@ -167,8 +166,8 @@ export class ValidationManager {
 
       // Step 2: URL Validation
       const urlValidationResult = await this.validateUrls(validatedMetadataItems);
-      const successfulUrlItems = validatedMetadataItems.filter((_, index) =>
-        urlValidationResult.successfulUrls > index,
+      const successfulUrlItems = validatedMetadataItems.filter(
+        (_, index) => urlValidationResult.successfulUrls > index,
       );
 
       if (!successfulUrlItems.length) {

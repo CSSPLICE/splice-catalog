@@ -15,11 +15,7 @@ import * as path from 'path';
  * @returns The normalized label.
  */
 const normalizeLabel = (label: string): string => {
-  return label
-    .replace(/[_-]+/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
+  return label.replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
 };
 
 /**
