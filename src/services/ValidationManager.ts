@@ -40,7 +40,6 @@ export class ValidationManager {
         ...item,
         keywords: item.keywords ?? [], // Ensure keywords is string[]
         lti_instructions_url: item.lti_instructions_url ?? '',
-        // You can do the same for other fields that must be string (instead of string | undefined)
       }));
 
       // 2. Validate the CreateSLCItemDTO[] array
@@ -48,10 +47,9 @@ export class ValidationManager {
 
       logger.info(`Metadata validation completed: ${result.validItems.length} valid items`);
 
-      // 3. Convert validItems (which are CreateSLCItemDTO) back to SLCItem if your workflow needs SLCItem
       const validSLCItems: SLCItem[] = result.validItems.map((dto) => ({
         ...dto,
-        // revert empty strings to undefined if needed
+
         keywords: dto.keywords ?? [],
         lti_instructions_url: dto.lti_instructions_url || undefined,
       }));
@@ -93,7 +91,6 @@ export class ValidationManager {
   async generateCategoryReport(items: SLCItem[]): Promise<CategorizationReport> {
     try {
       logger.info(`Generating category report for ${items.length} items`);
-      // The CategoryReport's generateReport should return { matched: MatchedItem[], unclassified: MatchedItem[], unmatched: MatchedItem[] }
       const report = await this.categoryReport.generateReport(items);
 
       logger.info('Category report generated successfully:', {
