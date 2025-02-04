@@ -62,9 +62,6 @@ export class ValidationManager {
         totalSubmissions: result.totalSubmissions,
         successfulVerifications: result.successfulVerifications,
       };
-
-    
-   
     
     } catch (error) {
       logger.error('Error in metadata validation:', error);
