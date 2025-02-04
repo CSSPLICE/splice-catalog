@@ -20,7 +20,7 @@ exec: ## This execs into the running catalog container
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) exec catalog bash
 
 nuke: ## This removes all the volumes as well as taking down the app
-	$(COMPOSE_COMMAND) $(DEV_PROFILE) down -v
+	$(COMPOSE_COMMAND) $(DEV_PROFILE) down -v --remove-orphans
 
 restart: down up ## This restarts the app
 
