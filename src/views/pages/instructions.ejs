@@ -27,7 +27,7 @@
                         <h5>SLC Items Catalog</h5>
                         <p>A collection of Smart Learning Content (SLC) items should be described as a series of JSON records, each formatted as follows:</p>
                         <pre><code>{
-    "catalog": "SLCItemCatalog",
+    "catalog_type": "SLCItemCatalog",
     "platform_name": "...",
     "url": "...",
     "lti_instructions_url (required if LTI URL)": "...",
@@ -44,7 +44,7 @@
 }</code></pre>
                         <p><strong>Field Descriptions:</strong></p>
                         <ul>
-                            <li><strong>catalog</strong>: The type of catalog, e.g., "SLCItemCatalog".</li>
+                            <li><strong>catalog_type</strong>: The type of catalog, e.g., "SLCItemCatalog".</li>
                             <li><strong>platform_name</strong>: Name of the platform offering the SLC item.</li>
                             <li><strong>url</strong>: URL of the SLC item.</li>
                             <li><strong>lti_instructions_url</strong>: Required if an LTI URL is provided.</li>
@@ -65,7 +65,7 @@
                         <h5>SLC Tools Catalog</h5>
                         <p>Describe tools that support Smart Learning Content using this format:</p>
                         <pre><code>{
-    "catalog": "SLCToolsCatalog",
+    "catalog_type": "SLCToolsCatalog",
     "platform_name": "...",
     "url": "...",
     "tool_description": "...",
@@ -76,7 +76,7 @@
 }</code></pre>
                         <p><strong>Field Descriptions:</strong></p>
                         <ul>
-                            <li><strong>catalog</strong>: Type of catalog, e.g., "SLCToolsCatalog".</li>
+                            <li><strong>catalog_type</strong>: Type of catalog, e.g., "SLCToolsCatalog".</li>
                             <li><strong>platform_name</strong>: Name of the platform offering the tool.</li>
                             <li><strong>url</strong>: URL of the tool.</li>
                             <li><strong>tool_description</strong>: Brief description of the tool.</li>
@@ -91,7 +91,7 @@
                         <h5>Dataset Catalog</h5>
                         <p>Describe datasets available for Smart Learning Content with the following JSON format:</p>
                         <pre><code>{
-    "catalog": "dataset",
+    "catalog_type": "dataset",
     "title": "...",
     "publisher": "...",
     "dataset_name": "...",
@@ -107,7 +107,7 @@
 }</code></pre>
                         <p><strong>Field Descriptions:</strong></p>
                         <ul>
-                            <li><strong>catalog</strong>: The type of catalog, e.g., "dataset".</li>
+                            <li><strong>catalog_type</strong>: The type of catalog, e.g., "dataset".</li>
                             <li><strong>title</strong>: Title of the dataset.</li>
                             <li><strong>publisher</strong>: Publisher of the dataset.</li>
                             <li><strong>dataset_name</strong>: Name of the dataset.</li>
@@ -143,7 +143,7 @@
                 <h4>Examples</h4>
                 <p>Here are JSON exports examples for OpenDSA, CodeWorkout SLC items submission, OpenDSA tool submission and a Dataset submission:</p>
                 <pre><code>{
-    "catalog": "SLCItemCatalog",
+    "catalog_type": "SLCItemCatalog",
     "platform_name": "OpenDSA",
     "url": "https://opendsa-server.cs.vt.edu",
     "exercise_type": "KA",
@@ -158,7 +158,7 @@
     "lti_instructions_url": "https://opendsa-server.cs.vt.edu/guides/opendsa-canvas"
 }</code></pre>
                 <pre><code>{
-    "catalog": "SLCItemCatalog",
+    "catalog_type": "SLCItemCatalog",
     "platform_name": "CodeWorkout",
     "url": "https://codeworkout.cs.vt.edu",
     "exercise_type": "Coding Question",
@@ -174,7 +174,7 @@
 }</code></pre>
 <p>SLC tools catalog</p>
                     <pre><code>{
-    "catalog": "SLCToolsCatalog",
+    "catalog_type": "SLCToolsCatalog",
     "platform_name": "OpenDSA",
     "url": "https://opendsa.server.vt.edu/",
     "tool_description": "CS e-textbook platform.",
@@ -185,7 +185,7 @@
 }</code></pre>
 <p>Dataset catalog</p>
                   <pre><code>{
-    "catalogType": "DatasetCatalog",
+    "catalog_type": "DatasetCatalog",
     "title": "iSnap - Introductory Programming",
     "platform": "DataShop",
     "datasetName": "iSnap - Introductory Programming",

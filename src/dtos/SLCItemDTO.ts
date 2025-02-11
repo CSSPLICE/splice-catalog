@@ -26,7 +26,7 @@ export class CreateSLCItemDTO {
   @IsArray()
   @IsString({ each: true })
   @IsOptional()
-  keywords!: string[];
+  keywords?: string[];
 
   @IsString()
   @IsUrl()
@@ -36,11 +36,11 @@ export class CreateSLCItemDTO {
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  exercise_type!: string;
+  exercise_type?: string;
 
   // @IsNotEmpty()
   // @IsString()
-  description!: string;
+  description?: string;
 
   @IsNotEmpty()
   @IsString()
@@ -49,7 +49,7 @@ export class CreateSLCItemDTO {
   @IsOptional()
   // @IsNotEmpty()
   @IsString()
-  institution!: string;
+  institution?: string;
 
   @IsNotEmpty()
   @IsString()
@@ -67,5 +67,5 @@ export class CreateSLCItemDTO {
   @IsOptional()
   @IsUrl()
   @IsString()
-  lti_url!: string;
+  lti_url?: string;
 }

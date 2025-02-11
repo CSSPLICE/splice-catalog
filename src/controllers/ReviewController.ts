@@ -1,9 +1,4 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import { validate } from 'class-validator';
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { ResponseUtil } from '../utils/Response';
 import logger from '../utils/logger';
 import { ValidationManager } from '../services/ValidationManager';
 import { ToolsCatalogController } from './ToolsCatalogController';
@@ -58,20 +53,29 @@ export class ReviewController {
           res.locals.io.emit('categoryReportComplete', categoryReport);
         }
 
+        // Store and classify all items
+        try {
+          logger.info('Starting storage and classification of all valid items');
+          await validationManager.storeAndClassifyItems(categoryReport);
+          logger.info('Successfully stored and classified all items');
+        } catch (error) {
+          logger.error('Error in storing and classifying items:', error);
+        }
+
         categorizationResults = [
           ...categoryReport.matched.map((item) => ({
             item: item.item.exercise_name,
-            status: 'Matched',
+            status: 'success' as const,
             matchedClass: item.matchedClass,
           })),
           ...categoryReport.unclassified.map((item) => ({
             item: item.item.exercise_name,
-            status: 'Unclassified',
+            status: 'Unclassified' as const,
             matchedClass: 'Unclassified',
           })),
           ...categoryReport.unmatched.map((item) => ({
             item: item.item.exercise_name,
-            status: 'Unmatched',
+            status: 'failed' as const,
             matchedClass: 'None',
           })),
         ];
@@ -80,24 +84,32 @@ export class ReviewController {
         }
       }
 
-      // Process SLCToolsCatalog
-      for (const item of slcToolsCatalogs) {
-        logger.info('Processing SLCToolsCatalog');
-        await toolsCatalogController.createToolsCatalogItem(req, res);
+      // Process SLCToolsCatalog items
+      if (slcToolsCatalogs.length > 0) {
+        logger.info(`Processing ${slcToolsCatalogs.length} SLCToolsCatalog items`);
+        slcToolsCatalogs.forEach(async () => {
+          try {
+            await toolsCatalogController.createToolsCatalogItem(req, res);
+          } catch (error) {
+            logger.error(`Error processing tools catalog item:`, error);
+          }
+        });
       }
 
-      // Provide metadata validation results
-      res.render('pages/review-dashboard', {
-        issues: metadataIssues,
-        categorizationResults,
-        totalSubmissions,
-        successfulVerifications,
-        urlsChecked: 0,
-        successfulUrls: 0,
-        unsuccessfulUrls: 0,
-        title: 'Review Dashboard',
-        urlValidationComplete: false,
-      });
+      //provide metadata validation results
+      if (!res.headersSent) {
+        res.render('pages/review-dashboard', {
+          issues: metadataIssues,
+          categorizationResults,
+          totalSubmissions,
+          successfulVerifications,
+          urlsChecked: 0,
+          successfulUrls: 0,
+          unsuccessfulUrls: 0,
+          title: 'Review Dashboard',
+          urlValidationComplete: false,
+        });
+      }
     } catch (error) {
       logger.error('Error during validation:', error);
       if (!res.headersSent) {
