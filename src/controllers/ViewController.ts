@@ -32,11 +32,19 @@ export class ViewController {
   }
 
   async itemView(req: Request, res: Response) {
-    const query = req.body.item_link;
+    const { elementName } = req.params;
+    if (!elementName) 
+    {
+      return res.status(400).send("Invalid request: missing element name.");
+    }
     const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
-      where: [{ exercise_name: ILike(`%${query}%`) }],
+      where: [{ exercise_name: ILike(`%${elementName}%`) }],
     });
-    res.render('pages/item', { item: item, title: 'Item View' });
+    if (!item) 
+    {
+      return res.status(404).send("Item not found.");
+    }
+    res.render('pages/${item.exercise_name}', { item: item, title: 'pages/${item.exercise_name}' });
   }
 
   async instructionsView(req: Request, res: Response) {
