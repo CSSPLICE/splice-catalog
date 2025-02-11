@@ -1,26 +1,25 @@
 import { validate, ValidationError } from 'class-validator';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import logger from '../utils/logger';
+import { ValidationIssue } from '../types/ValidationTypes';
 
 export class MetadataValidator {
-  async validate(jsonArray: any[]): Promise<{
-    issues: { item: any; validationErrors: ValidationError[] }[];
+  async validate(jsonArray: CreateSLCItemDTO[]): Promise<{
+    issues: ValidationIssue[];
     validItems: CreateSLCItemDTO[];
     totalSubmissions: number;
     successfulVerifications: number;
   }> {
-    const issues: { item: any; validationErrors: ValidationError[] }[] = [];
+    const issues: ValidationIssue[] = [];
     const validItems: CreateSLCItemDTO[] = [];
     let successfulVerifications = 0;
 
-    for (const item of jsonArray) {
+    for (const rawItem of jsonArray) {
       const dto = new CreateSLCItemDTO();
-      Object.assign(dto, item);
+      Object.assign(dto, rawItem);
 
       const validationErrors: ValidationError[] = await validate(dto);
       if (validationErrors.length > 0) {
-        issues.push({ item, validationErrors });
+        issues.push({ item: dto, validationErrors });
       } else {
         validItems.push(dto);
         successfulVerifications++;

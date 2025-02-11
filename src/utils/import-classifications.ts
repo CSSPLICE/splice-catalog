@@ -1,7 +1,8 @@
 import 'reflect-metadata';
 import { AppDataSource } from '../db/data-source';
 import { OntologyClasses } from '../db/entities/OntologyClass';
-import { OntologyAliases } from '../db/entities/OntologyAlias';
+// import { OntologyAliases } from '../db/entities/OntologyAlias';
+// import { OntologyAliases } from '../db/entities/OntologyAlias';
 import { OntologyRelations } from '../db/entities/OntologyRelation';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
 import { ItemClassification } from '../db/entities/ItemClassification';
@@ -59,7 +60,7 @@ const generateNGrams = (words: string[], n: number): string[] => {
 const normalizeText = (text: string): string => {
   return text
     .toLowerCase()
-    .replace(/[_\-]+/g, ' ') // Replace underscores and hyphens with spaces
+    .replace(/[_-]+/g, ' ') // Replace underscores and hyphens with spaces
     .replace(/[^a-z0-9 ]/g, '')
     .replace(/\s+/g, ' ')
     .trim()
@@ -85,7 +86,8 @@ const initializeDataSource = async () => {
  */
 const buildOntologyLookupMap = async (): Promise<Map<string, OntologyClasses>> => {
   const ontologyClassRepository = AppDataSource.getRepository(OntologyClasses);
-  const ontologyAliasRepository = AppDataSource.getRepository(OntologyAliases);
+  // const ontologyAliasRepository = AppDataSource.getRepository(OntologyAliases);
+  // const ontologyAliasRepository = AppDataSource.getRepository(OntologyAliases);
 
   const ontologyClasses = await ontologyClassRepository.find({
     relations: ['aliases'],
@@ -203,10 +205,16 @@ const processItems = async (
     let keywords: string[] = [];
     if (item.keywords) {
       try {
-        keywords = Array.isArray(item.keywords) ? item.keywords : JSON.parse(item.keywords as any);
-        if (!Array.isArray(keywords)) {
-          logger.warn(`Item ID ${item.id}: Keywords field is not an array after parsing.`);
-          keywords = [];
+        if (Array.isArray(item.keywords)) {
+          keywords = item.keywords;
+        } else {
+          const parsedKeywords = JSON.parse(item.keywords);
+          if (Array.isArray(parsedKeywords) && parsedKeywords.every((k) => typeof k === 'string')) {
+            keywords = parsedKeywords;
+          } else {
+            logger.warn(`Item ID ${item.id}: Keywords field is not an array of strings after parsing.`);
+            keywords = [];
+          }
         }
       } catch (error) {
         logger.error(`Item ID ${item.id}: Error parsing keywords JSON - ${error}`);

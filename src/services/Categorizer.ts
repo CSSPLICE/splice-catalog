@@ -2,6 +2,7 @@ import { AppDataSource } from '../db/data-source';
 import { ItemClassification } from '../db/entities/ItemClassification';
 import { OntologyClasses } from '../db/entities/OntologyClass';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
+import { SLCItem, MatchedItem } from '../types/ItemTypes';
 import logger from '../utils/logger';
 
 export class Categorizer {
@@ -14,7 +15,7 @@ export class Categorizer {
    * @param items Items to be stored and classified.
    * @param matchedItems Matched items with their corresponding classes.
    */
-  public async storeItemsAndClassify(items: any[], matchedItems: any[]) {
+  public async storeItemsAndClassify(items: SLCItem[], matchedItems: MatchedItem[]) {
     for (const item of items) {
       try {
         //Find or insert the item in slc_item_catalog

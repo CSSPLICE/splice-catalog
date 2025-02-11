@@ -2,49 +2,94 @@ import { AppDataSource } from '../db/data-source';
 import { OntologyClasses } from '../db/entities/OntologyClass';
 import { OntologyAliases } from '../db/entities/OntologyAlias';
 import logger from '../utils/logger';
+import { Metadata } from '../types/ItemTypes';
 
 export class KeywordMatch {
   private ontologyRepo = AppDataSource.getRepository(OntologyClasses);
   private aliasRepo = AppDataSource.getRepository(OntologyAliases);
 
-  public async matchKeywordsToOntology(metadata: any) {
-    const matchedClasses = [];
+  public async matchKeywordsToOntology(metadata: Metadata): Promise<OntologyClasses[] | null> {
+    try {
+      if (!metadata?.keywords || !Array.isArray(metadata.keywords)) {
+        logger.warn('Invalid or missing keywords in metadata');
+        return null;
+      }
 
-    logger.info('Starting keyword matching for:', metadata.keywords);
+      const matchedClasses: OntologyClasses[] = [];
+      logger.info(`Starting keyword matching for: ${JSON.stringify(metadata.keywords)}`);
 
-    for (const keyword of metadata.keywords) {
-      logger.info(`Attempting to match keyword: ${keyword}`);
+      for (const keyword of metadata.keywords) {
+        try {
+          if (!keyword || typeof keyword !== 'string') {
+            logger.warn('Skipping invalid keyword:', keyword);
+            continue;
+          }
 
+          logger.debug(`Processing keyword: ${keyword}`);
+
+          // Try direct class match first
+          const classMatch = await this.findClassMatch(keyword);
+          if (classMatch) {
+            matchedClasses.push(classMatch);
+            continue;
+          }
+
+          // Try alias match if no direct class match found
+          const aliasMatch = await this.findAliasMatch(keyword);
+          if (aliasMatch) {
+            matchedClasses.push(aliasMatch);
+          }
+        } catch (error) {
+          logger.error(`Error processing keyword "${keyword}":`, error);
+          continue;
+        }
+      }
+
+      logger.info(
+        'Keyword matching completed. Matched classes:',
+        matchedClasses.map((mc) => mc.label),
+      );
+
+      return matchedClasses.length > 0 ? matchedClasses : null;
+    } catch (error) {
+      logger.error('Error in matchKeywordsToOntology:', error);
+      throw error;
+    }
+  }
+
+  private async findClassMatch(keyword: string): Promise<OntologyClasses | null> {
+    try {
       const classMatch = await this.ontologyRepo
         .createQueryBuilder('oc')
-        .where('oc.label LIKE :keyword', { keyword: `%${keyword}%` })
+        .where('LOWER(oc.label) LIKE LOWER(:keyword)', { keyword: `%${keyword}%` })
         .getOne();
 
       if (classMatch) {
-        matchedClasses.push(classMatch);
-        logger.info(`Matched keyword "${keyword}" with class: ${classMatch.label}`);
-        continue;
+        logger.debug(`Found direct class match: ${classMatch.label} for keyword: ${keyword}`);
       }
+      return classMatch;
+    } catch (error) {
+      logger.error(`Error in findClassMatch for keyword "${keyword}":`, error);
+      return null;
+    }
+  }
 
+  private async findAliasMatch(keyword: string): Promise<OntologyClasses | null> {
+    try {
       const aliasMatch = await this.aliasRepo
         .createQueryBuilder('oa')
-        .where('oa.alias LIKE :keyword', { keyword: `%${keyword}%` })
+        .leftJoinAndSelect('oa.class', 'class')
+        .where('LOWER(oa.alias) LIKE LOWER(:keyword)', { keyword: `%${keyword}%` })
         .getOne();
 
-      if (aliasMatch) {
-        const ontologyClass = await this.ontologyRepo.findOne(aliasMatch.class);
-        matchedClasses.push(ontologyClass);
-        logger.info(`Matched keyword "${keyword}" with alias leading to class: ${ontologyClass?.label}`);
-      } else {
-        logger.info(`No match found for keyword: ${keyword}`);
+      if (aliasMatch?.class) {
+        logger.debug(`Found alias match: ${aliasMatch.class.label} for keyword: ${keyword}`);
+        return aliasMatch.class;
       }
+      return null;
+    } catch (error) {
+      logger.error(`Error in findAliasMatch for keyword "${keyword}":`, error);
+      return null;
     }
-
-    logger.info(
-      'Keyword matching completed with matched classes:',
-      matchedClasses.map((mc) => mc?.label),
-    );
-
-    return matchedClasses.length > 0 ? matchedClasses : null;
   }
 }
