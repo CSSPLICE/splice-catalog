@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post('/', searchController.searchCatalog);
 router.get('/', searchController.searchCatalog); //for pagination links
+router.get('/keyword', searchController.searchOntologyByKeyword);
 
 export default router;
