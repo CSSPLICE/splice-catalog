@@ -19,10 +19,10 @@
                 <% results.forEach((SLCItem) => { %> 
                     <tr>
                         <td scope="row">
-                            <form style="display: none" action="/item/" method="post">
-                                <input type="submit" value="<%= SLCItem.exercise_name %>" name="item_link" id="item_link<%= SLCItem.exercise_name %>"></input>
-                            </form>
-                            <label style="text-decoration: underline; color: #0000EE" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
+                            <a href="/item/<%= SLCItem.catalog_type %>/<%= exercise_name %>" 
+                                style="text-decoration: underline; color: #0000EE">
+                                 <%= SLCItem.exercise_name %>
+                             </a>                     
                         </td>
                         <td><a href="<%= SLCItem.iframe_url %>" target=_blank>See in iframe</a></td>
                         <td><a href="<%= SLCItem.url %>"</a><%= SLCItem.platform_name %></td>
