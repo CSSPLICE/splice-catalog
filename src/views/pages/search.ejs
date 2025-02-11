@@ -4,6 +4,41 @@
 <link rel="stylesheet" href="/css/style.css">
 <%- include('../partials/header') -%>
 <body>
+    <% if (results.length > 0) { %>
+        <div class="ontology-context">
+            <h2>Ontology Context</h2>
+            
+            <% results.forEach((ontologyItem) => { %>
+                <div class="ontology-item">
+                    <h3>Keyword: "<%= ontologyItem.label %>"</h3>
+                    
+                    <% if (ontologyItem.parents.length > 0) { %>
+                        <h4>Parents:</h4>
+                        <ul>
+                            <% ontologyItem.parents.forEach((parent) => { %>
+                                <li><%= parent.label %> (ID: <%= parent.id %>)</li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p>No parent classes found.</p>
+                    <% } %>
+    
+                    <% if (ontologyItem.children.length > 0) { %>
+                        <h4>Children:</h4>
+                        <ul>
+                            <% ontologyItem.children.forEach((child) => { %>
+                                <li><%= child.label %> (ID: <%= child.id %>)</li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p>No child classes found.</p>
+                    <% } %>
+                </div>
+                <hr>
+            <% }); %>
+        </div>
+    <% } %>
+    
     <div class="container">
         <h1 class="header">Search Results</h1>
         <table class="table table-striped">
