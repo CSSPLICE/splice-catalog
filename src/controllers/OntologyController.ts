@@ -22,6 +22,8 @@ export class OntologyController {
     }
   }
 
+
+
   // Fetch child categories for a given parent
   async getChildCategories(req: Request, res: Response) {
     try {

@@ -16,7 +16,43 @@ export class SearchController {
         user: req.oidc.user,
       });
     }
-
+    async searchOntologyByKeyword(req: Request, res: Response) {
+    try {
+      const keyword = req.query.keyword as string;
+      
+  
+      // Call getOntologyTree to retrieve the full ontology tree
+      const treeResponse = await this.getOntologyTree(req, res);
+      
+      
+  
+      const ontologyTree = treeResponse.tree;
+  
+      // Filter classes matching the keyword
+      const matchedClasses = ontologyTree.filter((classItem) =>
+        classItem.label.toLowerCase().includes(keyword.toLowerCase())
+      );
+  
+      if (matchedClasses.length === 0) {
+        return res.status(404).json({ message: 'No matching ontology class found' });
+      }
+  
+      // Extract parent and child relationships for matched classes
+      const result = matchedClasses.map((classItem) => ({
+        id: classItem.id,
+        label: classItem.label,
+        hasParents: classItem.parents && classItem.parents.length > 0,
+        hasChildren: classItem.children && classItem.children.length > 0,
+        parents: classItem.parents ? classItem.parents.slice(0, 3) : [],
+        children: classItem.children ? classItem.children.slice(0, 3) : [],
+      }));
+  
+      res.json({ results: result });
+    } catch (error) {
+      console.error('Error searching ontology by keyword:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  }
     const currentPage = Number(req.query.page) || 1;
     const ITEMS_PER_PAGE = 25;
 
@@ -42,5 +78,43 @@ export class SearchController {
       title: 'Search Results',
       user: req.oidc.user,
     });
+  }
+  
+  async searchOntologyByKeyword(req: Request, res: Response) {
+    try {
+      const keyword = req.query.keyword as string;
+      
+  
+      // Call getOntologyTree to retrieve the full ontology tree
+      const treeResponse = await this.getOntologyTree(req, res);
+      
+      
+  
+      const ontologyTree = treeResponse.tree;
+  
+      // Filter classes matching the keyword
+      const matchedClasses = ontologyTree.filter((classItem) =>
+        classItem.label.toLowerCase().includes(keyword.toLowerCase())
+      );
+  
+      if (matchedClasses.length === 0) {
+        return res.status(404).json({ message: 'No matching ontology class found' });
+      }
+  
+      // Extract parent and child relationships for matched classes
+      const result = matchedClasses.map((classItem) => ({
+        id: classItem.id,
+        label: classItem.label,
+        hasParents: classItem.parents && classItem.parents.length > 0,
+        hasChildren: classItem.children && classItem.children.length > 0,
+        parents: classItem.parents ? classItem.parents.slice(0, 3) : [],
+        children: classItem.children ? classItem.children.slice(0, 3) : [],
+      }));
+  
+      res.json({ results: result });
+    } catch (error) {
+      console.error('Error searching ontology by keyword:', error);
+      res.status(500).send('Internal Server Error');
+    }
   }
 }
