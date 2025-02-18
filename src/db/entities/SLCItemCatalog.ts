@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, Index } from 'typeorm';
 
 @Entity()
 export class slc_item_catalog {
@@ -8,6 +8,10 @@ export class slc_item_catalog {
   // change # 1
   @PrimaryColumn()
   persistent_identifier!: string;
+
+  @Index({unique: true})
+  @PrimaryGeneratedColumn("increment")
+  index!: number;
 
   @Column({ nullable: false })
   catalog_type!: string;

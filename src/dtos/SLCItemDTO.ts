@@ -11,6 +11,9 @@ export class CreateSLCItemDTO {
   persistent_identifier!: string;
 
   @IsNotEmpty()
+  index!: number;
+
+  @IsNotEmpty()
   @IsString()
   platform_name!: string;
 

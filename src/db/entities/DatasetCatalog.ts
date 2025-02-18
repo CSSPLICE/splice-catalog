@@ -5,10 +5,6 @@ export class dataset_catalog {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  //change #6
-  @PrimaryColumn({ length: 255 })
-  persistent_identifier!: string;
-
   @Column({ length: 255 })
   title!: string;
 
