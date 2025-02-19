@@ -1,3 +1,4 @@
+
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
@@ -32,20 +33,53 @@ export class ViewController {
   }
 
   async itemView(req: Request, res: Response) {
-    const { elementName } = req.params;
-    if (!elementName) 
-    {
-      return res.status(400).send("Invalid request: missing element name.");
+  
+    const query = req.query.item_link as string;
+    
+    if (!query) {
+  
+      return res.status(400).send('No item provided');
+  
     }
-    const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
-      where: [{ exercise_name: ILike(`%${elementName}%`) }],
-    });
-    if (!item) 
-    {
-      return res.status(404).send("Item not found.");
+  
+    try {  
+      const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
+  
+        where: { exercise_name: ILike(`%${query}%`) }
+  
+      });
+    
+      if (!item) {
+  
+        return res.status(404).render('pages/item', {
+  
+          item: null,
+  
+          title: 'Item Not Found'
+  
+        });
+  
+      }
+    
+      res.render('pages/item', {
+  
+        item,
+  
+        title: 'Item View'
+  
+      });
+  
+    } catch (error) {
+  
+      logger.error('Error retrieving item:', error);
+  
+      res.status(500).send('Internal Server Error');
+  
     }
-    res.render('pages/${item.exercise_name}', { item: item, title: 'pages/${item.exercise_name}' });
+  
   }
+
+  
 
   async instructionsView(req: Request, res: Response) {
     res.render('pages/instructions', { title: 'Instructions' });
