@@ -32,15 +32,26 @@ export class CatalogController {
 
     if (CatalogItem){
       await repo.update(
-        CatalogItem, CatalogData
+        {persistent_identifier : CatalogData.persistent_identifier}, 
+        CatalogData
       )
       return ResponseUtil.sendResponse(res, "successfully updated the CatalogItem", 201);
     }
 
     else {
-      const CatalogItem = repo.create(CatalogData);
-      await repo.save(CatalogItem);
-      return ResponseUtil.sendResponse(res, CatalogItem, 201);
+
+      const existingItem = await repo.findOneBy({
+        exercise_name: CatalogData.exercise_name,
+        iframe_url: CatalogData.iframe_url
+      })
+
+      if (existingItem){
+        return ResponseUtil.sendResponse(res, "existing CatalogItem exists under a different persistent identifier", 400);
+      }
+
+      const item = repo.create(CatalogData);
+      await repo.save(item);
+      return ResponseUtil.sendResponse(res, item, 201);
     }
   } 
 
