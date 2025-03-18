@@ -11,6 +11,7 @@
             <thead>
                 <tr>
                     <th scope="col">Exercise Title</th>
+                    <th scope="col">Exercise Type</th>
                     <th scope="col">iframe_URL</th>
                     <th scope="col">Platform</th>
                     <th scope="col">Keywords</th>
@@ -19,12 +20,20 @@
             <tbody class="table-group-divider">
                 <% catalog.forEach((SLCItem) => { %> 
                     <tr>
-                        <td scope="row">
-                            <form style="display: none" action="/item/" method="post">
+                       <td scope="row">
+                        <form action="/item/" method="post" style="margin:0; padding:0;">
+                            <input type="hidden" value="<%= SLCItem.exercise_name %>" name="item_link">
+                            <a href="#" onclick="this.closest('form').submit(); return false;"><%= SLCItem.exercise_name %></a>
+                        </form>
+                   <!--     <form style="display: none" action="/item/" method="post">
                                 <input type="submit" value="<%= SLCItem.exercise_name %>" name="item_link" id="item_link<%= SLCItem.exercise_name %>"></input>
-                            </form>
-                            <label style="text-decoration: underline; color: #0303b4" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
+                            </form> 
+                            
+                    <label style="text-decoration: underline; color: #0303b4" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
+                        -->
                         </td>
+                     
+                        <td><%= SLCItem.exercise_type %></td>
                         <td><a href="<%= SLCItem.iframe_url %>" target=_blank>See in iframe</a></td>
                         <td><a href="<%= SLCItem.url %>"</a><%= SLCItem.platform_name %></td>
                         <td>
