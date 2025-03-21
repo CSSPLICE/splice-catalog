@@ -63,6 +63,10 @@ export class ViewController {
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', { title: 'Upload Data' });
   }
+  async aboutView(req: Request, res: Response) {
+    res.render('pages/about', { title: 'About' });
+  }
+
 
   async toolView(req: Request, res: Response) {
     // Fetch SLC tools catalog data
