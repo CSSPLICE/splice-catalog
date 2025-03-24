@@ -1,0 +1,33 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Exercise Title</th>
+            <th scope="col">iframe_URL</th>
+            <th scope="col">Platform</th>
+            <th scope="col">Keywords</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <% items.forEach((SLCItem) => { %> 
+            <tr>
+                <td scope="row">
+                    <a href="/item?item_link=<%= encodeURIComponent(SLCItem.exercise_name) %>"
+                        style="text-decoration: underline; color: #0000EE;">
+                        <%= SLCItem.exercise_name %>
+                    </a>
+                </td>
+                <td><a href="<%= SLCItem.iframe_url %>" target=_blank>See in iframe</a></td>
+                <td><a href="<%= SLCItem.url %>"></a><%= SLCItem.platform_name %></td>
+                <td>
+                    <% SLCItem.keywords.forEach((keyword, index) => { %>
+                        <form style="display: none" action="/search/" method="post">
+                            <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>"></input>
+                        </form>
+                        <label style="text-decoration: underline; color: #0000EE" for="query<%= keyword %>"><%= keyword %></label>
+                        <% if (index < SLCItem.keywords.length - 1) { %>, <% } %> <!-- Add a comma between keywords -->
+                    <% }); %>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
