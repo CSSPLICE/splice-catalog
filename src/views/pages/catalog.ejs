@@ -26,12 +26,7 @@
                             <input type="hidden" value="<%= SLCItem.exercise_name %>" name="item_link">
                             <a href="#" onclick="this.closest('form').submit(); return false;"><%= SLCItem.exercise_name %></a>
                         </form>
-                   <!--     <form style="display: none" action="/item/" method="post">
-                                <input type="submit" value="<%= SLCItem.exercise_name %>" name="item_link" id="item_link<%= SLCItem.exercise_name %>"></input>
-                            </form> 
-                            
-                    <label style="text-decoration: underline; color: #0303b4" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
-                        -->
+                
                         </td>
                      
                         <td><%= SLCItem.exercise_type %></td>
@@ -61,21 +56,6 @@
     
             </tbody>
         </table>
-        <!-- Pagination Controls 
-        <div class="pagination">
-            <% if (currentPage > 1) { %>
-                <a href="?page=<%= currentPage - 1 %>">Previous</a>
-            <% } %>
-
-            <% for (let i = 1; i <= totalPages; i++) { %>
-                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
-            <% } %>
-
-            <% if (currentPage < totalPages) { %>
-                <a href="?page=<%= currentPage + 1 %>">Next</a>
-            <% } %>
-        </div>
-    </div>-->
 
   <!-- Modal -->
 <div id="descriptionModal" class="modal" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
