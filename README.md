@@ -8,6 +8,8 @@
 
 To build the catalog container: `docker compose --profile catalog build`
 
+To install the node packages: `docker compose --profile catalog run catalog yarn install`
+
 To run the splice catalog application: `docker compose --profile catalog up`
 
 Once the container starts you'll want to
