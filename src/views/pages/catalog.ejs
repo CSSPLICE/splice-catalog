@@ -20,7 +20,7 @@
                 <% catalog.forEach((SLCItem) => { %> 
                     <tr>
                         <td scope="row">
-                            <form style="display: none" action="/item/" method="post">
+                            <form style="display: none" action="/item/" method="get">
                                 <input type="submit" value="<%= SLCItem.exercise_name %>" name="item_link" id="item_link<%= SLCItem.exercise_name %>"></input>
                             </form>
                             <label style="text-decoration: underline; color: #0303b4" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
