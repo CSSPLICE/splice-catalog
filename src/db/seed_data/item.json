@@ -1,0 +1,15 @@
+{
+  "catalog_type": "SLCItemCatalog",
+  "platform_name": "CodeWorkout",
+  "url": "https://codeworkout.cs.vt.edu",
+  "lti_instructions_url": "https://opendsa-server.cs.vt.edu/guides/opendsa-canvas",
+  "exercise_type": "Coding Question",
+  "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+  "description": null,
+  "author": "Stephen Edwards",
+  "institution": "Virginia Tech",
+  "keywords": ["hw", "05", "homework", "08", "05c", "sortasum"],
+  "exercise_name": "sortaSum",
+  "iframe_url": "https://codeworkoutdev.cs.vt.edu/gym/exercises/1/practice",
+  "lti_url": "https://codeworkoutdev.cs.vt.edu/lti/launch/gym/exercises/1/practice"
+}
