@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
-    "dev": "yarn nodemon --watch src --exec 'ts-node' -r tsconfig-paths/register src/index.ts",
+    "dev": "yarn nodemon --watch src -L --exec 'ts-node' -r tsconfig-paths/register src/index.ts",
     "start": "node dist/index.ts",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**.ts --fix",
