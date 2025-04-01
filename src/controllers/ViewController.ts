@@ -63,6 +63,9 @@ export class ViewController {
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', { title: 'Upload Data' });
   }
+  async aboutView(req: Request, res: Response) {
+    res.render('pages/about', { title: 'About' });
+  }
 
   async toolView(req: Request, res: Response) {
     // Fetch SLC tools catalog data
@@ -182,4 +185,22 @@ export class ViewController {
   async rejectAll(req: Request, res: Response) {
     return res.redirect('/upload');
   }
+
+  /* async itemViewByName(req: Request, res: Response) {
+    const { name } = req.params;
+  
+    try {
+      const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({
+        exercise_name: decodeURIComponent(name),
+      });
+  
+      if (!item) {
+        return res.status(404).render('pages/notfound', { title: 'Item Not Found' });
+      }
+  
+      res.render('pages/item', { item, title: 'Item View' });
+    } catch (error) {
+      return res.status(500).send('Internal Server Error');
+    }
+  }*/
 }
