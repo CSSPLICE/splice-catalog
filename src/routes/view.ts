@@ -15,11 +15,14 @@ router.get('/', viewController.homeView);
 router.post('/upload', upload.single('file'), viewController.uploadPost);
 router.get('/upload', viewController.uploadView);
 router.post('/item', viewController.itemView);
+// router.get('/item/:name', (req, res) => viewController.itemViewByName(req, res));
 router.get('/instructions', viewController.instructionsView);
 router.get('/catalog', viewController.catalogView);
 router.get('/datasetcatalog', viewController.datasetCatalogView);
 router.get('/toolcatalog', viewController.toolView);
 router.get('/about', viewController.aboutView);
 router.get('/profile', requiresAuth(), viewController.profileView);
+
+
 
 export default router;

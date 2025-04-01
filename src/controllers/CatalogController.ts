@@ -57,4 +57,22 @@ export class CatalogController {
     }
     return ResponseUtil.sendResponse(res, 'failed to delete the CatalogItem', 400);
   }
+  async getCatalogItemByName(req: Request, res: Response): Promise<Response> {
+    const { name } = req.params;
+  
+    try {
+      const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({
+        exercise_name: decodeURIComponent(name),
+      });
+  
+      if (!item) {
+        return ResponseUtil.sendError(res, 'Item not found', 404, undefined);
+      }
+  
+      return ResponseUtil.sendResponse(res, item, 200);
+    } catch (error) {
+      return ResponseUtil.sendError(res, 'Error retrieving item', 500, error);
+    }
+  }
+  
 }

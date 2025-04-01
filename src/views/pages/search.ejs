@@ -49,84 +49,75 @@
             </tbody>
         </table>
 
-        <!-- Modal -->
-<div id="descriptionModal" class="modal" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
-    <div class="modal-content" style="background-color: white; margin: 10% auto; padding: 20px; border-radius: 5px; width: 50%; position: relative;">
-        <!-- Close button (Moved to top-right corner) -->
-        <span class="close" onclick="closeModal()" 
-              style="cursor: pointer; position: absolute; top: 10px; right: 15px; font-size: 24px;">&times;
-        </span>
-        <p id="fullDescription" style="margin-top: 30px;">This is a detailed description.</p>
-    </div>
-</div>
-  
-    <script>
-        function openModal() {
-            let description = "This is a detailed description for all items. It contains more information about the exercise.";
-            document.getElementById("fullDescription").innerText = description;
-            document.getElementById("descriptionModal").style.display = "block";
-        }
-    
-        function closeModal() {
-            document.getElementById("descriptionModal").style.display = "none";
-        }
-    
-        // Close modal if user clicks outside of it
-        window.onclick = function(event) {
-            let modal = document.getElementById("descriptionModal");
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        };
-    </script>
-    
+               <!-- Modal -->
+               <div id="descriptionModal" class="modal" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+                <div class="modal-content" style="background-color: white; margin: 10% auto; padding: 20px; border-radius: 5px; width: 50%; position: relative;">
+                    <!-- Close button -->
+                    <span class="close" onclick="closeModal()" 
+                          style="cursor: pointer; position: absolute; top: 10px; right: 15px; font-size: 24px;">&times;
+                    </span>
+                    <p id="fullDescription" style="margin-top: 30px;">This is a detailed description.</p>
+                </div>
+            </div>
 
     
-           <!-- Pagination Controls -->
-<div class="pagination">
-    <ul class="pagination-list">
-        <!-- Previous Button -->
-        <% if (currentPage > 1) { %>
-            <li><a href="?page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
-        <% } %>
+          <!-- Pagination Controls -->
+          <div class="pagination">
+            <ul class="pagination-list">
+                <% if (totalPages > 1) { %> <!-- Show pagination only if more than 1 page -->
+                    
+                    <% if (currentPage > 1) { %>
+                        <li><a href="?query=<%= query %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
+                    <% } %>
+        
+                    <% if (currentPage > 10) { %>
+                        <li><a href="?query=<%= query %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
+                    <% } %>
+        
+                    <% if (totalPages <= 5) { %> 
+                        <% for (let i = 1; i <= totalPages; i++) { %>
+                            <li>
+                                <a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                    <% } else { %>  
+                        <% if (currentPage > 2) { %>
+                            <li><a href="?query=<%= query %>&page=1">1</a></li>
+                            <% if (currentPage > 3) { %>  
+                                <li class="ellipsis">...</li>  
+                            <% } %>
+                        <% } %>
+        
+                        <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
+                            <li>
+                                <a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                            </li>
+                        <% } %>
+        
+                        <% if (currentPage < totalPages - 1) { %>
+                            <% if (currentPage < totalPages - 2) { %>  
+                                <li class="ellipsis">...</li>  
+                            <% } %>
+                            <li><a href="?query=<%= query %>&page=<%= totalPages %>"><%= totalPages %></a></li>
+                        <% } %>
+                    <% } %>
+        
+                    <% if (currentPage + 10 <= totalPages) { %>
+                        <li><a href="?query=<%= query %>&page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
+                    <% } %>
+        
+                    <% if (currentPage < totalPages) { %>
+                        <li><a href="?query=<%= query %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
+                    <% } %>
+        
+                <% } %> 
+            </ul>
+        </div>
+        
 
-        <!-- Page Numbers with Ellipsis -->
-        <% if (totalPages <= 5) { %> 
-            <% for (let i = 1; i <= totalPages; i++) { %>
-                <li>
-                    <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
-                </li>
-            <% } %>
-        <% } else { %>  
-            <% if (currentPage > 2) { %>
-                <li><a href="?page=1">1</a></li>
-                <% if (currentPage > 3) { %>  
-                    <li class="ellipsis">...</li>  
-                <% } %>
-            <% } %>
-
-            <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
-                <li>
-                    <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
-                </li>
-            <% } %>
-
-            <% if (currentPage < totalPages - 1) { %>
-                <% if (currentPage < totalPages - 2) { %>  
-                    <li class="ellipsis">...</li>  
-                <% } %>
-                <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
-            <% } %>
-        <% } %>
-
-        <!-- Next Button -->
-        <% if (currentPage < totalPages) { %>
-            <li><a href="?page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
-        <% } %>
-    </ul>
-</div>
     <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/catalog.js"></script>
 
 </body>
 <%- include('../partials/footer') -%>
