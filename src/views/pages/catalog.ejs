@@ -7,39 +7,7 @@
     <div class="container">       
         <!-- SPLICE SLC Items Catalog -->
         <h3 class="header">SLC Item Catalog</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Exercise Title</th>
-                    <th scope="col">iframe_URL</th>
-                    <th scope="col">Platform</th>
-                    <th scope="col">Keywords</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <% catalog.forEach((SLCItem) => { %> 
-                    <tr>
-                        <td scope="row">
-                            <form style="display: none" action="/item/" method="get">
-                                <input type="submit" value="<%= SLCItem.exercise_name %>" name="item_link" id="item_link<%= SLCItem.exercise_name %>"></input>
-                            </form>
-                            <label style="text-decoration: underline; color: #0303b4" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
-                        </td>
-                        <td><a href="<%= SLCItem.iframe_url %>" target=_blank>See in iframe</a></td>
-                        <td><a href="<%= SLCItem.url %>"</a><%= SLCItem.platform_name %></td>
-                        <td>
-                            <% SLCItem.keywords.forEach((keyword, index) => { %>
-                                <form style="display: none" action="/search/" method="post">
-                                    <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>"></input>
-                                </form>
-                                <label style="text-decoration: underline; color: #0303b4" for="query<%= keyword %>"><%= keyword %></label>
-                                <% if (index < SLCItem.keywords.length - 1) { %>, <% } %> <!-- Add a comma between keywords -->
-                            <% }); %>
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
+        <%- include('../pages/table', { items: catalog }) %>
         <!-- Pagination Controls -->
         <div class="pagination">
             <% if (currentPage > 1) { %>
