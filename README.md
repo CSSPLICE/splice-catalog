@@ -28,6 +28,15 @@ Once the application is running, upload any data files to [http://localhost:3000
 
 `docker compose exec splice-catalog-catalog-1 yarn import:ontology`
 
+## Interact with database
+
+To access the database from the command line: 
+```
+docker compose --profile catalog exec db bash
+mysql -usplice -psplice
+use splice;
+```
+
 **See documentation here:** [docs](docs) 
 
 ## Production
