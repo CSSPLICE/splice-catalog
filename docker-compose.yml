@@ -14,7 +14,7 @@ services:
     expose:
       - '3306'
     ports:
-      - '3307:3306'  
+      - '3306:3306'  
     healthcheck:
       test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
       interval: 5s
