@@ -70,8 +70,6 @@ app.use('/approve', reviewRoutes);
 
 app.use('/ontology', ontologyRoutes);
 
-app.use('/view', viewRoutes);
-
 app.all('*', (req: Request, res: Response) => {
   return res.status(404).send({
     success: false,
