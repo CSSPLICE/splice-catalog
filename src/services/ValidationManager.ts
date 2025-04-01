@@ -7,19 +7,34 @@ import { MetadataIssue, URLValidationResult } from '../types/ValidationTypes';
 import { SLCItem } from '../types/ItemTypes';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { CategorizationReport } from '../types/CategorizationTypes';
+import { Repository } from "typeorm";
+import { ValidationResults } from "../db/entities/ValidationResults";
 
 export class ValidationManager {
   private metadataValidator: MetadataValidator;
   private urlValidator: URLValidator;
   private categoryReport: CategoryReport;
   private categorizer: Categorizer;
+  private validationResultsRepository: Repository<ValidationResults>;
 
-  constructor() {
+  constructor(validationResultsRepository: Repository<ValidationResults>) {
     this.metadataValidator = new MetadataValidator();
     this.urlValidator = new URLValidator();
     this.categoryReport = new CategoryReport();
     this.categorizer = new Categorizer();
+    this.validationResultsRepository = validationResultsRepository;
   }
+  
+async saveValidationResult(result: Partial<ValidationResults>): Promise<void> {
+  try {
+    const newValidationResult = this.validationResultsRepository.create(result);
+    await this.validationResultsRepository.save(newValidationResult);
+    logger.info('Validation result saved successfully:', newValidationResult);
+  } catch (error) {
+    logger.error('Error saving validation result:', error);
+    throw error;
+  }
+}
 
   /**
    * Validates metadata items and returns the result.
@@ -45,8 +60,21 @@ export class ValidationManager {
       // 2. Validate the CreateSLCItemDTO[] array
       const result = await this.metadataValidator.validate(createDtoArray);
 
+      // Save validation results for each item
+      for (const item of jsonArray) {
+        const metadataIssues = result.issues.find((issue) => issue.item.exercise_name === item.exercise_name
+        )?.validationErrors || null;
+        const validationResult = {
+          user: 'persistent user id?', // persistent identifier?
+          dateLastUpdated: new Date(),
+          metadataIssues: metadataIssues ? JSON.stringify(metadataIssues) : undefined, //errors into strings
+          validationStatus: metadataIssues ? 'failed' : 'success',
+        };
+        
+        await this.saveValidationResult(validationResult);
+      }
       logger.info(`Metadata validation completed: ${result.validItems.length} valid items`);
-
+      //logger.info(); print the validation results
       const validSLCItems: SLCItem[] = result.validItems.map((dto) => ({
         ...dto,
 
@@ -75,6 +103,18 @@ export class ValidationManager {
     try {
       logger.info(`Starting URL validation for ${validItems.length} items`);
       const result = await this.urlValidator.validate(validItems);
+          // Save individual URL validation results into the database
+      for (const [index, item] of validItems.entries()) {
+        const isValid = result.successfulUrls > index;
+        const validationResult = {
+          user: 'currentUser', // Replace with actual user identifier
+          dateLastUpdated: new Date(),
+          isUrlValid: isValid,
+          metadataIssues: undefined, // No metadata issues here
+          validationStatus: isValid ? 'success' : 'failed',
+      };
+      await this.saveValidationResult(validationResult); // Save results to the database
+    }
       logger.info(`URL validation completed: ${result.successfulUrls} successful URLs`);
       return result;
     } catch (error) {

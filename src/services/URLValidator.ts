@@ -22,23 +22,48 @@ export class URLValidator {
         // Disable SSL certificate validation for axios
         const response = await axios.get(item.url, {
           httpsAgent: new https.Agent({ rejectUnauthorized: false }),
+          timeout: 5000,
         });
 
         if (response.status === 200) {
           successfulUrls++;
+          console.log(`success ${item.url} is reachable, returned status: ${response.status}`);
         } else {
           unsuccessfulUrls++;
+          const msg=`[ERROR] ${item.url} returned status ${response.status}`;
+          console.error(msg);
           issues.push({ item, error: `URL returned status ${response.status}` });
         }
       } catch (error) {
         unsuccessfulUrls++;
-        const errorMessage = error instanceof Error ? error.message : String(error);
+
+        let errorMessage = 'error message';
+
+        if (axios.isAxiosError(error)) {
+          if (error.response) {
+            errorMessage = `Server responded with status code ${error.response.status}`;
+          } else if (error.request) {
+            errorMessage = `No response received from the server, code: ${error.code}, message: ${error.message}`;
+          } else {
+            errorMessage = `Axios Error: ${error.message}`;
+          }
+        } else {
+          errorMessage = 'Unknown error occurred.';
+        }
+
+        console.error(`error ${item.url} message: ${errorMessage}`);
         issues.push({ item, error: errorMessage });
       }
     });
 
     await Promise.all(urlPromises);
-
-    return { urlsChecked, successfulUrls, unsuccessfulUrls, issues };
+    console.log(`successful url's : ${successfulUrls} , unsuccessful url's: ${unsuccessfulUrls}, issues: ${issues.length}`);
+    
+    return { urlsChecked: successfulUrls + unsuccessfulUrls, successfulUrls, unsuccessfulUrls, issues };
   }
 }
+/*
+1  add method to review controller to catch the results that we have, map them to the database, catch specific for each item
+2  add functionality into validation manager such that any errors caught can be sent 
+for getting specifc details will be applied such that each of the services sends individual data back to review controller.
+*/

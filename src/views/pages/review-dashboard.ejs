@@ -128,6 +128,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
+    import logger from '../utils/logger';
     const spinner = document.getElementById('url-validation-spinner');
     spinner.style.display = 'block';
 
@@ -137,6 +138,7 @@
       document.getElementById('urls-checked').textContent = data.urlsChecked;
       document.getElementById('successful-urls').textContent = data.successfulUrls;
       document.getElementById('unsuccessful-urls').textContent = data.unsuccessfulUrls;
+      logger.info("HERE IS THE DATA" + data);
 
       spinner.style.display = 'none';
     });

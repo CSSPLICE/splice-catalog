@@ -2,12 +2,15 @@ import { Request, Response } from 'express';
 import logger from '../utils/logger';
 import { ValidationManager } from '../services/ValidationManager';
 import { ToolsCatalogController } from './ToolsCatalogController';
-import { MetadataIssue, CategorizationResult } from '../types/ValidationTypes';
+import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes';
+import { ValidationResults } from '../db/entities/ValidationResults';
+import { getRepository } from "typeorm";
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
     const jsonArray = Array.isArray(req.body) ? req.body : [req.body];
-    const validationManager = new ValidationManager();
+    const validationResultsRepository = getRepository(ValidationResults);
+    const validationManager = new ValidationManager(validationResultsRepository);
     const toolsCatalogController = new ToolsCatalogController();
 
     let metadataIssues: MetadataIssue[] = [];
@@ -15,6 +18,7 @@ export class ReviewController {
     let totalSubmissions = 0;
     let successfulVerifications = 0;
     let allValidItems = [];
+    let urlResult: URLValidationResult | undefined;
 
     try {
       logger.info('Starting metadata validation');
@@ -40,11 +44,12 @@ export class ReviewController {
 
         // URL Validation
         logger.info('Starting URL validation for SLCItemCatalog');
-        const urlResult = await validationManager.validateUrls(allValidItems);
+        urlResult = await validationManager.validateUrls(allValidItems);
+        const { urlsChecked, successfulUrls } = urlResult;
         if (res.locals.io) {
           res.locals.io.emit('urlValidationComplete', urlResult);
         }
-        logger.info(`URL Validation Completed: ${urlResult.urlsChecked} checked`);
+        logger.info(`URL Validation Completed: ${successfulUrls}/${urlsChecked} successful`);
 
         // Categorization Process
         logger.info('Starting category report generation for validated items');
@@ -103,11 +108,11 @@ export class ReviewController {
           categorizationResults,
           totalSubmissions,
           successfulVerifications,
-          urlsChecked: 0,
-          successfulUrls: 0,
-          unsuccessfulUrls: 0,
+          urlsChecked: urlResult?.urlsChecked || 0,
+          successfulUrls: urlResult?.successfulUrls || 0,
+          unsuccessfulUrls: urlResult?.unsuccessfulUrls || 0,
           title: 'Review Dashboard',
-          urlValidationComplete: false,
+          urlValidationComplete: true,
         });
       }
     } catch (error) {

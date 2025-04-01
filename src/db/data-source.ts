@@ -15,6 +15,7 @@ import { CreateOntologyClasses1727750586131 } from './migrations/1727750586131-C
 import { CreateOntologyAliases1727750762837 } from './migrations/1727750762837-CreateOntologyAliases';
 import { CreateOntologyRelations1727750789779 } from './migrations/1727750789779-CreateOntologyRelations';
 import { CreateItemClassification1727750775894 } from './migrations/1727750775894-CreateItemClassification';
+import {ValidationResults} from './entities/ValidationResults'
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ export const AppDataSource = new DataSource({
     OntologyRelations,
     OntologyAliases,
     ItemClassification,
+    ValidationResults,
   ],
   synchronize: false,
   subscribers: [],
