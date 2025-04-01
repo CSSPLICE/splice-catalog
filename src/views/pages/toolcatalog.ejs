@@ -9,17 +9,18 @@
             <thead>
                 <tr>
                     <th scope="col">Platform Name</th>
-                    <th scope="col">URL</th>
+                  <!--  <th scope="col">URL</th>-->
                     <th scope="col">Description</th>
                     <th scope="col">License</th>
-                    <th scope="col">Standard Support</th>
+                    <th scope="col">Standards Support</th>
                 </tr>
             </thead>
             <tbody>
                 <% toolsCatalog.forEach((tool) => { %> 
                     <tr>
-                        <td><%= tool.platform_name %></td>
-                        <td><a href="<%= tool.url %>" target="_blank">Visit</a></td>
+                      <!--  <td><%= tool.platform_name %></td>
+                        <td><a href="<%= tool.url %>" target="_blank">Visit</a></td> -->
+                        <td><a href="<%= tool.platform_name %>" target="_blank">Visit</a></td>
                         <td><%= tool.tool_description %></td>
                         <td><%= tool.license %></td>
                         <td><%= tool.standard_support %></td>
