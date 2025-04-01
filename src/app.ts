@@ -60,7 +60,6 @@ const oidc_config = {
 
 app.use(auth(oidc_config));
 
-
 app.use('/', viewRoutes);
 
 app.use('/catalog', catalogRoutes);

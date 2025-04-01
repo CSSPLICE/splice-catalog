@@ -23,6 +23,4 @@ router.get('/toolcatalog', viewController.toolView);
 router.get('/about', viewController.aboutView);
 router.get('/profile', requiresAuth(), viewController.profileView);
 
-
-
 export default router;

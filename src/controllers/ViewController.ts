@@ -67,7 +67,6 @@ export class ViewController {
     res.render('pages/about', { title: 'About' });
   }
 
-
   async toolView(req: Request, res: Response) {
     // Fetch SLC tools catalog data
     const toolsCatalog_data = await AppDataSource.getRepository(slc_tools_catalog).find();
@@ -187,7 +186,7 @@ export class ViewController {
     return res.redirect('/upload');
   }
 
- /* async itemViewByName(req: Request, res: Response) {
+  /* async itemViewByName(req: Request, res: Response) {
     const { name } = req.params;
   
     try {
@@ -204,5 +203,4 @@ export class ViewController {
       return res.status(500).send('Internal Server Error');
     }
   }*/
-  
 }

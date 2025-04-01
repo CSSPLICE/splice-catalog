@@ -97,8 +97,6 @@
   }
 }
 
-
-
 /* Responsive Pagination Styles */
 @media (max-width: 768px) {
   .pagination a {
@@ -107,7 +105,6 @@
     margin: 0 2px;
   }
 }
-
 
 .pagination {
   display: flex;
