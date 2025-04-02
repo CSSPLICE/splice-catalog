@@ -43,4 +43,6 @@ use splice;
 
 `docker compose --profile production build`
 
+`docker volume rm splice-catalog_staticvolume`
+
 `docker compose --profile production up -d`
