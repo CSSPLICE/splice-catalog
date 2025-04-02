@@ -6,6 +6,21 @@
 <body>
     <div class="container">
         <h1 class="header">Search Results</h1>
+        <h2 class="header">Filter</h2>
+        <form action="/search" method="get">
+            <label for="exerciseType">Exercise Type:</label>
+            <select name="exerciseType" id="exerciseType" onchange="this.form.submit()">
+                <option value="">All</option>
+                <option value="Coding Question" <%= (exerciseType || '') === 'Coding Question' ? 'selected' : '' %>>Coding Question</option>
+                <option value="Multiple Choice Question" <%= (exerciseType || '') === 'Multiple Choice Question' ? 'selected' : '' %>>Multiple Choice Question</option>
+                <option value="ka" <%= (exerciseType || '') === 'ka' ? 'selected' : '' %>>ka</option>
+                <option value="ss" <%= (exerciseType || '') === 'ss' ? 'selected' : '' %>>ss</option>
+                <option value="pe" <%= (exerciseType || '') === 'pe' ? 'selected' : '' %>>pe</option>
+                <option value="extr" <%= (exerciseType || '') === 'extr' ? 'selected' : '' %>>extr</option>
+                <option value="Untagged" <%= (exerciseType || '') === 'Untagged' ? 'selected' : '' %>>Untagged</option>
+            </select>
+            <input type="hidden" name="query" value="<%= query %>">
+        </form>
         <%- include('../pages/table', { items: results }) %>
         <!-- Pagination Controls -->
 <div class="pagination">
@@ -13,22 +28,22 @@
         <% if (totalPages > 1) { %> <!-- Show pagination only if more than 1 page -->
             
             <% if (currentPage > 1) { %>
-                <li><a href="?query=<%= query %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
+                <li><a href="?query=<%= query %>&exerciseType=<%= exerciseType %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
             <% } %>
 
             <% if (currentPage > 10) { %>
-                <li><a href="?query=<%= query %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
+                <li><a href="?query=<%= query %>&exerciseType=<%= exerciseType %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
             <% } %>
 
             <% if (totalPages <= 5) { %> 
                 <% for (let i = 1; i <= totalPages; i++) { %>
                     <li>
-                        <a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                        <a href="?query=<%= query %>&exerciseType=<%= exerciseType %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
                     </li>
                 <% } %>
             <% } else { %>  
                 <% if (currentPage > 2) { %>
-                    <li><a href="?query=<%= query %>&page=1">1</a></li>
+                    <li><a href="?query=<%= query %>&exerciseType=<%= exerciseType %>&page=1">1</a></li>
                     <% if (currentPage > 3) { %>  
                         <li class="ellipsis">...</li>  
                     <% } %>
@@ -36,7 +51,7 @@
 
                 <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
                     <li>
-                        <a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                        <a href="?query=<%= query %>&exerciseType=<%= exerciseType %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
                     </li>
                 <% } %>
 
@@ -44,16 +59,16 @@
                     <% if (currentPage < totalPages - 2) { %>  
                         <li class="ellipsis">...</li>  
                     <% } %>
-                    <li><a href="?query=<%= query %>&page=<%= totalPages %>"><%= totalPages %></a></li>
+                    <li><a href="?query=<%= query %>&exerciseType=<%= exerciseType %>&page=<%= totalPages %>"><%= totalPages %></a></li>
                 <% } %>
             <% } %>
 
             <% if (currentPage + 10 <= totalPages) { %>
-                <li><a href="?query=<%= query %>&page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
+                <li><a href="?query=<%= query %>&exerciseType=<%= exerciseType %>&page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
             <% } %>
 
             <% if (currentPage < totalPages) { %>
-                <li><a href="?query=<%= query %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
+                <li><a href="?query=<%= query %>&exerciseType=<%= exerciseType %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
             <% } %>
 
         <% } %> 
