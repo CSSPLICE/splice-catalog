@@ -6,57 +6,63 @@
 <body>
     <div class="container">
         <h1 class="header">Search Results</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Exercise Title</th>
-                    <th scope="col">iframe_URL</th>
-                    <th scope="col">Platform</th>
-                    <th scope="col">Keywords</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <% results.forEach((SLCItem) => { %> 
-                    <tr>
-                        <td scope="row">
-                            <form style="display: none" action="/item/" method="post">
-                                <input type="submit" value="<%= SLCItem.exercise_name %>" name="item_link" id="item_link<%= SLCItem.exercise_name %>"></input>
-                            </form>
-                            <label style="text-decoration: underline; color: #0000EE" for="item_link<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></label>
-                        </td>
-                        <td><a href="<%= SLCItem.iframe_url %>" target=_blank>See in iframe</a></td>
-                        <td><a href="<%= SLCItem.url %>"</a><%= SLCItem.platform_name %></td>
-                        <td>
-                            <% SLCItem.keywords.forEach((keyword, index) => { %>
-                                <form style="display: none" action="/search/" method="post">
-                                    <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>"></input>
-                                </form>
-                                <label style="text-decoration: underline; color: #0000EE" for="query<%= keyword %>"><%= keyword %></label>
-                                <% if (index < SLCItem.keywords.length - 1) { %>, <% } %> <!-- Add comma between keywords -->
-                            <% }); %>
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
+        <%- include('../pages/table', { items: results }) %>
         <!-- Pagination Controls -->
-        <div class="pagination">
+<div class="pagination">
+    <ul class="pagination-list">
+        <% if (totalPages > 1) { %> <!-- Show pagination only if more than 1 page -->
+            
             <% if (currentPage > 1) { %>
-                <a href="?query=<%= query %>&page=<%= currentPage - 1 %>">Previous</a>
+                <li><a href="?query=<%= query %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
             <% } %>
-        
-            <% for (let i = 1; i <= totalPages; i++) { %>
-                <a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+
+            <% if (currentPage > 10) { %>
+                <li><a href="?query=<%= query %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
             <% } %>
-        
+
+            <% if (totalPages <= 5) { %> 
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <li>
+                        <a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                    </li>
+                <% } %>
+            <% } else { %>  
+                <% if (currentPage > 2) { %>
+                    <li><a href="?query=<%= query %>&page=1">1</a></li>
+                    <% if (currentPage > 3) { %>  
+                        <li class="ellipsis">...</li>  
+                    <% } %>
+                <% } %>
+
+                <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
+                    <li>
+                        <a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                    </li>
+                <% } %>
+
+                <% if (currentPage < totalPages - 1) { %>
+                    <% if (currentPage < totalPages - 2) { %>  
+                        <li class="ellipsis">...</li>  
+                    <% } %>
+                    <li><a href="?query=<%= query %>&page=<%= totalPages %>"><%= totalPages %></a></li>
+                <% } %>
+            <% } %>
+
+            <% if (currentPage + 10 <= totalPages) { %>
+                <li><a href="?query=<%= query %>&page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
+            <% } %>
+
             <% if (currentPage < totalPages) { %>
-                <a href="?query=<%= query %>&page=<%= currentPage + 1 %>">Next</a>
+                <li><a href="?query=<%= query %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
             <% } %>
-        </div>   
-        
+
+        <% } %> 
+    </ul>
+</div>
     </div>
     <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/catalog.js"></script>
 
 </body>
 <%- include('../partials/footer') -%>
