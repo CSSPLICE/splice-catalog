@@ -29,10 +29,10 @@
                 <input type="search" class="form-control form-control-dark" placeholder="Search" aria-label="Search" name="query" id="query">
             </form>
             <div class="text-end">
-                <% if (locals.showLoginButton) { %>  <!-- Check if showLoginButton is true -->
+                <% if (locals.showLoginButton) { %> 
                   <a href="/login" class="btn btn-outline-light me-2">Login</a>
-                <% } else if (locals.user) { %> <!-- If user is logged in, show username and logout -->
-                  <a href="/profile" class="btn btn-outline-light me-2"><%= locals.user.nickname %></a>
+                <% } else if (user) { %> 
+                  <a href="/profile" class="btn btn-outline-light me-2"><%= user.nickname %></a>
                   <a href="/logout" class="btn btn-outline-light me-2">Logout</a>
                 <% } %>
               </div>

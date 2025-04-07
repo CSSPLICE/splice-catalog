@@ -21,11 +21,11 @@ const app: Express = express();
 const server = http.createServer(app);
 const io = new Server(server);
 app.use((req, res, next) => {
-  // Check if the current route is '/instructions'
+  res.locals.user = req.oidc?.user || null;
   if (req.path === '/upload') {
-    res.locals.showLoginButton = true;  // Only show login on the /instructions page
+    res.locals.showLoginButton = true;  
   } else {
-    res.locals.showLoginButton = false;  // Don't show login button on other pages
+    res.locals.showLoginButton = false;  
   }
   next();
 });
@@ -53,6 +53,12 @@ app.use((req, res, next) => {
   res.locals.io = io;
   next();
 });
+
+app.use((req, res, next) => {
+  res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
+  next();
+});
+
 
 // Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
