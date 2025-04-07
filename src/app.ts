@@ -4,6 +4,7 @@ import express, { Express, Request, Response } from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import catalogRoutes from './routes/catalog';
+import aboutRoutes from './routes/about';
 import searchRoutes from './routes/search';
 import viewRoutes from './routes/view';
 import reviewRoutes from './routes/review';
@@ -19,7 +20,15 @@ const app: Express = express();
 
 const server = http.createServer(app);
 const io = new Server(server);
-
+app.use((req, res, next) => {
+  // Check if the current route is '/instructions'
+  if (req.path === '/upload') {
+    res.locals.showLoginButton = true;  // Only show login on the /instructions page
+  } else {
+    res.locals.showLoginButton = false;  // Don't show login button on other pages
+  }
+  next();
+});
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -36,6 +45,8 @@ if (process.env.NODE_ENV === 'production') {
     }),
   );
 }
+
+
 
 //add Socket
 app.use((req, res, next) => {
@@ -62,8 +73,12 @@ app.use(auth(oidc_config));
 
 app.use('/', viewRoutes);
 
+app.use('/about', aboutRoutes);
+
 app.use('/catalog', catalogRoutes);
 app.use('/search', searchRoutes);
+
+
 
 app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);

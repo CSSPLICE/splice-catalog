@@ -22,10 +22,8 @@
                 <% catalog.forEach((SLCItem) => { %> 
                     <tr>
                         <td scope="row">
-                            <form action="/item/" method="post" style="margin:0; padding:0;">
-                                <input type="hidden" value="<%= SLCItem.exercise_name %>" name="item_link">
-                                <a href="#" onclick="this.closest('form').submit(); return false;"><%= SLCItem.exercise_name %></a>
-                            </form>
+                            <a href="/item/<%= encodeURIComponent(SLCItem.exercise_name) %>"><%= SLCItem.exercise_name %></a>
+
                         </td>
                         <td><%= SLCItem.exercise_type %></td>
                         <!-- <td><a href="<%= SLCItem.iframe_url %>" target=_blank>See in iframe</a></td> -->

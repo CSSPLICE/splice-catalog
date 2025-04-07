@@ -31,16 +31,29 @@ export class ViewController {
     res.render('pages/catalog', { catalog: catalog_data, currentPage, totalPages, title: 'SPLICE Catalog' });
   }
 
-  async itemView(req: Request, res: Response) {
+ /*async itemView(req: Request, res: Response) {
     const query = req.body.item_link;
     const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
       where: [{ exercise_name: ILike(`%${query}%`) }],
     });
     res.render('pages/item', { item: item, title: 'Item View' });
+  }*/
+  async itemView(req: Request, res: Response) {
+    const query = req.params.name;  // <-- get it from the URL
+    const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
+      where: [{ exercise_name: ILike(`%${query}%`) }],
+    });
+  
+    if (!item) {
+      return res.status(404).render('pages/404', { title: 'Item Not Found' });
+    }
+  
+    res.render('pages/item', { item, title: 'Item View' });
   }
+  
 
   async instructionsView(req: Request, res: Response) {
-    res.render('pages/instructions', { title: 'Instructions' });
+    res.render('pages/instructions', { title: 'Instructions',  showLoginButton: res.locals.showLoginButton });
   }
 
   async homeView(req: Request, res: Response) {
@@ -63,20 +76,18 @@ export class ViewController {
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', { title: 'Upload Data' });
   }
-  async aboutView(req: Request, res: Response) {
-    res.render('pages/about', { title: 'About' });
-  }
+
 
   async toolView(req: Request, res: Response) {
     // Fetch SLC tools catalog data
     const toolsCatalog_data = await AppDataSource.getRepository(slc_tools_catalog).find();
-    res.render('pages/toolcatalog', { toolsCatalog: toolsCatalog_data, title: 'Tools Catalog' });
+    res.render('pages/toolcatalog', { toolsCatalog: toolsCatalog_data, title: 'Tools Catalog'});
   }
 
   async datasetCatalogView(req: Request, res: Response) {
     try {
       const datasetCatalog_data = await AppDataSource.getRepository(dataset_catalog).find();
-      res.render('pages/datasetcatalog', { datasets: datasetCatalog_data, title: 'Dataset Catalog' });
+      res.render('pages/datasetcatalog', { datasets: datasetCatalog_data, title: 'Dataset Catalog'});
     } catch (error) {
       logger.error('Failed to fetch dataset catalog data:', error);
       res.status(500).send('Internal Server Error');
@@ -186,21 +197,4 @@ export class ViewController {
     return res.redirect('/upload');
   }
 
-  /* async itemViewByName(req: Request, res: Response) {
-    const { name } = req.params;
-  
-    try {
-      const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({
-        exercise_name: decodeURIComponent(name),
-      });
-  
-      if (!item) {
-        return res.status(404).render('pages/notfound', { title: 'Item Not Found' });
-      }
-  
-      res.render('pages/item', { item, title: 'Item View' });
-    } catch (error) {
-      return res.status(500).send('Internal Server Error');
-    }
-  }*/
 }
