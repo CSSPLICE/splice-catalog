@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { slc_item_catalog } from './SLCItemCatalog';
 
-@Entity("validation_results")
+@Entity('validation_results')
 export class ValidationResults {
   @PrimaryGeneratedColumn()
   id!: number;
@@ -12,19 +12,23 @@ export class ValidationResults {
   @CreateDateColumn()
   dateLastUpdated!: Date;
 
-  @Column({ type: "text", nullable: true })
+  @Column({ type: 'text', nullable: true })
   metadataIssues!: string;
 
-  @Column({ type: "boolean", default: false })
+  @Column({ type: 'boolean', default: false })
   isUrlValid!: boolean;
 
-  @Column({ type: "text", nullable: true })
+  @Column({ type: 'text', nullable: true })
   categorizationResults!: string;
 
-  @Column({ type: "text", nullable: true })
+  @Column({ type: 'text', nullable: true })
   validationStatus?: string;
+
+  @ManyToOne(() => slc_item_catalog, (item) => item.validationResults, { nullable: false })
+  item!: slc_item_catalog;
 }
 
+//yarn typeorm migration:generate -n CreateValidationResultsTable
 /*
     "catalog_type": "SLCItemCatalog",
     "platform_name": "OpenDSA",
@@ -54,4 +58,3 @@ export class ValidationResults {
     ifram url
 
 */
-

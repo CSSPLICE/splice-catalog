@@ -4,13 +4,15 @@ import { ValidationManager } from '../services/ValidationManager';
 import { ToolsCatalogController } from './ToolsCatalogController';
 import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes';
 import { ValidationResults } from '../db/entities/ValidationResults';
-import { getRepository } from "typeorm";
+import { AppDataSource } from '../db/data-source'; // Adjust the path to your data-source file
+import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
     const jsonArray = Array.isArray(req.body) ? req.body : [req.body];
-    const validationResultsRepository = getRepository(ValidationResults);
-    const validationManager = new ValidationManager(validationResultsRepository);
+    const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
+    const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
+    const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
     const toolsCatalogController = new ToolsCatalogController();
 
     let metadataIssues: MetadataIssue[] = [];
@@ -102,6 +104,10 @@ export class ReviewController {
       }
 
       //provide metadata validation results
+      const allValidationResults = await validationResultsRepository.find({
+        relations: ['item'],
+        order: { dateLastUpdated: 'DESC' },
+      });
       if (!res.headersSent) {
         res.render('pages/review-dashboard', {
           issues: metadataIssues,
@@ -113,6 +119,7 @@ export class ReviewController {
           unsuccessfulUrls: urlResult?.unsuccessfulUrls || 0,
           title: 'Review Dashboard',
           urlValidationComplete: true,
+          validationResults: allValidationResults,
         });
       }
     } catch (error) {

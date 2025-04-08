@@ -125,6 +125,57 @@
     <% } else { %>
       <p>No issues found!</p>
     <% } %>
+    <% if (validationResults && validationResults.length > 0) { %>
+      <h5 class="mt-5">Individual Results</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead class="table-light">
+            <tr>
+              <th>Exercise Name</th>
+              <th>URL</th>
+              <th>Metadata Issues</th>
+              <th>URL Valid</th>
+              <th>Categorization</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% validationResults.forEach(result => { %>
+              <tr>
+                <td><%= result.user %></td>
+                <td><a href="<%= result.item.url %>" target="_blank"><%= result.item.url %></a></td>
+                <td>
+                  <% if (result.metadataIssues === 'no issues') { %>
+                    <p>&#128994;</p>
+                  <% } else if (result.metadataIssues) { %>
+                    <p>&#128308;</p>
+                  <% } else { %>
+                    Pending
+                  <% } %>
+                </td>
+                <td>
+                  <% if (result.isUrlValid === true) { %>
+                    <p>&#128994;</p>
+                  <% } else if (result.isUrlValid === false) { %>
+                    <p>&#128308;</p>
+                  <% } else { %>
+                    N/A
+                  <% } %>
+                </td>
+                <td>
+                  <% if (result.categorizationResults === 'Success') { %>
+                    <p>&#128994;</p>
+                  <% } else { %>
+                    <p>&#128308;</p>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p>No validation results available yet.</p>
+    <% } %>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>

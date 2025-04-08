@@ -15,7 +15,9 @@ import { CreateOntologyClasses1727750586131 } from './migrations/1727750586131-C
 import { CreateOntologyAliases1727750762837 } from './migrations/1727750762837-CreateOntologyAliases';
 import { CreateOntologyRelations1727750789779 } from './migrations/1727750789779-CreateOntologyRelations';
 import { CreateItemClassification1727750775894 } from './migrations/1727750775894-CreateItemClassification';
-import {ValidationResults} from './entities/ValidationResults'
+import { CreateValidationResults1743975897306 } from './migrations/1743975897306-CreateValidationResults';
+//import {AddRelationToValidationResults1744043458304} from './migrations/1744043458304-AddRelationToValidationResults';
+import { ValidationResults } from './entities/ValidationResults';
 
 dotenv.config();
 
@@ -34,6 +36,8 @@ export const AppDataSource = new DataSource({
     CreateOntologyRelations1727750789779,
     CreateOntologyAliases1727750762837,
     CreateItemClassification1727750775894,
+    CreateValidationResults1743975897306,
+    //AddRelationToValidationResults1744043458304,
     // SeedInitialData1699653979099,  // seed migration runs, #Todo include import for dev environment
   ],
   logging: process.env.ORM_LOGGING === 'true',

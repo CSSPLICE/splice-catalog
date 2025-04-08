@@ -12,9 +12,12 @@ import { dataset_catalog } from '../db/entities/DatasetCatalog';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
 import { ReviewController } from './ReviewController';
 import { ValidationManager } from '../services/ValidationManager';
+import { ValidationResults } from '../db/entities/ValidationResults';
 
 const reviewController = new ReviewController();
-const validationManager = new ValidationManager();
+const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
+const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
+const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {

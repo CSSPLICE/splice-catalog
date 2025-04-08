@@ -7,8 +7,9 @@ import { MetadataIssue, URLValidationResult } from '../types/ValidationTypes';
 import { SLCItem } from '../types/ItemTypes';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { CategorizationReport } from '../types/CategorizationTypes';
-import { Repository } from "typeorm";
-import { ValidationResults } from "../db/entities/ValidationResults";
+import { Repository } from 'typeorm';
+import { ValidationResults } from '../db/entities/ValidationResults';
+import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
 
 export class ValidationManager {
   private metadataValidator: MetadataValidator;
@@ -16,26 +17,40 @@ export class ValidationManager {
   private categoryReport: CategoryReport;
   private categorizer: Categorizer;
   private validationResultsRepository: Repository<ValidationResults>;
+  private catalogRepository: Repository<slc_item_catalog>;
 
-  constructor(validationResultsRepository: Repository<ValidationResults>) {
+  constructor(
+    validationResultsRepository: Repository<ValidationResults>,
+    catalogRepository: Repository<slc_item_catalog>,
+  ) {
     this.metadataValidator = new MetadataValidator();
     this.urlValidator = new URLValidator();
     this.categoryReport = new CategoryReport();
     this.categorizer = new Categorizer();
     this.validationResultsRepository = validationResultsRepository;
+    this.catalogRepository = catalogRepository;
   }
-  
-async saveValidationResult(result: Partial<ValidationResults>): Promise<void> {
-  try {
-    const newValidationResult = this.validationResultsRepository.create(result);
-    await this.validationResultsRepository.save(newValidationResult);
-    logger.info('Validation result saved successfully:', newValidationResult);
-  } catch (error) {
-    logger.error('Error saving validation result:', error);
-    throw error;
-  }
-}
+  private async getOrCreateValidationResultByUrl(url: string): Promise<ValidationResults | null> {
+    const catalogItem = await this.catalogRepository.findOne({ where: { url }, relations: ['validationResults'] });
 
+    if (!catalogItem) {
+      logger.warn(`Catalog item not found for URL: ${url}`);
+      return null;
+    }
+
+    let validationResult = await this.validationResultsRepository.findOne({
+      where: { item: { id: catalogItem.id } },
+      order: { dateLastUpdated: 'DESC' },
+    });
+
+    if (!validationResult) {
+      validationResult = this.validationResultsRepository.create({
+        item: catalogItem,
+      });
+    }
+
+    return validationResult;
+  }
   /**
    * Validates metadata items and returns the result.
    * @param jsonArray - Array of SLCItems to validate
@@ -48,7 +63,7 @@ async saveValidationResult(result: Partial<ValidationResults>): Promise<void> {
     successfulVerifications: number;
   }> {
     try {
-      logger.info(`Starting metadata validation for ${jsonArray.length} items`);
+      logger.info(`DENIS IS STARTING metadata validation for ${jsonArray.length} items`);
 
       // 1. Transform SLCItem[] -> CreateSLCItemDTO[]
       const createDtoArray: CreateSLCItemDTO[] = jsonArray.map((item) => ({
@@ -62,16 +77,22 @@ async saveValidationResult(result: Partial<ValidationResults>): Promise<void> {
 
       // Save validation results for each item
       for (const item of jsonArray) {
-        const metadataIssues = result.issues.find((issue) => issue.item.exercise_name === item.exercise_name
-        )?.validationErrors || null;
-        const validationResult = {
-          user: 'persistent user id?', // persistent identifier?
-          dateLastUpdated: new Date(),
-          metadataIssues: metadataIssues ? JSON.stringify(metadataIssues) : undefined, //errors into strings
-          validationStatus: metadataIssues ? 'failed' : 'success',
-        };
-        
-        await this.saveValidationResult(validationResult);
+        const metadataIssues =
+          result.issues.find((issue) => issue.item.exercise_name === item.exercise_name)?.validationErrors || null;
+
+        const catalogItem = await this.catalogRepository.findOne({ where: { url: item.url } });
+
+        if (!catalogItem) {
+          logger.warn(`No catalog item found for URL: ${item.url}`);
+          continue;
+        }
+
+        const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
+        if (!validationResult) continue;
+        validationResult.metadataIssues = metadataIssues ? JSON.stringify(metadataIssues) : 'no issues';
+        validationResult.user = item.exercise_name;
+        validationResult.dateLastUpdated = new Date();
+        await this.validationResultsRepository.save(validationResult);
       }
       logger.info(`Metadata validation completed: ${result.validItems.length} valid items`);
       //logger.info(); print the validation results
@@ -103,18 +124,18 @@ async saveValidationResult(result: Partial<ValidationResults>): Promise<void> {
     try {
       logger.info(`Starting URL validation for ${validItems.length} items`);
       const result = await this.urlValidator.validate(validItems);
-          // Save individual URL validation results into the database
+      // Save individual URL validation results into the database
       for (const [index, item] of validItems.entries()) {
         const isValid = result.successfulUrls > index;
-        const validationResult = {
-          user: 'currentUser', // Replace with actual user identifier
-          dateLastUpdated: new Date(),
-          isUrlValid: isValid,
-          metadataIssues: undefined, // No metadata issues here
-          validationStatus: isValid ? 'success' : 'failed',
-      };
-      await this.saveValidationResult(validationResult); // Save results to the database
-    }
+
+        const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
+        if (!validationResult) continue;
+
+        validationResult.isUrlValid = isValid;
+        validationResult.dateLastUpdated = new Date();
+
+        await this.validationResultsRepository.save(validationResult);
+      }
       logger.info(`URL validation completed: ${result.successfulUrls} successful URLs`);
       return result;
     } catch (error) {
@@ -164,6 +185,27 @@ async saveValidationResult(result: Partial<ValidationResults>): Promise<void> {
       // The categorizer expects an array of SLCItems and matched items
       const itemsToProcess: SLCItem[] = items.map((obj) => obj.item);
       await this.categorizer.storeItemsAndClassify(itemsToProcess, report.matched);
+      //new stuff
+      for (const item of itemsToProcess) {
+        try {
+          await this.categorizer.storeItemsAndClassify([item], report.matched);
+          const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
+          if (validationResult) {
+            validationResult.categorizationResults = 'Success';
+            validationResult.dateLastUpdated = new Date();
+            await this.validationResultsRepository.save(validationResult);
+          }
+        } catch (error) {
+          logger.error(`Error reprocessing item for error capture: ${item.url}`, error);
+
+          const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
+          if (!validationResult) return;
+
+          validationResult.categorizationResults = 'Failed to classify item';
+          validationResult.dateLastUpdated = new Date();
+          await this.validationResultsRepository.save(validationResult);
+        }
+      }
       logger.info(`Successfully stored and classified ${items.length} items`);
     } catch (error) {
       logger.error('Failed to store and classify items:', error);

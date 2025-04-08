@@ -12,6 +12,19 @@ import { ErrorHandler } from './utils/ErrorHandler';
 import path from 'path';
 import { auth } from 'express-openid-connect';
 import * as dotenv from 'dotenv';
+import { AppDataSource } from './db/data-source';
+
+(async () => {
+  try {
+    if (!AppDataSource.isInitialized) {
+      await AppDataSource.initialize();
+      console.log('Database connection initialized successfully!');
+    }
+  } catch (error) {
+    console.error('Error initializing database connection:', error);
+    process.exit(1); // Exit the process if the database fails to initialize
+  }
+})();
 
 dotenv.config();
 

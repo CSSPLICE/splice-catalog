@@ -30,7 +30,7 @@ export class URLValidator {
           console.log(`success ${item.url} is reachable, returned status: ${response.status}`);
         } else {
           unsuccessfulUrls++;
-          const msg=`[ERROR] ${item.url} returned status ${response.status}`;
+          const msg = `[ERROR] ${item.url} returned status ${response.status}`;
           console.error(msg);
           issues.push({ item, error: `URL returned status ${response.status}` });
         }
@@ -57,8 +57,10 @@ export class URLValidator {
     });
 
     await Promise.all(urlPromises);
-    console.log(`successful url's : ${successfulUrls} , unsuccessful url's: ${unsuccessfulUrls}, issues: ${issues.length}`);
-    
+    console.log(
+      `successful url's : ${successfulUrls} , unsuccessful url's: ${unsuccessfulUrls}, issues: ${issues.length}`,
+    );
+
     return { urlsChecked: successfulUrls + unsuccessfulUrls, successfulUrls, unsuccessfulUrls, issues };
   }
 }

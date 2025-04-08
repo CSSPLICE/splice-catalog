@@ -1,41 +1,25 @@
-import { IsNotEmpty, IsInt, IsString, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsBoolean, IsInt } from 'class-validator';
 
 export class CreateValidationResultsDTO {
   @IsNotEmpty()
-  @IsInt()
-  slcItemId!: number;
-
-  @IsNotEmpty()
   @IsString()
-  validatedBy!: string;
+  user!: string;
 
   @IsOptional()
   @IsString()
   metadataIssues?: string;
 
+  @IsNotEmpty()
+  @IsInt()
+  itemId!: number;
+
+  @IsOptional()
+  @IsBoolean()
+  isUrlValid?: boolean;
+
   @IsOptional()
   @IsString()
   categorizationResults?: string;
-
-  @IsOptional()
-  @IsInt()
-  totalSubmissions?: number;
-
-  @IsOptional()
-  @IsInt()
-  successfulVerifications?: number;
-
-  @IsOptional()
-  @IsInt()
-  urlsChecked?: number;
-
-  @IsOptional()
-  @IsInt()
-  successfulUrls?: number;
-
-  @IsOptional()
-  @IsInt()
-  unsuccessfulUrls?: number;
 
   @IsOptional()
   @IsString()
