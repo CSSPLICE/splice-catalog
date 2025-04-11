@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source';
-import { ILike, Equal, IsNull } from 'typeorm';
+import { FindOptionsWhere, ILike, IsNull } from 'typeorm';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
+import { SLCItem } from 'src/types/ItemTypes';
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
     const query = req.body.query || req.query.query; // Handle GET and POST requests
-    const exerciseType = req.query.exerciseType || '';
+    const exerciseType = req.query.exerciseType || [];
+    const exerciseTypes = typeof exerciseType === 'string' ? exerciseType.split(',') : [];
     if (!query) {
       return res.render('pages/search', {
         results: [],
@@ -19,26 +21,38 @@ export class SearchController {
       });
     }
 
-    let dbQuery: Record<string, any>[] = [
-        { keywords: ILike(`%${query}%`) },
-        { platform_name: ILike(`%${query}%`) },
-        { exercise_name: ILike(`%${query}%`) },
-        { catalog_type: ILike(`%${query}%`) },
+    let dbQuery: FindOptionsWhere<SLCItem>[] = [
+      { keywords: ILike(`%${query}%`) },
+      { platform_name: ILike(`%${query}%`) },
+      { exercise_name: ILike(`%${query}%`) },
+      { catalog_type: ILike(`%${query}%`) },
     ];
 
-    if (exerciseType) {
-        if (exerciseType === 'Untagged') { //for untagged
-            dbQuery = dbQuery.map((orcond) => ({
-                exercise_type: IsNull(),
-                ...orcond,
-            }));
+    if (exerciseTypes.length > 0) {
+      // Split your base query OR conditions
+      let queryWithExerciseTypes: FindOptionsWhere<SLCItem>[] = [];
+
+      if (exerciseTypes.includes('Untagged')) {
+        queryWithExerciseTypes = dbQuery.map((orcond) => ({
+          ...orcond,
+          exercise_type: IsNull(),
+        }));
+      }
+
+      const nonNullTypes = exerciseTypes.filter((type) => type !== 'Untagged');
+
+      if (nonNullTypes.length > 0) {
+        for (const type of nonNullTypes) {
+          queryWithExerciseTypes.push(
+            ...dbQuery.map((orcond) => ({
+              ...orcond,
+              exercise_type: ILike(`%${type}%`),
+            })),
+          );
         }
-        else {
-            dbQuery = dbQuery.map((orcond) => ({
-                exercise_type: ILike(`%${exerciseType}%`),
-                ...orcond,
-            }));
-        }
+      }
+
+      dbQuery = queryWithExerciseTypes;
     }
 
     const currentPage = Number(req.query.page) || 1;
