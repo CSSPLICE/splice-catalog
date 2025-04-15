@@ -14,7 +14,6 @@ const upload = multer({ dest: '/tmp', limits: { fieldSize: maxSize } });
 router.get('/', viewController.homeView);
 router.post('/upload', upload.single('file'), viewController.uploadPost);
 router.get('/upload', viewController.uploadView);
-//router.post('/item', viewController.itemView);
 router.get('/item/:name', viewController.itemView);
 
 router.get('/instructions', viewController.instructionsView);

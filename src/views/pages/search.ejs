@@ -29,10 +29,9 @@
                         </td>
                         <td><%= SLCItem.exercise_type %></td>
                         <td>
-                            <span class="short-description" onclick="openModal()" style="cursor: pointer; color: black; text-decoration: none; display: inline-block; padding: 5px; background-color: none; border-radius: 5px; transition: background-color 0.3s ease;">
+                            <span class="short-description" data-description="<%= SLCItem.description %>">
                                 Short Description...
-                            </span>
-                            
+                              </span>                              
                         </td>
                         <td><a href="<%= SLCItem.url %>"</a><%= SLCItem.platform_name %></td>
                         <td>
@@ -64,7 +63,7 @@
           <!-- Pagination Controls -->
           <div class="pagination">
             <ul class="pagination-list">
-                <% if (totalPages > 1) { %> <!-- Show pagination only if more than 1 page -->
+                <% if (totalPages > 1) { %> 
                     
                     <% if (currentPage > 1) { %>
                         <li><a href="?query=<%= query %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
@@ -117,7 +116,24 @@
 
     <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/catalog.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const modal = document.getElementById("descriptionModal");
+          const modalText = document.getElementById("fullDescription");
+    
+          document.querySelectorAll(".short-description").forEach((el) => {
+            el.addEventListener("click", () => {
+              modalText.textContent = "Detailed Description.";
+              modal.style.display = "block";
+            });
+          });
+      
+          document.querySelector(".close").addEventListener("click", () => {
+            modal.style.display = "none";
+          });
+      
+        });
+      </script>
 
 </body>
 <%- include('../partials/footer') -%>
