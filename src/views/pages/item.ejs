@@ -2,6 +2,50 @@
 <html>
 <%- include('../partials/head') -%>
 <%- include('../partials/header') -%>
+<meta http-equiv='content-type' content='text/html; charset=UTF-8'/> 
+<link rel='stylesheet' href='../cssplice.css' type='text/css'/>
+<style>
+pre.message {
+    background: white;
+    border: thin dotted gray;
+    margin: 1em;
+    padding: 1em;
+}
+</style>
+<script type='text/javascript' charset='utf-8' src='splice-parent.js'></script>
+<script>//<![CDATA[
+window.addEventListener('DOMContentLoaded', () => {
+  function sendingIframe(event) {
+    for (const f of document.getElementsByTagName('iframe'))
+      if (f.contentWindow === event.source) return f
+    return undefined
+  }
+
+  // Connect the existing iframe with message handling
+  const existingIframe = document.getElementById('previewIframe');
+  
+  window.addEventListener("message", event => {
+    const iframe = sendingIframe(event)
+    if (!iframe) return;
+    
+    // Find the associated message pre element
+    const pre = document.getElementById('previewMessages');
+    if (pre) {
+      pre.textContent += JSON.stringify(event.data) + '\n';
+    }
+    
+    if (event.data.subject === 'SPLICE.getState') {
+      // TODO Demo state sending?
+      const state = null // getStateOfProblem(iframe)
+      iframe.contentWindow.postMessage({ 
+        subject: 'SPLICE.getState.response', 
+        message_id: event.data.message_id, 
+        state 
+      }, '*');
+    }
+  }, false);
+})
+//]]></script>
 <body>
     <div class="container">
         <h1 class="header"><%= item.exercise_name %></h1>
@@ -72,14 +116,12 @@
         </table> 
         <div class="iframe-preview">
             <h4>Preview</h4>
-            <iframe src="<%= item.iframe_url %>" width="100%" height="600px" allowfullscreen></iframe>
+            <iframe id="previewIframe" src="<%= item.iframe_url %>" width="100%" height="100%"></iframe>
+            <pre id="previewMessages" class="message"></pre>
         </div>
     </div>
 
     <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
 </body>
-<%- include('../partials/footer') -%>
 </html>
