@@ -23,9 +23,9 @@ const io = new Server(server);
 app.use((req, res, next) => {
   res.locals.user = req.oidc?.user || null;
   if (req.path === '/upload') {
-    res.locals.showLoginButton = true;  
+    res.locals.showLoginButton = true;
   } else {
-    res.locals.showLoginButton = false;  
+    res.locals.showLoginButton = false;
   }
   next();
 });
@@ -46,8 +46,6 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 
-
-
 //add Socket
 app.use((req, res, next) => {
   res.locals.io = io;
@@ -58,7 +56,6 @@ app.use((req, res, next) => {
   res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
   next();
 });
-
 
 // Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -83,8 +80,6 @@ app.use('/about', aboutRoutes);
 
 app.use('/catalog', catalogRoutes);
 app.use('/search', searchRoutes);
-
-
 
 app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
