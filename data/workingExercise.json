@@ -1,0 +1,47 @@
+[
+    {
+        "catalog_type": "SLCItemCatalog",
+        "platform_name": "OpenDSA",
+        "url": "https://opendsax.cs.vt.edu/embed/binarySearchPRO",
+        "lti_instructions_url": "https://opendsa-server.cs.vt.edu/guides/opendsa-canvas",
+        "exercise_type": "pe",
+        "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+        "description": null,
+        "author": "Cliff Shaffer",
+        "institution": "Virginia Tech",
+        "keywords": ["Binary Search Proficiency Exercise1"],
+        "exercise_name": "Binary Search Proficiency Exercise1",
+        "iframe_url": "https://opendsax.cs.vt.edu/ODSA/AV/Searching/binarySearchPRO.html",
+        "lti_url": "https://opendsax.cs.vt.edu/lti/launch?custom_ex_short_name=binarySearchPRO\u0026custom_ex_settings=%7B%7D"
+      },
+      {
+        "catalog_type": "SLCItemCatalog",
+        "platform_name": "OpenDSA",
+        "url": "https://opendsax.cs.vt.edu/embed/binarySearchPRO",
+        "lti_instructions_url": "https://opendsa-server.cs.vt.edu/guides/opendsa-canvas",
+        "exercise_type": "pe",
+        "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+        "description": null,
+        "author": "Cliff Shaffer",
+        "institution": "Virginia Tech",
+        "keywords": ["Array-Based List Insertion Proficiency Exercise1"],
+        "exercise_name": "Array-Based List Insertion Proficiency Exercise1",
+        "iframe_url": "https://opendsax.cs.vt.edu/ODSA/Exercises/List/AlistInsertPRO.html",
+        "lti_url": "https://opendsax.cs.vt.edu/lti/launch?custom_ex_short_name=binarySearchPRO\u0026custom_ex_settings=%7B%7D"
+      },
+      {
+        "catalog_type": "SLCItemCatalog",
+        "platform_name": "OpenDSA",
+        "url": "https://opendsax.cs.vt.edu/embed/binarySearchPRO",
+        "lti_instructions_url": "https://opendsa-server.cs.vt.edu/guides/opendsa-canvas",
+        "exercise_type": "pe",
+        "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+        "description": null,
+        "author": "Cliff Shaffer",
+        "institution": "Virginia Tech",
+        "keywords": ["Dijkstra’s Algorithm Proficiency Exercise1"],
+        "exercise_name": "Dijkstra’s Algorithm Proficiency Exercise1",
+        "iframe_url": "https://opendsax.cs.vt.edu/ODSA/AV/Graph/DijkstraPE.html",
+        "lti_url": "https://opendsax.cs.vt.edu/lti/launch?custom_ex_short_name=binarySearchPRO\u0026custom_ex_settings=%7B%7D"
+      }
+]
