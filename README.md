@@ -2,7 +2,7 @@
 
 ## Setup
 
-`cp env.example .env`
+`cp env.example .env` - contact a member of the SPLICE team for an updated environment file if you are interested in helping with development
 
 ## Development
 
