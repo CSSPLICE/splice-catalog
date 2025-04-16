@@ -6,19 +6,19 @@
 
 ## Development
 
-To build the catalog container: `docker compose --profile catalog build`
-
-To install the node packages: `docker compose --profile catalog run catalog yarn install`
-
-To start the splice catalog application: `docker compose --profile catalog up`
+In order to get the development environment setup, you'll need to follow these steps:
+1. Build the catalog container: `docker compose --profile catalog build`
+2. Install the node packages: `docker compose --profile catalog run catalog yarn install`
+3. Start the splice catalog application: `docker compose --profile catalog up`
 
 Once the container starts you'll want to
 
-To exec into the running container: `docker compose --profile catalog exec catalog bash` (if you are on windows, you'll need to add winpty)
-
-And run `yarn migrate` to instantiate the database
+4. Running the application per step 3 will consume the current terminal, to exec into the running container, open a new terminal in the repository and run: `docker compose --profile catalog exec catalog bash` (if you are on windows, you'll need to add winpty)
+5. Inside the container run: `yarn migrate` to instantiate the database
 
 From inside this container, you can also run other yarn commands (install, add <package>, etc)
+
+6. At this point, the catalog will be running at [http://localhost:3000/](http://localhost:3000/)
 
 ## Import Catalog Data
 
@@ -26,7 +26,7 @@ Once the application is running, upload any data files to [http://localhost:3000
 
 ## Import Ontology Data
 
-`docker compose exec splice-catalog-catalog-1 yarn import:ontology`
+`docker compose --profile catalog exec yarn import:ontology`
 
 ## Interact with database
 
@@ -36,6 +36,10 @@ docker compose --profile catalog exec db bash
 mysql -usplice -psplice
 use splice;
 ```
+
+## Swap Branches
+
+If you are developing the catalog, you should be checking out the staging branch `git checkout staging`
 
 **See documentation here:** [docs](docs) 
 
