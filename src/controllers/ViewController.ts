@@ -64,7 +64,7 @@ export class ViewController {
   }
 
   async instructionsView(req: Request, res: Response) {
-    res.render('pages/instructions', { title: 'Instructions' });
+    res.render('pages/instructions', { title: 'Instructions', showLoginButton: res.locals.showLoginButton });
   }
 
   async homeView(req: Request, res: Response) {
