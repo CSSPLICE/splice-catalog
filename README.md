@@ -2,7 +2,7 @@
 
 ## Setup
 
-`cp env.example .env` - contact a member of the SPLICE team for an updated environment file if you are interested in helping with development
+`cp env.example .env`
 
 ## Development
 
@@ -42,5 +42,7 @@ use splice;
 ## Production
 
 `docker compose --profile production build`
+
+`docker volume rm splice-catalog_staticvolume`
 
 `docker compose --profile production up -d`
