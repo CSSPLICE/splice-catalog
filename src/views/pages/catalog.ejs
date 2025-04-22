@@ -10,23 +10,61 @@
         <%- include('../pages/table', { items: catalog }) %>
         <!-- Pagination Controls -->
         <div class="pagination">
-            <% if (currentPage > 1) { %>
-                <a href="?page=<%= currentPage - 1 %>">Previous</a>
-            <% } %>
+            <ul class="pagination-list">
+                <% if (totalPages > 10) { %>  
+                    
+                    <% if (currentPage > 1) { %>
+                        <li><a href="?page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
+                    <% } %>
 
-            <% for (let i = 1; i <= totalPages; i++) { %>
-                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
-            <% } %>
+                    <% if (currentPage > 10) { %>
+                        <li><a href="?page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
+                    <% } %>
 
-            <% if (currentPage < totalPages) { %>
-                <a href="?page=<%= currentPage + 1 %>">Next</a>
-            <% } %>
+                    <% if (totalPages <= 5) { %> 
+                        <% for (let i = 1; i <= totalPages; i++) { %>
+                            <li>
+                                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                    <% } else { %>  
+                        <% if (currentPage > 2) { %>
+                            <li><a href="?page=1">1</a></li>
+                            <% if (currentPage > 3) { %>  
+                                <li class="ellipsis">...</li>  
+                            <% } %>
+                        <% } %>
+
+                        <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
+                            <li>
+                                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                            </li>
+                        <% } %>
+
+                        <% if (currentPage < totalPages - 1) { %>
+                            <% if (currentPage < totalPages - 2) { %>  
+                                <li class="ellipsis">...</li>  
+                            <% } %>
+                            <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
+                        <% } %>
+                    <% } %>
+
+                    <% if (currentPage + 10 <= totalPages) { %>
+                        <li><a href="?page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
+                    <% } %>
+
+                    <% if (currentPage < totalPages) { %>
+                        <li><a href="?page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
+                    <% } %>
+
+                <% } %> 
+            </ul>
         </div>
     </div>
 
-    <!-- Bootstrap JS bundle -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="/js/catalog.js"></script>
 </body>
 <%- include('../partials/footer') -%>
 </html>
