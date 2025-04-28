@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString, IsOptional, IsUrl, ValidateIf, IsArray } from 'class-validator';
+import {Unique} from "typeorm";
 
 export class CreateSLCItemDTO {
   @IsNotEmpty()
@@ -30,15 +31,17 @@ export class CreateSLCItemDTO {
 
   @IsOptional()
   @IsNotEmpty()
-  @IsString()
-  exercise_type?: string;
+  @IsString({each:true})
+  @IsArray()
+  exercise_type?: string[];
 
   // @IsNotEmpty()
   // @IsString()
   description?: string;
 
   @IsNotEmpty()
-  @IsString()
+  @IsString({each:true})
+  @IsArray()
   author!: string;
 
   @IsOptional()
@@ -50,9 +53,15 @@ export class CreateSLCItemDTO {
   @IsString()
   exercise_name!: string;
 
-  // @IsNotEmpty()
-  // @IsString()
-  language!: string;
+  @IsNotEmpty()
+  @IsString({each:true})
+  @IsArray()
+  programmingLanguage!: string;
+
+  @IsNotEmpty()
+  @IsString({each:true})
+  @IsArray()
+  naturalLanguage!: string;
 
   @IsNotEmpty()
   @IsUrl()
