@@ -42,7 +42,7 @@ export class CreateSLCItemDTO {
   @IsNotEmpty()
   @IsString({each:true})
   @IsArray()
-  author!: string;
+  author!: string[];
 
   @IsOptional()
   // @IsNotEmpty()
@@ -54,13 +54,11 @@ export class CreateSLCItemDTO {
   exercise_name!: string;
 
   @IsNotEmpty()
-  @IsString({each:true})
-  @IsArray()
+  @IsString()
   programmingLanguage!: string;
 
   @IsNotEmpty()
-  @IsString({each:true})
-  @IsArray()
+  @IsString()
   naturalLanguage!: string;
 
   @IsNotEmpty()
@@ -72,4 +70,8 @@ export class CreateSLCItemDTO {
   @IsUrl()
   @IsString()
   lti_url?: string;
+
+  @IsNotEmpty()
+  @IsString()
+  persistentID!: string;
 }
