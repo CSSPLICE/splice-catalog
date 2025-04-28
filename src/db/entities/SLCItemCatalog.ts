@@ -21,13 +21,16 @@ export class slc_item_catalog {
   description!: string;
 
   @Column()
-  author!: string;
+  author!: string[];
 
   @Column()
   institution!: string;
 
   @Column()
-  language!: string;
+  programmingLanguage!: string;
+
+  @Column()
+  naturalLanguage!: string;
 
   @Column()
   platform_name!: string;
@@ -36,7 +39,7 @@ export class slc_item_catalog {
   lti_instructions_url!: string;
 
   @Column()
-  exercise_type!: string;
+  exercise_type!: string[];
 
   @Column({ unique: true })
   exercise_name!: string;
@@ -46,4 +49,7 @@ export class slc_item_catalog {
 
   @Column()
   lti_url!: string;
+
+  @Column({unique: true})
+  persistentID!: string;
 }
