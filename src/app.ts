@@ -17,54 +17,47 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const app: Express = express();
-
 const server = http.createServer(app);
 const io = new Server(server);
+
+
 app.use((req, res, next) => {
   res.locals.user = req.oidc?.user || null;
-  if (req.path === '/upload') {
-    res.locals.showLoginButton = true;  
-  } else {
-    res.locals.showLoginButton = false;  
-  }
+  res.locals.showLoginButton = req.path.startsWith('/upload');
   next();
 });
+
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(
     helmet({
       contentSecurityPolicy: {
         directives: {
-          'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu', 'acos.cs.vt.edu'],
-          'script-src': ['splice.cs.vt.edu', 'cdn.jsdelivr.net'],
+          defaultSrc: ["'self'"],
+          frameSrc: ["'self'", "codeworkoutdev.cs.vt.edu", "opendsax.cs.vt.edu", "acos.cs.vt.edu"],
+          scriptSrc: ["'self'", "splice.cs.vt.edu", "cdn.jsdelivr.net"],
         },
       },
-    }),
+    })
   );
 }
 
-
-
-//add Socket
 app.use((req, res, next) => {
   res.locals.io = io;
   next();
 });
 
-app.use((req, res, next) => {
-  res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
-  next();
-});
 
-
-// Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 const oidc_config = {
   authRequired: false,
@@ -75,21 +68,18 @@ const oidc_config = {
   issuerBaseURL: process.env.issuerBaseURL,
 };
 
+
 app.use(auth(oidc_config));
 
+
 app.use('/', viewRoutes);
-
 app.use('/about', aboutRoutes);
-
 app.use('/catalog', catalogRoutes);
 app.use('/search', searchRoutes);
-
-
-
 app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
-
 app.use('/ontology', ontologyRoutes);
+
 
 app.all('*', (req: Request, res: Response) => {
   return res.status(404).send({
@@ -97,6 +87,7 @@ app.all('*', (req: Request, res: Response) => {
     message: 'Invalid route',
   });
 });
+
 
 app.use(ErrorHandler.handleErrors);
 

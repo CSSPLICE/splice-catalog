@@ -31,13 +31,7 @@ export class ViewController {
     res.render('pages/catalog', { catalog: catalog_data, currentPage, totalPages, title: 'SPLICE Catalog' });
   }
 
- /*async itemView(req: Request, res: Response) {
-    const query = req.body.item_link;
-    const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
-      where: [{ exercise_name: ILike(`%${query}%`) }],
-    });
-    res.render('pages/item', { item: item, title: 'Item View' });
-  }*/
+
   async itemView(req: Request, res: Response) {
     const query = req.params.name;  // <-- get it from the URL
     const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
