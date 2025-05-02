@@ -14,13 +14,13 @@ export class slc_item_catalog {
   // @Column()
   // keywords!: string;
 
-  @Column('json')
+  @Column('simple-array')
   keywords!: string[];
 
   @Column()
   description!: string;
 
-  @Column()
+  @Column('simple-array')
   author!: string[];
 
   @Column()
@@ -38,7 +38,7 @@ export class slc_item_catalog {
   @Column()
   lti_instructions_url!: string;
 
-  @Column()
+  @Column('simple-array')
   exercise_type!: string[];
 
   @Column({ unique: true })
