@@ -186,3 +186,16 @@ export class ViewController {
     return res.redirect('/upload');
   }
 }
+export async function downloadValidationResults(req: Request, res: Response) {
+  try {
+    const repo = AppDataSource.getRepository(ValidationResults);
+    const results = await repo.find({ relations: ['item'] });
+
+    res.setHeader('Content-Disposition', 'attachment; filename="validation_results.json"');
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(results, null, 2));
+  } catch (error) {
+    console.error('Error downloading validation results:', error);
+    res.status(500).send('Failed to download results');
+  }
+}

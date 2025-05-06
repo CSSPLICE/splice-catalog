@@ -127,6 +127,11 @@
     <% } %>
     <% if (validationResults && validationResults.length > 0) { %>
       <h5 class="mt-5">Individual Results</h5>
+      <div class="mb-3">
+        <a href="/download-validation-results" class="btn btn-success" download>
+          Download Validation Results JSON
+        </a>
+      </div>      
       <div class="table-responsive">
         <table class="table table-bordered table-hover">
           <thead class="table-light">
@@ -135,7 +140,9 @@
               <th>URL</th>
               <th>Metadata Issues</th>
               <th>URL Valid</th>
-              <th>Categorization</th>
+              <th>iFrame URL</th>
+              <th>Categorization (keywords)</th>
+              <th>LTI Launchable</th>
             </tr>
           </thead>
           <tbody>
@@ -145,29 +152,50 @@
                 <td><a href="<%= result.item.url %>" target="_blank"><%= result.item.url %></a></td>
                 <td>
                   <% if (result.metadataIssues === 'no issues') { %>
-                    <p>&#128994;</p>
+                    <p style="color:green; font-weight:bold;">Success</p>
                   <% } else if (result.metadataIssues) { %>
-                    <p>&#128308;</p>
+                    <p style="color:red; font-weight:bold;">failure</p> <%= result.metadataIssues %>
                   <% } else { %>
                     Pending
                   <% } %>
-                </td>
+                </td>                
                 <td>
                   <% if (result.isUrlValid === true) { %>
-                    <p>&#128994;</p>
+                    <p style="color:green; font-weight:bold;">Success</p>
                   <% } else if (result.isUrlValid === false) { %>
-                    <p>&#128308;</p>
+                    <p style="color:red; font-weight:bold;">failure</p>
                   <% } else { %>
                     N/A
                   <% } %>
                 </td>
+                <% const iframeMessage = result.iframeValidation?.message; %>
                 <td>
-                  <% if (result.categorizationResults === 'Success') { %>
-                    <p>&#128994;</p>
+                  <% if (iframeMessage === 'Iframe validation failed' || iframeMessage == null) { %>
+                    <p style="color:red; font-weight:bold;">Failure</p>
                   <% } else { %>
-                    <p>&#128308;</p>
+                    <p style="color:green; font-weight:bold;">Success</p>
                   <% } %>
                 </td>
+                <td>
+                  <% if (result.categorizationResults?.startsWith('Success')) { %>
+                    <p style="color:green; font-weight:bold;">Success</p>
+                  <% } else if (result.categorizationResults) { %>
+                    <p style="color:red; font-weight:bold;">failure</p>
+                    <p>Categorization failed: No matching ontology class for keywords</p>
+                  <% } else { %>
+                    <p style="color:red; font-weight:bold;">failure</p>
+                    <p>Categorization failed: No matching ontology class for keywords</p>
+                  <% } %>
+                </td>
+                <td>
+                  <% if (result.ltiValidationStatus === 'Launchable') { %>
+                    Launchable
+                  <% } else if (result.ltiValidationStatus === 'Not Launchable' || result.ltiValidationStatus === 'Validation Failed') { %>
+                    <%= result.ltiValidationStatus %>
+                  <% } else { %>
+                    N/A
+                  <% } %>
+                </td>                
               </tr>
             <% }) %>
           </tbody>

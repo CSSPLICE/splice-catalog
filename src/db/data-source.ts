@@ -18,6 +18,7 @@ import { CreateItemClassification1727750775894 } from './migrations/172775077589
 import { CreateValidationResults1743975897306 } from './migrations/1743975897306-CreateValidationResults';
 //import {AddRelationToValidationResults1744043458304} from './migrations/1744043458304-AddRelationToValidationResults';
 import { ValidationResults } from './entities/ValidationResults';
+import {AddValidationFields1744688022277} from './migrations/1744688022277-AddValidationFields';
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ export const AppDataSource = new DataSource({
     CreateOntologyAliases1727750762837,
     CreateItemClassification1727750775894,
     CreateValidationResults1743975897306,
+    AddValidationFields1744688022277,
     //AddRelationToValidationResults1744043458304,
     // SeedInitialData1699653979099,  // seed migration runs, #Todo include import for dev environment
   ],

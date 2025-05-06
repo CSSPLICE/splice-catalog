@@ -10,6 +10,9 @@ import { CategorizationReport } from '../types/CategorizationTypes';
 import { Repository } from 'typeorm';
 import { ValidationResults } from '../db/entities/ValidationResults';
 import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
+import {validateLTI} from 'src/services/ValidatorLTI';
+import axios from 'axios';
+import { runIframeValidation } from '../routes/IframeValidatorService';
 
 export class ValidationManager {
   private metadataValidator: MetadataValidator;
@@ -77,7 +80,7 @@ export class ValidationManager {
 
       // Save validation results for each item
       for (const item of jsonArray) {
-        const metadataIssues =
+        const validationErrors =
           result.issues.find((issue) => issue.item.exercise_name === item.exercise_name)?.validationErrors || null;
 
         const catalogItem = await this.catalogRepository.findOne({ where: { url: item.url } });
@@ -89,7 +92,18 @@ export class ValidationManager {
 
         const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
         if (!validationResult) continue;
-        validationResult.metadataIssues = metadataIssues ? JSON.stringify(metadataIssues) : 'no issues';
+      
+        // Build detailed metadata error string
+        const formattedErrors = validationErrors?.length
+          ? validationErrors.map(err => {
+              const constraints = err.constraints
+                ? Object.values(err.constraints).join(', ')
+                : 'Unknown issue';
+              return `Field "${err.property}": ${constraints}`;
+            }).join('; ')
+          : 'no issues';
+      
+        validationResult.metadataIssues = formattedErrors;
         validationResult.user = item.exercise_name;
         validationResult.dateLastUpdated = new Date();
         await this.validationResultsRepository.save(validationResult);
@@ -132,6 +146,38 @@ export class ValidationManager {
         if (!validationResult) continue;
 
         validationResult.isUrlValid = isValid;
+        try {
+          const iframeResult = await runIframeValidation('https://codecheck.io/files/wiley/ch-bj4cc-c06_exp_6_105');
+          validationResult.iframeValidationError = iframeResult.passed ? 'Passed: SPLICE message received' : iframeResult.message || 'Unknown error';
+        } catch (iframeError) {
+          logger.error(`Iframe validation failed for ${item.iframe_url}:`, iframeError);
+          validationResult.iframeValidationError = 'Iframe validation failed';
+        }
+        
+      //lti validation
+      if (item.lti_url) {
+        try {
+          const ltiPayload = {
+            launch_url: "https://codeworkout.cs.vt.edu/lti/launch",
+            key: "canvas_key", // replace with real values when available
+            secret: "canvas_secret",
+          };
+      
+          const ltiResult = await validateLTI(ltiPayload);
+      
+          validationResult.ltiValidationStatus = ltiResult.launchable
+            ? 'Launchable'
+            : `Not Launchable (status ${ltiResult.status_code || 'unknown'})`;
+      
+        } catch (error: any) {
+          logger.error(`Error validating LTI URL for ${item.lti_url}:`, error);
+          validationResult.ltiValidationStatus = `Validation Failed: ${error.message || 'Unknown error'}`;
+        }
+      } else {
+        validationResult.ltiValidationStatus = 'No LTI URL Provided';
+      }
+      //end of lti validation
+
         validationResult.dateLastUpdated = new Date();
 
         await this.validationResultsRepository.save(validationResult);
@@ -197,13 +243,12 @@ export class ValidationManager {
           }
         } catch (error) {
           logger.error(`Error reprocessing item for error capture: ${item.url}`, error);
-
           const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
           if (!validationResult) return;
-
-          validationResult.categorizationResults = 'Failed to classify item';
+          validationResult.categorizationResults = `Categorization failed: No matching ontology class for keywords [${item.keywords?.join(', ') || 'none'}]`;
           validationResult.dateLastUpdated = new Date();
           await this.validationResultsRepository.save(validationResult);
+          throw error;
         }
       }
       logger.info(`Successfully stored and classified ${items.length} items`);
