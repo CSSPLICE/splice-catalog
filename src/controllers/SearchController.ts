@@ -77,14 +77,14 @@ export class SearchController {
     });
   }
   async searchCatalogAPI(req: Request, res: Response) {
-    const query = req.query.query; 
+    const query = req.query.query;
     if (!query) {
       return res.status(400).json({ error: 'Missing query parameter' });
     }
-  
+
     const currentPage = Number(req.query.page) || 1;
     const ITEMS_PER_PAGE = 25;
-  
+
     try {
       const [search_data, totalItems] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
         where: [
@@ -97,9 +97,9 @@ export class SearchController {
         skip: (currentPage - 1) * ITEMS_PER_PAGE,
         take: ITEMS_PER_PAGE,
       });
-  
+
       const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-  
+
       return res.json({
         results: search_data,
         currentPage,
@@ -111,5 +111,4 @@ export class SearchController {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
-  
 }

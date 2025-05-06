@@ -1,13 +1,13 @@
 .iframe-preview {
-    height: 80vh; /* Adjust height to fit most of the screen */
-    overflow: auto; /* Enables scrollbars when needed */
-    margin-top: 1rem;
-    border: 1px solid #ccc;
-    padding: 0.5rem;
+  height: 80vh; /* Adjust height to fit most of the screen */
+  overflow: auto; /* Enables scrollbars when needed */
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
 }
 
 #iframePreview {
-    width: 100%;
-    height: 100%;
-    border: none;
+  width: 100%;
+  height: 100%;
+  border: none;
 }
