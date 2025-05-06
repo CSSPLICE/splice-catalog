@@ -43,6 +43,7 @@
       }).catch(err => console.error("Failed to report to backend:", err));
     }
 
+      window.addEventListener('message', (event) => {
       console.log("=== Received postMessage ===");
       console.log("Raw event:", event);
       console.log("Data:", event.data);
