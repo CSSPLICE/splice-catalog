@@ -18,7 +18,7 @@ import { CreateItemClassification1727750775894 } from './migrations/172775077589
 import { CreateValidationResults1743975897306 } from './migrations/1743975897306-CreateValidationResults';
 //import {AddRelationToValidationResults1744043458304} from './migrations/1744043458304-AddRelationToValidationResults';
 import { ValidationResults } from './entities/ValidationResults';
-import {AddValidationFields1744688022277} from './migrations/1744688022277-AddValidationFields';
+import { AddValidationFields1744688022277 } from './migrations/1744688022277-AddValidationFields';
 
 dotenv.config();
 

@@ -23,7 +23,7 @@ export class ValidationResults {
 
   @Column({ type: 'text', nullable: true })
   validationStatus?: string;
-  
+
   @Column({ type: 'text', nullable: true })
   iframeValidationError?: string;
 

@@ -13,11 +13,10 @@ export async function validateLTI(payload: object): Promise<LTIValidationRespons
     return response.data;
   } catch (error: any) {
     const message = error?.response?.data?.error || error.message || 'Unknown error';
-    console.error("LTI validation failed:", message);
+    console.error('LTI validation failed:', message);
     return {
       launchable: false,
-      error: message
+      error: message,
     };
   }
 }
-
