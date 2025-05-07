@@ -22,7 +22,7 @@ export class URLValidator {
         // Disable SSL certificate validation for axios
         const response = await axios.get(item.url, {
           httpsAgent: new https.Agent({ rejectUnauthorized: false }),
-          timeout: 5000,
+          timeout: 4000,
         });
 
         if (response.status === 200) {
@@ -66,6 +66,6 @@ export class URLValidator {
 }
 /*
 1  add method to review controller to catch the results that we have, map them to the database, catch specific for each item
-2  add functionality into validation manager such that any errors caught can be sent 
+2  add functionality into validation manager such that any errors caught can be sent
 for getting specifc details will be applied such that each of the services sends individual data back to review controller.
 */

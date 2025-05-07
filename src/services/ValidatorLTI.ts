@@ -9,7 +9,7 @@ export interface LTIValidationResponse {
 
 export async function validateLTI(payload: object): Promise<LTIValidationResponse> {
   try {
-    const response = await axios.post('http://lti-validator:5000/validate', payload);
+    const response = await axios.post('http://lti-validator:4000/validate', payload);
     return response.data;
   } catch (error: any) {
     const message = error?.response?.data?.error || error.message || 'Unknown error';

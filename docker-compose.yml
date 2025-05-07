@@ -14,7 +14,7 @@ services:
     expose:
       - '3306'
     ports:
-      - '3306:3306'  
+      - '3306:3306'
     healthcheck:
       test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
       interval: 5s
@@ -100,12 +100,12 @@ services:
     build:
       context: ./src/lti-microservice
     ports:
-      - "5000:5000"
+      - "4000:4000"
     networks:
       - splice
     restart: always
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:5000/validate']
+      test: ['CMD', 'curl', '-f', 'http://localhost:4000/validate']
       interval: 30s
       timeout: 10s
       retries: 3

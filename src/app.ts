@@ -1,8 +1,6 @@
 import cors from 'cors';
 import helmet from 'helmet';
 import express, { Express, Request, Response } from 'express';
-import http from 'http';
-import { Server } from 'socket.io';
 import catalogRoutes from './routes/catalog';
 import searchRoutes from './routes/search';
 import viewRoutes from './routes/view';
@@ -30,9 +28,6 @@ dotenv.config();
 
 const app: Express = express();
 
-const server = http.createServer(app);
-const io = new Server(server);
-
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -49,12 +44,6 @@ if (process.env.NODE_ENV === 'production') {
     }),
   );
 }
-
-//add Socket
-app.use((req, res, next) => {
-  res.locals.io = io;
-  next();
-});
 
 // Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
