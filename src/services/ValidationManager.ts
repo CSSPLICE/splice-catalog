@@ -12,7 +12,7 @@ import { ValidationResults } from '../db/entities/ValidationResults';
 import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
 import { validateLTI } from 'src/services/ValidatorLTI';
 import axios from 'axios';
-import { runIframeValidation } from '../routes/IframeValidatorService';
+import { runIframeValidation } from './IframeValidatorService';
 
 export class ValidationManager {
   private metadataValidator: MetadataValidator;
