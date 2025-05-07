@@ -41,8 +41,12 @@ export async function runIframeValidation(iframeUrl: string): Promise<{ passed: 
     });
 
     result = checkResult;
-  } catch (err: any) {
-    result = { passed: false, message: `Error during Puppeteer run: ${err.message}` };
+  } catch (err: unknown) {
+    let message = 'Unknown error';
+    if (err instanceof Error) {
+      message = err.message;
+    }
+    result = { passed: false, message: `Error during Puppeteer run: ${message}` };
   } finally {
     await browser.close();
   }

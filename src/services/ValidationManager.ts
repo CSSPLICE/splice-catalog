@@ -11,7 +11,6 @@ import { Repository } from 'typeorm';
 import { ValidationResults } from '../db/entities/ValidationResults';
 import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
 import { validateLTI } from 'src/services/ValidatorLTI';
-import axios from 'axios';
 import { runIframeValidation } from './IframeValidatorService';
 
 export class ValidationManager {
@@ -170,9 +169,15 @@ export class ValidationManager {
             validationResult.ltiValidationStatus = ltiResult.launchable
               ? 'Launchable'
               : `Not Launchable (status ${ltiResult.status_code || 'unknown'})`;
-          } catch (error: any) {
+          } catch (error: unknown) {
+            let message = 'Unknown error';
+
+            if (error instanceof Error) {
+              message = error.message;
+            }
+
             logger.error(`Error validating LTI URL for ${item.lti_url}:`, error);
-            validationResult.ltiValidationStatus = `Validation Failed: ${error.message || 'Unknown error'}`;
+            validationResult.ltiValidationStatus = `Validation Failed: ${message}`;
           }
         } else {
           validationResult.ltiValidationStatus = 'No LTI URL Provided';

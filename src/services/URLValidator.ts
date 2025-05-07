@@ -61,7 +61,7 @@ export class URLValidator {
       `successful url's : ${successfulUrls} , unsuccessful url's: ${unsuccessfulUrls}, issues: ${issues.length}`,
     );
 
-    return { urlsChecked: successfulUrls + unsuccessfulUrls, successfulUrls, unsuccessfulUrls, issues };
+    return { urlsChecked: urlsChecked, successfulUrls, unsuccessfulUrls, issues };
   }
 }
 /*
