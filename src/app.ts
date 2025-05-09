@@ -4,6 +4,7 @@ import express, { Express, Request, Response } from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import catalogRoutes from './routes/catalog';
+import aboutRoutes from './routes/about';
 import searchRoutes from './routes/search';
 import viewRoutes from './routes/view';
 import reviewRoutes from './routes/review';
@@ -16,9 +17,14 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const app: Express = express();
-
 const server = http.createServer(app);
 const io = new Server(server);
+
+app.use((req, res, next) => {
+  res.locals.user = req.oidc?.user || null;
+  res.locals.showLoginButton = req.path.startsWith('/upload');
+  next();
+});
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -43,7 +49,11 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files from 'public' directory
+app.use((req, res, next) => {
+  res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
+  next();
+});
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -61,13 +71,11 @@ const oidc_config = {
 app.use(auth(oidc_config));
 
 app.use('/', viewRoutes);
-
+app.use('/about', aboutRoutes);
 app.use('/catalog', catalogRoutes);
 app.use('/search', searchRoutes);
-
 app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
-
 app.use('/ontology', ontologyRoutes);
 
 app.all('*', (req: Request, res: Response) => {

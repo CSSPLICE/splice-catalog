@@ -6,7 +6,6 @@ import fs from 'fs';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { validate } from 'class-validator';
 import { ResponseUtil } from '../utils/Response';
-import { ILike } from 'typeorm';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
 import { dataset_catalog } from '../db/entities/DatasetCatalog';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
@@ -31,40 +30,8 @@ export class ViewController {
     res.render('pages/catalog', { catalog: catalog_data, currentPage, totalPages, title: 'SPLICE Catalog' });
   }
 
-  async itemView(req: Request, res: Response) {
-    const query = req.query.item_link as string;
-
-    if (!query) {
-      return res.status(400).send('No item provided');
-    }
-
-    try {
-      const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
-        where: { exercise_name: ILike(`%${query}%`) },
-      });
-
-      if (!item) {
-        return res.status(404).render('pages/item', {
-          item: null,
-
-          title: 'Item Not Found',
-        });
-      }
-
-      res.render('pages/item', {
-        item,
-
-        title: 'Item View',
-      });
-    } catch (error) {
-      logger.error('Error retrieving item:', error);
-
-      res.status(500).send('Internal Server Error');
-    }
-  }
-
   async instructionsView(req: Request, res: Response) {
-    res.render('pages/instructions', { title: 'Instructions' });
+    res.render('pages/instructions', { title: 'Instructions', showLoginButton: res.locals.showLoginButton });
   }
 
   async homeView(req: Request, res: Response) {

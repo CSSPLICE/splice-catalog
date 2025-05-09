@@ -57,7 +57,7 @@ export class CatalogController {
     }
     return ResponseUtil.sendResponse(res, 'failed to delete the CatalogItem', 400);
   }
-  async getCatalogItemByName(req: Request, res: Response): Promise<Response> {
+  async getCatalogItemByName(req: Request, res: Response): Promise<Response | void> {
     const { name } = req.params;
 
     try {
@@ -66,12 +66,19 @@ export class CatalogController {
       });
 
       if (!item) {
-        return ResponseUtil.sendError(res, 'Item not found', 404, undefined);
+        return res.status(404).render('pages/item', {
+          item: null,
+          title: 'Item Not Found',
+        });
       }
 
-      return ResponseUtil.sendResponse(res, item, 200);
+      return res.render('pages/item', {
+        item,
+        title: 'Item View',
+      });
     } catch (error) {
-      return ResponseUtil.sendError(res, 'Error retrieving item', 500, error);
+      console.error('Error retrieving item:', error);
+      return res.status(500).send('Internal Server Error');
     }
   }
 }

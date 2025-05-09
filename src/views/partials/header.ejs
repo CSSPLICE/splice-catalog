@@ -1,42 +1,41 @@
 <header class="p-3 bg-dark text-white mb-4">
     <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
-                
-                <!-- Dropdown for Catalog -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle px-2 text-white" href="#" id="catalogDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Catalog
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
-                        <li><a class="dropdown-item" href="/toolcatalog/">Tool Catalog</a></li>
-                        <li><a class="dropdown-item" href="/catalog/">Content Catalog</a></li>
-                        <li><a class="dropdown-item" href="/datasetcatalog/">Dataset Catalog</a></li>
-                        <li><a class="dropdown-item" href="/ontology/tiles/">Splice Ontology</a></li>
-                    </ul>
-                </li>
-                
-                <li><a href="https://cssplice.github.io" class="nav-link px-2 text-white" target="_blank">CSSPLICE</a></li>
-                
-                <li><a href="/instructions/" class="nav-link px-2 text-white">Contribute</a></li>
-                <li><a href="/about/" class="nav-link px-2 text-white">About</a></li>
-                <li><a href="mailto:cssplice@gmail.com" class="nav-link px-2 text-white">Contact</a></li>
-                
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
+          
+          <!-- Catalog Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle px-2 text-white" href="#" id="catalogDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Catalog
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
+              <li><a class="dropdown-item" href="/toolcatalog/">Tool Catalog</a></li>
+              <li><a class="dropdown-item" href="/catalog/">Content Catalog</a></li>
+              <li><a class="dropdown-item" href="/datasetcatalog/">Dataset Catalog</a></li>
+              <li><a class="dropdown-item" href="/ontology/tiles/">Splice Ontology</a></li>
             </ul>
-            
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="post" action="/search/">
-                <input type="search" class="form-control form-control-dark" placeholder="Search" aria-label="Search" name="query" id="query">
-            </form>
-            <div class="text-end">
-                <% if(locals.user) { %>
-                    <a href="/profile" class="btn btn-outline-light me-2"> <%= locals.user.nickname %></a>
-                    <a href="/logout" class="btn btn-outline-light me-2">Logout</a>
-                <% } else { %>
-                    <a href="/login" class="btn btn-outline-light me-2">Login</a>
-                <% } %>
-            </div>
-            </div>
+          </li>
+          
+          <li><a href="https://cssplice.github.io" class="nav-link px-2 text-white" target="_blank">CSSPLICE</a></li>
+          <li><a href="/instructions/" class="nav-link px-2 text-white">Contribute</a></li>
+          <li><a href="/about/" class="nav-link px-2 text-white">About</a></li>
+          <li><a href="mailto:cssplice@gmail.com" class="nav-link px-2 text-white">Contact</a></li>
+        </ul>
+  
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="post" action="/search/">
+          <input type="search" class="form-control form-control-dark" placeholder="Search" aria-label="Search" name="query" id="query">
+        </form>
+  
+        <div class="text-end">
+          <% if (showLoginButton) { %>
+            <a href="/login" class="btn btn-outline-light me-2">Login</a>
+          <% } else if (user) { %>
+            <a href="/profile" class="btn btn-outline-light me-2"><%= user.nickname %></a>
+            <a href="/logout" class="btn btn-outline-light me-2">Logout</a>
+          <% } %>
         </div>
+      </div>
     </div>
-</header>
+  </header>
+  
