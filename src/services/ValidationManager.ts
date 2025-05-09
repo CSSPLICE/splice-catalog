@@ -32,29 +32,51 @@ export class ValidationManager {
     this.validationResultsRepository = validationResultsRepository;
     this.catalogRepository = catalogRepository;
   }
-  private async getOrCreateValidationResultByUrl(url: string): Promise<ValidationResults | null> {
-    let catalogItem = await this.catalogRepository.findOne({ where: { url }, relations: ['validationResults'] });
+  private async getOrCreateValidationResultByUrl(url: string, slcItem?: SLCItem): Promise<ValidationResults | null> {
+  let catalogItem = await this.catalogRepository.findOne({ where: { url }, relations: ['validationResults'] });
 
-    if (!catalogItem) { // get rid of this
-      // rework this code such that if they are not in the database it puts it in their 
-      // also create validated slc item 
-      logger.warn(`Catalog item not found for URL: ${url}`);
-      catalogItem = this.catalogRepository.create({ url });
-      await this.catalogRepository.save(catalogItem);
-    }
+  const default_key = "empty";
 
-    let validationResult = await this.validationResultsRepository.findOne({
-      where: { item: { id: catalogItem.id } },
-      order: { dateLastUpdated: 'DESC' },
-    });
+  if (!catalogItem) {
+    logger.warn(`Catalog item not found for URL: ${url}`);
 
-    if (!validationResult) {
-      validationResult = this.validationResultsRepository.create({ item: catalogItem });
-      await this.validationResultsRepository.save(validationResult);
-    }
+    const dummyExerciseName = `autogen_${Date.now()}`;
 
-    return validationResult;
+    // rework this code such that if they are not in the database it puts it in their 
+    // also create validated slc item 
+    const newItem = {
+      catalog_type: slcItem?.catalog_type ?? default_key,
+      url: url,
+      keywords: slcItem?.keywords ?? [],
+      description: slcItem?.description ?? default_key,
+      author: slcItem?.author ?? default_key,
+      institution: slcItem?.institution ?? default_key,
+      language: slcItem?.language ?? default_key,
+      platform_name: slcItem?.platform_name ?? default_key,
+      lti_instructions_url: slcItem?.lti_instructions_url ?? default_key,
+      exercise_type: slcItem?.exercise_type ?? default_key,
+      exercise_name: slcItem?.exercise_name ?? dummyExerciseName,
+      iframe_url: slcItem?.iframe_url ?? default_key,
+      lti_url: slcItem?.lti_url ?? default_key,
+    };
+
+    catalogItem = this.catalogRepository.create(newItem);
+    await this.catalogRepository.save(catalogItem);
+    logger.info(`Creating new catalog item with data:`, newItem);
   }
+
+  let validationResult = await this.validationResultsRepository.findOne({
+    where: { item: { id: catalogItem.id } },
+    order: { dateLastUpdated: 'DESC' },
+  });
+
+  if (!validationResult) {
+    validationResult = this.validationResultsRepository.create({ item: catalogItem });
+    await this.validationResultsRepository.save(validationResult);
+  }
+
+  return validationResult;
+}
   /**
    * Validates metadata items and returns the result.
    * @param jsonArray - Array of SLCItems to validate
@@ -91,7 +113,7 @@ export class ValidationManager {
           continue;
         }
 
-        const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
+        const validationResult = await this.getOrCreateValidationResultByUrl(item.url, item);
         if (!validationResult) continue;
 
         // Build detailed metadata error string
@@ -143,7 +165,7 @@ export class ValidationManager {
       for (const [index, item] of validItems.entries()) {
         const isValid = result.successfulUrls > index;
 
-        const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
+        const validationResult = await this.getOrCreateValidationResultByUrl(item.url, item);
         if (!validationResult) continue;
 
         validationResult.isUrlValid = isValid;
@@ -243,7 +265,7 @@ export class ValidationManager {
       for (const item of itemsToProcess) {
         try {
           await this.categorizer.storeItemsAndClassify([item], report.matched);
-          const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
+          const validationResult = await this.getOrCreateValidationResultByUrl(item.url, item);
           if (validationResult) {
             validationResult.categorizationResults = 'Success';
             validationResult.dateLastUpdated = new Date();
