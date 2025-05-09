@@ -37,20 +37,24 @@ if (process.env.NODE_ENV === 'production') {
     helmet({
       contentSecurityPolicy: {
         directives: {
-          defaultSrc: ["'self'"],
-          frameSrc: ["'self'", "codeworkoutdev.cs.vt.edu", "opendsax.cs.vt.edu", "acos.cs.vt.edu"],
-          scriptSrc: ["'self'", "splice.cs.vt.edu", "cdn.jsdelivr.net"],
+          'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu', 'acos.cs.vt.edu'],
+          'script-src': ["'self'", 'splice.cs.vt.edu', 'cdn.jsdelivr.net'],
         },
       },
     })
   );
 }
 
+//add Socket
 app.use((req, res, next) => {
   res.locals.io = io;
   next();
 });
 
+app.use((req, res, next) => {
+  res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
+  next();
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 

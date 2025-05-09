@@ -4,136 +4,67 @@
 <link rel="stylesheet" href="/css/style.css">
 <%- include('../partials/header') -%>
 <body>
-    <div class="container">       
-        <!-- SPLICE SLC Items Catalog -->
-        <h3 class="header">SLC Item Catalog</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Exercise Title</th>
-                    <th scope="col">Exercise Type</th>
-                 
-                    <th scope="col">Description</th>
-                    <th scope="col">Platform</th>
-                    <th scope="col">Keywords</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <% catalog.forEach((SLCItem) => { %> 
-                    <tr>
-                        <td scope="row">
-                            <a href="/item/<%= encodeURIComponent(SLCItem.exercise_name) %>"><%= SLCItem.exercise_name %></a>
+  <div class="container">       
+    <h3 class="header">SLC Item Catalog</h3>
 
-                        </td>
-                        <td><%= SLCItem.exercise_type %></td>
-                        <td>
-                            <span class="short-description" data-description="<%= SLCItem.description %>">
-                                Short Description...
-                              </span>                              
-                        </td>
-                        <td><a href="<%= SLCItem.url %>"><%= SLCItem.platform_name %></a></td>
-                        <td>
-                            <% SLCItem.keywords.forEach((keyword, index) => { %>
-                                <form style="display: none" action="/search/" method="post">
-                                    <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>"></input>
-                                </form>
-                                <label style="text-decoration: underline; color: #0303b4" for="query<%= keyword %>"><%= keyword %></label>
-                                <% if (index < SLCItem.keywords.length - 1) { %>, <% } %>
-                            <% }); %>
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
+    <%- include('../pages/table', { items: catalog, isSearchPage: false }) %>
 
-        <!-- Modal -->
-        <div id="descriptionModal" class="modal" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
-            <div class="modal-content" style="background-color: white; margin: 10% auto; padding: 20px; border-radius: 5px; width: 50%; position: relative;">
-                <!-- Close button -->
-                <span class="close" onclick="closeModal()" 
-                      style="cursor: pointer; position: absolute; top: 10px; right: 15px; font-size: 24px;">&times;
-                </span>
-                <p id="fullDescription" style="margin-top: 30px;">This is a detailed description.</p>
-            </div>
-        </div>
-        
-
-        <!-- Pagination Controls -->
-        <div class="pagination">
-            <ul class="pagination-list">
-                <% if (totalPages > 10) { %>  
-                    
-                    <% if (currentPage > 1) { %>
-                        <li><a href="?page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
-                    <% } %>
-
-                    <% if (currentPage > 10) { %>
-                        <li><a href="?page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
-                    <% } %>
-
-                    <% if (totalPages <= 5) { %> 
-                        <% for (let i = 1; i <= totalPages; i++) { %>
-                            <li>
-                                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
-                            </li>
-                        <% } %>
-                    <% } else { %>  
-                        <% if (currentPage > 2) { %>
-                            <li><a href="?page=1">1</a></li>
-                            <% if (currentPage > 3) { %>  
-                                <li class="ellipsis">...</li>  
-                            <% } %>
-                        <% } %>
-
-                        <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
-                            <li>
-                                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
-                            </li>
-                        <% } %>
-
-                        <% if (currentPage < totalPages - 1) { %>
-                            <% if (currentPage < totalPages - 2) { %>  
-                                <li class="ellipsis">...</li>  
-                            <% } %>
-                            <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
-                        <% } %>
-                    <% } %>
-
-                    <% if (currentPage + 10 <= totalPages) { %>
-                        <li><a href="?page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
-                    <% } %>
-
-                    <% if (currentPage < totalPages) { %>
-                        <li><a href="?page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
-                    <% } %>
-
-                <% } %> 
-            </ul>
-        </div>
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <ul class="pagination-list">
+        <% if (totalPages > 10) { %>  
+          <% if (currentPage > 1) { %>
+            <li><a href="?page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
+          <% } %>
+          <% if (currentPage > 10) { %>
+            <li><a href="?page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
+          <% } %>
+          <% if (totalPages <= 5) { %> 
+            <% for (let i = 1; i <= totalPages; i++) { %>
+              <li><a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+            <% } %>
+          <% } else { %>
+            <% if (currentPage > 2) { %>
+              <li><a href="?page=1">1</a></li>
+              <% if (currentPage > 3) { %><li class="ellipsis">...</li><% } %>
+            <% } %>
+            <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
+              <li><a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+            <% } %>
+            <% if (currentPage < totalPages - 1) { %>
+              <% if (currentPage < totalPages - 2) { %><li class="ellipsis">...</li><% } %>
+              <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
+            <% } %>
+          <% } %>
+          <% if (currentPage + 10 <= totalPages) { %>
+            <li><a href="?page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
+          <% } %>
+          <% if (currentPage < totalPages) { %>
+            <li><a href="?page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
+          <% } %>
+        <% } %>
+      </ul>
     </div>
+  </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const modal = document.getElementById("descriptionModal");
-          const modalText = document.getElementById("fullDescription");
-    
-          document.querySelectorAll(".short-description").forEach((el) => {
-            el.addEventListener("click", () => {
-              modalText.textContent = "Detailed Description.";
-              modal.style.display = "block";
-            });
-          });
-      
-          document.querySelector(".close").addEventListener("click", () => {
-            modal.style.display = "none";
-          });
-      
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const modal = document.getElementById("descriptionModal");
+      const modalText = document.getElementById("fullDescription");
+
+      document.querySelectorAll(".short-description").forEach((el) => {
+        el.addEventListener("click", () => {
+          modalText.textContent = el.getAttribute("data-description") || "Detailed Description.";
+          modal.style.display = "block";
         });
-      </script>
-      
+      });
 
+      document.querySelector(".close").addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+    });
+  </script>
 </body>
 <%- include('../partials/footer') -%>
 </html>

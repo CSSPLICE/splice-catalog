@@ -179,3 +179,19 @@
   font-size: 28px;
   cursor: pointer;
 }
+
+.search-sidebar-layout {
+  display: flex;
+  gap: 2rem;
+}
+
+.search-sidebar {
+  width: 250px;
+  padding: 1rem;
+  background-color: #b5b5b5;
+  border: 1px solid #ddd;
+}
+
+.search-content {
+  flex: 1;
+}
