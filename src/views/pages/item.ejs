@@ -2,6 +2,72 @@
 <html>
 <%- include('../partials/head') -%>
 <%- include('../partials/header') -%>
+<meta http-equiv='content-type' content='text/html; charset=UTF-8'/> 
+<link rel='stylesheet' href='../cssplice.css' type='text/css'/>
+<style>
+  pre.message {
+      background: white;
+      border: thin dotted gray;
+      margin: 1em auto;
+      padding: 1em;
+      max-width: 960px;
+  }
+  
+  .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 1rem;
+  }
+  
+  .iframe-preview {
+      max-height: 80vh; /* limits height to 80% of the viewport */
+      overflow: auto;
+      margin-top: 1rem;
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      background-color: #f9f9f9;
+  }
+  
+  #previewIframe {
+      width: 100%;
+      min-height: 400px; /* ensures it's visible but not oversized */
+      border: none;
+  }
+  </style>
+<script type='text/javascript' charset='utf-8' src='splice-parent.js'></script>
+<script>//<![CDATA[
+window.addEventListener('DOMContentLoaded', () => {
+  function sendingIframe(event) {
+    for (const f of document.getElementsByTagName('iframe'))
+      if (f.contentWindow === event.source) return f
+    return undefined
+  }
+
+  // Connect the existing iframe with message handling
+  const existingIframe = document.getElementById('previewIframe');
+  
+  window.addEventListener("message", event => {
+    const iframe = sendingIframe(event)
+    if (!iframe) return;
+    
+    // Find the associated message pre element
+    const pre = document.getElementById('previewMessages');
+    if (pre) {
+      pre.textContent += JSON.stringify(event.data) + '\n';
+    }
+    
+    if (event.data.subject === 'SPLICE.getState') {
+      // TODO Demo state sending?
+      const state = null // getStateOfProblem(iframe)
+      iframe.contentWindow.postMessage({ 
+        subject: 'SPLICE.getState.response', 
+        message_id: event.data.message_id, 
+        state 
+      }, '*');
+    }
+  }, false);
+})
+//]]></script>
 <body>
     <div class="container">
         <h1 class="header"><%= item.exercise_name %></h1>
@@ -75,6 +141,7 @@
             <h4>Preview</h4>
             <iframe id="exerciseIframe" src="<%= item.iframe_url %>" width="100%" height="600px" allowfullscreen></iframe>
         </div>
+        <pre id="previewMessages" class="message"></pre>
     </div>
 
     <!-- Bootstrap JS bundle -->
@@ -82,5 +149,4 @@
     
 
 </body>
-<%- include('../partials/footer') -%>
 </html>

@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.post('/', searchController.searchCatalog);
 router.get('/', searchController.searchCatalog); //for pagination links
+router.get('/api', searchController.searchCatalogAPI);
 
 export default router;
