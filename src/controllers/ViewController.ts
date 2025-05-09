@@ -6,7 +6,6 @@ import fs from 'fs';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { validate } from 'class-validator';
 import { ResponseUtil } from '../utils/Response';
-import { ILike } from 'typeorm';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
 import { dataset_catalog } from '../db/entities/DatasetCatalog';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
@@ -31,7 +30,6 @@ export class ViewController {
     res.render('pages/catalog', { catalog: catalog_data, currentPage, totalPages, title: 'SPLICE Catalog' });
   }
 
- 
   async instructionsView(req: Request, res: Response) {
     res.render('pages/instructions', { title: 'Instructions', showLoginButton: res.locals.showLoginButton });
   }

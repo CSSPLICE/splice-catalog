@@ -57,29 +57,28 @@ export class CatalogController {
     }
     return ResponseUtil.sendResponse(res, 'failed to delete the CatalogItem', 400);
   }
- async getCatalogItemByName(req: Request, res: Response): Promise<Response | void> {
-  const { name } = req.params;
+  async getCatalogItemByName(req: Request, res: Response): Promise<Response | void> {
+    const { name } = req.params;
 
-  try {
-    const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({
-      exercise_name: decodeURIComponent(name),
-    });
-
-    if (!item) {
-      return res.status(404).render('pages/item', {
-        item: null,
-        title: 'Item Not Found',
+    try {
+      const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({
+        exercise_name: decodeURIComponent(name),
       });
+
+      if (!item) {
+        return res.status(404).render('pages/item', {
+          item: null,
+          title: 'Item Not Found',
+        });
+      }
+
+      return res.render('pages/item', {
+        item,
+        title: 'Item View',
+      });
+    } catch (error) {
+      console.error('Error retrieving item:', error);
+      return res.status(500).send('Internal Server Error');
     }
-
-    return res.render('pages/item', {
-      item,
-      title: 'Item View',
-    });
-  } catch (error) {
-    console.error('Error retrieving item:', error);
-    return res.status(500).send('Internal Server Error');
   }
-}
-
 }

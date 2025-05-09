@@ -15,7 +15,6 @@ router.get('/', viewController.homeView);
 router.post('/upload', upload.single('file'), viewController.uploadPost);
 router.get('/upload', viewController.uploadView);
 
-
 router.get('/instructions', viewController.instructionsView);
 router.get('/catalog', viewController.catalogView);
 router.get('/datasetcatalog', viewController.datasetCatalogView);
