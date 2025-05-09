@@ -4,7 +4,24 @@
 <link rel="stylesheet" href="/css/style.css">
 <%- include('../partials/header') -%>
 <body>
-  <div class="container">
+  <div class="container search-sidebar-layout">
+    <aside class="search-sidebar">
+      <h2 class="header">Filter</h2>
+      <form action="/search" method="get" id="filterForm">
+          <fieldset>
+              <legend>Exercise Types:</legend>
+              <% const types = ["Coding Question", "Multiple Choice Question", "ka", "ss", "pe", "extr", "Untagged"]; %>
+              <% types.forEach(type => { %>
+                  <div>
+                      <input type="checkbox" class="exerciseTypeInput" name="Exercise type: <%= type %>" value="<%= type %>" <%= exerciseType.includes(type) ? 'checked' : '' %>>
+                      <label for="<%= type %>"><%= type %></label>
+                  </div>
+              <% }) %>
+          </fieldset>
+          <input type="hidden" name="query" value="<%= query %>">
+          <button type="submit">Apply Filters</button>
+      </form>
+  </aside>
     <h1 class="header">Search Results for "<%= query %>"</h1>
 
     <%- include('../pages/table', { items: results, isSearchPage: true }) %>
@@ -12,14 +29,14 @@
     <!-- Pagination Controls -->
     <div class="pagination">
       <ul class="pagination-list">
-        <% if (totalPages > 1) { %> 
+        <% if (totalPages > 10) { %>
           <% if (currentPage > 1) { %>
             <li><a href="?query=<%= query %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
           <% } %>
           <% if (currentPage > 10) { %>
             <li><a href="?query=<%= query %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
           <% } %>
-          <% if (totalPages <= 5) { %> 
+          <% if (totalPages <= 5) { %>
             <% for (let i = 1; i <= totalPages; i++) { %>
               <li><a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
             <% } %>
@@ -42,12 +59,13 @@
           <% if (currentPage < totalPages) { %>
             <li><a href="?query=<%= query %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
           <% } %>
-        <% } %> 
+        <% } %>
       </ul>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/searchparams.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const modal = document.getElementById("descriptionModal");
