@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { ValidationResults } from './ValidationResults';
 
 @Entity()
 export class slc_item_catalog {
@@ -46,4 +47,9 @@ export class slc_item_catalog {
 
   @Column()
   lti_url!: string;
+
+  @OneToMany(() => ValidationResults, (validationResult) => validationResult.item, {
+    cascade: true,
+  })
+  validationResults!: ValidationResults[];
 }

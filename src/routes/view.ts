@@ -1,5 +1,6 @@
 import express from 'express';
 import { ViewController } from '../controllers/ViewController';
+import { downloadValidationResults } from '../controllers/ViewController';
 import multer from 'multer';
 import { requiresAuth } from 'express-openid-connect';
 
@@ -21,5 +22,6 @@ router.get('/datasetcatalog', viewController.datasetCatalogView);
 router.get('/toolcatalog', viewController.toolView);
 router.get('/about', viewController.aboutView);
 router.get('/profile', requiresAuth(), viewController.profileView);
+router.get('/download-validation-results', downloadValidationResults);
 
 export default router;

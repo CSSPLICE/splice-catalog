@@ -7,6 +7,7 @@ import { OntologyClasses } from './entities/OntologyClass';
 import { OntologyRelations } from './entities/OntologyRelation';
 import { OntologyAliases } from './entities/OntologyAlias';
 import { ItemClassification } from './entities/ItemClassification';
+import { ValidationResults } from './entities/ValidationResults';
 // import { CreateSPLICECatalog1699653593228 } from './migrations/1699653593228-CreateSPLICECatalog';
 import { CreateSLCToolsCatalog1708095482368 } from './migrations/1708095482368-CreateSLCToolsCatalog';
 import { CreateDatasetCatalog1708977188986 } from './migrations/1708977188986-CreateDatasetCatalog';
@@ -15,6 +16,9 @@ import { CreateOntologyClasses1727750586131 } from './migrations/1727750586131-C
 import { CreateOntologyAliases1727750762837 } from './migrations/1727750762837-CreateOntologyAliases';
 import { CreateOntologyRelations1727750789779 } from './migrations/1727750789779-CreateOntologyRelations';
 import { CreateItemClassification1727750775894 } from './migrations/1727750775894-CreateItemClassification';
+import { CreateValidationResults1743975897306 } from './migrations/1743975897306-CreateValidationResults';
+import { AddRelationToValidationResults1744043458304 } from './migrations/1744043458304-AddRelationToValidationResults';
+import { AddValidationFields1744688022277 } from './migrations/1744688022277-AddValidationFields';
 
 dotenv.config();
 
@@ -33,6 +37,9 @@ export const AppDataSource = new DataSource({
     CreateOntologyRelations1727750789779,
     CreateOntologyAliases1727750762837,
     CreateItemClassification1727750775894,
+    CreateValidationResults1743975897306,
+    AddRelationToValidationResults1744043458304,
+    AddValidationFields1744688022277,
     // SeedInitialData1699653979099,  // seed migration runs, #Todo include import for dev environment
   ],
   logging: process.env.ORM_LOGGING === 'true',
@@ -44,6 +51,7 @@ export const AppDataSource = new DataSource({
     OntologyRelations,
     OntologyAliases,
     ItemClassification,
+    ValidationResults,
   ],
   synchronize: false,
   subscribers: [],
