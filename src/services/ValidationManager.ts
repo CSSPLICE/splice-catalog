@@ -33,11 +33,14 @@ export class ValidationManager {
     this.catalogRepository = catalogRepository;
   }
   private async getOrCreateValidationResultByUrl(url: string): Promise<ValidationResults | null> {
-    const catalogItem = await this.catalogRepository.findOne({ where: { url }, relations: ['validationResults'] });
+    let catalogItem = await this.catalogRepository.findOne({ where: { url }, relations: ['validationResults'] });
 
-    if (!catalogItem) {
+    if (!catalogItem) { // get rid of this
+      // rework this code such that if they are not in the database it puts it in their 
+      // also create validated slc item 
       logger.warn(`Catalog item not found for URL: ${url}`);
-      return null;
+      catalogItem = this.catalogRepository.create({ url });
+      await this.catalogRepository.save(catalogItem);
     }
 
     let validationResult = await this.validationResultsRepository.findOne({
@@ -46,9 +49,8 @@ export class ValidationManager {
     });
 
     if (!validationResult) {
-      validationResult = this.validationResultsRepository.create({
-        item: catalogItem,
-      });
+      validationResult = this.validationResultsRepository.create({ item: catalogItem });
+      await this.validationResultsRepository.save(validationResult);
     }
 
     return validationResult;
