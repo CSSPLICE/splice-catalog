@@ -1,8 +1,6 @@
 import cors from 'cors';
 import helmet from 'helmet';
 import express, { Express, Request, Response } from 'express';
-import http from 'http';
-import { Server } from 'socket.io';
 import catalogRoutes from './routes/catalog';
 import aboutRoutes from './routes/about';
 import searchRoutes from './routes/search';
@@ -13,18 +11,23 @@ import { ErrorHandler } from './utils/ErrorHandler';
 import path from 'path';
 import { auth } from 'express-openid-connect';
 import * as dotenv from 'dotenv';
+import { AppDataSource } from './db/data-source';
+
+(async () => {
+  try {
+    if (!AppDataSource.isInitialized) {
+      await AppDataSource.initialize();
+      console.log('Database connection initialized successfully!');
+    }
+  } catch (error) {
+    console.error('Error initializing database connection:', error);
+    process.exit(1); // Exit the process if the database fails to initialize
+  }
+})();
 
 dotenv.config();
 
 const app: Express = express();
-const server = http.createServer(app);
-const io = new Server(server);
-
-app.use((req, res, next) => {
-  res.locals.user = req.oidc?.user || null;
-  res.locals.showLoginButton = req.path.startsWith('/upload');
-  next();
-});
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -43,17 +46,7 @@ if (process.env.NODE_ENV === 'production') {
   );
 }
 
-//add Socket
-app.use((req, res, next) => {
-  res.locals.io = io;
-  next();
-});
-
-app.use((req, res, next) => {
-  res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
-  next();
-});
-
+// Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('views', path.join(__dirname, 'views'));

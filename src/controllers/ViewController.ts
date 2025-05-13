@@ -11,9 +11,12 @@ import { dataset_catalog } from '../db/entities/DatasetCatalog';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
 import { ReviewController } from './ReviewController';
 import { ValidationManager } from '../services/ValidationManager';
+import { ValidationResults } from '../db/entities/ValidationResults';
 
 const reviewController = new ReviewController();
-const validationManager = new ValidationManager();
+const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
+const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
+const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {
@@ -194,4 +197,17 @@ export class ViewController {
       return res.status(500).send('Internal Server Error');
     }
   }*/
+}
+export async function downloadValidationResults(req: Request, res: Response) {
+  try {
+    const repo = AppDataSource.getRepository(ValidationResults);
+    const results = await repo.find({ relations: ['item'] });
+
+    res.setHeader('Content-Disposition', 'attachment; filename="validation_results.json"');
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(results, null, 2));
+  } catch (error) {
+    console.error('Error downloading validation results:', error);
+    res.status(500).send('Failed to download results');
+  }
 }

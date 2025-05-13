@@ -2,12 +2,17 @@ import { Request, Response } from 'express';
 import logger from '../utils/logger';
 import { ValidationManager } from '../services/ValidationManager';
 import { ToolsCatalogController } from './ToolsCatalogController';
-import { MetadataIssue, CategorizationResult } from '../types/ValidationTypes';
+import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes';
+import { ValidationResults } from '../db/entities/ValidationResults';
+import { AppDataSource } from '../db/data-source'; // Adjust the path to your data-source file
+import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
     const jsonArray = Array.isArray(req.body) ? req.body : [req.body];
-    const validationManager = new ValidationManager();
+    const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
+    const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
+    const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
     const toolsCatalogController = new ToolsCatalogController();
 
     let metadataIssues: MetadataIssue[] = [];
@@ -15,6 +20,7 @@ export class ReviewController {
     let totalSubmissions = 0;
     let successfulVerifications = 0;
     let allValidItems = [];
+    let urlResult: URLValidationResult | undefined;
 
     try {
       logger.info('Starting metadata validation');
@@ -40,11 +46,12 @@ export class ReviewController {
 
         // URL Validation
         logger.info('Starting URL validation for SLCItemCatalog');
-        const urlResult = await validationManager.validateUrls(allValidItems);
+        urlResult = await validationManager.validateUrls(allValidItems);
+        const { urlsChecked, successfulUrls } = urlResult;
         if (res.locals.io) {
           res.locals.io.emit('urlValidationComplete', urlResult);
         }
-        logger.info(`URL Validation Completed: ${urlResult.urlsChecked} checked`);
+        logger.info(`URL Validation Completed: ${successfulUrls}/${urlsChecked} successful`);
 
         // Categorization Process
         logger.info('Starting category report generation for validated items');
@@ -97,17 +104,22 @@ export class ReviewController {
       }
 
       //provide metadata validation results
+      const allValidationResults = await validationResultsRepository.find({
+        relations: ['item'],
+        order: { dateLastUpdated: 'DESC' },
+      });
       if (!res.headersSent) {
         res.render('pages/review-dashboard', {
           issues: metadataIssues,
           categorizationResults,
           totalSubmissions,
           successfulVerifications,
-          urlsChecked: 0,
-          successfulUrls: 0,
-          unsuccessfulUrls: 0,
+          urlsChecked: urlResult?.urlsChecked || 0,
+          successfulUrls: urlResult?.successfulUrls || 0,
+          unsuccessfulUrls: urlResult?.unsuccessfulUrls || 0,
           title: 'Review Dashboard',
-          urlValidationComplete: false,
+          urlValidationComplete: true,
+          validationResults: allValidationResults,
         });
       }
     } catch (error) {
