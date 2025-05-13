@@ -71,7 +71,7 @@ export class ValidationManager {
   });
 
   if (!validationResult) {
-    validationResult = this.validationResultsRepository.create({ item: catalogItem });
+    validationResult = this.validationResultsRepository.create({ item: catalogItem, user: 'user'});
     await this.validationResultsRepository.save(validationResult);
   }
 
