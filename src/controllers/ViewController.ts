@@ -6,7 +6,6 @@ import fs from 'fs';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { validate } from 'class-validator';
 import { ResponseUtil } from '../utils/Response';
-import { ILike } from 'typeorm';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
 import { dataset_catalog } from '../db/entities/DatasetCatalog';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
@@ -34,16 +33,8 @@ export class ViewController {
     res.render('pages/catalog', { catalog: catalog_data, currentPage, totalPages, title: 'SPLICE Catalog' });
   }
 
-  async itemView(req: Request, res: Response) {
-    const query = req.body.item_link;
-    const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
-      where: [{ exercise_name: ILike(`%${query}%`) }],
-    });
-    res.render('pages/item', { item: item, title: 'Item View' });
-  }
-
   async instructionsView(req: Request, res: Response) {
-    res.render('pages/instructions', { title: 'Instructions' });
+    res.render('pages/instructions', { title: 'Instructions', showLoginButton: res.locals.showLoginButton });
   }
 
   async homeView(req: Request, res: Response) {
@@ -65,6 +56,9 @@ export class ViewController {
 
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', { title: 'Upload Data' });
+  }
+  async aboutView(req: Request, res: Response) {
+    res.render('pages/about', { title: 'About' });
   }
 
   async toolView(req: Request, res: Response) {
@@ -185,6 +179,24 @@ export class ViewController {
   async rejectAll(req: Request, res: Response) {
     return res.redirect('/upload');
   }
+
+  /* async itemViewByName(req: Request, res: Response) {
+    const { name } = req.params;
+  
+    try {
+      const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({
+        exercise_name: decodeURIComponent(name),
+      });
+  
+      if (!item) {
+        return res.status(404).render('pages/notfound', { title: 'Item Not Found' });
+      }
+  
+      res.render('pages/item', { item, title: 'Item View' });
+    } catch (error) {
+      return res.status(500).send('Internal Server Error');
+    }
+  }*/
 }
 export async function downloadValidationResults(req: Request, res: Response) {
   try {

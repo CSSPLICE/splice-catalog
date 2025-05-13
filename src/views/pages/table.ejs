@@ -1,0 +1,51 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Exercise Title</th>
+            <th scope="col">Exercise Type</th>
+            <th scope="col">Description</th>
+            <th scope="col">Platform</th>
+            <th scope="col">Keywords</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <% items.forEach((SLCItem) => { %> 
+            <tr>
+                <td scope="row">
+                    <% if (isSearchPage) { %>
+                <a href="/catalog/item/<%= encodeURIComponent(SLCItem.exercise_name) %>" style="text-decoration: underline; color: #0000EE;">
+                         <%= SLCItem.exercise_name %>
+                 </a>
+                <% } else { %>
+                 <a href="/catalog/item/<%= encodeURIComponent(SLCItem.exercise_name) %>" style="text-decoration: underline; color: #0000EE;">
+                 <%= SLCItem.exercise_name %>
+                </a>
+                <% } %>
+                </td>
+                <td><%= SLCItem.exercise_type %></td>
+                <td>
+                    <span class="short-description" data-description="<%= SLCItem.description %>" style="cursor: pointer;">
+                        Short Description...
+                    </span>
+                </td>
+                <td><a href="<%= SLCItem.url %>"><%= SLCItem.platform_name %></a></td>
+                <td>
+                    <% SLCItem.keywords.forEach((keyword, index) => { %>
+                        <form style="display: none" action="/search/" method="post">
+                            <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>">
+                        </form>
+                        <label style="text-decoration: underline; color: #0000EE" for="query<%= keyword %>"><%= keyword %></label>
+                        <% if (index < SLCItem.keywords.length - 1) { %>, <% } %>
+                    <% }); %>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<!-- Modal -->
+<div id="descriptionModal" class="modal" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
+    <div class="modal-content" style="background-color: white; margin: 10% auto; padding: 20px; border-radius: 5px; width: 50%; position: relative;">
+        <span class="close" onclick="closeModal()" style="cursor: pointer; position: absolute; top: 10px; right: 15px; font-size: 24px;">&times;</span>
+        <p id="fullDescription" style="margin-top: 30px;">This is a detailed description.</p>
+    </div>
+</div>
