@@ -51,6 +51,8 @@ export class OntologyController {
       res.render('pages/ontologyTiles', {
         title: 'Ontology Browser',
         description: 'Explore the SPLICE Ontology and navigate through categories and subcategories.',
+        user: req.oidc.user,
+        showLoginButton: res.locals.showLoginButton,
       });
     } catch (error) {
       console.error('Error rendering ontology tiles page:', error);
@@ -72,8 +74,8 @@ export class OntologyController {
         .createQueryBuilder('class')
         .where(
           `NOT EXISTS (
-            SELECT 1 
-            FROM ontology_relations rel 
+            SELECT 1
+            FROM ontology_relations rel
             WHERE rel.child_class_id = class.id
           )`,
         )

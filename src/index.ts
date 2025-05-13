@@ -33,12 +33,24 @@ async function startServer() {
       next();
     });
 
+    app.use((req, res, next) => {
+      res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
+      res.locals.showLoginButton = req.path.startsWith('/upload');
+    });
+
     server.listen(PORT, () => {
       logger.info(`Server is running on port ${PORT}`);
     });
 
     io.on('connection', (socket) => {
       logger.info('Socket  connected:', socket.id);
+    });
+
+    app.all('*', (req, res) => {
+      return res.status(404).send({
+        success: false,
+        message: 'Invalid route',
+      });
     });
   } catch (err) {
     logger.error('Failed to start server', err);

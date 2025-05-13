@@ -30,11 +30,22 @@ export class ViewController {
       skip: offset,
       take: ITEMS_PER_PAGE,
     });
-    res.render('pages/catalog', { catalog: catalog_data, currentPage, totalPages, title: 'SPLICE Catalog' });
+    res.render('pages/catalog', {
+      catalog: catalog_data,
+      currentPage,
+      totalPages,
+      title: 'SPLICE Catalog',
+      user: req.oidc.user,
+      showLoginButton: res.locals.showLoginButton,
+    });
   }
 
   async instructionsView(req: Request, res: Response) {
-    res.render('pages/instructions', { title: 'Instructions', showLoginButton: res.locals.showLoginButton });
+    res.render('pages/instructions', {
+      title: 'Instructions',
+      user: req.oidc.user,
+      showLoginButton: res.locals.showLoginButton,
+    });
   }
 
   async homeView(req: Request, res: Response) {
@@ -51,26 +62,41 @@ export class ViewController {
       slcItemCount: slcItemCount,
       datasetCount: datasetCount, // to be replaced with actual dataset count
       user: req.oidc.user,
+      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   async uploadView(req: Request, res: Response) {
-    res.render('pages/upload', { title: 'Upload Data' });
+    res.render('pages/upload', {
+      title: 'Upload Data',
+      user: req.oidc.user,
+      showLoginButton: res.locals.showLoginButton,
+    });
   }
   async aboutView(req: Request, res: Response) {
-    res.render('pages/about', { title: 'About' });
+    res.render('pages/about', { title: 'About', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
   }
 
   async toolView(req: Request, res: Response) {
     // Fetch SLC tools catalog data
     const toolsCatalog_data = await AppDataSource.getRepository(slc_tools_catalog).find();
-    res.render('pages/toolcatalog', { toolsCatalog: toolsCatalog_data, title: 'Tools Catalog' });
+    res.render('pages/toolcatalog', {
+      toolsCatalog: toolsCatalog_data,
+      title: 'Tools Catalog',
+      user: req.oidc.user,
+      showLoginButton: res.locals.showLoginButton,
+    });
   }
 
   async datasetCatalogView(req: Request, res: Response) {
     try {
       const datasetCatalog_data = await AppDataSource.getRepository(dataset_catalog).find();
-      res.render('pages/datasetcatalog', { datasets: datasetCatalog_data, title: 'Dataset Catalog' });
+      res.render('pages/datasetcatalog', {
+        datasets: datasetCatalog_data,
+        title: 'Dataset Catalog',
+        user: req.oidc.user,
+        showLoginButton: res.locals.showLoginButton,
+      });
     } catch (error) {
       logger.error('Failed to fetch dataset catalog data:', error);
       res.status(500).send('Internal Server Error');
@@ -168,12 +194,13 @@ export class ViewController {
       catalog: catalog_data,
       title: 'SPLICE Catalog',
       user: req.oidc.user,
+      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   profileView(req: Request, res: Response) {
     // res.render('pages/profile', { title: 'Profile', user: JSON.stringify(req.oidc.user, null, 2) });
-    res.render('pages/profile', { title: 'Profile', user: req.oidc.user });
+    res.render('pages/profile', { title: 'Profile', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
   }
 
   async rejectAll(req: Request, res: Response) {
@@ -182,16 +209,16 @@ export class ViewController {
 
   /* async itemViewByName(req: Request, res: Response) {
     const { name } = req.params;
-  
+
     try {
       const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({
         exercise_name: decodeURIComponent(name),
       });
-  
+
       if (!item) {
         return res.status(404).render('pages/notfound', { title: 'Item Not Found' });
       }
-  
+
       res.render('pages/item', { item, title: 'Item View' });
     } catch (error) {
       return res.status(500).send('Internal Server Error');

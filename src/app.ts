@@ -1,6 +1,6 @@
 import cors from 'cors';
 import helmet from 'helmet';
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import catalogRoutes from './routes/catalog';
 import aboutRoutes from './routes/about';
 import searchRoutes from './routes/search';
@@ -70,13 +70,6 @@ app.use('/search', searchRoutes);
 app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
 app.use('/ontology', ontologyRoutes);
-
-app.all('*', (req: Request, res: Response) => {
-  return res.status(404).send({
-    success: false,
-    message: 'Invalid route',
-  });
-});
 
 app.use(ErrorHandler.handleErrors);
 

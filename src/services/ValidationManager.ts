@@ -33,50 +33,50 @@ export class ValidationManager {
     this.catalogRepository = catalogRepository;
   }
   private async getOrCreateValidationResultByUrl(url: string, slcItem?: SLCItem): Promise<ValidationResults | null> {
-  let catalogItem = await this.catalogRepository.findOne({ where: { url }, relations: ['validationResults'] });
+    let catalogItem = await this.catalogRepository.findOne({ where: { url }, relations: ['validationResults'] });
 
-  const default_key = "empty";
+    const default_key = 'empty';
 
-  if (!catalogItem) {
-    logger.warn(`Catalog item not found for URL: ${url}`);
+    if (!catalogItem) {
+      logger.warn(`Catalog item not found for URL: ${url}`);
 
-    const dummyExerciseName = `autogen_${Date.now()}`;
+      const dummyExerciseName = `autogen_${Date.now()}`;
 
-    // rework this code such that if they are not in the database it puts it in their 
-    // also create validated slc item 
-    const newItem = {
-      catalog_type: slcItem?.catalog_type ?? default_key,
-      url: url,
-      keywords: slcItem?.keywords ?? [],
-      description: slcItem?.description ?? default_key,
-      author: slcItem?.author ?? default_key,
-      institution: slcItem?.institution ?? default_key,
-      language: slcItem?.language ?? default_key,
-      platform_name: slcItem?.platform_name ?? default_key,
-      lti_instructions_url: slcItem?.lti_instructions_url ?? default_key,
-      exercise_type: slcItem?.exercise_type ?? default_key,
-      exercise_name: slcItem?.exercise_name ?? dummyExerciseName,
-      iframe_url: slcItem?.iframe_url ?? default_key,
-      lti_url: slcItem?.lti_url ?? default_key,
-    };
+      // rework this code such that if they are not in the database it puts it in their
+      // also create validated slc item
+      const newItem = {
+        catalog_type: slcItem?.catalog_type ?? default_key,
+        url: url,
+        keywords: slcItem?.keywords ?? [],
+        description: slcItem?.description ?? default_key,
+        author: slcItem?.author ?? default_key,
+        institution: slcItem?.institution ?? default_key,
+        language: slcItem?.language ?? default_key,
+        platform_name: slcItem?.platform_name ?? default_key,
+        lti_instructions_url: slcItem?.lti_instructions_url ?? default_key,
+        exercise_type: slcItem?.exercise_type ?? default_key,
+        exercise_name: slcItem?.exercise_name ?? dummyExerciseName,
+        iframe_url: slcItem?.iframe_url ?? default_key,
+        lti_url: slcItem?.lti_url ?? default_key,
+      };
 
-    catalogItem = this.catalogRepository.create(newItem);
-    await this.catalogRepository.save(catalogItem);
-    logger.info(`Creating new catalog item with data:`, newItem);
+      catalogItem = this.catalogRepository.create(newItem);
+      await this.catalogRepository.save(catalogItem);
+      logger.info(`Creating new catalog item with data:`, newItem);
+    }
+
+    let validationResult = await this.validationResultsRepository.findOne({
+      where: { item: { id: catalogItem.id } },
+      order: { dateLastUpdated: 'DESC' },
+    });
+
+    if (!validationResult) {
+      validationResult = this.validationResultsRepository.create({ item: catalogItem, user: 'user' });
+      await this.validationResultsRepository.save(validationResult);
+    }
+
+    return validationResult;
   }
-
-  let validationResult = await this.validationResultsRepository.findOne({
-    where: { item: { id: catalogItem.id } },
-    order: { dateLastUpdated: 'DESC' },
-  });
-
-  if (!validationResult) {
-    validationResult = this.validationResultsRepository.create({ item: catalogItem, user: 'user'});
-    await this.validationResultsRepository.save(validationResult);
-  }
-
-  return validationResult;
-}
   /**
    * Validates metadata items and returns the result.
    * @param jsonArray - Array of SLCItems to validate
