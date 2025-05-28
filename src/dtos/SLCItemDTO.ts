@@ -28,18 +28,22 @@ export class CreateSLCItemDTO {
   @ValidateIf((o) => o.lti_url !== null)
   lti_instructions_url!: string;
 
+  @IsArray()
+  @IsString({ each: true })
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  exercise_type?: string;
+  exercise_type?: string[];
 
   // @IsNotEmpty()
   // @IsString()
   description?: string;
 
+  @IsArray()
+  @IsString({ each: true })
   @IsNotEmpty()
   @IsString()
-  author!: string;
+  author!: string[];
 
   @IsOptional()
   // @IsNotEmpty()
@@ -52,7 +56,11 @@ export class CreateSLCItemDTO {
 
   // @IsNotEmpty()
   // @IsString()
-  language!: string;
+  natural_language!: string;
+
+  // @IsNotEmpty()
+  // @IsString()
+  programming_language!: string;
 
   @IsNotEmpty()
   @IsUrl()
@@ -63,4 +71,9 @@ export class CreateSLCItemDTO {
   @IsUrl()
   @IsString()
   lti_url?: string;
+
+  @IsNotEmpty()
+  @IsString()
+  persistent_id!: string;
+
 }

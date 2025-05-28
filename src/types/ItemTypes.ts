@@ -4,14 +4,16 @@ export interface SLCItem {
   url: string;
   keywords?: string[];
   lti_instructions_url?: string;
-  exercise_type?: string;
+  exercise_type?: string[];
   description?: string;
-  author: string;
+  author: string[];
   institution?: string;
   exercise_name: string;
-  language: string;
+  natural_language: string;
+  programming_language: string;
   iframe_url: string;
   lti_url?: string;
+  persistent_id: string;
 }
 
 export interface MatchedItem {

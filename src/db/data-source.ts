@@ -15,6 +15,8 @@ import { CreateOntologyClasses1727750586131 } from './migrations/1727750586131-C
 import { CreateOntologyAliases1727750762837 } from './migrations/1727750762837-CreateOntologyAliases';
 import { CreateOntologyRelations1727750789779 } from './migrations/1727750789779-CreateOntologyRelations';
 import { CreateItemClassification1727750775894 } from './migrations/1727750775894-CreateItemClassification';
+import { UpdateSLCItemCatalog1748379850251 } from './migrations/1748379850251-UpdateSLCItemCatalog';
+import { AddToItemCatalog1748457999672 } from './migrations/1748457999672-AddToItemCatalog';
 
 dotenv.config();
 
@@ -34,6 +36,8 @@ export const AppDataSource = new DataSource({
     CreateOntologyAliases1727750762837,
     CreateItemClassification1727750775894,
     // SeedInitialData1699653979099,  // seed migration runs, #Todo include import for dev environment
+    UpdateSLCItemCatalog1748379850251,
+    AddToItemCatalog1748457999672
   ],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [
