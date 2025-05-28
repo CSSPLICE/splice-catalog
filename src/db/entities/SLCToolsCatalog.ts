@@ -22,4 +22,14 @@ export class slc_tools_catalog {
 
   @Column({ nullable: true })
   contact_email!: string;
+
+  @Column({ nullable: true })
+  lti_key!: string;
+
+  @Column({ nullable: true })
+  lti_secret!: string;
+
+  @Column({ nullable: true })
+  lti_config_url!: string;
+
 }

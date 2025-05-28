@@ -17,6 +17,7 @@ import { CreateOntologyRelations1727750789779 } from './migrations/1727750789779
 import { CreateItemClassification1727750775894 } from './migrations/1727750775894-CreateItemClassification';
 import { UpdateSLCItemCatalog1748379850251 } from './migrations/1748379850251-UpdateSLCItemCatalog';
 import { AddToItemCatalog1748457999672 } from './migrations/1748457999672-AddToItemCatalog';
+import { UpdateToolsCatalog1748460550596 } from './migrations/1748460550596-UpdateToolsCatalog';
 
 dotenv.config();
 
@@ -37,7 +38,8 @@ export const AppDataSource = new DataSource({
     CreateItemClassification1727750775894,
     // SeedInitialData1699653979099,  // seed migration runs, #Todo include import for dev environment
     UpdateSLCItemCatalog1748379850251,
-    AddToItemCatalog1748457999672
+    AddToItemCatalog1748457999672,
+    UpdateToolsCatalog1748460550596
   ],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [
