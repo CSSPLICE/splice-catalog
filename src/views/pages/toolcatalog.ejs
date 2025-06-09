@@ -8,7 +8,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Platform Name</th>
+                    <th scope="col">Tool</th>
                     <th scope="col">Description</th>
                     <th scope="col">License</th>
                     <th scope="col">Standards Support</th>
@@ -17,7 +17,7 @@
             <tbody>
                 <% toolsCatalog.forEach((tool) => { %> 
                     <tr>
-                        <td><a href="<%= tool.platform_name %>" target="_blank">Visit</a></td>
+                        <td><a href="<%= tool.url %>" target="_blank"><%= tool.platform_name %></a></td>
                         <td><%= tool.tool_description %></td>
                         <td><%= tool.license %></td>
                         <td><%= tool.standard_support %></td>
