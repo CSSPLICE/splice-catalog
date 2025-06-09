@@ -1,7 +1,7 @@
 import AdminJS from 'adminjs';
 import AdminJSExpress from '@adminjs/express';
 import express from 'express'
-
+//setting up the admin panel 
 const PORT = 3000
 
 const start = async () => {
