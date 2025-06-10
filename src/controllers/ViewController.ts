@@ -210,6 +210,7 @@ export class ViewController {
   async rejectAll(req: Request, res: Response) {
     return res.redirect('/upload');
   }
+}
 
   /* async itemViewByName(req: Request, res: Response) {
     const { name } = req.params;
