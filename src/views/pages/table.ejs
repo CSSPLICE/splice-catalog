@@ -13,10 +13,7 @@
         <% items.forEach((SLCItem) => { %> 
             <tr>
                 <td scope="row">
-                    <a href="/item?item_link=<%= encodeURIComponent(SLCItem.exercise_name) %>"
-                        style="text-decoration: underline; color: #0000EE;">
-                        <%= SLCItem.exercise_name %>
-                    </a>
+                    <a href="/item/<%= SLCItem.id %>/<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></a>
                 </td>
                 <td><%= SLCItem.exercise_type %></td>
                 <td>
