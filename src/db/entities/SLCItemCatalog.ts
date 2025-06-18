@@ -20,14 +20,17 @@ export class slc_item_catalog {
   @Column()
   description!: string;
 
-  @Column()
-  author!: string;
+  @Column('json')
+  author!: string[];
 
   @Column()
   institution!: string;
 
   @Column()
-  language!: string;
+  natural_language!: string;
+
+  @Column()
+  programming_language!: string;
 
   @Column()
   platform_name!: string;
@@ -35,8 +38,8 @@ export class slc_item_catalog {
   @Column()
   lti_instructions_url!: string;
 
-  @Column()
-  exercise_type!: string;
+  @Column('json')
+  exercise_type!: string[];
 
   @Column({ unique: true })
   exercise_name!: string;
@@ -46,4 +49,7 @@ export class slc_item_catalog {
 
   @Column()
   lti_url!: string;
+
+  @Column({unique: true})
+  persistent_id!: string;
 }

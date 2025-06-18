@@ -29,4 +29,18 @@ export class CreateSLCToolsDTO {
   @IsEmail()
   @IsOptional()
   contact_email!: string;
+
+  @IsString()
+  @IsOptional()
+  lti_key!: string;
+
+  @IsString()
+  @IsOptional()
+  lti_secret!: string;
+
+  @IsUrl()
+  @IsString()
+  @IsOptional()
+  lti_config_url!: string;
+
 }
