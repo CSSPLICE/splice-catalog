@@ -43,6 +43,7 @@ export class SearchController {
       user: req.oidc.user,
     });
   }
+  
   async searchCatalogAPI(req: Request, res: Response) {
     const query = req.query.query; 
     if (!query) {

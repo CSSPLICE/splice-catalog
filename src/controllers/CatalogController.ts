@@ -74,4 +74,40 @@ export class CatalogController {
       return ResponseUtil.sendError(res, 'Error retrieving item', 500, error);
     }
   }
+
+  async dumpItem(req: Request, res: Response) {
+  const id = parseInt(req.params.id, 10);
+  if (isNaN(id)) {
+    return res.status(400).json({ error: "Invalid item ID" });
+  }
+
+  try {
+    const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
+      where: { id },
+    });
+
+    if (!item) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    // Create a safe filename based on the item's name
+    const safeName = item.exercise_name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "");
+
+    const filename = `${safeName || "slc_item_" + id}.json`;
+
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+    res.setHeader("Content-Type", "application/json");
+
+    // Exclude the id field
+    const { id: _, ...itemWithoutId } = item;
+    const json = JSON.stringify(itemWithoutId, null, 2);
+    res.send(json);
+  } catch (error) {
+    console.error("Error dumping item:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
 }

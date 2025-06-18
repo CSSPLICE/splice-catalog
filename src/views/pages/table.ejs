@@ -1,4 +1,18 @@
 
+<style>
+    .hover-button{
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        margin-left: 10px;
+    }
+
+    tr:hover .hover-button{
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -14,11 +28,12 @@
             <tr>
                 <td scope="row">
                     <a href="/item/<%= SLCItem.id %>/<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></a>
+
                 </td>
                 <td><%= SLCItem.exercise_type %></td>
                 <td>
                     <span class="short-description" onclick="openModal()" style="cursor: pointer; color: black; text-decoration: none; display: inline-block; padding: 5px; background-color: none; border-radius: 5px; transition: background-color 0.3s ease;">
-                        Short Description...
+                        
                     </span>
                 </td>
                 <td><a href="<%= SLCItem.url %>"><%= SLCItem.platform_name %></a></td>
@@ -31,7 +46,12 @@
                         <% if (index < SLCItem.keywords.length - 1) { %>, <% } %> <!-- Add a comma between keywords -->
                     <% }); %>
                 </td>
+                <td>
+                    <button class="hover-button btn btn-sm btn-primary" onclick="dumpItem('<%= SLCItem.id %>')">Dump</button>
+
+                </td>
             </tr>
+
         <% }) %>
     </tbody>
 </table>
@@ -46,3 +66,35 @@
     </div>
 </div>
 
+<script>
+    function dumpItem(id) {
+  fetch(`/catalog/dump/${id}`)
+    .then(response => {
+      if (!response.ok) throw new Error('Failed to fetch dump');
+      
+      // Extract filename from Content-Disposition header
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let filename = `item_${id}.json`; // fallback
+      
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="([^"]+)"/);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
+      }
+      
+      return response.blob().then(blob => ({ blob, filename }));
+    })
+    .then(({ blob, filename }) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename; // Use the extracted filename
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    })
+    .catch(err => alert(err.message));
+}
+</script>
