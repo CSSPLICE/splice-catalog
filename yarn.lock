@@ -4815,11 +4815,7 @@ is-absolute@^1.0.0:
 
 is-arrayish@^0.2.1:
   version "0.2.1"
-<<<<<<< HEAD
-  resolved "https://registry.yarnpkg.com/is-arrayish/-/is-arrayish-0.2.1.tgz#77c99840527aa8ecb1a8ba697b80645a7a926a9d"
-=======
   resolved "https://registry.npmjs.org/is-arrayish/-/is-arrayish-0.2.1.tgz"
->>>>>>> staging
   integrity sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==
 
 is-arrayish@^0.3.1:
@@ -6117,11 +6113,7 @@ pgpass@1.x:
 
 picocolors@^1.1.1:
   version "1.1.1"
-<<<<<<< HEAD
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
-=======
-  resolved "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz"
->>>>>>> staging
   integrity sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==
 
 picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
