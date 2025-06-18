@@ -72,9 +72,9 @@
     .then(response => {
       if (!response.ok) throw new Error('Failed to fetch dump');
       
-      // Extract filename from Content-Disposition header
+      
       const contentDisposition = response.headers.get('Content-Disposition');
-      let filename = `item_${id}.json`; // fallback
+      let filename = `item_${id}.json`; 
       
       if (contentDisposition) {
         const filenameMatch = contentDisposition.match(/filename="([^"]+)"/);
@@ -89,7 +89,7 @@
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = filename; // Use the extracted filename
+      a.download = filename; 
       document.body.appendChild(a);
       a.click();
       a.remove();
