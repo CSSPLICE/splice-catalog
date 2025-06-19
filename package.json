@@ -20,7 +20,7 @@
     "import:ontology": "ts-node src/utils/import-ontology-data.ts"
   },
   "dependencies": {
-    "@adminjs/express": "4.0.1",
+    "@adminjs/express": "^4.0.1",
     "@adminjs/typeorm": "^5.0.1",
     "@types/cors": "^2.8.16",
     "@types/ejs": "^3.1.5",

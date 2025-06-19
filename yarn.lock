@@ -44,10 +44,12 @@
     styled-system "^5.1.5"
     text-mask-addons "^3.8.0"
 
-"@adminjs/express@4.0.1":
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/@adminjs/express/-/express-4.0.1.tgz#bfce7975dbc9aacb2f057e69e6abc5904bdd2887"
-  integrity sha512-53jmGOKnrnmbq18+lw5NDnG88DPHm0NmIUTTzFFdPATjB/6kM7WhPiZG4NhaPnP85NocQDjex5+u6yd013+6Iw==
+"@adminjs/express@^4.0.1":
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/@adminjs/express/-/express-4.1.3.tgz#5d058ffe6fdb26233974a359c819620ddaaaafc9"
+  integrity sha512-zmA1dhwl31ub5lMT037aEc5Km8SlUxaeb3/xlO8qc44NdScliEiHxaKOm+EItSmsemV/OMOOHepTWqYcXtIgiQ==
+  dependencies:
+    path-to-regexp "^6.2.0"
 
 "@adminjs/typeorm@^5.0.1":
   version "5.0.1"
@@ -6045,6 +6047,11 @@ path-to-regexp@0.1.12:
   version "0.1.12"
   resolved "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-0.1.12.tgz"
   integrity sha512-RA1GjUVMnvYFxuqovrEqZoxxW5NUZqbwKtYz/Tt7nXerk0LbLblQmrsgdeOxV5SFHf0UDggjS/bSeOZwt1pmEQ==
+
+path-to-regexp@^6.2.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-6.3.0.tgz#2b6a26a337737a8e1416f9272ed0766b1c0389f4"
+  integrity sha512-Yhpw4T9C6hPpgPeA28us07OJeqZ5EzQTkbfwuhsUg0c237RomFoETJgmp2sa3F/41gfLE6G5cqcYwznmeEeOlQ==
 
 path-type@^4.0.0:
   version "4.0.0"
