@@ -165,7 +165,6 @@
   color: #555;
 }
 
-
 .modal {
   display: none;
   position: fixed;
@@ -192,7 +191,6 @@
   font-size: 28px;
   cursor: pointer;
 }
-
 
 .search-sidebar-layout {
   display: flex;
