@@ -4,10 +4,6 @@ export class CreateValidationResults1743975897306 implements MigrationInterface 
   name = 'CreateValidationResults1743975897306';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`ALTER TABLE \`ontology_relations\` DROP FOREIGN KEY \`FK_c10b53388b15cbcf35544952dc8\``);
-    await queryRunner.query(`ALTER TABLE \`ontology_relations\` DROP FOREIGN KEY \`FK_e3ad5df66ebc6b40df3a8f166ab\``);
-    await queryRunner.query(`DROP INDEX \`UQ_a36fb942938a3f8385558425f4e\` ON \`ontology_aliases\``);
-    await queryRunner.query(`DROP INDEX \`UQ_438801da4bf06b823af71a063db\` ON \`ontology_classes\``);
     await queryRunner.query(
       `CREATE TABLE \`validation_results\` (\`id\` int NOT NULL AUTO_INCREMENT, \`user\` varchar(255) NOT NULL, \`dateLastUpdated\` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`metadataIssues\` text NULL, \`isUrlValid\` tinyint NOT NULL DEFAULT 0, \`categorizationResults\` text NULL, \`validationStatus\` text NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`,
     );
@@ -131,17 +127,5 @@ export class CreateValidationResults1743975897306 implements MigrationInterface 
     await queryRunner.query(`ALTER TABLE \`slc_item_catalog\` CHANGE \`keywords\` \`keywords\` json NULL`);
     await queryRunner.query(`ALTER TABLE \`slc_item_catalog\` CHANGE \`url\` \`url\` varchar(255) NULL`);
     await queryRunner.query(`DROP TABLE \`validation_results\``);
-    await queryRunner.query(
-      `CREATE UNIQUE INDEX \`UQ_438801da4bf06b823af71a063db\` ON \`ontology_classes\` (\`class_uri\`)`,
-    );
-    await queryRunner.query(
-      `CREATE UNIQUE INDEX \`UQ_a36fb942938a3f8385558425f4e\` ON \`ontology_aliases\` (\`alias\`)`,
-    );
-    await queryRunner.query(
-      `ALTER TABLE \`ontology_relations\` ADD CONSTRAINT \`FK_e3ad5df66ebc6b40df3a8f166ab\` FOREIGN KEY (\`parent_class_id\`) REFERENCES \`ontology_classes\`(\`id\`) ON DELETE CASCADE ON UPDATE NO ACTION`,
-    );
-    await queryRunner.query(
-      `ALTER TABLE \`ontology_relations\` ADD CONSTRAINT \`FK_c10b53388b15cbcf35544952dc8\` FOREIGN KEY (\`child_class_id\`) REFERENCES \`ontology_classes\`(\`id\`) ON DELETE CASCADE ON UPDATE NO ACTION`,
-    );
   }
 }
