@@ -9,8 +9,8 @@ import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
 import { CategorizationReport } from '../types/CategorizationTypes';
 import { Repository } from 'typeorm';
 import { ValidationResults } from '../db/entities/ValidationResults';
-import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
-import { validateLTI } from 'src/services/ValidatorLTI';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
+import { validateLTI } from './ValidatorLTI';
 import { runIframeValidation } from './IframeValidatorService';
 
 export class ValidationManager {
