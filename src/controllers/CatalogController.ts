@@ -69,12 +69,16 @@ export class CatalogController {
         return res.status(404).render('pages/item', {
           item: null,
           title: 'Item Not Found',
+	  user: req.oidc.user,
+          showLoginButton: res.locals.showLoginButton,
         });
       }
 
       return res.render('pages/item', {
         item,
         title: 'Item View',
+	user: req.oidc.user,
+        showLoginButton: res.locals.showLoginButton,
       });
     } catch (error) {
       console.error('Error retrieving item:', error);

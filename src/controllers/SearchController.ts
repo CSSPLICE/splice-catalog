@@ -18,6 +18,7 @@ export class SearchController {
         exerciseType,
         title: 'Search Results',
         user: req.oidc.user,
+        showLoginButton: res.locals.showLoginButton,
       });
     }
 
@@ -74,6 +75,7 @@ export class SearchController {
       exerciseType,
       title: 'Search Results',
       user: req.oidc.user,
+      showLoginButton: res.locals.showLoginButton,
     });
   }
   async searchCatalogAPI(req: Request, res: Response) {
