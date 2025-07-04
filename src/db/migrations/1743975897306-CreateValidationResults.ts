@@ -64,17 +64,9 @@ export class CreateValidationResults1743975897306 implements MigrationInterface 
     await queryRunner.query(
       `ALTER TABLE \`ontology_classes\` CHANGE \`is_active\` \`is_active\` tinyint NOT NULL DEFAULT 1`,
     );
-    await queryRunner.query(
-      `ALTER TABLE \`ontology_relations\` ADD CONSTRAINT \`FK_e3ad5df66ebc6b40df3a8f166ab\` FOREIGN KEY (\`parent_class_id\`) REFERENCES \`ontology_classes\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
-    );
-    await queryRunner.query(
-      `ALTER TABLE \`ontology_relations\` ADD CONSTRAINT \`FK_c10b53388b15cbcf35544952dc8\` FOREIGN KEY (\`child_class_id\`) REFERENCES \`ontology_classes\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`,
-    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`ALTER TABLE \`ontology_relations\` DROP FOREIGN KEY \`FK_c10b53388b15cbcf35544952dc8\``);
-    await queryRunner.query(`ALTER TABLE \`ontology_relations\` DROP FOREIGN KEY \`FK_e3ad5df66ebc6b40df3a8f166ab\``);
     await queryRunner.query(
       `ALTER TABLE \`ontology_classes\` CHANGE \`is_active\` \`is_active\` tinyint(1) NOT NULL DEFAULT '1'`,
     );
