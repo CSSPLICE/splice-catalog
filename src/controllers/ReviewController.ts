@@ -5,7 +5,7 @@ import { ToolsCatalogController } from './ToolsCatalogController';
 import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes';
 import { ValidationResults } from '../db/entities/ValidationResults';
 import { AppDataSource } from '../db/data-source'; // Adjust the path to your data-source file
-import { slc_item_catalog } from 'src/db/entities/SLCItemCatalog';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {

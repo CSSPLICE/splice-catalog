@@ -16,7 +16,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Dark overlay splice image  */
+  background: rgba(0, 0, 0, 0.5);
   z-index: -1;
 }
 
@@ -32,14 +32,14 @@
 /* Statistics Section */
 .statistics {
   padding: 2rem 0;
-  background-color: #f8f9fa; /* Light background for the statistics area */
+  background-color: #f8f9fa;
   border-top: 1px solid #e9ecef;
   border-bottom: 1px solid #e9ecef;
 }
 
 .statistics .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
   padding: 1rem;
   text-align: center;
@@ -48,11 +48,11 @@
 .statistics .grid-item {
   background: white;
   padding: 2rem 1rem;
-  border-radius: 10px; /* Rounded corners for cards */
+  border-radius: 10px;
   box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease-in-out;
   position: relative;
-  overflow: hidden; /*  pseudo-elements do not overflow */
+  overflow: hidden;
 }
 
 .statistics .grid-item::before {
@@ -63,13 +63,19 @@
   width: 100%;
   height: 100%;
   background-color: #007bff;
-  transform: skewX(-45deg) translateX(0); /* Initial state off-screen */
+  transform: skewX(-45deg) translateX(0);
   transition: transform 0.5s ease-in-out;
   z-index: 0;
 }
 
 .statistics .grid-item:hover::before {
-  transform: skewX(-45deg) translateX(200%); /* Hover state moving effect */
+  transform: skewX(-45deg) translateX(200%);
+}
+
+.statistics .grid-item h3,
+.statistics .grid-item p {
+  position: relative;
+  z-index: 1;
 }
 
 .statistics .grid-item h3 {
@@ -77,35 +83,41 @@
   font-size: 2.5rem;
   font-weight: bold;
   color: #007bff;
-  z-index: 1;
-  position: relative; /* Ensures the text is above the pseudo-element */
 }
 
 .statistics .grid-item p {
   margin-top: 0.5rem;
   font-size: 1.2rem;
   color: #6c757d;
-  z-index: 1;
-  position: relative; /* Ensures the text is above the pseudo-element */
 }
 
-/* Responsive Adjust, grid layout for smaller screens */
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .statistics .grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-}
 
-/* Responsive Pagination Styles */
-@media (max-width: 768px) {
   .pagination a {
     padding: 2px 4px;
     font-size: 8px;
     margin: 0 2px;
   }
+
+  .search-sidebar-layout {
+    flex-direction: column;
+  }
+
+  .search-sidebar {
+    width: 100%;
+  }
+
+  .search-content {
+    width: 100%;
+  }
 }
 
+/* Pagination Styles */
 .pagination {
   display: flex;
   justify-content: center;
@@ -183,15 +195,54 @@
 .search-sidebar-layout {
   display: flex;
   gap: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
 .search-sidebar {
   width: 250px;
   padding: 1rem;
-  background-color: #b5b5b5;
+  background-color: #f1f1f1;
   border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.search-sidebar h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.search-sidebar label {
+  margin-left: 0.4rem;
+}
+
+.search-sidebar button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.search-sidebar button:hover {
+  background-color: #0056b3;
 }
 
 .search-content {
   flex: 1;
+  min-width: 0;
+}
+
+.search-content h1.header {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
