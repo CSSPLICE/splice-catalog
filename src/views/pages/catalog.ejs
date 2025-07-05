@@ -6,7 +6,11 @@
 <body>
     <div class="container">       
         <!-- SPLICE SLC Items Catalog -->
-        <h3 class="header">SLC Item Catalog</h3>
+        <div class="container">
+        <div style="display: inline-flex; align-items: center;">
+        <h1 class="header" style="margin: 1;">SLC Item Catalog</h1>
+        <button class="btn btn-sm btn-primary" style="margin-left: 15px;" onclick="downloadFullCatalog()">Dump</button>
+    </div>
         <%- include('../pages/table', { items: catalog }) %>
         <!-- Pagination Controls -->
         <div class="pagination">
@@ -68,3 +72,25 @@
 </body>
 <%- include('../partials/footer') -%>
 </html>
+
+<script>
+  async function downloadFullCatalog () {
+    try {
+      const res = await fetch('/catalog/dump/all');
+      if (!res.ok) throw new Error('Server error ' + res.status);
+
+      const blob = await res.blob();                       // get data
+      const url  = URL.createObjectURL(blob);              // make temp URL
+
+      const a   = document.createElement('a');
+      a.href     = url;
+      a.download = 'full-catalog.json';
+      document.body.appendChild(a);
+      a.click();                                           // trigger save
+      a.remove();
+      URL.revokeObjectURL(url);                            // free memory
+    } catch (err) {
+      alert('Download failed: ' + err.message);
+    }
+  }
+</script>

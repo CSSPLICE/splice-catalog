@@ -79,5 +79,41 @@ export class SearchController {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
   
+  async dumpSearchResultsAPI(req: Request, res: Response) {
+  const query = req.params.query;
+  if (!query) {
+    return res.status(400).json({ error: "Missing query parameter" });
+  }
+
+  try {
+    const rawResults = await AppDataSource.getRepository(slc_item_catalog).find({
+      where: [
+        { keywords:       ILike(`%${query}%`) },
+        { platform_name:  ILike(`%${query}%`) },
+        { exercise_name:  ILike(`%${query}%`) },
+        { exercise_type:  ILike(`%${query}%`) },
+        { catalog_type:   ILike(`%${query}%`) },
+      ],
+    });
+
+    // 🔑 strip “id” from each object
+    const results = rawResults.map(({ id, ...rest }) => rest);
+
+    const jsonData = JSON.stringify(results, null, 2);
+
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="search-results-${query}.json"`
+    );
+
+    return res.send(jsonData);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 }

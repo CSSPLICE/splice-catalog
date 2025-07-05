@@ -110,4 +110,21 @@ export class CatalogController {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
+
+async dumpFullCatalog(req: Request, res: Response){
+  try {
+    const allItems = await AppDataSource.getRepository(slc_item_catalog).find();
+    
+    const results = allItems.map(({ id, ...rest }) => rest);
+
+    const jsonData = JSON.stringify(results, null, 2);
+
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', 'attachment; filename="full-catalog.json"');
+    res.send(jsonData);
+  } catch (error) {
+    console.error("Error dumping full catalog:", error);
+    res.status(500).json({ error: "Failed to dump catalog" });
+  }
+};
 }
