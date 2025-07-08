@@ -1,88 +1,122 @@
 <!DOCTYPE html>
 <html>
-<%- include('../partials/head') -%>
-<link rel="stylesheet" href="/css/style.css">
-<%- include('../partials/header') -%>
-<body>
-  <div class="container search-sidebar-layout">
-    <aside class="search-sidebar">
-      <h2 class="header">Filter</h2>
-      <form action="/search" method="get" id="filterForm">
+  <%- include('../partials/head') -%>
+  <link rel="stylesheet" href="/css/style.css">
+  <%- include('../partials/header') -%>
+
+  <body>
+    <div class="container d-flex flex-row">
+      <% const institutions = ["Aalto University", "Duke University", "San Diego Mesa College", "Stanford University", "UW-Oshkosh", "Universidad Rey Juan Carlos", "Virginia Tech"]; %>
+      <% const programmingLanguages = ["C++", "Java", "N/A"]; %>
+      <% const naturalLanguages = ["en", "fi", "sv"]; %>
+
+      
+      <aside class="search-sidebar me-4" style="min-width: 280px;">
+        <h2 class="header">Filter</h2>
+        <form action="/search" method="get" id="filterForm">
+
+          
           <fieldset>
-              <legend>Exercise Types:</legend>
-              <% const types = ["Coding Question", "Multiple Choice Question", "ka", "ss", "pe", "extr", "Untagged"]; %>
-              <% types.forEach(type => { %>
-                  <div>
-                      <input type="checkbox" class="exerciseTypeInput" name="Exercise type: <%= type %>" value="<%= type %>" <%= exerciseType.includes(type) ? 'checked' : '' %>>
-                      <label for="<%= type %>"><%= type %></label>
-                  </div>
+            <legend>Institution:</legend>
+            <select name="institution" class="form-select">
+              <option value="">All</option>
+              <% institutions.forEach(option => { %>
+                <option value="<%= option %>" <%= (typeof institution !== 'undefined' && institution === option) ? 'selected' : '' %>><%= option %></option>
               <% }) %>
+            </select>
           </fieldset>
-          <input type="hidden" name="query" value="<%= query %>">
+
+          
+          <fieldset>
+            <legend>Programming Language:</legend>
+            <select name="programminglanguage" class="form-select">
+              <option value="">All</option>
+              <% programmingLanguages.forEach(option => { %>
+                <option value="<%= option %>" <%= (typeof programminglanguage !== 'undefined' && programminglanguage === option) ? 'selected' : '' %>><%= option %></option>
+              <% }) %>
+            </select>
+          </fieldset>
+
+          
+          <fieldset>
+            <legend>Natural Language:</legend>
+            <select name="naturallanguage" class="form-select">
+              <option value="">All</option>
+              <% naturalLanguages.forEach(option => { %>
+                <option value="<%= option %>" <%= (typeof naturallanguage !== 'undefined' && naturallanguage === option) ? 'selected' : '' %>><%= option %></option>
+              <% }) %>
+            </select>
+          </fieldset>
+
+          <input type="hidden" name="query" value="<%= typeof query !== 'undefined' ? query : '' %>">
           <button type="submit">Apply Filters</button>
-      </form>
-  </aside>
-    <h1 class="header">Search Results for "<%= query %>"</h1>
+        </form>
+      </aside>
 
-    <%- include('../pages/table', { items: results, isSearchPage: true }) %>
+      
+      <main class="search-content">
+        <h1 class="header">Search Results for "<%= typeof query !== 'undefined' ? query : '' %>"</h1>
 
-    <!-- Pagination Controls -->
-    <div class="pagination">
-      <ul class="pagination-list">
-        <% if (totalPages > 10) { %>
-          <% if (currentPage > 1) { %>
-            <li><a href="?query=<%= query %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
-          <% } %>
-          <% if (currentPage > 10) { %>
-            <li><a href="?query=<%= query %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
-          <% } %>
-          <% if (totalPages <= 5) { %>
-            <% for (let i = 1; i <= totalPages; i++) { %>
-              <li><a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+        <%- include('../pages/table', { items: results, isSearchPage: true }) %>
+
+        <div class="pagination">
+          <ul class="pagination-list">
+            <% if (totalPages > 10) { %>
+              <% if (currentPage > 1) { %>
+                <li><a href="?query=<%= query %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
+              <% } %>
+              <% if (currentPage > 10) { %>
+                <li><a href="?query=<%= query %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
+              <% } %>
+              <% if (totalPages <= 5) { %>
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                  <li><a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+                <% } %>
+              <% } else { %>
+                <% if (currentPage > 2) { %>
+                  <li><a href="?query=<%= query %>&page=1">1</a></li>
+                  <% if (currentPage > 3) { %><li class="ellipsis">...</li><% } %>
+                <% } %>
+                <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
+                  <li><a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+                <% } %>
+                <% if (currentPage < totalPages - 1) { %>
+                  <% if (currentPage < totalPages - 2) { %><li class="ellipsis">...</li><% } %>
+                  <li><a href="?query=<%= query %>&page=<%= totalPages %>"><%= totalPages %></a></li>
+                <% } %>
+              <% } %>
+              <% if (currentPage + 10 <= totalPages) { %>
+                <li><a href="?query=<%= query %>&page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
+              <% } %>
+              <% if (currentPage < totalPages) { %>
+                <li><a href="?query=<%= query %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
+              <% } %>
             <% } %>
-          <% } else { %>
-            <% if (currentPage > 2) { %>
-              <li><a href="?query=<%= query %>&page=1">1</a></li>
-              <% if (currentPage > 3) { %><li class="ellipsis">...</li><% } %>
-            <% } %>
-            <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
-              <li><a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
-            <% } %>
-            <% if (currentPage < totalPages - 1) { %>
-              <% if (currentPage < totalPages - 2) { %><li class="ellipsis">...</li><% } %>
-              <li><a href="?query=<%= query %>&page=<%= totalPages %>"><%= totalPages %></a></li>
-            <% } %>
-          <% } %>
-          <% if (currentPage + 10 <= totalPages) { %>
-            <li><a href="?query=<%= query %>&page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
-          <% } %>
-          <% if (currentPage < totalPages) { %>
-            <li><a href="?query=<%= query %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
-          <% } %>
-        <% } %>
-      </ul>
+          </ul>
+        </div>
+      </main>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/searchparams.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const modal = document.getElementById("descriptionModal");
-      const modalText = document.getElementById("fullDescription");
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/searchparams.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("descriptionModal");
+        const modalText = document.getElementById("fullDescription");
 
-      document.querySelectorAll(".short-description").forEach((el) => {
-        el.addEventListener("click", () => {
-          modalText.textContent = el.getAttribute("data-description") || "Detailed Description.";
-          modal.style.display = "block";
+        document.querySelectorAll(".short-description").forEach((el) => {
+          el.addEventListener("click", () => {
+            modalText.textContent = el.getAttribute("data-description") || "Detailed Description.";
+            modal.style.display = "block";
+          });
+        });
+
+        document.querySelector(".close").addEventListener("click", () => {
+          modal.style.display = "none";
         });
       });
+    </script>
+  </body>
 
-      document.querySelector(".close").addEventListener("click", () => {
-        modal.style.display = "none";
-      });
-    });
-  </script>
-</body>
-<%- include('../partials/footer') -%>
+  <%- include('../partials/footer') -%>
 </html>
