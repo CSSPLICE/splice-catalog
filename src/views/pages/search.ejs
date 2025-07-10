@@ -5,34 +5,60 @@
   <%- include('../partials/header') -%>
 
   <body>
-    <div class="container search-sidebar-layout">
+    <div class="container d-flex flex-row">
+      <% const institutions = ["Aalto University", "Duke University", "San Diego Mesa College", "Stanford University", "UW-Oshkosh", "Universidad Rey Juan Carlos", "Virginia Tech"]; %>
+      <% const programmingLanguages = ["C++", "Java", "N/A"]; %>
+      <% const naturalLanguages = ["en", "fi", "sv"]; %>
+
       
-      
-      <aside class="search-sidebar">
+      <aside class="search-sidebar me-4" style="min-width: 280px;">
         <h2 class="header">Filter</h2>
         <form action="/search" method="get" id="filterForm">
+
+          
           <fieldset>
-            <legend>Exercise Types:</legend>
-            <% const types = ["Coding Question", "Multiple Choice Question", "ka", "ss", "pe", "extr", "Untagged"]; %>
-            <% types.forEach(type => { %>
-              <div>
-                <input type="checkbox" class="exerciseTypeInput" name="Exercise type: <%= type %>" value="<%= type %>" <%= exerciseType.includes(type) ? 'checked' : '' %>>
-                <label for="<%= type %>"><%= type %></label>
-              </div>
-            <% }) %>
+            <legend>Institution:</legend>
+            <select name="institution" class="form-select">
+              <option value="">All</option>
+              <% institutions.forEach(option => { %>
+                <option value="<%= option %>" <%= (typeof institution !== 'undefined' && institution === option) ? 'selected' : '' %>><%= option %></option>
+              <% }) %>
+            </select>
           </fieldset>
-          <input type="hidden" name="query" value="<%= query %>">
+
+          
+          <fieldset>
+            <legend>Programming Language:</legend>
+            <select name="programminglanguage" class="form-select">
+              <option value="">All</option>
+              <% programmingLanguages.forEach(option => { %>
+                <option value="<%= option %>" <%= (typeof programminglanguage !== 'undefined' && programminglanguage === option) ? 'selected' : '' %>><%= option %></option>
+              <% }) %>
+            </select>
+          </fieldset>
+
+          
+          <fieldset>
+            <legend>Natural Language:</legend>
+            <select name="naturallanguage" class="form-select">
+              <option value="">All</option>
+              <% naturalLanguages.forEach(option => { %>
+                <option value="<%= option %>" <%= (typeof naturallanguage !== 'undefined' && naturallanguage === option) ? 'selected' : '' %>><%= option %></option>
+              <% }) %>
+            </select>
+          </fieldset>
+
+          <input type="hidden" name="query" value="<%= typeof query !== 'undefined' ? query : '' %>">
           <button type="submit">Apply Filters</button>
         </form>
       </aside>
 
       
       <main class="search-content">
-        <h1 class="header">Search Results for "<%= query %>"</h1>
+        <h1 class="header">Search Results for "<%= typeof query !== 'undefined' ? query : '' %>"</h1>
 
         <%- include('../pages/table', { items: results, isSearchPage: true }) %>
 
-        
         <div class="pagination">
           <ul class="pagination-list">
             <% if (totalPages > 10) { %>
@@ -71,7 +97,6 @@
       </main>
     </div>
 
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/searchparams.js"></script>
     <script>
@@ -95,4 +120,3 @@
 
   <%- include('../partials/footer') -%>
 </html>
-
