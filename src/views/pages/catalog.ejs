@@ -3,7 +3,69 @@
 <%- include('../partials/head') -%>
 <link rel="stylesheet" href="/css/style.css">
 <%- include('../partials/header') -%>
+
 <body>
+
+  <div class="container d-flex flex-row">
+    <% const institutions = ["Aalto University", "Duke University", "San Diego Mesa College", "Stanford University", "UW-Oshkosh", "Universidad Rey Juan Carlos", "Virginia Tech"]; %>
+    <% const programmingLanguages = ["C++", "Java", "N/A"]; %>
+    <% const naturalLanguages = ["en", "fi", "sv"]; %>
+
+    <!-- Sidebar Filter -->
+    <aside class="search-sidebar me-4" style="min-width: 280px;">
+      <h2 class="header">Filter</h2>
+      <form action="/search" method="get" id="filterForm">
+        
+        <fieldset>
+          <legend>Institution:</legend>
+          <select name="institution" class="form-select">
+            <option value="">All</option>
+            <% institutions.forEach(option => { %>
+              <option value="<%= option %>" <%= institution === option ? 'selected' : '' %>><%= option %></option>
+            <% }) %>
+          </select>
+        </fieldset>
+
+        
+        <fieldset>
+          <legend>Programming Language:</legend>
+          <select name="programminglanguage" class="form-select">
+            <option value="">All</option>
+            <% programmingLanguages.forEach(option => { %>
+              <option value="<%= option %>" <%= programminglanguage === option ? 'selected' : '' %>><%= option %></option>
+            <% }) %>
+          </select>
+        </fieldset>
+
+        
+        <fieldset>
+          <legend>Natural Language:</legend>
+          <select name="naturallanguage" class="form-select">
+            <option value="">All</option>
+            <% naturalLanguages.forEach(option => { %>
+              <option value="<%= option %>" <%= naturallanguage === option ? 'selected' : '' %>><%= option %></option>
+            <% }) %>
+          </select>
+        </fieldset>
+
+        <input type="hidden" name="query" value="">
+        <button type="submit">Apply Filters</button>
+      </form>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="search-content">
+      <h3 class="header">SLC Item Catalog</h3>
+      <%- include('../pages/table', { items: catalog, isSearchPage: true }) %>
+
+      
+      <div class="pagination">
+        
+        <ul class="pagination-list">
+          <% if (totalPages > 10) { %>
+            <% if (currentPage > 1) { %>
+              <li><a href="?page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
+
   <div class="container">
     <% const selectedTypes = typeof exerciseType !== 'undefined' ? exerciseType : []; %>
 
@@ -46,28 +108,37 @@
           <% if (totalPages <= 5) { %>
             <% for (let i = 1; i <= totalPages; i++) { %>
               <li><a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+
             <% } %>
-          <% } else { %>
-            <% if (currentPage > 2) { %>
-              <li><a href="?page=1">1</a></li>
-              <% if (currentPage > 3) { %><li class="ellipsis">...</li><% } %>
+            <% if (currentPage > 10) { %>
+              <li><a href="?page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
             <% } %>
-            <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
-              <li><a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+            <% if (totalPages <= 5) { %>
+              <% for (let i = 1; i <= totalPages; i++) { %>
+                <li><a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+              <% } %>
+            <% } else { %>
+              <% if (currentPage > 2) { %>
+                <li><a href="?page=1">1</a></li>
+                <% if (currentPage > 3) { %><li class="ellipsis">...</li><% } %>
+              <% } %>
+              <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
+                <li><a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+              <% } %>
+              <% if (currentPage < totalPages - 1) { %>
+                <% if (currentPage < totalPages - 2) { %><li class="ellipsis">...</li><% } %>
+                <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
+              <% } %>
             <% } %>
-            <% if (currentPage < totalPages - 1) { %>
-              <% if (currentPage < totalPages - 2) { %><li class="ellipsis">...</li><% } %>
-              <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
+            <% if (currentPage + 10 <= totalPages) { %>
+              <li><a href="?page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
+            <% } %>
+            <% if (currentPage < totalPages) { %>
+              <li><a href="?page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
             <% } %>
           <% } %>
-          <% if (currentPage + 10 <= totalPages) { %>
-            <li><a href="?page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
-          <% } %>
-          <% if (currentPage < totalPages) { %>
-            <li><a href="?page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
-          <% } %>
-        <% } %>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
 
@@ -91,5 +162,8 @@
     });
   </script>
 </body>
+
 <%- include('../partials/footer') -%>
 </html>
+
+
