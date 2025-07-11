@@ -7,16 +7,14 @@
 ## Development
 
 In order to get the development environment setup, you'll need to follow these steps:
-1. Build the catalog container: `docker compose --profile catalog build`
-2. Install the node packages: `docker compose --profile catalog run catalog yarn install`
-3. Start the splice catalog application: `docker compose --profile catalog up`
+1. Build the catalog container: `docker compose --profile catalog build`. [Depending on your internet connection, this might take a long time.]
+2. [If this is a fresh install:] cp env.example .env
+3. Install the node packages: `docker compose --profile catalog run catalog yarn install`
+4. Start the splice catalog application: `docker compose --profile catalog up`
 
-Once the container starts you'll want to
+5. Running the application per step 3 will consume the current terminal. To exec into the running container, open a new terminal in the repository and run: `docker compose --profile catalog exec catalog bash` (if you are on windows, you'll need to add winpty)
 
-4. Running the application per step 3 will consume the current terminal, to exec into the running container, open a new terminal in the repository and run: `docker compose --profile catalog exec catalog bash` (if you are on windows, you'll need to add winpty)
-5. Inside the container run: `yarn migrate` to instantiate the database
-
-From inside this container, you can also run other yarn commands (install, add <package>, etc)
+From inside this container, you can also run yarn commands (migrate, install, add <package>, etc)
 
 6. At this point, the catalog will be running at [http://localhost:3000/](http://localhost:3000/)
 
@@ -30,7 +28,7 @@ Once the application is running, upload any data files to [http://localhost:3000
 
 ## Interact with database
 
-To access the database from the command line: 
+To access the database from the command line:
 ```
 docker compose --profile catalog exec db bash
 mysql -usplice -psplice
@@ -41,7 +39,7 @@ use splice;
 
 If you are developing the catalog, you should be checking out the staging branch `git checkout staging`
 
-**See documentation here:** [docs](docs) 
+**See documentation here:** [docs](docs)
 
 ## Production
 

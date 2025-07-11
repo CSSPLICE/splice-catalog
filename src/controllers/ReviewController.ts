@@ -120,6 +120,8 @@ export class ReviewController {
           title: 'Review Dashboard',
           urlValidationComplete: true,
           validationResults: allValidationResults,
+          user: req.oidc.user,
+          showLoginButton: res.locals.showLoginButton,
         });
       }
     } catch (error) {

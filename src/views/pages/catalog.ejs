@@ -7,7 +7,7 @@
   <div class="container">
     <% const selectedTypes = typeof exerciseType !== 'undefined' ? exerciseType : []; %>
 
-    
+
     <div class="filter-bar">
       <h2 class="header">Filter</h2>
       <form action="/search" method="get" id="filterForm">
@@ -27,13 +27,13 @@
       </form>
     </div>
 
-    
+
     <h3 class="header">SLC Item Catalog</h3>
 
-    
+
     <%- include('../pages/table', { items: catalog, isSearchPage: false }) %>
 
-    
+
     <div class="pagination">
       <ul class="pagination-list">
         <% if (totalPages > 10) { %>
@@ -71,7 +71,7 @@
     </div>
   </div>
 
-  
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {

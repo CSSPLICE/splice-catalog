@@ -3,7 +3,7 @@ import puppeteer from 'puppeteer';
 export async function runIframeValidation(iframeUrl: string): Promise<{ passed: boolean; message?: string }> {
   const validatorPageUrl = `http://localhost:3000/iframeValidator.html?iframe=${encodeURIComponent(iframeUrl)}`;
 
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.connect({ browserWSEndpoint: 'ws://chrome:3000' });
   const page = await browser.newPage();
 
   let result: { passed: boolean; message?: string } = { passed: false };

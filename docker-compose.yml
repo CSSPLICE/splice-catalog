@@ -30,13 +30,15 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/app
-    command: ["yarn", "dev"]
+    command: ["sh", "-c", "yarn migrate && yarn dev"]
     env_file:
       - .env
     depends_on:
       db:
         condition: service_healthy
       lti-validator:
+        condition: service_started
+      chrome:
         condition: service_started
     ports:
       - '3000:3000'
@@ -48,6 +50,16 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+
+  chrome:
+    profiles:
+      - catalog
+      - production
+    image: browserless/chrome:latest
+    ports:
+      - '3001:3000'
+    networks:
+      - splice
 
   prod:
     profiles:

@@ -6,8 +6,8 @@
 
   <body>
     <div class="container search-sidebar-layout">
-      
-      
+
+
       <aside class="search-sidebar">
         <h2 class="header">Filter</h2>
         <form action="/search" method="get" id="filterForm">
@@ -26,13 +26,13 @@
         </form>
       </aside>
 
-      
+
       <main class="search-content">
         <h1 class="header">Search Results for "<%= query %>"</h1>
 
         <%- include('../pages/table', { items: results, isSearchPage: true }) %>
 
-        
+
         <div class="pagination">
           <ul class="pagination-list">
             <% if (totalPages > 10) { %>
@@ -71,7 +71,7 @@
       </main>
     </div>
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/searchparams.js"></script>
     <script>
@@ -95,4 +95,3 @@
 
   <%- include('../partials/footer') -%>
 </html>
-
