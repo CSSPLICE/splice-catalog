@@ -5,7 +5,6 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install
 RUN yarn global add ts-node
-RUN npx puppeteer browsers install chrome
 
 COPY . .
 

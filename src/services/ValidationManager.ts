@@ -170,7 +170,7 @@ export class ValidationManager {
 
         validationResult.isUrlValid = isValid;
         try {
-          const iframeResult = await runIframeValidation('https://codecheck.io/files/wiley/ch-bj4cc-c06_exp_6_105');
+          const iframeResult = await runIframeValidation(item.url);
           validationResult.iframeValidationError = iframeResult.passed
             ? 'Passed: SPLICE message received'
             : iframeResult.message || 'Unknown error';
