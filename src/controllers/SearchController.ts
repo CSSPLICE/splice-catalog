@@ -43,44 +43,7 @@ export class SearchController {
       user: req.oidc.user,
     });
   }
-  
-  async searchCatalogAPI(req: Request, res: Response) {
-    const query = req.query.query; 
-    if (!query) {
-      return res.status(400).json({ error: 'Missing query parameter' });
-    }
-  
-    const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25;
-  
-    try {
-      const [search_data, totalItems] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
-        where: [
-          { keywords: ILike(`%${query}%`) },
-          { platform_name: ILike(`%${query}%`) },
-          { exercise_name: ILike(`%${query}%`) },
-          { exercise_type: ILike(`%${query}%`) },
-          { catalog_type: ILike(`%${query}%`) },
-        ],
-        skip: (currentPage - 1) * ITEMS_PER_PAGE,
-        take: ITEMS_PER_PAGE,
-      });
-  
-      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-  
-      return res.json({
-        results: search_data,
-        currentPage,
-        totalPages,
-        query,
-      });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-  }
-
-  
+    
   async dumpSearchResultsAPI(req: Request, res: Response) {
   const query = req.params.query;
   if (!query) {
@@ -115,5 +78,36 @@ export class SearchController {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }
+
+async searchCatalogByPath(req: Request, res: Response) {
+  const query = req.params.query;
+
+  if (!query) {
+    return res.status(400).json({ error: 'Missing query' });
+  }
+
+  try {
+    const results = await AppDataSource.getRepository(slc_item_catalog).find({
+      where: [
+        { keywords: ILike(`%${query}%`) },
+        { platform_name: ILike(`%${query}%`) },
+        { exercise_name: ILike(`%${query}%`) },
+        { exercise_type: ILike(`%${query}%`) },
+        { catalog_type: ILike(`%${query}%`) },
+      ],
+      take: 100,
+    });
+
+    return res.json({
+      query,
+      count: results.length,
+      results,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 
 }

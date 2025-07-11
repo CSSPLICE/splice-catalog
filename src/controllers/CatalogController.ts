@@ -127,4 +127,36 @@ async dumpFullCatalog(req: Request, res: Response){
     res.status(500).json({ error: "Failed to dump catalog" });
   }
 };
+
+async dumpByQuery(req: Request, res: Response) {
+  const { query } = req.params;
+
+  try {
+    const decodedQuery = decodeURIComponent(query).toLowerCase();
+
+    const matchingItems = await AppDataSource.getRepository(slc_item_catalog)
+      .createQueryBuilder("item")
+      .where("LOWER(item.exercise_name) LIKE :query", { query: `%${decodedQuery}%` })
+      .orWhere("LOWER(item.description) LIKE :query", { query: `%${decodedQuery}%` }) // optional: match on other fields
+      .getMany();
+
+    if (matchingItems.length === 0) {
+      return res.status(404).json({ error: "No matching items found." });
+    }
+
+    const results = matchingItems.map(({ id, ...rest }) => rest);
+
+    const filename = `slc_items_matching_${decodedQuery.replace(/[^a-z0-9]/g, '_')}.json`;
+
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+
+    res.send(JSON.stringify(results, null, 2));
+  } catch (error) {
+    console.error("Error dumping items by query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 }
+
+}
+
