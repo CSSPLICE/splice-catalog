@@ -13,11 +13,10 @@ In order to get the development environment setup, you'll need to follow these s
 4. Start the splice catalog application: `docker compose --profile catalog up`
 
 5. Running the application per step 3 will consume the current terminal. To exec into the running container, open a new terminal in the repository and run: `docker compose --profile catalog exec catalog bash` (if you are on windows, you'll need to add winpty)
-6. Inside the container run: `yarn migrate` to instantiate the database
 
-From inside this container, you can also run other yarn commands (install, add <package>, etc)
+From inside this container, you can also run yarn commands (migrate, install, add <package>, etc)
 
-7. At this point, the catalog will be running at [http://localhost:3000/](http://localhost:3000/)
+6. At this point, the catalog will be running at [http://localhost:3000/](http://localhost:3000/)
 
 ## Import Catalog Data
 
@@ -29,7 +28,7 @@ Once the application is running, upload any data files to [http://localhost:3000
 
 ## Interact with database
 
-To access the database from the command line: 
+To access the database from the command line:
 ```
 docker compose --profile catalog exec db bash
 mysql -usplice -psplice
@@ -40,7 +39,7 @@ use splice;
 
 If you are developing the catalog, you should be checking out the staging branch `git checkout staging`
 
-**See documentation here:** [docs](docs) 
+**See documentation here:** [docs](docs)
 
 ## Production
 
