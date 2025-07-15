@@ -1,4 +1,4 @@
-FROM node:lts-buster-slim AS development
+FROM node:lts-bookworm-slim AS development
 
 WORKDIR /app
 
