@@ -1,8 +1,8 @@
-import { AppDataSource } from '../db/data-source';
-import { OntologyClasses } from '../db/entities/OntologyClass';
-import { OntologyAliases } from '../db/entities/OntologyAlias';
-import logger from '../utils/logger';
-import { Metadata } from '../types/ItemTypes';
+import { AppDataSource } from '../db/data-source.js';
+import { OntologyClasses } from '../db/entities/OntologyClass.js';
+import { OntologyAliases } from '../db/entities/OntologyAlias.js';
+import logger from '../utils/logger.js';
+import { Metadata } from '../types/ItemTypes.js';
 
 export class KeywordMatch {
   private ontologyRepo = AppDataSource.getRepository(OntologyClasses);

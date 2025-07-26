@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { slc_item_catalog } from './SLCItemCatalog';
-import { OntologyClasses } from './OntologyClass';
+import { slc_item_catalog } from './SLCItemCatalog.js';
+import { OntologyClasses } from './OntologyClass.js';
 
 @Entity('item_classification')
 export class ItemClassification {

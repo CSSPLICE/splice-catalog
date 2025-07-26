@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany } from 'typeorm';
-import { ValidationResults } from './ValidationResults';
+import { ValidationResults } from './ValidationResults.js';
 
 @Entity()
 export class slc_item_catalog {

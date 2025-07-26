@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { OntologyAliases } from './OntologyAlias';
-import { OntologyRelations } from './OntologyRelation';
+import { OntologyAliases } from './OntologyAlias.js';
+import { OntologyRelations } from './OntologyRelation.js';
 
 @Entity('ontology_classes')
 export class OntologyClasses {
