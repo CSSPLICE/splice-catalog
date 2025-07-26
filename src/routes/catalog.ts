@@ -7,13 +7,9 @@ const router = express.Router();
 
 router.post('/', catalogController.createCatalogItem);
 router.post('/:id', catalogController.deleteCatalogItem);
-<<<<<<< HEAD
-router.get('/item/:name', (req, res) => catalogController.getCatalogItemByName(req, res));
-=======
 router.get("/dump/all", catalogController.dumpFullCatalog);
 router.get("/dump/:id", catalogController.dumpItem);             
 
 
->>>>>>> lalit_manmari_backup
 
 export default router;
