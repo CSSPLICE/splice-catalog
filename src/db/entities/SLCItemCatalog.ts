@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany, BaseEntity } from 'typeorm';
 import { ValidationResults } from './ValidationResults.js';
 
 @Entity()
-export class slc_item_catalog {
+export class slc_item_catalog extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

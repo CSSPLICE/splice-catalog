@@ -21,6 +21,7 @@ import AdminJSExpress from '@adminjs/express';
 import { Database, Resource } from '@adminjs/typeorm';
 import { slc_tools_catalog } from './db/entities/SLCToolsCatalog.js';
 import { validate } from 'class-validator';
+import { slc_item_catalog } from './db/entities/SLCItemCatalog.js';
 
 dotenv.config();
 
@@ -40,6 +41,10 @@ async function startServer() {
     const admin = new AdminJS({
       resources: [{
         resource: slc_tools_catalog,
+        options: {}
+      },
+      {
+        resource: slc_item_catalog,
         options: {}
       }],
       rootPath: '/admin',
