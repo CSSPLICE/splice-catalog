@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/css/style.css">
 <%- include('../partials/header') -%>
 <body>
+<<<<<<< HEAD
   <div class="container">
     <% const selectedTypes = typeof exerciseType !== 'undefined' ? exerciseType : []; %>
 
@@ -25,6 +26,68 @@
         <input type="hidden" name="query" value="">
         <button type="submit">Apply Filters</button>
       </form>
+=======
+    <div class="container">       
+        <!-- SPLICE SLC Items Catalog -->
+        <div class="container">
+        <div style="display: inline-flex; align-items: center;">
+        <h1 class="header" style="margin: 1;">SLC Item Catalog</h1>
+        <button class="btn btn-sm btn-primary" style="margin-left: 15px;" onclick="downloadFullCatalog()">Dump</button>
+    </div>
+        <%- include('../pages/table', { items: catalog }) %>
+        <!-- Pagination Controls -->
+        <div class="pagination">
+            <ul class="pagination-list">
+                <% if (totalPages > 10) { %>  
+                    
+                    <% if (currentPage > 1) { %>
+                        <li><a href="?page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
+                    <% } %>
+
+                    <% if (currentPage > 10) { %>
+                        <li><a href="?page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
+                    <% } %>
+
+                    <% if (totalPages <= 5) { %> 
+                        <% for (let i = 1; i <= totalPages; i++) { %>
+                            <li>
+                                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                            </li>
+                        <% } %>
+                    <% } else { %>  
+                        <% if (currentPage > 2) { %>
+                            <li><a href="?page=1">1</a></li>
+                            <% if (currentPage > 3) { %>  
+                                <li class="ellipsis">...</li>  
+                            <% } %>
+                        <% } %>
+
+                        <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
+                            <li>
+                                <a href="?page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a>
+                            </li>
+                        <% } %>
+
+                        <% if (currentPage < totalPages - 1) { %>
+                            <% if (currentPage < totalPages - 2) { %>  
+                                <li class="ellipsis">...</li>  
+                            <% } %>
+                            <li><a href="?page=<%= totalPages %>"><%= totalPages %></a></li>
+                        <% } %>
+                    <% } %>
+
+                    <% if (currentPage + 10 <= totalPages) { %>
+                        <li><a href="?page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
+                    <% } %>
+
+                    <% if (currentPage < totalPages) { %>
+                        <li><a href="?page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
+                    <% } %>
+
+                <% } %> 
+            </ul>
+        </div>
+>>>>>>> lalit_manmari_backup
     </div>
 
 
@@ -93,3 +156,25 @@
 </body>
 <%- include('../partials/footer') -%>
 </html>
+
+<script>
+  async function downloadFullCatalog () {
+    try {
+      const res = await fetch('/catalog/dump/all');
+      if (!res.ok) throw new Error('Server error ' + res.status);
+
+      const blob = await res.blob();                       // get data
+      const url  = URL.createObjectURL(blob);              // make temp URL
+
+      const a   = document.createElement('a');
+      a.href     = url;
+      a.download = 'full-catalog.json';
+      document.body.appendChild(a);
+      a.click();                                           // trigger save
+      a.remove();
+      URL.revokeObjectURL(url);                            // free memory
+    } catch (err) {
+      alert('Download failed: ' + err.message);
+    }
+  }
+</script>

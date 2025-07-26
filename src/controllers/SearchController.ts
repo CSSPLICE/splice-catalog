@@ -78,39 +78,71 @@ export class SearchController {
       showLoginButton: res.locals.showLoginButton,
     });
   }
-  async searchCatalogAPI(req: Request, res: Response) {
-    const query = req.query.query;
-    if (!query) {
-      return res.status(400).json({ error: 'Missing query parameter' });
-    }
-
-    const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25;
-
-    try {
-      const [search_data, totalItems] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
-        where: [
-          { keywords: ILike(`%${query}%`) },
-          { platform_name: ILike(`%${query}%`) },
-          { exercise_name: ILike(`%${query}%`) },
-          { exercise_type: ILike(`%${query}%`) },
-          { catalog_type: ILike(`%${query}%`) },
-        ],
-        skip: (currentPage - 1) * ITEMS_PER_PAGE,
-        take: ITEMS_PER_PAGE,
-      });
-
-      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-
-      return res.json({
-        results: search_data,
-        currentPage,
-        totalPages,
-        query,
-      });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
+    
+  async dumpSearchResultsAPI(req: Request, res: Response) {
+  const query = req.params.query;
+  if (!query) {
+    return res.status(400).json({ error: "Missing query parameter" });
   }
+
+  try {
+    const rawResults = await AppDataSource.getRepository(slc_item_catalog).find({
+      where: [
+        { keywords:       ILike(`%${query}%`) },
+        { platform_name:  ILike(`%${query}%`) },
+        { exercise_name:  ILike(`%${query}%`) },
+        { exercise_type:  ILike(`%${query}%`) },
+        { catalog_type:   ILike(`%${query}%`) },
+      ],
+    });
+
+    // 🔑 strip “id” from each object
+    const results = rawResults.map(({ id, ...rest }) => rest);
+
+    const jsonData = JSON.stringify(results, null, 2);
+
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="search-results-${query}.json"`
+    );
+
+    return res.send(jsonData);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+async searchCatalogByPath(req: Request, res: Response) {
+  const query = req.params.query;
+
+  if (!query) {
+    return res.status(400).json({ error: 'Missing query' });
+  }
+
+  try {
+    const results = await AppDataSource.getRepository(slc_item_catalog).find({
+      where: [
+        { keywords: ILike(`%${query}%`) },
+        { platform_name: ILike(`%${query}%`) },
+        { exercise_name: ILike(`%${query}%`) },
+        { exercise_type: ILike(`%${query}%`) },
+        { catalog_type: ILike(`%${query}%`) },
+      ],
+      take: 100,
+    });
+
+    return res.json({
+      query,
+      count: results.length,
+      results,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+
 }
