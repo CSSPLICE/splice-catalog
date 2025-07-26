@@ -16,6 +16,12 @@ import logger from './utils/logger.js';
 import http from 'http';
 import { Server } from 'socket.io';
 
+import AdminJS from 'adminjs';
+import AdminJSExpress from '@adminjs/express';
+import { Database, Resource } from '@adminjs/typeorm';
+import { slc_tools_catalog } from './db/entities/SLCToolsCatalog.js';
+import { validate } from 'class-validator';
+
 dotenv.config();
 
 const PORT = process.env.APP_PORT || 3000;
@@ -24,6 +30,22 @@ async function startServer() {
   try {
     await AppDataSource.initialize();
     logger.info('Database connection success');
+
+
+    Resource.validate = validate
+    AdminJS.registerAdapter({
+      Database: Database,
+      Resource: Resource,
+    });
+    const admin = new AdminJS({
+      resources: [{
+        resource: slc_tools_catalog,
+        options: {}
+      }],
+      rootPath: '/admin',
+    });
+    const adminRouter = AdminJSExpress.buildRouter(admin);
+    app.use(admin.options.rootPath, adminRouter);
 
     const server = http.createServer(app);
     const io = new Server(server);
