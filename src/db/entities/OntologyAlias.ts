@@ -14,7 +14,7 @@ export class OntologyAliases {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => OntologyClasses, (ontologyClass) => ontologyClass.aliases, {
+  @ManyToOne('OntologyClasses', (ontologyClass: any) => ontologyClass.aliases, {
     nullable: false,
     onDelete: 'CASCADE',
   })
@@ -34,4 +34,4 @@ export class OntologyAliases {
   updated_at!: Date;
 }
 
-import { OntologyClasses } from './OntologyClass.js';
+// import { OntologyClasses } from './OntologyClass.js';

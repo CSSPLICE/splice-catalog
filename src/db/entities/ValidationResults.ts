@@ -29,8 +29,8 @@ export class ValidationResults {
   @Column({ type: 'text', nullable: true })
   ltiValidationStatus?: string;
 
-  @ManyToOne(() => slc_item_catalog, (item) => item.validationResults, { nullable: false })
+  @ManyToOne('slc_item_catalog', (item: any) => item.validationResults, { nullable: false })
   item!: any;
 }
 
-import { slc_item_catalog } from './SLCItemCatalog.js';
+// import { slc_item_catalog } from './SLCItemCatalog.js';

@@ -1,6 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { OntologyAliases } from './OntologyAlias.js';
-import { OntologyRelations } from './OntologyRelation.js';
 
 @Entity('ontology_classes')
 export class OntologyClasses {
@@ -22,14 +20,14 @@ export class OntologyClasses {
   @Column({ type: 'boolean', default: true })
   is_active!: boolean;
 
-  @OneToMany(() => OntologyAliases, (ontologyAlias) => ontologyAlias.class, {
+  @OneToMany('OntologyAliases', (ontologyAlias: any) => ontologyAlias.class, {
     cascade: true,
   })
-  aliases!: OntologyAliases[];
+  aliases!: any[];
 
-  @OneToMany(() => OntologyRelations, (ontologyRelation) => ontologyRelation.parent_class)
-  parentRelations!: OntologyRelations[];
+  @OneToMany('OntologyRelations', (ontologyRelation: any) => ontologyRelation.parent_class)
+  parentRelations!: any[];
 
-  @OneToMany(() => OntologyRelations, (ontologyRelation) => ontologyRelation.child_class)
-  childRelations!: OntologyRelations[];
+  @OneToMany('OntologyRelations', (ontologyRelation: any) => ontologyRelation.child_class)
+  childRelations!: any[];
 }
