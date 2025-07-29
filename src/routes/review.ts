@@ -1,6 +1,6 @@
 import express from 'express';
 import { Request } from 'express';
-import { ViewController } from '../controllers/ViewController';
+import { ViewController } from '../controllers/ViewController.js';
 
 const router = express.Router();
 const viewController = new ViewController();

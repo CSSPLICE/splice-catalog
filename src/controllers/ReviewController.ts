@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import logger from '../utils/logger';
-import { ValidationManager } from '../services/ValidationManager';
-import { ToolsCatalogController } from './ToolsCatalogController';
-import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes';
-import { ValidationResults } from '../db/entities/ValidationResults';
-import { AppDataSource } from '../db/data-source'; // Adjust the path to your data-source file
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
+import logger from '../utils/logger.js';
+import { ValidationManager } from '../services/ValidationManager.js';
+import { ToolsCatalogController } from './ToolsCatalogController.js';
+import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes.js';
+import { ValidationResults } from '../db/entities/ValidationResults.js';
+import { AppDataSource } from '../db/data-source.js'; // Adjust the path to your data-source file
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {

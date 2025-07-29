@@ -1,4 +1,4 @@
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
 
 export class MetadataExtractor {
   public static extractMetadata(item: CreateSLCItemDTO) {

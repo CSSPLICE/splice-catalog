@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as https from 'https';
-import { URLValidationItem, URLValidationIssue } from '../types/ValidationTypes';
+import { URLValidationItem, URLValidationIssue } from '../types/ValidationTypes.js';
 
 export class URLValidator {
   async validate(validItems: URLValidationItem[]): Promise<{

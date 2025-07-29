@@ -1,10 +1,11 @@
 import 'reflect-metadata';
-import { AppDataSource } from '../db/data-source';
-import { OntologyClasses } from '../db/entities/OntologyClass';
-import { OntologyRelations } from '../db/entities/OntologyRelation';
-import { OntologyAliases } from '../db/entities/OntologyAlias';
+import { AppDataSource } from '../db/data-source.js';
+import { OntologyClasses } from '../db/entities/OntologyClass.js';
+import { OntologyRelations } from '../db/entities/OntologyRelation.js';
+import { OntologyAliases } from '../db/entities/OntologyAlias.js';
 import * as fs from 'fs';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
 
 /**
  * Normalizes
@@ -53,6 +54,9 @@ async function importOntologyData() {
   await AppDataSource.initialize();
 
   try {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+
     const ontologyClassesPath = path.join(__dirname, '../db/seed_data/ontology_classes.json');
     const ontologyRelationsPath = path.join(__dirname, '../db/seed_data/ontology_relations.json');
     const ontologyAliasesPath = path.join(__dirname, '../db/seed_data/ontology_aliases.json');

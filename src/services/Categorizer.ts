@@ -1,9 +1,9 @@
-import { AppDataSource } from '../db/data-source';
-import { ItemClassification } from '../db/entities/ItemClassification';
-import { OntologyClasses } from '../db/entities/OntologyClass';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import { SLCItem, MatchedItem } from '../types/ItemTypes';
-import logger from '../utils/logger';
+import { AppDataSource } from '../db/data-source.js';
+import { ItemClassification } from '../db/entities/ItemClassification.js';
+import { OntologyClasses } from '../db/entities/OntologyClass.js';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
+import { SLCItem, MatchedItem } from '../types/ItemTypes.js';
+import logger from '../utils/logger.js';
 
 export class Categorizer {
   private itemRepo = AppDataSource.getRepository(slc_item_catalog);

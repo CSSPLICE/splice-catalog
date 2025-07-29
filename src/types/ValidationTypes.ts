@@ -1,5 +1,5 @@
 import { ValidationError } from 'class-validator';
-import { SLCItem } from './ItemTypes'; // Use SLCItem as the primary item type
+import { SLCItem } from './ItemTypes.js'; // Use SLCItem as the primary item type
 
 export interface MetadataIssue {
   item: SLCItem;

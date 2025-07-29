@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
 @Entity('dataset_catalog')
-export class dataset_catalog {
+export class dataset_catalog extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

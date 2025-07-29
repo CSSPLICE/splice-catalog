@@ -1,5 +1,5 @@
 import express from 'express';
-import { CatalogController } from '../controllers/CatalogController';
+import { CatalogController } from '../controllers/CatalogController.js';
 
 const catalogController = new CatalogController();
 

@@ -1,8 +1,8 @@
-import { KeywordMatch } from './KeywordMatch';
-import { OntologyClasses } from '../db/entities/OntologyClass';
-import logger from '../utils/logger';
-import { AppDataSource } from '../db/data-source';
-import { SLCItem, MatchedItem } from '../types/ItemTypes';
+import { KeywordMatch } from './KeywordMatch.js';
+import { OntologyClasses } from '../db/entities/OntologyClass.js';
+import logger from '../utils/logger.js';
+import { AppDataSource } from '../db/data-source.js';
+import { SLCItem, MatchedItem } from '../types/ItemTypes.js';
 
 export class CategoryReport {
   private matcher = new KeywordMatch();

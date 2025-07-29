@@ -30,6 +30,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/app
+      - /app/node_modules
     command: ["sh", "-c", "yarn migrate && yarn dev"]
     env_file:
       - .env
