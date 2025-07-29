@@ -5,10 +5,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "rm -rf dist && tsc --project ./tsconfig.json && cp -r src/views dist/views && cp -r src/public dist/public",
-    "dev-works": "node --trace-warnings --experimental-specifier-resolution=node --loader ts-node/esm/transpile-only src/index.ts",
-    "dev-old": "yarn nodemon --watch src -L --exec 'ts-node-esm' -r tsconfig-paths/register src/index.ts",
-    "dev": "nodemon --watch src --exec bash -c 'yarn build && node dist/index.js'",
+    "build": "tsc --project ./tsconfig.json",
+    "dev": "nodemon",
     "start": "node dist/index.js",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**.ts --fix",
