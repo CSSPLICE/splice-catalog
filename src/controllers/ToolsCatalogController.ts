@@ -1,9 +1,9 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
-import { ResponseUtil } from '../utils/Response';
-import { CreateSLCToolsDTO } from '../dtos/SLCToolsDTO'; // Define this DTO as per your requirements
-import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
+import { AppDataSource } from '../db/data-source.js';
+import { ResponseUtil } from '../utils/Response.js';
+import { CreateSLCToolsDTO } from '../dtos/SLCToolsDTO.js'; // Define this DTO as per your requirements
+import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 
 export class ToolsCatalogController {
   async getToolsCatalog(req: Request, res: Response): Promise<Response> {

@@ -1,8 +1,9 @@
 import express from 'express';
-import { ViewController } from '../controllers/ViewController';
-import { downloadValidationResults } from '../controllers/ViewController';
+import { ViewController } from '../controllers/ViewController.js';
+import { downloadValidationResults } from '../controllers/ViewController.js';
 import multer from 'multer';
-import { requiresAuth } from 'express-openid-connect';
+import pkg from 'express-openid-connect';
+const { requiresAuth } = pkg;
 
 const viewController = new ViewController();
 

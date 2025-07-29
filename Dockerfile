@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY package.json yarn.lock ./
 RUN yarn install
-RUN yarn global add ts-node
 
 COPY . .
 

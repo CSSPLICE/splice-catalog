@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
-import { slc_item_catalog } from './SLCItemCatalog';
 
 @Entity('validation_results')
 export class ValidationResults {
@@ -30,6 +29,8 @@ export class ValidationResults {
   @Column({ type: 'text', nullable: true })
   ltiValidationStatus?: string;
 
-  @ManyToOne(() => slc_item_catalog, (item) => item.validationResults, { nullable: false })
-  item!: slc_item_catalog;
+  @ManyToOne('slc_item_catalog', (item: any) => item.validationResults, { nullable: false })
+  item!: any;
 }
+
+// import { slc_item_catalog } from './SLCItemCatalog.js';

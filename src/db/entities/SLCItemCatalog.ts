@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany } from 'typeorm';
-import { ValidationResults } from './ValidationResults';
+import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, OneToMany, BaseEntity } from 'typeorm';
+// import { ValidationResults } from './ValidationResults.js';
 
 @Entity()
-export class slc_item_catalog {
+export class slc_item_catalog extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -48,8 +48,8 @@ export class slc_item_catalog {
   @Column()
   lti_url!: string;
 
-  @OneToMany(() => ValidationResults, (validationResult) => validationResult.item, {
+  @OneToMany('ValidationResults', (validationResult: any) => validationResult.item, {
     cascade: true,
   })
-  validationResults!: ValidationResults[];
+  validationResults!: any[];
 }

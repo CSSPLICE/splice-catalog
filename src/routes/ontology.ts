@@ -1,7 +1,7 @@
 // routes/ontology.ts
 
 import express from 'express';
-import { OntologyController } from '../controllers/OntologyController';
+import { OntologyController } from '../controllers/OntologyController.js';
 
 const router = express.Router();
 const ontologyController = new OntologyController();
