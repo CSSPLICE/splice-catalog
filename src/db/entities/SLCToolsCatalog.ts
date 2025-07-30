@@ -1,7 +1,7 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { Entity, PrimaryColumn, Column, BaseEntity } from 'typeorm';
 
 @Entity('slc_tools_catalog')
-export class slc_tools_catalog {
+export class slc_tools_catalog extends BaseEntity {
   @PrimaryColumn()
   platform_name!: string;
 

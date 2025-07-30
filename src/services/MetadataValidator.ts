@@ -1,6 +1,6 @@
 import { validate, ValidationError } from 'class-validator';
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { ValidationIssue } from '../types/ValidationTypes';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
+import { ValidationIssue } from '../types/ValidationTypes.js';
 
 export class MetadataValidator {
   async validate(jsonArray: CreateSLCItemDTO[]): Promise<{

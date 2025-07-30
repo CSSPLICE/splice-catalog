@@ -7,19 +7,19 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { OntologyClasses } from './OntologyClass';
+// import { OntologyClasses } from './OntologyClass.js';
 
 @Entity('ontology_aliases')
 export class OntologyAliases {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => OntologyClasses, (ontologyClass) => ontologyClass.aliases, {
+  @ManyToOne('OntologyClasses', (ontologyClass: any) => ontologyClass.aliases, {
     nullable: false,
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'class_id' })
-  class!: OntologyClasses;
+  class!: any;
 
   @Column({ type: 'varchar', unique: true })
   alias!: string;
@@ -33,3 +33,5 @@ export class OntologyAliases {
   @UpdateDateColumn()
   updated_at!: Date;
 }
+
+// import { OntologyClasses } from './OntologyClass.js';

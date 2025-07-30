@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
-import { OntologyClasses } from '../db/entities/OntologyClass';
+import { AppDataSource } from '../db/data-source.js';
+import { OntologyClasses } from '../db/entities/OntologyClass.js';
 
 export class OntologyController {
   // Fetch ontology tiles data for parents
