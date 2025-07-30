@@ -12,6 +12,7 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { auth } from 'express-openid-connect';
 import * as dotenv from 'dotenv';
+import { adminRouter } from './admin-panel/adminjs-setup.js';
 import { AppDataSource } from './db/data-source.js';
 
 (async () => {
@@ -75,6 +76,7 @@ app.use('/search', searchRoutes);
 app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
 app.use('/ontology', ontologyRoutes);
+app.use('/admin', adminRouter)
 
 app.use(ErrorHandler.handleErrors);
 
