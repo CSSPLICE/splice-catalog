@@ -12,13 +12,15 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { auth } from 'express-openid-connect';
 import * as dotenv from 'dotenv';
-import { adminRouter } from './admin-panel/adminjs-setup.js';
+import { setup } from './admin-panel/adminjs-setup.js'
 import { AppDataSource } from './db/data-source.js';
+import { EventEmitter } from 'events';
 
+const emitter = new EventEmitter();
 (async () => {
   try {
     if (!AppDataSource.isInitialized) {
-      await AppDataSource.initialize();
+      await AppDataSource.initialize().then(() => {emitter.emit('DataSourceInitialized')});
       console.log('Database connection initialized successfully!');
     }
   } catch (error) {
@@ -76,7 +78,16 @@ app.use('/search', searchRoutes);
 app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
 app.use('/ontology', ontologyRoutes);
-app.use('/admin', adminRouter)
+
+emitter.on('DataSourceInitialized',
+  () => {
+    console.log('DataSourceInitialized')
+  }
+)
+emitter.on('DataSourceInitialized', () => {
+  const adminRouter = setup();
+  app.use('/admin', adminRouter);
+})
 
 app.use(ErrorHandler.handleErrors);
 

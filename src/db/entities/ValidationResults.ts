@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, BaseEntity } from 'typeorm';
 
 @Entity('validation_results')
-export class ValidationResults {
+export class ValidationResults extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
