@@ -20,6 +20,7 @@ import { CreateValidationResults1743975897306 } from './migrations/1743975897306
 import { AddRelationToValidationResults1744043458304 } from './migrations/1744043458304-AddRelationToValidationResults.js';
 import { AddValidationFields1744688022277 } from './migrations/1744688022277-AddValidationFields.js';
 
+import { CreateKeywords1754880498616 } from './migrations/1754880498616-CreateKeywords';
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -40,6 +41,7 @@ export const AppDataSource = new DataSource({
     CreateValidationResults1743975897306,
     AddRelationToValidationResults1744043458304,
     AddValidationFields1744688022277,
+    CreateKeywords1754880498616,
     // SeedInitialData1699653979099,  // seed migration runs, #Todo include import for dev environment
   ],
   logging: process.env.ORM_LOGGING === 'true',
