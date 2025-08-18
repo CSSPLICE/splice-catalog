@@ -31,7 +31,14 @@ export class ViewController {
       skip: offset,
       take: ITEMS_PER_PAGE,
     });
-    res.render('pages/catalog', { catalog: catalog_data, currentPage, totalPages, title: 'SPLICE Catalog' });
+    res.render('pages/catalog', {
+      catalog: catalog_data,
+      currentPage,
+      totalPages,
+      title: 'SPLICE Catalog',
+      user: req.oidc.user,
+      showLoginButton: res.locals.showLoginButton,
+    });
   }
 
   async itemViewById(req: Request, res: Response) {

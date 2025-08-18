@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-=======
-
-<style>
-    .hover-button{
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.2s ease;
-        margin-left: 10px;
-    }
-
-    tr:hover .hover-button{
-        visibility: visible;
-        opacity: 1;
-    }
-</style>
-
->>>>>>> lalit_manmari_backup
 <table class="table table-striped">
     <thead>
         <tr>
@@ -30,22 +12,6 @@
         <% items.forEach((SLCItem) => { %> 
             <tr>
                 <td scope="row">
-<<<<<<< HEAD
-                    <% if (isSearchPage) { %>
-                <a href="/catalog/item/<%= encodeURIComponent(SLCItem.exercise_name) %>" style="text-decoration: underline; color: #0000EE;">
-                         <%= SLCItem.exercise_name %>
-                 </a>
-                <% } else { %>
-                 <a href="/catalog/item/<%= encodeURIComponent(SLCItem.exercise_name) %>" style="text-decoration: underline; color: #0000EE;">
-                 <%= SLCItem.exercise_name %>
-                </a>
-                <% } %>
-                </td>
-                <td><%= SLCItem.exercise_type %></td>
-                <td>
-                    <span class="short-description" data-description="<%= SLCItem.description %>" style="cursor: pointer;">
-                        Short Description...
-=======
                     <a href="/item/<%= SLCItem.id %>/<%= SLCItem.exercise_name %>"><%= SLCItem.exercise_name %></a>
 
                 </td>
@@ -53,22 +19,12 @@
                 <td>
                     <span class="short-description" onclick="openModal()" style="cursor: pointer; color: black; text-decoration: none; display: inline-block; padding: 5px; background-color: none; border-radius: 5px; transition: background-color 0.3s ease;">
                         
->>>>>>> lalit_manmari_backup
                     </span>
                 </td>
                 <td><a href="<%= SLCItem.url %>"><%= SLCItem.platform_name %></a></td>
                 <td>
                     <% SLCItem.keywords.forEach((keyword, index) => { %>
                         <form style="display: none" action="/search/" method="post">
-<<<<<<< HEAD
-                            <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>">
-                        </form>
-                        <label style="text-decoration: underline; color: #0000EE" for="query<%= keyword %>"><%= keyword %></label>
-                        <% if (index < SLCItem.keywords.length - 1) { %>, <% } %>
-                    <% }); %>
-                </td>
-            </tr>
-=======
                             <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>"></input>
                         </form>
                         <label style="text-decoration: underline; color: #0000EE" for="query<%= keyword %>"><%= keyword %></label>
@@ -81,19 +37,12 @@
                 </td>
             </tr>
 
->>>>>>> lalit_manmari_backup
         <% }) %>
     </tbody>
 </table>
 <!-- Modal -->
 <div id="descriptionModal" class="modal" style="display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5);">
     <div class="modal-content" style="background-color: white; margin: 10% auto; padding: 20px; border-radius: 5px; width: 50%; position: relative;">
-<<<<<<< HEAD
-        <span class="close" onclick="closeModal()" style="cursor: pointer; position: absolute; top: 10px; right: 15px; font-size: 24px;">&times;</span>
-        <p id="fullDescription" style="margin-top: 30px;">This is a detailed description.</p>
-    </div>
-</div>
-=======
         <!-- Close button -->
         <span class="close" onclick="closeModal()" 
               style="cursor: pointer; position: absolute; top: 10px; right: 15px; font-size: 24px;">&times;
@@ -134,4 +83,3 @@
     .catch(err => alert(err.message));
 }
 </script>
->>>>>>> lalit_manmari_backup
