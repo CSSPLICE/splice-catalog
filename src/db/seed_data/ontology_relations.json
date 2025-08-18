@@ -1,1550 +1,2240 @@
 [
   {
     "#": "1",
-    "parent_class": "Proofs",
-    "child_class": "Complexity_Theory",
+    "parent_class": "Language_Classification",
+    "child_class": "Non-Regular_Language",
     "relation_type": "subClassOf"
   },
   {
     "#": "2",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Asymptotic_Algorithm_Analysis",
+    "parent_class": "Language_Classification",
+    "child_class": "Context-Free_Language",
     "relation_type": "subClassOf"
   },
   {
     "#": "3",
-    "parent_class": "Finite_State_Machines",
-    "child_class": "Non-Deterministic_Finite_Automata",
+    "parent_class": "Language_Classification",
+    "child_class": "Closure_Property",
     "relation_type": "subClassOf"
   },
   {
     "#": "4",
-    "parent_class": "Stacks",
-    "child_class": "Implementing_Recursion_with_a_Stack",
+    "parent_class": "Language_Classification",
+    "child_class": "Pumping_Lemma",
     "relation_type": "subClassOf"
   },
   {
     "#": "5",
-    "parent_class": "Hashing",
-    "child_class": "Hash_Table_Deletion",
+    "parent_class": "Language_Classification",
+    "child_class": "Context-Free_Grammar",
     "relation_type": "subClassOf"
   },
   {
     "#": "6",
-    "parent_class": "Math_Topics",
-    "child_class": "Sets",
+    "parent_class": "Language_Classification",
+    "child_class": "Regular_Language",
     "relation_type": "subClassOf"
   },
   {
     "#": "7",
-    "parent_class": "Search_Structures",
-    "child_class": "Balanced_Binary_Trees",
+    "parent_class": "Language_Classification",
+    "child_class": "Pumping_Lemma_Proof",
     "relation_type": "subClassOf"
   },
   {
     "#": "8",
-    "parent_class": "Sets",
-    "child_class": "Disjoint_Sets",
+    "parent_class": "Language_Classification",
+    "child_class": "Regular_Grammar",
     "relation_type": "subClassOf"
   },
   {
     "#": "9",
-    "parent_class": "Recursion",
-    "child_class": "Recursive_Tree_Functions",
+    "parent_class": "Algorithm",
+    "child_class": "Memory_Management",
     "relation_type": "subClassOf"
   },
   {
     "#": "10",
-    "parent_class": "Binary_Tree_Traversals",
-    "child_class": "Inorder_Traversal",
+    "parent_class": "Algorithm",
+    "child_class": "Sorting",
     "relation_type": "subClassOf"
   },
   {
     "#": "11",
-    "parent_class": "String_Matching",
-    "child_class": "KMP_String_Match_Algorithm",
+    "parent_class": "Algorithm",
+    "child_class": "Binary_Tree",
     "relation_type": "subClassOf"
   },
   {
     "#": "12",
-    "parent_class": "Binary_Trees",
-    "child_class": "Binary_Tree_Terminology",
+    "parent_class": "Algorithm",
+    "child_class": "Data_Compression",
     "relation_type": "subClassOf"
   },
   {
     "#": "13",
-    "parent_class": "Data_Compression",
-    "child_class": "Huffman_Coding_Tree",
+    "parent_class": "Algorithm",
+    "child_class": "Serialization",
     "relation_type": "subClassOf"
   },
   {
     "#": "14",
-    "parent_class": "Math_Topics",
-    "child_class": "Math_Background",
+    "parent_class": "Algorithm",
+    "child_class": "Tree",
     "relation_type": "subClassOf"
   },
   {
     "#": "15",
-    "parent_class": "Graphs",
-    "child_class": "All-Pairs_Shortest_Paths_Problem",
+    "parent_class": "Algorithm",
+    "child_class": "Numerical_Algorithm",
     "relation_type": "subClassOf"
   },
   {
     "#": "16",
-    "parent_class": "Regular_Language",
-    "child_class": "Regular_Expression",
+    "parent_class": "Algorithm",
+    "child_class": "Algorithm_Analysis",
     "relation_type": "subClassOf"
   },
   {
     "#": "17",
-    "parent_class": "Sorting",
-    "child_class": "Comparison_of_Sorting_Algorithms",
+    "parent_class": "Algorithm",
+    "child_class": "Recursion",
     "relation_type": "subClassOf"
   },
   {
     "#": "18",
+    "parent_class": "Algorithm",
+    "child_class": "String_Matching",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "19",
+    "parent_class": "Algorithm",
+    "child_class": "Graph",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "20",
+    "parent_class": "Algorithm",
+    "child_class": "Formal_Languages",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "21",
+    "parent_class": "Algorithm",
+    "child_class": "Probabilistic_Algorithm",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "22",
+    "parent_class": "Algorithm",
+    "child_class": "Equivalance_Class",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "23",
+    "parent_class": "Algorithm",
+    "child_class": "Binary_Trees",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "24",
+    "parent_class": "Algorithm",
+    "child_class": "Randomized_Algorithm",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "25",
+    "parent_class": "Algorithm",
+    "child_class": "Dynamic_Programming",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "26",
+    "parent_class": "Algorithm",
+    "child_class": "Search",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "27",
+    "parent_class": "Algorithm",
+    "child_class": "Computability",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "28",
+    "parent_class": "Data_Structure",
+    "child_class": "Memory_Management",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "29",
+    "parent_class": "Data_Structure",
+    "child_class": "Binary_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "30",
+    "parent_class": "Data_Structure",
+    "child_class": "Search_Structures",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "31",
+    "parent_class": "Data_Structure",
+    "child_class": "Image_Representation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "32",
+    "parent_class": "Data_Structure",
+    "child_class": "General_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "33",
+    "parent_class": "Data_Structure",
+    "child_class": "Array_Representation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "34",
+    "parent_class": "Data_Structure",
+    "child_class": "Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "35",
+    "parent_class": "Data_Structure",
+    "child_class": "Record_Keys",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "36",
+    "parent_class": "Data_Structure",
+    "child_class": "Probabilistic_Data_Structure",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "37",
+    "parent_class": "Data_Structure",
+    "child_class": "Search_Structure",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "38",
+    "parent_class": "Data_Structure",
+    "child_class": "Graph",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "39",
+    "parent_class": "Data_Structure",
+    "child_class": "Tree_Structure",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "40",
+    "parent_class": "Data_Structure",
+    "child_class": "Linear_Structures",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "41",
+    "parent_class": "Data_Structure",
+    "child_class": "Linear_Structure",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "42",
     "parent_class": "Sorting",
     "child_class": "Quicksort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "19",
-    "parent_class": "Binary_Tree_Traversals",
-    "child_class": "Postorder_Traversal",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "20",
-    "parent_class": "Biography",
-    "child_class": "Francis_Bacon",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "21",
-    "parent_class": "NP-completeness",
-    "child_class": "Hamiltonian_Cycle_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "22",
-    "parent_class": "Theory_of_Computation",
-    "child_class": "Complexity_Theory",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "23",
-    "parent_class": "Search_Structures",
-    "child_class": "Splay_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "24",
-    "parent_class": "Algorithms",
-    "child_class": "Probabilistic_Algorithms",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "25",
-    "parent_class": "Recursion",
-    "child_class": "Implementing_Recursion_with_a_Stack",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "26",
-    "parent_class": "Algorithms",
-    "child_class": "Sorting",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "27",
-    "parent_class": "NP-completeness",
-    "child_class": "Knapsack_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "28",
-    "parent_class": "Hashing",
-    "child_class": "Bucket_Hashing",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "29",
-    "parent_class": "Sorting",
-    "child_class": "Selection_Sort",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "30",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Lower_Bound",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "31",
-    "parent_class": "NP-completeness",
-    "child_class": "Traveling_Salesman_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "32",
-    "parent_class": "Search_Structures",
-    "child_class": "Skip_Lists",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "33",
-    "parent_class": "Software_Engineering",
-    "child_class": "Unified_Modeling_Language",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "34",
-    "parent_class": "Finite_Automata",
-    "child_class": "Deterministic_Finite_Acceptor",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "35",
-    "parent_class": "Search_Structures",
-    "child_class": "Priority_Queue",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "36",
-    "parent_class": "Problems",
-    "child_class": "Mathematical_Algorithms",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "37",
-    "parent_class": "Dynamic_Programming",
-    "child_class": "Knapsack_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "38",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Analyzing_Programs",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "39",
-    "parent_class": "Memory_Management",
-    "child_class": "Garbage_Collection",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "40",
-    "parent_class": "Probabilistic_Data_Structures",
-    "child_class": "Skip_Lists",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "41",
-    "parent_class": "Pushdown_Automaton",
-    "child_class": "Deterministic_Pushdown_Automaton",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "42",
-    "parent_class": "Spatial_Data_Structures",
-    "child_class": "PR_Quadtree",
-    "relation_type": "subClassOf"
-  },
-  {
     "#": "43",
-    "parent_class": "Lists",
-    "child_class": "List_Cost_Analysis",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "44",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Big_Omega",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "45",
-    "parent_class": "Sorting",
-    "child_class": "Heapsort",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "46",
-    "parent_class": "Lists",
-    "child_class": "Doubly_Linked_List",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "47",
-    "parent_class": "Binary_Trees",
-    "child_class": "Complete_Binary_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "48",
-    "parent_class": "Math_Topics",
-    "child_class": "Logarithms",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "49",
-    "parent_class": "Graphs",
-    "child_class": "Graph_Traversals",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "50",
-    "parent_class": "Software_Engineering",
-    "child_class": "Software_Development",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "51",
-    "parent_class": "Hashing",
-    "child_class": "Hash_Functions",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "52",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Big_O",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "53",
-    "parent_class": "Formal_Languages",
-    "child_class": "Context-Free_Grammar",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "54",
-    "parent_class": "Search_Structures",
-    "child_class": "Hashing",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "55",
-    "parent_class": "Problems",
-    "child_class": "String_Matching",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "56",
-    "parent_class": "Shortest_Paths_Problem",
-    "child_class": "Dijkstra's_Algorithm",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "57",
-    "parent_class": "Memory_Management",
-    "child_class": "Dynamic_Storage_Allocation",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "58",
-    "parent_class": "Algorithms",
-    "child_class": "Memory_Management",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "59",
-    "parent_class": "Proofs",
-    "child_class": "Lower_Bounds_Proofs",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "60",
-    "parent_class": "Algorithms",
-    "child_class": "Randomized_Algorithms",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "61",
-    "parent_class": "Algorithms",
-    "child_class": "Recursion",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "62",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Space_Analysis",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "63",
-    "parent_class": "Mathematical_Algorithms",
-    "child_class": "Number_Problems",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "64",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Growth_Rate",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "65",
-    "parent_class": "Problems",
-    "child_class": "Circuit_Satisfiability_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "66",
-    "parent_class": "Equivalance_Class",
-    "child_class": "Disjoint_Sets",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "67",
-    "parent_class": "Abstract_Data_Type",
-    "child_class": "Container",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "68",
-    "parent_class": "Relations",
-    "child_class": "Partial_Order",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "69",
-    "parent_class": "Testing",
-    "child_class": "Code_Coverage",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "70",
-    "parent_class": "Search_Structures",
-    "child_class": "Indexing",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "71",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Best,_Average,_Worst_Case",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "72",
-    "parent_class": "All-Pairs_Shortest_Paths_Problem",
-    "child_class": "Floyd's_Algorithm",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "73",
-    "parent_class": "Math_Topics",
-    "child_class": "Factorial",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "74",
-    "parent_class": "Data_Structures",
-    "child_class": "Probabilistic_Data_Structures",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "75",
-    "parent_class": "Queues",
-    "child_class": "Array-based_Queue_Implementation",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "76",
-    "parent_class": "Lower_Bounds_Proofs",
-    "child_class": "State_Space_Lower_Bounds",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "77",
-    "parent_class": "Data_Structures",
-    "child_class": "General_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "78",
-    "parent_class": "Algorithms",
-    "child_class": "Dynamic_Programming",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "79",
-    "parent_class": "Problems",
-    "child_class": "Graphs",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "80",
-    "parent_class": "Hashing",
-    "child_class": "Perfect_Hashing",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "81",
-    "parent_class": "Software_Design",
-    "child_class": "Binary_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "82",
-    "parent_class": "Binary_Trees",
-    "child_class": "Binary_Tree_Traversals",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "83",
-    "parent_class": "Problems",
-    "child_class": "Prime_Number_Algorithms",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "84",
-    "parent_class": "Math_Topics",
-    "child_class": "Permuations",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "85",
-    "parent_class": "Software_Design",
-    "child_class": "Code_Tuning",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "86",
-    "parent_class": "Data_Structures",
-    "child_class": "Array_Representations",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "87",
-    "parent_class": "Compilers",
-    "child_class": "Backus-Naur_Form",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "88",
-    "parent_class": "Binary_Trees",
-    "child_class": "Binary_Tree_Space_Analysis",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "89",
-    "parent_class": "Data_Structures",
-    "child_class": "Memory_Management",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "90",
-    "parent_class": "Software_Engineering",
-    "child_class": "Software_Design",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "91",
-    "parent_class": "Search_Structures",
-    "child_class": "2-3_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "92",
-    "parent_class": "Binary_Trees",
-    "child_class": "Binary_Search_Tree",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "93",
-    "parent_class": "Biography",
-    "child_class": "Carl_Gauss",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "94",
-    "parent_class": "Algorithms",
-    "child_class": "String_Matching",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "95",
-    "parent_class": "Problems",
-    "child_class": "Independent_Set_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "96",
-    "parent_class": "Queues",
-    "child_class": "Linked_Queues",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "97",
-    "parent_class": "Problems",
-    "child_class": "Clique_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "98",
-    "parent_class": "File_Processing",
-    "child_class": "External_Sorting",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "99",
-    "parent_class": "Mathematical_Algorithms",
-    "child_class": "Fast_Fourier_Transform",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "100",
-    "parent_class": "String_Matching",
-    "child_class": "Rabin-Karp_String_Match_Algorithm",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "101",
-    "parent_class": "Linear_Structures",
-    "child_class": "Queues",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "102",
-    "parent_class": "Indexing",
-    "child_class": "ISAM",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "103",
-    "parent_class": "Proofs",
-    "child_class": "Binary_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "104",
-    "parent_class": "Sorting",
-    "child_class": "N-squared_Sorts",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "105",
-    "parent_class": "Problems",
-    "child_class": "Edit_Distance_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "106",
-    "parent_class": "Problems",
-    "child_class": "Vertex_Cover_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "107",
-    "parent_class": "Search",
-    "child_class": "Binary_Search",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "108",
-    "parent_class": "Formal_Languages",
-    "child_class": "Regular_Language",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "109",
-    "parent_class": "Design_Patterns",
-    "child_class": "Composite_Design",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "110",
-    "parent_class": "Data_Structures",
-    "child_class": "K-ary_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "111",
-    "parent_class": "Shortest_Paths_Problem",
-    "child_class": "All-Pairs_Shortest_Paths_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "112",
-    "parent_class": "NP-completeness",
-    "child_class": "Circuit_Satisfiability_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "113",
-    "parent_class": "Linked_Lists",
-    "child_class": "Link_Nodes",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "114",
-    "parent_class": "Math_Topics",
-    "child_class": "Relations",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "115",
-    "parent_class": "Lists",
-    "child_class": "List_ADT",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "116",
-    "parent_class": "Algorithms",
-    "child_class": "Graphs",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "117",
-    "parent_class": "Binary_Tree_Traversals",
-    "child_class": "Preorder_Traversal",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "118",
-    "parent_class": "Algorithms",
-    "child_class": "Algorithm_Analysis",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "119",
-    "parent_class": "Lower_Bounds_Proofs",
-    "child_class": "Adversary_Arguments",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "120",
-    "parent_class": "Sorting",
-    "child_class": "Exchange_Sort",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "121",
-    "parent_class": "Sorting",
-    "child_class": "Bucket_Sort",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "122",
-    "parent_class": "Software_Development",
-    "child_class": "Debugging",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "123",
-    "parent_class": "Spatial_Data_Structures",
-    "child_class": "KD_Tree",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "124",
-    "parent_class": "Hashing",
-    "child_class": "Open_Hashing",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "125",
-    "parent_class": "Spatial_Data_Structures",
-    "child_class": "Binary_Tree",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "126",
-    "parent_class": "Complexity_Theory",
-    "child_class": "NP-completeness",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "127",
-    "parent_class": "Lower_Bounds_Proofs",
-    "child_class": "Search_in_Unsorted_Lists",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "128",
-    "parent_class": "Computer_Architecture",
-    "child_class": "Disk_Drive",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "129",
-    "parent_class": "Proofs",
-    "child_class": "Induction_Proofs",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "130",
-    "parent_class": "Computability",
-    "child_class": "Unsolvable_Problems",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "131",
-    "parent_class": "Search",
-    "child_class": "Self-Organizing_Lists",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "132",
-    "parent_class": "Abstract_Data_Type",
-    "child_class": "Dictionary",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "133",
-    "parent_class": "Problems",
-    "child_class": "3-SAT_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "134",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Transforms",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "135",
-    "parent_class": "Graphs",
-    "child_class": "Shortest_Paths_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "136",
-    "parent_class": "Sorting",
-    "child_class": "Bubble_Sort",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "137",
-    "parent_class": "Indexing",
-    "child_class": "Tree_Indexing",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "138",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Binary_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "139",
-    "parent_class": "NP-completeness",
-    "child_class": "Independent_Set_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "140",
-    "parent_class": "Search_Structures",
-    "child_class": "Spatial_Data_Structures",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "141",
-    "parent_class": "Algorithms",
-    "child_class": "Equivalance_Class",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "142",
-    "parent_class": "Data_Structures",
-    "child_class": "Graphs",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "143",
-    "parent_class": "Problems",
-    "child_class": "Satisfiability_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "144",
-    "parent_class": "Proofs",
-    "child_class": "Reductions",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "145",
-    "parent_class": "Data_Structures",
-    "child_class": "Search_Structures",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "146",
-    "parent_class": "Graphs",
-    "child_class": "Topological_Sort",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "147",
-    "parent_class": "Linear_Structures",
-    "child_class": "Lists",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "148",
     "parent_class": "Sorting",
     "child_class": "Insertion_Sort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "149",
-    "parent_class": "NP-completeness",
-    "child_class": "Vertex_Cover_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "150",
+    "#": "44",
     "parent_class": "Sorting",
-    "child_class": "Radix_Sort",
+    "child_class": "Inversion",
     "relation_type": "subClassOf"
   },
   {
-    "#": "151",
-    "parent_class": "Formal_Languages",
-    "child_class": "Regular_Grammar",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "152",
-    "parent_class": "Proofs",
-    "child_class": "Deduction",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "153",
-    "parent_class": "General_Trees",
-    "child_class": "General_Tree_Implementations",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "154",
-    "parent_class": "Testing",
-    "child_class": "Mutation_Testing",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "155",
-    "parent_class": "Space_Analysis",
-    "child_class": "Overhead",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "156",
-    "parent_class": "Memory_Management",
-    "child_class": "Sequential_Fit_Memory_Allocation",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "157",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Algorithm_Analysis_Misconceptions",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "158",
-    "parent_class": "Debugging",
-    "child_class": "Source_Level_Debugging",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "159",
-    "parent_class": "Problems",
-    "child_class": "Knapsack_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "160",
-    "parent_class": "File_Processing",
-    "child_class": "Random_Access_File",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "161",
-    "parent_class": "Math_Topics",
-    "child_class": "Modulus",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "162",
-    "parent_class": "Data_Structures",
-    "child_class": "Linear_Structures",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "163",
-    "parent_class": "Software_Design",
-    "child_class": "Abstract_Data_Type",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "164",
-    "parent_class": "NP-completeness",
-    "child_class": "NP-completeness_Proofs",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "165",
-    "parent_class": "Search_Structures",
-    "child_class": "AVL_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "166",
-    "parent_class": "Indexing",
-    "child_class": "B-Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "167",
-    "parent_class": "Disjoint_Sets",
-    "child_class": "Union/Find_Algorithm",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "168",
-    "parent_class": "Theory_of_Computation",
-    "child_class": "Finite_State_Machines",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "169",
-    "parent_class": "Software_Engineering",
-    "child_class": "Object-Oriented_Programming",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "170",
-    "parent_class": "Theory_of_Computation",
-    "child_class": "Formal_Languages",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "171",
-    "parent_class": "Graphs",
-    "child_class": "Minimum-Cost_Spanning_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "172",
-    "parent_class": "Stacks",
-    "child_class": "Linked_Stack_Implementation",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "173",
-    "parent_class": "Memory_Management",
-    "child_class": "Buffer_Pool",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "174",
-    "parent_class": "Lower_Bounds_Proofs",
-    "child_class": "Amortized_Analysis",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "175",
-    "parent_class": "NP-completeness",
-    "child_class": "3-SAT_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "176",
-    "parent_class": "Search_Structures",
-    "child_class": "Bit_Vectors",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "177",
-    "parent_class": "Sorting",
-    "child_class": "Binsort",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "178",
-    "parent_class": "Lists",
-    "child_class": "Array-based_List_Implementation",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "179",
-    "parent_class": "Computer_Architecture",
-    "child_class": "Memory",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "180",
-    "parent_class": "Array_Representations",
-    "child_class": "Sparse_Matrix",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "181",
-    "parent_class": "Graphs",
-    "child_class": "Graph_Representations",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "182",
-    "parent_class": "Data_Structures",
-    "child_class": "Record_Keys",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "183",
-    "parent_class": "Binary_Trees",
-    "child_class": "Full_Binary_Tree_Theorem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "184",
-    "parent_class": "Data_Structures",
-    "child_class": "Tree_Structures",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "185",
-    "parent_class": "Hashing",
-    "child_class": "Collision_Resolution",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "186",
-    "parent_class": "NP-completeness",
-    "child_class": "Satisfiability_Problem",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "187",
-    "parent_class": "Sorting",
-    "child_class": "Mergesort",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "188",
-    "parent_class": "Math_Topics",
-    "child_class": "Recurrence_Relations",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "189",
-    "parent_class": "Math_Topics",
-    "child_class": "Summations",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "190",
-    "parent_class": "Formal_Languages",
-    "child_class": "Context-Free_Language",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "191",
-    "parent_class": "Search_Structures",
-    "child_class": "Red-Black_Trees",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "192",
-    "parent_class": "Randomized_Algorithms",
-    "child_class": "Skip_Lists",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "193",
-    "parent_class": "Relations",
-    "child_class": "Equivalence_Relation",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "194",
+    "#": "45",
     "parent_class": "Sorting",
     "child_class": "Shellsort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "195",
-    "parent_class": "Data_Structures",
-    "child_class": "Lists",
+    "#": "46",
+    "parent_class": "Sorting",
+    "child_class": "Binary_Insertion_Sort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "196",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Multiple_Parameters",
+    "#": "47",
+    "parent_class": "Sorting",
+    "child_class": "Mergesort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "197",
-    "parent_class": "Testing",
-    "child_class": "JUnit_Testing",
+    "#": "48",
+    "parent_class": "Sorting",
+    "child_class": "Sorting_Notation",
     "relation_type": "subClassOf"
   },
   {
-    "#": "198",
-    "parent_class": "Tree_Structures",
-    "child_class": "Huffman_Coding_Tree",
+    "#": "49",
+    "parent_class": "Sorting",
+    "child_class": "Bubble_Sort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "199",
-    "parent_class": "Linear_Structures",
-    "child_class": "Stacks",
+    "#": "50",
+    "parent_class": "Sorting",
+    "child_class": "Merge_Insertion_Sort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "200",
-    "parent_class": "Finite_State_Machines",
-    "child_class": "Pushdown_Automaton",
+    "#": "51",
+    "parent_class": "Sorting",
+    "child_class": "N-squared_Sorts",
     "relation_type": "subClassOf"
   },
   {
-    "#": "201",
+    "#": "52",
+    "parent_class": "Sorting",
+    "child_class": "Selection_Sort",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "53",
     "parent_class": "Sorting",
     "child_class": "External_Sorting",
     "relation_type": "subClassOf"
   },
   {
-    "#": "202",
-    "parent_class": "Probabilistic_Algorithms",
-    "child_class": "Skip_Lists",
+    "#": "54",
+    "parent_class": "Sorting",
+    "child_class": "Non-Comparison_Sort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "203",
-    "parent_class": "Lower_Bounds_Proofs",
-    "child_class": "ith_Best_Element",
+    "#": "55",
+    "parent_class": "Sorting",
+    "child_class": "File_Processing",
     "relation_type": "subClassOf"
   },
   {
-    "#": "204",
-    "parent_class": "Problems",
-    "child_class": "Towers_of_Hanoi",
+    "#": "56",
+    "parent_class": "Sorting",
+    "child_class": "Exchange_Sort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "205",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Analyzing_Problems",
+    "#": "57",
+    "parent_class": "Sorting",
+    "child_class": "Heapsort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "206",
-    "parent_class": "Indexing",
-    "child_class": "Linear_Indexing",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "207",
-    "parent_class": "Lists",
-    "child_class": "List_ADT_Design",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "208",
-    "parent_class": "Relations",
-    "child_class": "Closure_Properties",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "209",
+    "#": "58",
     "parent_class": "Sorting",
     "child_class": "Optimal_Sorting_Algorithms",
     "relation_type": "subClassOf"
   },
   {
-    "#": "210",
-    "parent_class": "Software_Engineering",
-    "child_class": "Testing",
+    "#": "59",
+    "parent_class": "Sorting",
+    "child_class": "Radix_Sort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "211",
-    "parent_class": "Theory_of_Computation",
-    "child_class": "Finite_Automata",
+    "#": "60",
+    "parent_class": "Sorting",
+    "child_class": "Bucket_Sort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "212",
-    "parent_class": "Algorithms",
-    "child_class": "Binary_Trees",
+    "#": "61",
+    "parent_class": "Sorting",
+    "child_class": "Ford_and_Johnson_Sort",
     "relation_type": "subClassOf"
   },
   {
-    "#": "213",
-    "parent_class": "Lower_Bounds_Proofs",
-    "child_class": "Maximum_Value",
+    "#": "62",
+    "parent_class": "Tree_Structure",
+    "child_class": "Huffman_Coding_Tree",
     "relation_type": "subClassOf"
   },
   {
-    "#": "214",
-    "parent_class": "Binary_Trees",
-    "child_class": "Binary_Tree_Node_Implementation",
+    "#": "63",
+    "parent_class": "Data_Compression",
+    "child_class": "Huffman_Coding_Tree",
     "relation_type": "subClassOf"
   },
   {
-    "#": "215",
-    "parent_class": "Formal_Languages",
-    "child_class": "Grammars",
+    "#": "64",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Parameter",
     "relation_type": "subClassOf"
   },
   {
-    "#": "216",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Upper_Bound",
+    "#": "65",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Parameter_Passing",
     "relation_type": "subClassOf"
   },
   {
-    "#": "217",
-    "parent_class": "Problems",
-    "child_class": "Lower_Bounds_Proofs",
+    "#": "66",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Iteration",
     "relation_type": "subClassOf"
   },
   {
-    "#": "218",
-    "parent_class": "Priority_Queue",
-    "child_class": "Heap",
+    "#": "67",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Conditional_Statement",
     "relation_type": "subClassOf"
   },
   {
-    "#": "219",
-    "parent_class": "K-ary_Trees",
-    "child_class": "K-ary_Tree_Implementations",
+    "#": "68",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Lazy_List",
     "relation_type": "subClassOf"
   },
   {
-    "#": "220",
+    "#": "69",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Boolean_Expression",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "70",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Variable",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "71",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Pointer",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "72",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Functional_Programming",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "73",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Main_Method",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "74",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Return_Statement",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "75",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Java",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "76",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "String",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "77",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Boolean_Operator",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "78",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Map",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "79",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Generics",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "80",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Type",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "81",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Static",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "82",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Scope",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "83",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Signature",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "84",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Null",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "85",
+    "parent_class": "Programming_Language_Construct",
+    "child_class": "Variable_Scope",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "86",
+    "parent_class": "Bucket_Sort",
+    "child_class": "Binsort",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "87",
+    "parent_class": "Object-Oriented_Programming",
+    "child_class": "Class_Hierarchy",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "88",
+    "parent_class": "Object-Oriented_Programming",
+    "child_class": "Method",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "89",
+    "parent_class": "Object-Oriented_Programming",
+    "child_class": "Polymorphism",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "90",
+    "parent_class": "Object-Oriented_Programming",
+    "child_class": "Subclass",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "91",
+    "parent_class": "Object-Oriented_Programming",
+    "child_class": "Inheritance",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "92",
+    "parent_class": "Object-Oriented_Programming",
+    "child_class": "Object",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "93",
+    "parent_class": "External_Sorting",
+    "child_class": "Replacement_Selection",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "94",
+    "parent_class": "Problem",
+    "child_class": "Knapsack_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "95",
+    "parent_class": "Problem",
+    "child_class": "Prime_Number_Algorithms",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "96",
+    "parent_class": "Problem",
+    "child_class": "Lower_Bound_Proof",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "97",
+    "parent_class": "Problem",
+    "child_class": "Hamiltonian_Cycle_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "98",
+    "parent_class": "Problem",
+    "child_class": "Clique_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "99",
+    "parent_class": "Problem",
+    "child_class": "Satisfiability_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "100",
+    "parent_class": "Problem",
+    "child_class": "Median_Finding",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "101",
+    "parent_class": "Problem",
+    "child_class": "Largest_Common_Factor",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "102",
+    "parent_class": "Problem",
+    "child_class": "Matrix_Multiplication",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "103",
+    "parent_class": "Problem",
+    "child_class": "Independent_Set_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "104",
+    "parent_class": "Problem",
+    "child_class": "Complexity_Theory",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "105",
+    "parent_class": "Problem",
+    "child_class": "Traveling_Salesman_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "106",
+    "parent_class": "Problem",
+    "child_class": "Vertex_Cover_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "107",
+    "parent_class": "Problem",
+    "child_class": "Chained_Matrix_Multplication_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "108",
+    "parent_class": "Problem",
+    "child_class": "Mathematical_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "109",
+    "parent_class": "Problem",
+    "child_class": "Graph",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "110",
+    "parent_class": "Problem",
+    "child_class": "Edit_Distance_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "111",
+    "parent_class": "Problem",
+    "child_class": "String_Matching_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "112",
+    "parent_class": "Problem",
+    "child_class": "I'th_Element_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "113",
+    "parent_class": "Dynamic_Programming",
+    "child_class": "Knapsack_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "114",
+    "parent_class": "Dynamic_Programming",
+    "child_class": "Floyd's_Algorithm",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "115",
+    "parent_class": "NP-completeness",
+    "child_class": "Knapsack_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "116",
+    "parent_class": "NP-completeness",
+    "child_class": "Hamiltonian_Cycle_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "117",
     "parent_class": "NP-completeness",
     "child_class": "Clique_Problem",
     "relation_type": "subClassOf"
   },
   {
-    "#": "221",
-    "parent_class": "Minimum-Cost_Spanning_Trees",
-    "child_class": "Kruskal's_Algorithm",
+    "#": "118",
+    "parent_class": "NP-completeness",
+    "child_class": "Satisfiability_Problem",
     "relation_type": "subClassOf"
   },
   {
-    "#": "222",
-    "parent_class": "Algorithms",
-    "child_class": "Factorial",
+    "#": "119",
+    "parent_class": "NP-completeness",
+    "child_class": "Independent_Set_Problem",
     "relation_type": "subClassOf"
   },
   {
-    "#": "223",
-    "parent_class": "Theory_of_Computation",
-    "child_class": "Limits_to_Computing",
+    "#": "120",
+    "parent_class": "NP-completeness",
+    "child_class": "Traveling_Salesman_Problem",
     "relation_type": "subClassOf"
   },
   {
-    "#": "224",
-    "parent_class": "Debugging",
-    "child_class": "Debugging_Methods",
+    "#": "121",
+    "parent_class": "NP-completeness",
+    "child_class": "Vertex_Cover_Problem",
     "relation_type": "subClassOf"
   },
   {
-    "#": "225",
-    "parent_class": "Lists",
-    "child_class": "Linked_List",
+    "#": "122",
+    "parent_class": "NP-completeness",
+    "child_class": "Circuit_Satisfiability_Problem",
     "relation_type": "subClassOf"
   },
   {
-    "#": "226",
-    "parent_class": "Algorithm_Analysis",
-    "child_class": "Big_Theta",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "227",
+    "#": "123",
     "parent_class": "Software_Design",
-    "child_class": "Design_Patterns",
+    "child_class": "Composition",
     "relation_type": "subClassOf"
   },
   {
-    "#": "228",
-    "parent_class": "Problems",
-    "child_class": "Hamiltonian_Cycle_Problem",
+    "#": "124",
+    "parent_class": "Software_Design",
+    "child_class": "Binary_Tree",
     "relation_type": "subClassOf"
   },
   {
-    "#": "229",
-    "parent_class": "Linear_Structures",
-    "child_class": "Linked_Lists",
+    "#": "125",
+    "parent_class": "Software_Design",
+    "child_class": "Local_Variable",
     "relation_type": "subClassOf"
   },
   {
-    "#": "230",
-    "parent_class": "Stacks",
-    "child_class": "Array-based_Stack_Implementation",
+    "#": "126",
+    "parent_class": "Software_Design",
+    "child_class": "Comparator",
     "relation_type": "subClassOf"
   },
   {
-    "#": "231",
+    "#": "127",
+    "parent_class": "Software_Design",
+    "child_class": "Code_Tuning",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "128",
+    "parent_class": "Software_Design",
+    "child_class": "Data_Type",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "129",
+    "parent_class": "Software_Design",
+    "child_class": "Design_Pattern",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "130",
+    "parent_class": "Software_Design",
+    "child_class": "Abstract_Data_Type",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "131",
+    "parent_class": "Software_Design",
+    "child_class": "Aggregation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "132",
+    "parent_class": "Software_Design",
+    "child_class": "Getters_and_Setters",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "133",
+    "parent_class": "Software_Design",
+    "child_class": "Key",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "134",
+    "parent_class": "Iteration",
+    "child_class": "For_Loop",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "135",
+    "parent_class": "Iteration",
+    "child_class": "Loop",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "136",
+    "parent_class": "Iteration",
+    "child_class": "While_Loop",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "137",
+    "parent_class": "Iteration",
+    "child_class": "For-Each_Loop",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "138",
+    "parent_class": "Graph",
+    "child_class": "Graph_Representation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "139",
+    "parent_class": "Graph",
+    "child_class": "Shortest_Path_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "140",
+    "parent_class": "Graph",
+    "child_class": "Minimum-Cost_Spanning_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "141",
+    "parent_class": "Graph",
+    "child_class": "Topological_Sort",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "142",
+    "parent_class": "Graph",
+    "child_class": "Depth-First_Search",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "143",
+    "parent_class": "Graph",
+    "child_class": "Graph_Traversal",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "144",
+    "parent_class": "Graph",
+    "child_class": "Shortest_Path",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "145",
+    "parent_class": "Graph",
+    "child_class": "Breadth-First_Search",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "146",
+    "parent_class": "Linear_Structure",
+    "child_class": "Array",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "147",
+    "parent_class": "Linear_Structure",
+    "child_class": "Queue",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "148",
+    "parent_class": "Linear_Structure",
+    "child_class": "Link_Node",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "149",
+    "parent_class": "Linear_Structure",
+    "child_class": "Stack",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "150",
+    "parent_class": "Linear_Structure",
+    "child_class": "List",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "151",
+    "parent_class": "Aggregation",
+    "child_class": "Array",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "152",
+    "parent_class": "Proof",
+    "child_class": "Proof_by_Contradiction",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "153",
+    "parent_class": "Proof",
+    "child_class": "Lower_Bound_Proof",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "154",
+    "parent_class": "Proof",
+    "child_class": "Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "155",
+    "parent_class": "Proof",
+    "child_class": "Reduction",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "156",
+    "parent_class": "Proof",
+    "child_class": "Induction_Proof",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "157",
+    "parent_class": "Proof",
+    "child_class": "Complexity_Theory",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "158",
+    "parent_class": "Proof",
+    "child_class": "Algorithm_Analysis",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "159",
+    "parent_class": "Proof",
+    "child_class": "Deductive_Proof",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "160",
+    "parent_class": "Design_Pattern",
+    "child_class": "Composite_Design",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "161",
+    "parent_class": "Design_Pattern",
+    "child_class": "Delegation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "162",
     "parent_class": "Memory_Management",
-    "child_class": "Buddy_Method_Memory_Allocation",
+    "child_class": "Sequential_Fit_Memory_Manager",
     "relation_type": "subClassOf"
   },
   {
-    "#": "232",
-    "parent_class": "Pushdown_Automaton",
-    "child_class": "Non-Deterministic_Pushdown_Automaton",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "233",
-    "parent_class": "Algorithms",
-    "child_class": "Search",
-    "relation_type": "subClassOf"
-  },
-  {
-    "#": "234",
+    "#": "163",
     "parent_class": "Memory_Management",
-    "child_class": "Garbage_Disposal",
+    "child_class": "Buddy_Method_Memory_Manager",
     "relation_type": "subClassOf"
   },
   {
-    "#": "235",
-    "parent_class": "Finite_State_Machines",
-    "child_class": "Turing_Machines",
+    "#": "164",
+    "parent_class": "Memory_Management",
+    "child_class": "First_Fit_Memory_Manager",
     "relation_type": "subClassOf"
   },
   {
-    "#": "236",
-    "parent_class": "Lists",
-    "child_class": "List_Element_Implementation",
+    "#": "165",
+    "parent_class": "Memory_Management",
+    "child_class": "Garbage_Collection",
     "relation_type": "subClassOf"
   },
   {
-    "#": "237",
-    "parent_class": "Algorithms",
-    "child_class": "Computability",
+    "#": "166",
+    "parent_class": "Memory_Management",
+    "child_class": "Buffer_Pool",
     "relation_type": "subClassOf"
   },
   {
-    "#": "238",
-    "parent_class": "Search_Structures",
-    "child_class": "Binary_Trees",
+    "#": "167",
+    "parent_class": "Memory_Management",
+    "child_class": "Memory_Allocation",
     "relation_type": "subClassOf"
   },
   {
-    "#": "239",
-    "parent_class": "Problems",
-    "child_class": "Fibonacci_Sequence",
+    "#": "168",
+    "parent_class": "Memory_Management",
+    "child_class": "Dynamic_Storage_Allocation",
     "relation_type": "subClassOf"
   },
   {
-    "#": "240",
+    "#": "169",
     "parent_class": "Memory_Management",
     "child_class": "Heap_Memory",
     "relation_type": "subClassOf"
   },
   {
-    "#": "241",
-    "parent_class": "Context-Free_Grammar",
-    "child_class": "Context-Free_Grammar_Transformations",
+    "#": "170",
+    "parent_class": "Queue",
+    "child_class": "Linked_Queue",
     "relation_type": "subClassOf"
   },
   {
-    "#": "242",
-    "parent_class": "Finite_State_Machines",
-    "child_class": "Deterministic_Finite_Automata",
+    "#": "171",
+    "parent_class": "Queue",
+    "child_class": "Array-Based_Queue",
     "relation_type": "subClassOf"
   },
   {
-    "#": "243",
-    "parent_class": "Lower_Bounds_Proofs",
+    "#": "172",
+    "parent_class": "Testing",
+    "child_class": "Software_Testing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "173",
+    "parent_class": "Testing",
+    "child_class": "Mutation_Testing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "174",
+    "parent_class": "Testing",
+    "child_class": "Test_Case",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "175",
+    "parent_class": "Testing",
+    "child_class": "Unit_Testing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "176",
+    "parent_class": "Testing",
+    "child_class": "JUnit_Testing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "177",
+    "parent_class": "Testing",
+    "child_class": "Code_Coverage",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "178",
+    "parent_class": "Compiler",
+    "child_class": "Parsing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "179",
+    "parent_class": "Compiler",
+    "child_class": "Scanner",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "180",
+    "parent_class": "Math_Topic",
+    "child_class": "Permuation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "181",
+    "parent_class": "Math_Topic",
+    "child_class": "Polynomial_Evaluation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "182",
+    "parent_class": "Math_Topic",
+    "child_class": "Set",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "183",
+    "parent_class": "Math_Topic",
+    "child_class": "Fibonacci_Sequence",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "184",
+    "parent_class": "Math_Topic",
+    "child_class": "Relation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "185",
+    "parent_class": "Math_Topic",
+    "child_class": "Boolean_Expression",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "186",
+    "parent_class": "Math_Topic",
+    "child_class": "Summation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "187",
+    "parent_class": "Math_Topic",
+    "child_class": "Polynomial_Interpolation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "188",
+    "parent_class": "Math_Topic",
+    "child_class": "Poset",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "189",
+    "parent_class": "Math_Topic",
+    "child_class": "Relations",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "190",
+    "parent_class": "Math_Topic",
+    "child_class": "Modulus",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "191",
+    "parent_class": "Math_Topic",
+    "child_class": "Recurrence_Relation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "192",
+    "parent_class": "Complexity_Theory",
+    "child_class": "NP-completeness",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "193",
+    "parent_class": "Complexity_Theory",
+    "child_class": "NP-Complete",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "194",
+    "parent_class": "Relations",
+    "child_class": "Closure_Property",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "195",
+    "parent_class": "Relations",
+    "child_class": "Equivalence_Class",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "196",
+    "parent_class": "Spatial_Data_Structure",
+    "child_class": "PR_Quadtree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "197",
+    "parent_class": "Spatial_Data_Structure",
+    "child_class": "Bintree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "198",
+    "parent_class": "Search_Structure",
+    "child_class": "Priority_Queue",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "199",
+    "parent_class": "Search_Structure",
+    "child_class": "Splay_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "200",
+    "parent_class": "Search_Structure",
+    "child_class": "2-3_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "201",
+    "parent_class": "Search_Structure",
+    "child_class": "Bit_Vector",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "202",
+    "parent_class": "Search_Structure",
+    "child_class": "Skip_List",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "203",
+    "parent_class": "Search_Structure",
+    "child_class": "Indexing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "204",
+    "parent_class": "Search_Structure",
+    "child_class": "Hashing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "205",
+    "parent_class": "Search_Structure",
+    "child_class": "Binary_Search_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "206",
+    "parent_class": "Search_Structure",
+    "child_class": "Red-Black_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "207",
+    "parent_class": "Search_Structure",
+    "child_class": "AVL_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "208",
+    "parent_class": "Search_Structure",
+    "child_class": "Spatial_Data_Structures",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "209",
+    "parent_class": "Search_Structure",
+    "child_class": "Spatial_Data_Structure",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "210",
+    "parent_class": "Lower_Bound_Proof",
+    "child_class": "Adversary_Argument",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "211",
+    "parent_class": "Lower_Bound_Proof",
+    "child_class": "State_Space_Lower_Bound",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "212",
+    "parent_class": "Lower_Bound_Proof",
     "child_class": "Search_in_Sorted_Lists",
     "relation_type": "subClassOf"
   },
   {
+    "#": "213",
+    "parent_class": "Lower_Bound_Proof",
+    "child_class": "Amortized_Analysis",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "214",
+    "parent_class": "Lower_Bound_Proof",
+    "child_class": "Search_in_Unsorted_Lists",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "215",
+    "parent_class": "Lower_Bound_Proof",
+    "child_class": "Sorting_Problem_Lower_Bound",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "216",
+    "parent_class": "Lower_Bound_Proof",
+    "child_class": "Maximum_Value_Problem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "217",
+    "parent_class": "Binary_Tree",
+    "child_class": "Full_Binary_Tree_Theorem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "218",
+    "parent_class": "Binary_Tree",
+    "child_class": "Complete_Binary_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "219",
+    "parent_class": "Binary_Tree",
+    "child_class": "Binary_Search_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "220",
+    "parent_class": "Binary_Tree",
+    "child_class": "Binary_Tree_Space_Analysis",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "221",
+    "parent_class": "Binary_Tree",
+    "child_class": "Full_Binary_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "222",
+    "parent_class": "Binary_Tree",
+    "child_class": "Binary_Tree_Traversal",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "223",
+    "parent_class": "Binary_Tree",
+    "child_class": "Binary_Tree_Terminology",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "224",
+    "parent_class": "Binary_Tree",
+    "child_class": "Binary_Tree_Node_Implementation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "225",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Lower_Bound_Proof",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "226",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Average_Case",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "227",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Worst_Case",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "228",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Binary_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "229",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Transform",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "230",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Upper_Bound",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "231",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Analyzing_Problems",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "232",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Analyzing_Programs",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "233",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Growth_Rate",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "234",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Big_Theta",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "235",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Lower_Bound",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "236",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Big_O",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "237",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Space_Analysis",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "238",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Big_Omega",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "239",
+    "parent_class": "Algorithm_Analysis",
+    "child_class": "Best_Case",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "240",
+    "parent_class": "Binary_Tree_Traversals",
+    "child_class": "Postorder_Traversal",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "241",
+    "parent_class": "Binary_Tree_Traversals",
+    "child_class": "Preorder_Traversal",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "242",
+    "parent_class": "Programming",
+    "child_class": "Testing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "243",
+    "parent_class": "Programming",
+    "child_class": "Java",
+    "relation_type": "subClassOf"
+  },
+  {
     "#": "244",
-    "parent_class": "Lists",
-    "child_class": "Freelists",
+    "parent_class": "Programming",
+    "child_class": "Command_Line_Interface",
     "relation_type": "subClassOf"
   },
   {
     "#": "245",
+    "parent_class": "Programming",
+    "child_class": "Command_Line_Parameter",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "246",
+    "parent_class": "Software_Development",
+    "child_class": "Testing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "247",
+    "parent_class": "Software_Development",
+    "child_class": "Empirical_Comparison",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "248",
+    "parent_class": "Software_Development",
+    "child_class": "Web-CAT",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "249",
+    "parent_class": "Software_Development",
+    "child_class": "Eclipse_IDE",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "250",
+    "parent_class": "Software_Development",
+    "child_class": "Debugging",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "251",
+    "parent_class": "Software_Development",
+    "child_class": "Version_Control",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "252",
+    "parent_class": "File_Processing",
+    "child_class": "Random_Access_File",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "253",
+    "parent_class": "File_Processing",
+    "child_class": "File_System",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "254",
+    "parent_class": "File_Processing",
+    "child_class": "External_Sorting",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "255",
+    "parent_class": "Indexing",
+    "child_class": "B-Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "256",
+    "parent_class": "Indexing",
+    "child_class": "Tree-Based_Indexing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "257",
+    "parent_class": "Indexing",
+    "child_class": "Linear_Indexing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "258",
+    "parent_class": "Indexing",
+    "child_class": "ISAM",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "259",
+    "parent_class": "Hashing",
+    "child_class": "Perfect_Hashing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "260",
     "parent_class": "Hashing",
     "child_class": "Hashing_Cost_Analysis",
     "relation_type": "subClassOf"
   },
   {
-    "#": "246",
-    "parent_class": "Sorting",
-    "child_class": "Non-comparison_Sort",
+    "#": "261",
+    "parent_class": "Hashing",
+    "child_class": "Linear_Probing",
     "relation_type": "subClassOf"
   },
   {
-    "#": "247",
-    "parent_class": "Data_Structures",
-    "child_class": "Binary_Trees",
+    "#": "262",
+    "parent_class": "Hashing",
+    "child_class": "Open_Hashing",
     "relation_type": "subClassOf"
   },
   {
-    "#": "248",
-    "parent_class": "String_Matching",
-    "child_class": "Boyer-Moore_String_Match_Algorithm",
+    "#": "263",
+    "parent_class": "Hashing",
+    "child_class": "Collision_Resolution",
     "relation_type": "subClassOf"
   },
   {
-    "#": "249",
-    "parent_class": "Problems",
-    "child_class": "Traveling_Salesman_Problem",
+    "#": "264",
+    "parent_class": "Hashing",
+    "child_class": "Hash_Function",
     "relation_type": "subClassOf"
   },
   {
-    "#": "250",
-    "parent_class": "Non-regular_Language",
-    "child_class": "Pumping_Lemma_Proofs",
+    "#": "265",
+    "parent_class": "Hashing",
+    "child_class": "Bucket_Hashing",
     "relation_type": "subClassOf"
   },
   {
-    "#": "251",
-    "parent_class": "Record_Keys",
-    "child_class": "Record_Comparison",
+    "#": "266",
+    "parent_class": "Tree",
+    "child_class": "Binary_Tree",
     "relation_type": "subClassOf"
   },
   {
-    "#": "252",
-    "parent_class": "Proofs",
-    "child_class": "Proof_by_Contradiction",
+    "#": "267",
+    "parent_class": "Tree",
+    "child_class": "Balanced_Binary_Tree",
     "relation_type": "subClassOf"
   },
   {
-    "#": "253",
-    "parent_class": "General_Trees",
-    "child_class": "Sequential_Tree_Representations",
+    "#": "268",
+    "parent_class": "Tree",
+    "child_class": "General_Tree",
     "relation_type": "subClassOf"
   },
   {
-    "#": "254",
+    "#": "269",
+    "parent_class": "Tree",
+    "child_class": "Depth-First_Search",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "270",
+    "parent_class": "Tree",
+    "child_class": "Expression_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "271",
+    "parent_class": "Tree",
+    "child_class": "Binomial_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "272",
+    "parent_class": "Tree",
+    "child_class": "K-ary_Tree_Implementation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "273",
+    "parent_class": "Abstract_Data_Type",
+    "child_class": "Container",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "274",
+    "parent_class": "Abstract_Data_Type",
+    "child_class": "Dictionary",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "275",
     "parent_class": "Formal_Languages",
-    "child_class": "Non-regular_Language",
+    "child_class": "Grammar",
     "relation_type": "subClassOf"
   },
   {
-    "#": "255",
+    "#": "276",
+    "parent_class": "Formal_Languages",
+    "child_class": "Language",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "277",
+    "parent_class": "Formal_Languages",
+    "child_class": "Regular_Language",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "278",
+    "parent_class": "Formal_Languages",
+    "child_class": "Language_Classification",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "279",
+    "parent_class": "Formal_Languages",
+    "child_class": "DFA_Minimization",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "280",
+    "parent_class": "Formal_Languages",
+    "child_class": "Finite_State_Machine",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "281",
+    "parent_class": "Finite_State_Machine",
+    "child_class": "Turing_Machine",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "282",
+    "parent_class": "Finite_State_Machine",
+    "child_class": "Pushdown_Automaton",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "283",
+    "parent_class": "Finite_State_Machine",
+    "child_class": "Deterministic_Finite_Automata",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "284",
+    "parent_class": "Finite_State_Machine",
+    "child_class": "Automata",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "285",
+    "parent_class": "Set",
+    "child_class": "Disjoint_Set",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "286",
+    "parent_class": "Equivalance_Class",
+    "child_class": "Disjoint_Set",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "287",
+    "parent_class": "Search",
+    "child_class": "Search_Key",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "288",
+    "parent_class": "Search",
+    "child_class": "Quadratic_Binary_Search",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "289",
+    "parent_class": "Search",
+    "child_class": "Interpolation_Search",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "290",
+    "parent_class": "Search",
+    "child_class": "Self-Organizing_List",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "291",
+    "parent_class": "Search",
+    "child_class": "Binary_Search",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "292",
+    "parent_class": "Buffer_Pool",
+    "child_class": "Dirty_Bit",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "293",
+    "parent_class": "Buffer_Pool",
+    "child_class": "Least_Recently_Used",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "294",
+    "parent_class": "Parsing",
+    "child_class": "Parse_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "295",
+    "parent_class": "Parsing",
+    "child_class": "Ambiguity",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "296",
+    "parent_class": "Parsing",
+    "child_class": "Parser_Generator",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "297",
+    "parent_class": "Mathematical_Problem",
+    "child_class": "Polynomial_Multiplication",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "298",
+    "parent_class": "Mathematical_Problem",
+    "child_class": "Exponentiation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "299",
+    "parent_class": "Mathematical_Problem",
+    "child_class": "Number_Problems",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "300",
+    "parent_class": "Programming_Languages",
+    "child_class": "Compiler",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "301",
+    "parent_class": "Programming_Languages",
+    "child_class": "Object-Oriented_Programming",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "302",
+    "parent_class": "Programming_Languages",
+    "child_class": "Java",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "303",
+    "parent_class": "Programming_Languages",
+    "child_class": "Program",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "304",
+    "parent_class": "Programming_Languages",
+    "child_class": "Compilers",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "305",
+    "parent_class": "Programming_Languages",
+    "child_class": "Programming_Language_Construct",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "306",
+    "parent_class": "Programming_Languages",
+    "child_class": "Lambda_Calculus",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "307",
+    "parent_class": "List",
+    "child_class": "List_ADT",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "308",
+    "parent_class": "List",
+    "child_class": "List_Cost_Analysis",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "309",
+    "parent_class": "List",
+    "child_class": "Array-Based_List",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "310",
+    "parent_class": "List",
+    "child_class": "List_Implementation_Comparison",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "311",
+    "parent_class": "List",
+    "child_class": "List_Element_Implementation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "312",
+    "parent_class": "List",
+    "child_class": "Doubly_Linked_List",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "313",
+    "parent_class": "List",
+    "child_class": "Linked_List",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "314",
+    "parent_class": "Theory_of_Computation",
+    "child_class": "Finite_State_Machines",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "315",
+    "parent_class": "Theory_of_Computation",
+    "child_class": "Complexity_Theory",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "316",
+    "parent_class": "Theory_of_Computation",
+    "child_class": "Finite_State_Machine",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "317",
+    "parent_class": "Theory_of_Computation",
+    "child_class": "Limits_to_Computing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "318",
+    "parent_class": "Theory_of_Computation",
+    "child_class": "Formal_Languages",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "319",
+    "parent_class": "Randomized_Algorithm",
+    "child_class": "Skip_List",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "320",
+    "parent_class": "Probabilistic_Algorithm",
+    "child_class": "Skip_List",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "321",
+    "parent_class": "Probabilistic_Data_Structure",
+    "child_class": "Skip_List",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "322",
+    "parent_class": "Problems",
+    "child_class": "Towers_of_Hanoi",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "323",
+    "parent_class": "Problems",
+    "child_class": "Graph",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "324",
+    "parent_class": "Search_Structures",
+    "child_class": "Indexing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "325",
     "parent_class": "Search_Structures",
     "child_class": "Trie",
     "relation_type": "subClassOf"
   },
   {
-    "#": "256",
-    "parent_class": "Algorithms",
-    "child_class": "Control_Structures",
+    "#": "326",
+    "parent_class": "Software_Engineering",
+    "child_class": "Software_Design",
     "relation_type": "subClassOf"
   },
   {
-    "#": "257",
+    "#": "327",
     "parent_class": "Software_Engineering",
-    "child_class": "Exception_Handling",
+    "child_class": "Unified_Modeling_Language",
     "relation_type": "subClassOf"
   },
   {
-    "#": "258",
+    "#": "328",
     "parent_class": "Software_Engineering",
-    "child_class": "Programming_Concepts",
+    "child_class": "Software_Development",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "329",
+    "parent_class": "Software_Engineering",
+    "child_class": "Programming",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "330",
+    "parent_class": "Finite_State_Machines",
+    "child_class": "Non-Deterministic_Finite_Automata",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "331",
+    "parent_class": "Finite_State_Machines",
+    "child_class": "Pushdown_Automata",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "332",
+    "parent_class": "Numerical_Algorithm",
+    "child_class": "Fast_Fourier_Transform",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "333",
+    "parent_class": "Numerical_Algorithm",
+    "child_class": "Exponentiation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "334",
+    "parent_class": "Numerical_Algorithm",
+    "child_class": "Matrix_Multiplication",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "335",
+    "parent_class": "Numerical_Algorithm",
+    "child_class": "Random_Number_Generator",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "336",
+    "parent_class": "Numerical_Algorithm",
+    "child_class": "Random_Number",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "337",
+    "parent_class": "NP-Complete",
+    "child_class": "NP-Complete",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "338",
+    "parent_class": "NP-Complete",
+    "child_class": "NP-Completeness_Proof",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "339",
+    "parent_class": "String_Matching",
+    "child_class": "Boyer-Moore_String_Match_Algorithm",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "340",
+    "parent_class": "String_Matching",
+    "child_class": "Rabin-Karp_String_Match_Algorithm",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "341",
+    "parent_class": "String_Matching",
+    "child_class": "KMP_String_Match_Algorithm",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "342",
+    "parent_class": "Regular_Language",
+    "child_class": "Regular_Expression",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "343",
+    "parent_class": "Disjoint_Set",
+    "child_class": "Union/Find_Algorithm",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "344",
+    "parent_class": "Recursion",
+    "child_class": "Recursive_Tree_Functions",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "345",
+    "parent_class": "General_Tree",
+    "child_class": "Sequential_Tree_Representation",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "346",
+    "parent_class": "Binary_Tree_Traversal",
+    "child_class": "Inorder_Traversal",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "347",
+    "parent_class": "Compilers",
+    "child_class": "Backus-Naur_Form",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "348",
+    "parent_class": "Java",
+    "child_class": "Java_Scanner_Class",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "349",
+    "parent_class": "Java",
+    "child_class": "ArrayList_Class",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "350",
+    "parent_class": "Java",
+    "child_class": "Reference",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "351",
+    "parent_class": "Java",
+    "child_class": "Interface",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "352",
+    "parent_class": "Pushdown_Automaton",
+    "child_class": "Deterministic_Pushdown_Automaton",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "353",
+    "parent_class": "Priority_Queue",
+    "child_class": "Heap",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "354",
+    "parent_class": "Computer_Architecture",
+    "child_class": "Memory",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "355",
+    "parent_class": "Computer_Architecture",
+    "child_class": "Disk_Drive",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "356",
+    "parent_class": "Spatial_Data_Structures",
+    "child_class": "KD_Tree",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "357",
+    "parent_class": "Stack",
+    "child_class": "Linked_Stack",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "358",
+    "parent_class": "Stack",
+    "child_class": "Array-Based_Stack",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "359",
+    "parent_class": "Systems",
+    "child_class": "File_Processing",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "360",
+    "parent_class": "Array_Representation",
+    "child_class": "Sparse_Matrix",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "361",
+    "parent_class": "Space_Analysis",
+    "child_class": "Overhead",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "362",
+    "parent_class": "Learning",
+    "child_class": "Misconception",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "363",
+    "parent_class": "Learning",
+    "child_class": "Problem_Solving_Heuristics",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "364",
+    "parent_class": "Relation",
+    "child_class": "Partial_Order",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "365",
+    "parent_class": "Record_Keys",
+    "child_class": "Record_Comparison",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "366",
+    "parent_class": "Matrix_Multiplication",
+    "child_class": "Strassen's_Algorithm",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "367",
+    "parent_class": "Linear_Structures",
+    "child_class": "Lists",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "368",
+    "parent_class": "Recurrence_Relation",
+    "child_class": "Master_Theorem",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "369",
+    "parent_class": "Lists",
+    "child_class": "Freelist",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "370",
+    "parent_class": "Binary_Trees",
+    "child_class": "Binary_Tree_Traversals",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "371",
+    "parent_class": "Shortest_Path",
+    "child_class": "Floyd's_Algorithm",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "372",
+    "parent_class": "Computability",
+    "child_class": "Unsolvable_Problems",
+    "relation_type": "subClassOf"
+  },
+  {
+    "#": "373",
+    "parent_class": "Debugging",
+    "child_class": "Source_Level_Debugging",
     "relation_type": "subClassOf"
   }
 ]

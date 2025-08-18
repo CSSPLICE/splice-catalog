@@ -1,1366 +1,22 @@
 [
   {
     "#": "1",
-    "class_uri": "http://opendsa.org/ontology#Bucket_Hashing",
-    "label": "Bucket Hashing",
-    "comment": "A type of hashing where multiple keys are placed in the same bucket.",
+    "class_uri": "http://opendsa.org/ontology#Non-Regular_Language",
+    "label": "Non-Regular Language",
+    "comment": "Any language that is not regular. ",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
     "#": "2",
-    "class_uri": "http://opendsa.org/ontology#Open_Hashing",
-    "label": "Open Hashing",
-    "comment": "A method of handling collisions by using linked lists.",
+    "class_uri": "http://opendsa.org/ontology#Memory_Management",
+    "label": "Memory_Management",
+    "comment": "",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
     "#": "3",
-    "class_uri": "http://opendsa.org/ontology#Collision_Resolution",
-    "label": "Collision Resolution",
-    "comment": "Techniques used to handle collisions in hashing.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "4",
-    "class_uri": "http://opendsa.org/ontology#Hash_Table_Deletion",
-    "label": "Hash Table Deletion",
-    "comment": "Methods for deleting elements from a hash table.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "5",
-    "class_uri": "http://opendsa.org/ontology#Hash_Functions",
-    "label": "Hash Functions",
-    "comment": "Functions used to compute the hash value of keys.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "6",
-    "class_uri": "http://opendsa.org/ontology#Perfect_Hashing",
-    "label": "Perfect Hashing",
-    "comment": "A hashing technique that ensures no collisions.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "7",
-    "class_uri": "http://opendsa.org/ontology#Hashing_Cost_Analysis",
-    "label": "Hashing Cost Analysis",
-    "comment": "Evaluating the efficiency of hashing operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "8",
-    "class_uri": "http://opendsa.org/ontology#Number_Problems",
-    "label": "Number Problems",
-    "comment": "Addressing mathematical problems related to numbers, such as prime finding or factorization.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "9",
-    "class_uri": "http://opendsa.org/ontology#Fast_Fourier_Transform",
-    "label": "Fast Fourier Transform",
-    "comment": "A fast algorithm to compute the discrete Fourier transform, crucial for signal processing.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "10",
-    "class_uri": "http://opendsa.org/ontology#Tree_Indexing",
-    "label": "Tree Indexing",
-    "comment": "Using tree structures, such as B-trees or AVL trees, to index and access data efficiently.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "11",
-    "class_uri": "http://opendsa.org/ontology#ISAM",
-    "label": "ISAM",
-    "comment": "(Indexed Sequential Access Method). A file organization method that combines sequential access with indexing to improve data retrieval.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "12",
-    "class_uri": "http://opendsa.org/ontology#B-Trees",
-    "label": "B-Trees",
-    "comment": "A balanced tree data structure that maintains sorted data and allows for efficient insertion, deletion, and search operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "13",
-    "class_uri": "http://opendsa.org/ontology#Linear_Indexing",
-    "label": "Linear Indexing",
-    "comment": "A method of organizing data in a sequential manner, allowing for efficient search and retrieval.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "14",
-    "class_uri": "http://opendsa.org/ontology#Algorithm_Analysis_Misconceptions",
-    "label": "Algorithm Analysis Misconceptions",
-    "comment": "Common misunderstandings in analyzing algorithm performance.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "16",
-    "class_uri": "http://opendsa.org/ontology#Big_Omega",
-    "label": "Big Omega",
-    "comment": "Notations used to describe the performance or complexity of an algorithm.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "17",
-    "class_uri": "http://opendsa.org/ontology#Lower_Bound",
-    "label": "Lower Bound",
-    "comment": "Theoretical limits on the minimum performance of an algorithm.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "18",
-    "class_uri": "http://opendsa.org/ontology#Analyzing_Problems",
-    "label": "Analyzing Problems",
-    "comment": "Methods for assessing the complexity of different computational problems.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "19",
-    "class_uri": "http://opendsa.org/ontology#Best,_Average,_Worst_Case",
-    "label": "Best, Average, Worst Case",
-    "comment": "Scenarios describing algorithm performance under different conditions.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "20",
-    "class_uri": "http://opendsa.org/ontology#Transforms",
-    "label": "Transforms",
-    "comment": "Mathematical techniques used to change data representation for analysis.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "21",
-    "class_uri": "http://opendsa.org/ontology#Analyzing_Programs",
-    "label": "Analyzing Programs",
-    "comment": "Techniques for examining the performance and behavior of algorithms.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "22",
-    "class_uri": "http://opendsa.org/ontology#Multiple_Parameters",
-    "label": "Multiple Parameters",
-    "comment": "Analyzing algorithms with more than one input parameter affecting performance.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "23",
-    "class_uri": "http://opendsa.org/ontology#Big_O",
-    "label": "Big O",
-    "comment": "Notations used to describe the performance or complexity of an algorithm.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "24",
-    "class_uri": "http://opendsa.org/ontology#Space_Analysis",
-    "label": "Space Analysis",
-    "comment": "Evaluating the memory usage of algorithms.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "25",
-    "class_uri": "http://opendsa.org/ontology#Big_Theta",
-    "label": "Big Theta",
-    "comment": "Notations used to describe the performance or complexity of an algorithm.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "26",
-    "class_uri": "http://opendsa.org/ontology#Upper_Bound",
-    "label": "Upper Bound",
-    "comment": "Theoretical limits on the maximum performance of an algorithm.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "27",
-    "class_uri": "http://opendsa.org/ontology#Growth_Rate",
-    "label": "Growth Rate",
-    "comment": "The rate at which an algorithm's runtime increases as the input size increases.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "28",
-    "class_uri": "http://opendsa.org/ontology#Asymptotic_Algorithm_Analysis",
-    "label": "Asymptotic Algorithm Analysis",
-    "comment": "Analyzing algorithms based on their behavior as input size approaches infinity.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "29",
-    "class_uri": "http://opendsa.org/ontology#Search",
-    "label": "Search",
-    "comment": "Techniques and algorithms used to locate a specific item or piece of information within a collection of data",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "31",
-    "class_uri": "http://opendsa.org/ontology#Memory_Management",
-    "label": "Memory Management",
-    "comment": "The process of managing computer memory, including allocation, deallocation, and optimization of memory resources for efficient program execution.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "32",
-    "class_uri": "http://opendsa.org/ontology#Randomized_Algorithms",
-    "label": "Randomized Algorithms",
-    "comment": "Algorithms that use random numbers at some point during their process to make decisions, often providing expected performance improvements.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "33",
-    "class_uri": "http://opendsa.org/ontology#Algorithm_Analysis",
-    "label": "Algorithm Analysis",
-    "comment": "The process of determining the computational complexity of algorithms, including their time and space requirements",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "36",
-    "class_uri": "http://opendsa.org/ontology#Sorting",
-    "label": "Sorting",
-    "comment": "Algorithms and techniques used to arrange data in a specific order, typically numerical or lexicographical.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "37",
-    "class_uri": "http://opendsa.org/ontology#Probabilistic_Algorithms",
-    "label": "Probabilistic Algorithms",
-    "comment": "Algorithms that make decisions based on probabilistic methods, providing solutions with a probability of correctness or efficiency improvements.\n",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "38",
-    "class_uri": "http://opendsa.org/ontology#Dynamic_Programming",
-    "label": "Dynamic Programming",
-    "comment": " A method for solving complex problems by breaking them down into simpler subproblems, solving each subproblem once, and storing their solutions.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "39",
-    "class_uri": "http://opendsa.org/ontology#Computability",
-    "label": "Computability",
-    "comment": "The study of what can be computed and the limits of computational problems, including undecidable problems.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "40",
-    "class_uri": "http://opendsa.org/ontology#Recursion",
-    "label": "Recursion",
-    "comment": "A programming technique where a function calls itself in order to solve smaller instances of the same problem.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "41",
-    "class_uri": "http://opendsa.org/ontology#Graphs",
-    "label": "Graphs",
-    "comment": "Mathematical structures used to model pairwise relationships between objects, commonly represented by vertices (nodes) and edges (connections).",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "42",
-    "class_uri": "http://opendsa.org/ontology#Equivalance_Class",
-    "label": "Equivalence Class",
-    "comment": "A subset of elements that are considered equivalent under a given relation, often used in set theory and partitioning problems.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "43",
-    "class_uri": "http://opendsa.org/ontology#Carl_Gauss",
-    "label": "Carl Gauss",
-    "comment": "A German mathematician known as the \"Prince of Mathematicians\" for his contributions to number theory, algebra, statistics, and many other areas of mathematics.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "44",
-    "class_uri": "http://opendsa.org/ontology#Francis_Bacon",
-    "label": "Francis Bacon",
-    "comment": "An English philosopher and statesman who is credited with developing the scientific method and promoting empirical research.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "45",
-    "class_uri": "http://opendsa.org/ontology#Hamiltonian_Cycle_Problem",
-    "label": "Hamiltonian Cycle Problem",
-    "comment": "Finding a cycle in a graph that visits every vertex exactly once.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "47",
-    "class_uri": "http://opendsa.org/ontology#Prime_Number_Algorithms",
-    "label": "Prime Number Algorithms",
-    "comment": "Algorithms designed to identify or verify prime numbers, which are integers greater than 1 that have no positive divisors other than 1 and themselves.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "48",
-    "class_uri": "http://opendsa.org/ontology#Clique_Problem",
-    "label": "Clique Problem",
-    "comment": "Identifying the largest clique within a graph.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "49",
-    "class_uri": "http://opendsa.org/ontology#Knapsack_Problem",
-    "label": "Knapsack Problem",
-    "comment": "An optimization problem that seeks to maximize the value of items placed in a knapsack without exceeding its capacity.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "50",
-    "class_uri": "http://opendsa.org/ontology#3-SAT_Problem",
-    "label": "3-SAT Problem",
-    "comment": "A specific type of satisfiability problem where each clause has exactly three literals.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "51",
-    "class_uri": "http://opendsa.org/ontology#Independent_Set_Problem",
-    "label": "Independent Set Problem",
-    "comment": "Finding the largest set of vertices in a graph, no two of which are adjacent.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "54",
-    "class_uri": "http://opendsa.org/ontology#String_Matching",
-    "label": "String Matching",
-    "comment": "The problem of finding occurrences of a substring (pattern) within a main string (text).",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "55",
-    "class_uri": "http://opendsa.org/ontology#Mathematical_Algorithms",
-    "label": "Mathematical Algorithms",
-    "comment": "A collection of algorithms used to solve mathematical problems, including operations such as arithmetic, algebra, calculus, and other mathematical procedures",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "57",
-    "class_uri": "http://opendsa.org/ontology#Traveling_Salesman_Problem",
-    "label": "Traveling Salesman Problem",
-    "comment": "Finding the shortest possible route that visits each city once and returns to the origin city.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "58",
-    "class_uri": "http://opendsa.org/ontology#Fibonacci_Sequence",
-    "label": "Fibonacci Sequence",
-    "comment": "A series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1. It appears in many natural phenomena and is used in algorithms.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "59",
-    "class_uri": "http://opendsa.org/ontology#Edit_Distance_Problem",
-    "label": "Edit Distance Problem",
-    "comment": "A measure of the similarity between two strings, calculated by counting the minimum number of operations required to transform one string into another.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "60",
-    "class_uri": "http://opendsa.org/ontology#Towers_of_Hanoi",
-    "label": "Towers of Hanoi",
-    "comment": "A mathematical puzzle consisting of three rods and a number of disks of different sizes, which must be moved according to specific rules to solve the puzzle.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "63",
-    "class_uri": "http://opendsa.org/ontology#Circuit_Satisfiability_Problem",
-    "label": "Circuit Satisfiability Problem",
-    "comment": "Determining the inputs to a Boolean circuit that result in a true output.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "64",
-    "class_uri": "http://opendsa.org/ontology#NP-completeness_Proofs",
-    "label": "NP-completeness Proofs",
-    "comment": "Techniques used to demonstrate that a problem is NP-complete, indicating it is as hard as the hardest problems in NP.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "69",
-    "class_uri": "http://opendsa.org/ontology#Satisfiability_Problem",
-    "label": "Satisfiability Problem",
-    "comment": "Determining if there is a satisfying assignment for a Boolean formula.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "70",
-    "class_uri": "http://opendsa.org/ontology#Vertex_Cover_Problem",
-    "label": "Vertex Cover Problem",
-    "comment": "Finding the smallest set of vertices such that every edge in the graph is incident to at least one vertex in the set.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "72",
-    "class_uri": "http://opendsa.org/ontology#All-Pairs_Shortest_Paths_Problem",
-    "label": "All-Pairs Shortest Paths Problem",
-    "comment": "Finding shortest paths between every pair of nodes in a graph.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "73",
-    "class_uri": "http://opendsa.org/ontology#Dijkstra's_Algorithm",
-    "label": "Dijkstra's Algorithm",
-    "comment": "Algorithms and techniques for finding the shortest path between nodes in a graph.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "75",
-    "class_uri": "http://opendsa.org/ontology#Topological_Sort",
-    "label": "Topological Sort",
-    "comment": "Linear ordering of vertices in a directed acyclic graph, ensuring that for every directed edge, the start vertex comes before the end vertex.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "76",
-    "class_uri": "http://opendsa.org/ontology#Graph_Traversals",
-    "label": "Graph Traversals",
-    "comment": "Techniques for visiting all nodes in a graph.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "77",
-    "class_uri": "http://opendsa.org/ontology#Shortest_Paths_Problem",
-    "label": "Shortest Paths Problem",
-    "comment": "A computational problem in graph theory that seeks to find the shortest path between two vertices in a graph, minimizing the total distance, cost, or another weight metric.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "78",
-    "class_uri": "http://opendsa.org/ontology#Graph_Representations",
-    "label": "Graph Representations",
-    "comment": "Various ways to represent graphs in memory.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "79",
-    "class_uri": "http://opendsa.org/ontology#Minimum-Cost_Spanning_Trees",
-    "label": "Minimum-Cost Spanning Trees",
-    "comment": "Finding a spanning tree of a graph that minimizes the total edge weight.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "80",
-    "class_uri": "http://opendsa.org/ontology#Boyer-Moore_String_Match_Algorithm",
-    "label": "Boyer-Moore String Match Algorithm",
-    "comment": "An efficient string searching algorithm that skips sections of the text.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "81",
-    "class_uri": "http://opendsa.org/ontology#Rabin-Karp_String_Match_Algorithm",
-    "label": "Rabin-Karp String Match Algorithm",
-    "comment": "A string searching algorithm using hashing",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "82",
-    "class_uri": "http://opendsa.org/ontology#KMP_String_Match_Algorithm",
-    "label": "KMP String Match Algorithm",
-    "comment": "An efficient string matching algorithm that uses prefix functions.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "84",
-    "class_uri": "http://opendsa.org/ontology#Design_Patterns",
-    "label": "Design Patterns",
-    "comment": "Reusable solutions to common design problems in software development.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "85",
-    "class_uri": "http://opendsa.org/ontology#Code_Tuning",
-    "label": "Code Tuning",
-    "comment": "The process of optimizing code to improve performance and efficiency.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "86",
-    "class_uri": "http://opendsa.org/ontology#Abstract_Data_Type",
-    "label": "Abstract Data Type",
-    "comment": "A data structure that provides a theoretical framework for data organization and manipulation, characterized by its behavior rather than its implementation, typically including operations such as insertion, deletion, and access.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "88",
-    "class_uri": "http://opendsa.org/ontology#Deduction",
-    "label": "Deduction",
-    "comment": "The process of reasoning from general principles to derive specific instances.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "89",
-    "class_uri": "http://opendsa.org/ontology#Reductions",
-    "label": "Reductions",
-    "comment": "Techniques for transforming one problem into another, used in complexity theory.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "90",
-    "class_uri": "http://opendsa.org/ontology#Proof_by_Contradiction",
-    "label": "Proof by Contradiction",
-    "comment": "A proof method where the negation of the statement to be proved is shown to lead to a contradiction.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "91",
-    "class_uri": "http://opendsa.org/ontology#Induction_Proofs",
-    "label": "Induction Proofs",
-    "comment": "A method of mathematical proof used to prove statements about natural numbers.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "92",
-    "class_uri": "http://opendsa.org/ontology#Lower_Bounds_Proofs",
-    "label": "Lower Bounds Proofs",
-    "comment": "A set of techniques or proofs used to determine the minimum computational resources (like time or space) required to solve a given problem.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "93",
-    "class_uri": "http://opendsa.org/ontology#Complexity_Theory",
-    "label": "Complexity Theory",
-    "comment": "A branch of theoretical computer science that focuses on classifying computational problems according to their inherent difficulty and defining the limits of what can be efficiently computed.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "96",
-    "class_uri": "http://opendsa.org/ontology#Record_Keys",
-    "label": "Record Keys",
-    "comment": "Identifiers or references used to uniquely identify records within a dataset, commonly used in databases for efficient retrieval of data.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "97",
-    "class_uri": "http://opendsa.org/ontology#Lists",
-    "label": " Lists",
-    "comment": "A linear data structure where elements are stored in a sequential manner, allowing for the insertion and removal of elements. Common examples include singly linked lists and doubly linked lists.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "98",
-    "class_uri": "http://opendsa.org/ontology#Tree_Structures",
-    "label": "Tree Structures",
-    "comment": "Data structures where elements are organized in a hierarchical manner, consisting of nodes connected by edges, with one root node and zero or more child nodes, commonly used for hierarchical data representation.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "100",
-    "class_uri": "http://opendsa.org/ontology#Probabilistic_Data_Structures",
-    "label": "Probabilistic Data Structures",
-    "comment": "Data structures that use probabilistic techniques to store data and provide approximate answers to queries, trading exactness for efficiency. Examples include Bloom filters and Skip lists.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "101",
-    "class_uri": "http://opendsa.org/ontology#General_Trees",
-    "label": "General Trees",
-    "comment": "A type of tree data structure in which each node can have any number of child nodes, as opposed to binary or K-ary trees, which restrict the number of child nodes.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "102",
-    "class_uri": "http://opendsa.org/ontology#Array_Representations",
-    "label": "Array Representations",
-    "comment": "Techniques for representing tree structures or other hierarchical data using arrays, often employed to optimize space or facilitate specific operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "103",
-    "class_uri": "http://opendsa.org/ontology#K-ary_Trees",
-    "label": "K-ary Trees",
-    "comment": "A type of tree data structure where each node has no more than K child nodes. Common types include binary trees (K=2), ternary trees (K=3), and so on.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "104",
-    "class_uri": "http://opendsa.org/ontology#Search_Structures",
-    "label": "Search Structures",
-    "comment": "Data structures designed to efficiently support search operations, such as finding, inserting, and deleting elements. Common examples include binary search trees, hash tables, and skip lists.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "107",
-    "class_uri": "http://opendsa.org/ontology#Bit_Vectors",
-    "label": "Bit Vectors",
-    "comment": "A data structure that compactly stores bits and allows fast bitwise operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "108",
-    "class_uri": "http://opendsa.org/ontology#Balanced_Binary_Trees",
-    "label": "Balanced Binary Trees",
-    "comment": "Binary trees that maintain balance to ensure optimal operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "109",
-    "class_uri": "http://opendsa.org/ontology#Splay_Trees",
-    "label": "Splay Trees",
-    "comment": "A self-adjusting binary search tree that improves access time.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "110",
-    "class_uri": "http://opendsa.org/ontology#Skip_Lists",
-    "label": "Skip Lists",
-    "comment": "A data structure that allows fast search, insertion, and deletion operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "111",
-    "class_uri": "http://opendsa.org/ontology#Hashing",
-    "label": "Hashing",
-    "comment": "A technique used to map data of arbitrary size to fixed-size values, commonly used in data structures such as hash tables to enable fast data retrieval",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "112",
-    "class_uri": "http://opendsa.org/ontology#2-3_Trees",
-    "label": "2-3 Trees",
-    "comment": "A balanced search tree where each node can have two or three children, maintaining efficient search, insertion, and deletion operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "113",
-    "class_uri": "http://opendsa.org/ontology#Trie",
-    "label": "Trie",
-    "comment": "A tree-like data structure used to store dynamic sets of strings, supporting efficient string search operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "114",
-    "class_uri": "http://opendsa.org/ontology#AVL_Trees",
-    "label": "AVL Trees",
-    "comment": "A self-balancing binary search tree.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "115",
-    "class_uri": "http://opendsa.org/ontology#Priority_Queue",
-    "label": "Priority Queue",
-    "comment": "A data structure in which each element is assigned a priority, and elements are dequeued based on their priority rather than their order in the queue",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "116",
-    "class_uri": "http://opendsa.org/ontology#Spatial_Data_Structures",
-    "label": "Spatial Data Structures",
-    "comment": "Data structures optimized for storing and querying data that represents objects in geometric space, such as R-trees and quadtrees, commonly used in computational geometry.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "117",
-    "class_uri": "http://opendsa.org/ontology#Indexing",
-    "label": "Indexing",
-    "comment": "A technique used to improve the speed of data retrieval operations by creating a data structure that points to the locations of records in a larger dataset, such as an index in a database.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "118",
-    "class_uri": "http://opendsa.org/ontology#Red-Black_Trees",
-    "label": "Red-Black Trees",
-    "comment": "A self-balancing binary search tree with red and black nodes.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "119",
-    "class_uri": "http://opendsa.org/ontology#Sequential_Tree_Representations",
-    "label": "Sequential Tree Representations",
-    "comment": "Linear representations of tree structures.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "120",
-    "class_uri": "http://opendsa.org/ontology#General_Tree_Implementations",
-    "label": "General Tree Implementations",
-    "comment": "Methods for implementing general tree data structures.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "121",
-    "class_uri": "http://opendsa.org/ontology#Random_Access_File",
-    "label": "Random Access File",
-    "comment": "A file that can be read or written in any order, allowing for non-sequential access.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "123",
-    "class_uri": "http://opendsa.org/ontology#External_Sorting",
-    "label": "External Sorting",
-    "comment": "Sorting methods that involve data stored outside of main memory, such as on disk.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "124",
-    "class_uri": "http://opendsa.org/ontology#Optimal_Sorting_Algorithms",
-    "label": "Optimal Sorting Algorithms",
-    "comment": "Sorting algorithms that achieve the best possible time complexity for specific datasets.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "125",
-    "class_uri": "http://opendsa.org/ontology#Comparison_of_Sorting_Algorithms",
-    "label": "Comparison of Sorting Algorithms",
-    "comment": "Analyzing different sorting algorithms based on time complexity, space complexity, and performance in various scenarios.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "126",
-    "class_uri": "http://opendsa.org/ontology#Heapsort",
-    "label": "Heapsort",
-    "comment": "A comparison-based sorting algorithm that uses a binary heap",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "127",
-    "class_uri": "http://opendsa.org/ontology#Quicksort",
-    "label": "Quicksort",
-    "comment": "An efficient sorting algorithm using divide-and-conquer.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "128",
-    "class_uri": "http://opendsa.org/ontology#Shellsort",
-    "label": "Shellsort",
-    "comment": "An in-place comparison-based sorting algorithm.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "129",
-    "class_uri": "http://opendsa.org/ontology#Binsort",
-    "label": "Binsort",
-    "comment": "A distribution sort algorithm that distributes elements into a number of buckets and then sorts each bucket individually.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "130",
-    "class_uri": "http://opendsa.org/ontology#Radix_Sort",
-    "label": "Radix Sort",
-    "comment": "A non-comparison-based sorting algorithm that sorts numbers digit by digit.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "131",
-    "class_uri": "http://opendsa.org/ontology#Insertion_Sort",
-    "label": "Insertion Sort",
-    "comment": "A simple sorting algorithm that builds the final sorted array one item at a time.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "132",
-    "class_uri": "http://opendsa.org/ontology#Mergesort",
-    "label": "Mergesort",
-    "comment": "A stable sorting algorithm that divides the array into halves, sorts, and merges them.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "133",
-    "class_uri": "http://opendsa.org/ontology#Exchange_Sort",
-    "label": "Exchange Sort",
-    "comment": "A simple sorting algorithm that repeatedly swaps adjacent elements if they are in the wrong order.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "134",
-    "class_uri": "http://opendsa.org/ontology#N-squared_Sorts",
-    "label": "N-squared Sorts",
-    "comment": "Sorting algorithms with time complexity proportional to the square of the number of elements, such as bubble sort and insertion sort.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "135",
-    "class_uri": "http://opendsa.org/ontology#Bucket_Sort",
-    "label": "Bucket Sort",
-    "comment": "Distributes elements into buckets and sorts each bucket individually.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "136",
-    "class_uri": "http://opendsa.org/ontology#Bubble_Sort",
-    "label": "Bubble Sort",
-    "comment": "A simple comparison-based sorting algorithm.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "137",
-    "class_uri": "http://opendsa.org/ontology#Non-comparison_Sort",
-    "label": "Non-comparison Sort",
-    "comment": "Sorting algorithms that do not rely on element comparisons, such as counting sort and radix sort.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "138",
-    "class_uri": "http://opendsa.org/ontology#Selection_Sort",
-    "label": "Selection Sort",
-    "comment": "A simple comparison-based sorting algorithm that selects the smallest element and places it at the beginning.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "139",
-    "class_uri": "http://opendsa.org/ontology#Search_in_Unsorted_Lists",
-    "label": "Search in Unsorted Lists",
-    "comment": "Establishing the minimum number of comparisons needed to search in unsorted lists.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "140",
-    "class_uri": "http://opendsa.org/ontology#ith_Best_Element",
-    "label": "ith Best Element",
-    "comment": "Finding the i-th best element in a dataset, analyzing the complexity of selection algorithms.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "141",
-    "class_uri": "http://opendsa.org/ontology#Maximum_Value",
-    "label": "Maximum Value",
-    "comment": "Determining the maximum value in a dataset and the theoretical limits of algorithms used.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "142",
-    "class_uri": "http://opendsa.org/ontology#Amortized_Analysis",
-    "label": "Amortized Analysis",
-    "comment": "A technique in algorithm analysis used to average the running time of operations over a sequence of operations, providing a better understanding of the overall efficiency than analyzing individual operations in isolatio",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "143",
-    "class_uri": "http://opendsa.org/ontology#Adversary_Arguments",
-    "label": "Adversary Arguments",
-    "comment": "Techniques that use hypothetical adversaries to establish lower bounds on algorithm complexity, demonstrating the minimal resources required.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "144",
-    "class_uri": "http://opendsa.org/ontology#Search_in_Sorted_Lists",
-    "label": "Search in Sorted Lists",
-    "comment": "Analyzing the lower bounds on search operations in sorted lists, often related to binary search.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "145",
-    "class_uri": "http://opendsa.org/ontology#State_Space_Lower_Bounds",
-    "label": "State Space Lower Bounds",
-    "comment": "Methods for proving lower bounds by examining the state space of algorithms and exploring possible configurations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "146",
-    "class_uri": "http://opendsa.org/ontology#Array-based_Stack_Implementation",
-    "label": "Array-based Stack Implementation",
-    "comment": "Implementing a stack using arrays.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "148",
-    "class_uri": "http://opendsa.org/ontology#Linked_Stack_Implementation",
-    "label": "Linked Stack Implementation",
-    "comment": "Implementing a stack using linked lists.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "149",
-    "class_uri": "http://opendsa.org/ontology#Sequential_Fit_Memory_Allocation",
-    "label": "Sequential Fit Memory Allocation",
-    "comment": "Allocating memory blocks sequentially.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "150",
-    "class_uri": "http://opendsa.org/ontology#Buddy_Method_Memory_Allocation",
-    "label": "Buddy Method Memory Allocation",
-    "comment": "A memory allocation algorithm using a binary tree.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "151",
-    "class_uri": "http://opendsa.org/ontology#Dynamic_Storage_Allocation",
-    "label": "Dynamic Storage Allocation",
-    "comment": "Allocating memory dynamically as needed",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "152",
-    "class_uri": "http://opendsa.org/ontology#Heap_Memory",
-    "label": "Heap Memory",
-    "comment": "Memory used for dynamic memory allocation.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "153",
-    "class_uri": "http://opendsa.org/ontology#Buffer_Pool",
-    "label": "Buffer Pool",
-    "comment": "A data structure that caches frequently accessed data in memory to improve access times.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "154",
-    "class_uri": "http://opendsa.org/ontology#Garbage_Disposal",
-    "label": "Garbage Disposal",
-    "comment": "The process of cleaning up memory that is no longer needed.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "155",
-    "class_uri": "http://opendsa.org/ontology#Garbage_Collection",
-    "label": "Garbage Collection",
-    "comment": "Automatically reclaiming memory that is no longer in use.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "156",
-    "class_uri": "http://opendsa.org/ontology#NP-completeness",
-    "label": "NP-completeness",
-    "comment": "A class of decision problems for which no efficient solution algorithm is known, and where each problem is as hard as the hardest problems in NP.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "157",
-    "class_uri": "http://opendsa.org/ontology#Container",
-    "label": "Container",
-    "comment": "An abstract data type that stores multiple elements, providing methods for accessing and modifying them.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "158",
-    "class_uri": "http://opendsa.org/ontology#Dictionary",
-    "label": "Dictionary",
-    "comment": "An abstract data type representing a collection of key-value pairs.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "159",
-    "class_uri": "http://opendsa.org/ontology#Memory",
-    "label": "Memory",
-    "comment": "Hardware that stores data temporarily or permanently, providing data to the CPU as needed.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "160",
-    "class_uri": "http://opendsa.org/ontology#Disk_Drive",
-    "label": "Disk Drive",
-    "comment": "A device for storing and retrieving digital data using magnetic storage or other media.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "161",
-    "class_uri": "http://opendsa.org/ontology#List_Cost_Analysis",
-    "label": "List Cost Analysis",
-    "comment": "Evaluating the efficiency of list operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "162",
-    "class_uri": "http://opendsa.org/ontology#Linked_List",
-    "label": "Linked List",
-    "comment": "A sequence of nodes where each node points to the next.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "163",
-    "class_uri": "http://opendsa.org/ontology#List_ADT_Design",
-    "label": "List ADT Design",
-    "comment": "The design principles behind the List Abstract Data Type, which defines a sequence of elements with specific operations like insertion, deletion, and traversal.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "164",
-    "class_uri": "http://opendsa.org/ontology#Freelists",
-    "label": "Freelists",
-    "comment": "A list of free memory blocks.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "165",
-    "class_uri": "http://opendsa.org/ontology#List_ADT",
-    "label": "List ADT",
-    "comment": "An abstract data type representing a list.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "166",
-    "class_uri": "http://opendsa.org/ontology#Array-based_List_Implementation",
-    "label": "Array-based List Implementation",
-    "comment": "Implementing lists using arrays.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "167",
-    "class_uri": "http://opendsa.org/ontology#Doubly_Linked_List",
-    "label": "Doubly Linked List",
-    "comment": "A linked list where each node has pointers to both the previous and next nodes.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "168",
-    "class_uri": "http://opendsa.org/ontology#List_Element_Implementation",
-    "label": "List Element Implementation",
-    "comment": "Methods for implementing list elements.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "169",
-    "class_uri": "http://opendsa.org/ontology#Binary_Tree_Node_Implementation",
-    "label": "Binary Tree Node Implementation",
-    "comment": "Tree data structures where each node has at most two children.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "170",
-    "class_uri": "http://opendsa.org/ontology#Binary_Tree_Space_Analysis",
-    "label": "Binary Tree Space Analysis",
-    "comment": "Evaluating the memory requirements for storing and processing binary trees.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "171",
-    "class_uri": "http://opendsa.org/ontology#Binary_Search_Tree",
-    "label": "Binary Search Tree",
-    "comment": "A binary tree where each node has a key greater than its left child and less than its right child.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "172",
-    "class_uri": "http://opendsa.org/ontology#Binary_Tree_Terminology",
-    "label": "Binary Tree Terminology",
-    "comment": "Terms and definitions related to binary trees.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "173",
-    "class_uri": "http://opendsa.org/ontology#Complete_Binary_Trees",
-    "label": "Complete Binary Trees",
-    "comment": "Binary trees where all levels except possibly the last are completely filled.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "174",
-    "class_uri": "http://opendsa.org/ontology#Binary_Tree_Traversals",
-    "label": "Binary Tree Traversals",
-    "comment": "Methods for visiting all nodes in a binary tree, typically including in-order, pre-order, and post-order traversals.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "175",
-    "class_uri": "http://opendsa.org/ontology#Full_Binary_Tree_Theorem",
-    "label": "Full Binary Tree Theorem",
-    "comment": "Theorem related to properties of full binary trees.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "176",
-    "class_uri": "http://opendsa.org/ontology#Equivalence_Relation",
-    "label": "Equivalence Relation",
-    "comment": "A relation that is reflexive, symmetric, and transitive, partitioning a set into equivalence classes.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "177",
-    "class_uri": "http://opendsa.org/ontology#Partial_Order",
-    "label": "Partial Order",
-    "comment": "A binary relation over a set that is reflexive, antisymmetric, and transitive.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "178",
-    "class_uri": "http://opendsa.org/ontology#Closure_Properties",
-    "label": "Closure Properties",
-    "comment": "Properties of a relation that ensure the relation is closed under certain operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "179",
-    "class_uri": "http://opendsa.org/ontology#Floyd's_Algorithm",
-    "label": "Floyd's Algorithm",
-    "comment": "An algorithm for finding shortest paths in a weighted graph with positive or negative edge weights (but no negative cycles).",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "180",
-    "class_uri": "http://opendsa.org/ontology#PR_Quadtree",
-    "label": "PR Quadtree",
-    "comment": "A tree data structure used to partition a two-dimensional space.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "181",
-    "class_uri": "http://opendsa.org/ontology#Binary_Trees",
-    "label": "Binary Tree",
-    "comment": "A binary tree data structure.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "182",
-    "class_uri": "http://opendsa.org/ontology#KD_Tree",
-    "label": "KD Tree",
-    "comment": "A space-partitioning data structure for organizing points in a k-dimensional space.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "186",
-    "class_uri": "http://opendsa.org/ontology#Implementing_Recursion_with_a_Stack",
-    "label": "Implementing Recursion with a Stack",
-    "comment": "Using stacks to manage function calls in recursion.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "187",
-    "class_uri": "http://opendsa.org/ontology#Recursive_Tree_Functions",
-    "label": "Recursive Tree Functions",
-    "comment": "Functions that call themselves to solve tree-related problems.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "188",
-    "class_uri": "http://opendsa.org/ontology#Limits_to_Computing",
-    "label": "Limits to Computing",
-    "comment": "Theoretical limits on what can be computed or solved efficiently.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "189",
-    "class_uri": "http://opendsa.org/ontology#Formal_Languages",
-    "label": "Formal Languages",
-    "comment": "A set of strings of symbols constrained by specific grammatical rules, used to define the syntax of programming languages, regular expressions, and formal grammars.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "191",
-    "class_uri": "http://opendsa.org/ontology#Finite_State_Machines",
-    "label": "Finite State Machines",
-    "comment": "A computational model consisting of a finite number of states and transitions between those states, used to model systems with discrete states such as parsers or controllers.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "192",
-    "class_uri": "http://opendsa.org/ontology#Finite_Automata",
-    "label": "Finite Automata",
-    "comment": "A type of finite state machine that accepts or rejects strings of symbols by transitioning between states according to the input, often used to recognize patterns in regular languages.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "193",
-    "class_uri": "http://opendsa.org/ontology#K-ary_Tree_Implementations",
-    "label": "K-ary Tree Implementations",
-    "comment": "Methods for implementing trees where each node has up to k children, used for organizing hierarchical data.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "194",
-    "class_uri": "http://opendsa.org/ontology#Software_Design",
-    "label": "Software Design",
-    "comment": "The process of defining the architecture, components, interfaces, and other characteristics of software systems to meet specific requirements.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "195",
-    "class_uri": "http://opendsa.org/ontology#Unified_Modeling_Language",
-    "label": "Unified Modeling Language",
-    "comment": "A standardized modeling language used to visualize the design of software systems.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "196",
-    "class_uri": "http://opendsa.org/ontology#Testing",
-    "label": "Testing",
-    "comment": "The process of executing software with the intent of finding defects and ensuring that it behaves as expected.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "197",
-    "class_uri": "http://opendsa.org/ontology#Object-Oriented_Programming",
-    "label": "Object-Oriented Programming",
-    "comment": "A programming paradigm based on the concept of objects, encapsulating data and behavior.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "198",
-    "class_uri": "http://opendsa.org/ontology#Software_Development",
-    "label": "Software Development",
-    "comment": "The process of conceiving, specifying, designing, programming, documenting, testing, and maintaining applications, frameworks, or other software components.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "199",
-    "class_uri": "http://opendsa.org/ontology#Regular_Language",
-    "label": "Regular Language",
-    "comment": "A  language that can be expressed with a regular expression.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "200",
     "class_uri": "http://opendsa.org/ontology#Context-Free_Language",
     "label": "Context-Free Language",
     "comment": "A language generated by a context-free grammar.",
@@ -1368,71 +24,15 @@
     "is_active (default)": "TRUE"
   },
   {
-    "#": "201",
-    "class_uri": "http://opendsa.org/ontology#Regular_Grammar",
-    "label": "Regular Grammar",
-    "comment": "A grammar that generates a regular language.",
+    "#": "4",
+    "class_uri": "http://opendsa.org/ontology#Quicksort",
+    "label": "Quicksort",
+    "comment": "An efficient sorting algorithm using divide-and-conquer.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "202",
-    "class_uri": "http://opendsa.org/ontology#Non-regular_Language",
-    "label": "Non-Regular Language",
-    "comment": "A type of language that cannot be represented by a regular expression or finite automaton, often requiring more complex computational models like context-free grammars or pushdown automata.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "203",
-    "class_uri": "http://opendsa.org/ontology#Grammars",
-    "label": "Grammars",
-    "comment": "Formal structures that define the syntax of languages.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "204",
-    "class_uri": "http://opendsa.org/ontology#Context-Free_Grammar",
-    "label": "Context-Free Grammar",
-    "comment": "A type of grammar where the production rules replace a single non-terminal symbol with a string of terminal and/or non-terminal symbols. Commonly used to define the syntax of programming languages.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "205",
-    "class_uri": "http://opendsa.org/ontology#Self-Organizing_Lists",
-    "label": "Self-Organizing Lists",
-    "comment": "Lists that reorder themselves based on access patterns to improve average access time.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "206",
-    "class_uri": "http://opendsa.org/ontology#Binary_Search",
-    "label": "Binary Search",
-    "comment": "A divide-and-conquer algorithm that finds the position of a target value within a sorted array.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "207",
-    "class_uri": "http://opendsa.org/ontology#Array-based_Queue_Implementation",
-    "label": "Array-based Queue Implementation",
-    "comment": "Implementing queues using arrays.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "208",
-    "class_uri": "http://opendsa.org/ontology#Linked_Queues",
-    "label": "Linked Queues",
-    "comment": "Implementing queues using linked lists.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "210",
+    "#": "5",
     "class_uri": "http://opendsa.org/ontology#Huffman_Coding_Tree",
     "label": "Huffman Coding Tree",
     "comment": "A tree used for encoding symbols based on frequency, achieving efficient compression.",
@@ -1440,319 +40,103 @@
     "is_active (default)": "TRUE"
   },
   {
-    "#": "211",
-    "class_uri": "http://opendsa.org/ontology#Regular_Expression",
-    "label": "Regular Expression",
-    "comment": "A sequence of characters that define a search pattern, often used for pattern matching within strings.",
+    "#": "6",
+    "class_uri": "http://opendsa.org/ontology#Parameter",
+    "label": "Parameter",
+    "comment": "The values making up an input to a function.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "212",
-    "class_uri": "http://opendsa.org/ontology#Pumping_Lemma_Proofs",
-    "label": "Pumping Lemma Proofs",
-    "comment": "A method used to prove that certain languages are not regular.",
+    "#": "7",
+    "class_uri": "http://opendsa.org/ontology#Binsort",
+    "label": "Binsort",
+    "comment": "A type of bucket sort, where a bucket stores only one key value (though it might store multiple records with that key value).",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "213",
-    "class_uri": "http://opendsa.org/ontology#Recurrence_Relations",
-    "label": "Recurrence Relations",
-    "comment": "Equations that define sequences recursively using previous terms.",
+    "#": "8",
+    "class_uri": "http://opendsa.org/ontology#Class_Hierarchy",
+    "label": "Class Hierarchy",
+    "comment": "A classification of object types with super-class/sub-class relationships.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "214",
-    "class_uri": "http://opendsa.org/ontology#Modulus",
-    "label": "Modulus",
-    "comment": "The remainder operation in division, often used in modular arithmetic.",
+    "#": "9",
+    "class_uri": "http://opendsa.org/ontology#Insertion_Sort",
+    "label": "Insertion Sort",
+    "comment": "A simple sorting algorithm that builds the final sorted array one item at a time.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "215",
-    "class_uri": "http://opendsa.org/ontology#Math_Background",
-    "label": "Math Background",
-    "comment": "Foundational mathematical concepts and skills necessary for advanced topics.",
+    "#": "10",
+    "class_uri": "http://opendsa.org/ontology#Replacement_Selection",
+    "label": "Replacement Selection",
+    "comment": "A variant of heapsort most often used as one phase of an external sort. Given a collection of records stored in an array, and a stream of additional records too large to fit into working memory, replacement selection will unload the heap by sending records to an output stream, and seek to bring new records into the heap from the input stream in preference to shrinking the heap size whenever possible.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "216",
-    "class_uri": "http://opendsa.org/ontology#Factorial",
-    "label": "Factorial",
-    "comment": "The product of all positive integers up to a specified number.",
+    "#": "11",
+    "class_uri": "http://opendsa.org/ontology#Knapsack_Problem",
+    "label": "Knapsack Problem",
+    "comment": "An optimization problem that seeks to maximize the value of items placed in a knapsack without exceeding its capacity.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "217",
-    "class_uri": "http://opendsa.org/ontology#Permuations",
-    "label": "Permuations",
-    "comment": "The arrangement of elements in a specific order.",
+    "#": "12",
+    "class_uri": "http://opendsa.org/ontology#Prime_Number_Algorithms",
+    "label": "Prime Number Algorithms",
+    "comment": "Algorithms designed to identify or verify prime numbers, which are integers greater than 1 that have no positive divisors other than 1 and themselves.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "218",
-    "class_uri": "http://opendsa.org/ontology#Summations",
-    "label": "Summations",
-    "comment": "The operation of adding a sequence of numbers.",
+    "#": "13",
+    "class_uri": "http://opendsa.org/ontology#Composition",
+    "label": "Composition",
+    "comment": "The combining of distinct parts or elements to form a whole.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "219",
-    "class_uri": "http://opendsa.org/ontology#Logarithms",
-    "label": "Logarithms",
-    "comment": "The mathematical operation that is the inverse of exponentiation.",
+    "#": "14",
+    "class_uri": "http://opendsa.org/ontology#For_Loop",
+    "label": "For Loop",
+    "comment": "The basic iteration keyword in many programming languages.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "220",
-    "class_uri": "http://opendsa.org/ontology#Relations",
-    "label": "Relations",
-    "comment": "A class representing relationships between elements or entities, such as equivalence relations, partial orders, or functions, in mathematical structures and computer science.",
+    "#": "15",
+    "class_uri": "http://opendsa.org/ontology#Graph_Representation",
+    "label": "Graph Representation",
+    "comment": "Various ways to represent graphs in memory. The two most typical are the adjacency list and adjacency matrix representations.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "221",
-    "class_uri": "http://opendsa.org/ontology#Sets",
-    "label": "Sets",
-    "comment": "A class representing collections of distinct objects, considered as an entity in their own right. Sets are fundamental objects in mathematics and computer science, often used to describe groups, elements, and their properties.",
+    "#": "16",
+    "class_uri": "http://opendsa.org/ontology#Array",
+    "label": "Array",
+    "comment": "A contiguous collection of same-sized objects in memory.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "222",
-    "class_uri": "http://opendsa.org/ontology#Postorder_Traversal",
-    "label": "Postorder Traversal",
-    "comment": "A traversal method where the left subtree is visited first, then the right subtree, and the node is visited last.",
+    "#": "17",
+    "class_uri": "http://opendsa.org/ontology#Proof_by_Contradiction",
+    "label": "Proof by Contradiction",
+    "comment": "A proof method where the negation of the statement to be proved is shown to lead to a contradiction.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "223",
-    "class_uri": "http://opendsa.org/ontology#Preorder_Traversal",
-    "label": "Preorder Traversal",
-    "comment": "A traversal method where the node is visited first, followed by the left subtree, and then the right subtree.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "224",
-    "class_uri": "http://opendsa.org/ontology#Inorder_Traversal",
-    "label": "Inorder Traversal",
-    "comment": "A traversal method where the left subtree is visited first, then the node, and finally the right subtree.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "226",
-    "class_uri": "http://opendsa.org/ontology#Union/Find_Algorithm",
-    "label": "Union/Find Algorithm",
-    "comment": "A data structure and algorithm used to keep track of disjoint sets and perform union and find operations efficiently.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "228",
-    "class_uri": "http://opendsa.org/ontology#Disjoint_Sets",
-    "label": "Disjoint Sets",
-    "comment": "A collection of sets that are mutually exclusive, supporting efficient union and find operations.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "230",
-    "class_uri": "http://opendsa.org/ontology#Stacks",
-    "label": "Stacks",
-    "comment": "A linear data structure that follows the Last In, First Out (LIFO) principle, where the last element added is the first one to be removed.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "231",
-    "class_uri": "http://opendsa.org/ontology#Queues",
-    "label": "Queue",
-    "comment": "A linear data structure that follows the First In, First Out (FIFO) principle, where the first element added is the first one to be removed.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "232",
-    "class_uri": "http://opendsa.org/ontology#Linked_Lists",
-    "label": "Linked Lists",
-    "comment": "A linear data structure where each element (node) contains a reference (link) to the next node in the sequence, allowing for efficient insertion and deletion operations",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "233",
-    "class_uri": "http://opendsa.org/ontology#Non-Deterministic_Finite_Automata",
-    "label": "Non-Deterministic Finite Automata",
-    "comment": "A finite automaton where each state can have zero, one, or multiple transitions for each symbol.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "234",
-    "class_uri": "http://opendsa.org/ontology#Turing_Machines",
-    "label": "Turing Machines",
-    "comment": "A  mathematical model of computation that defines an abstract machine.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "235",
-    "class_uri": "http://opendsa.org/ontology#Pushdown_Automaton",
-    "label": "Pushdown Automaton",
-    "comment": "A type of finite state machine that uses a stack to store additional information, allowing it to recognize context-free languages.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "236",
-    "class_uri": "http://opendsa.org/ontology#Deterministic_Finite_Automata",
-    "label": "Deterministic Finite Automata",
-    "comment": "A finite automaton where each state has exactly one transition for each symbol.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "237",
-    "class_uri": "http://opendsa.org/ontology#Sparse_Matrix",
-    "label": "Sparse Matrix",
-    "comment": "A matrix in which most elements are zero. Sparse matrices are stored efficiently using specialized storage formats to save space and reduce computational costs.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "238",
-    "class_uri": "http://opendsa.org/ontology#Backus-Naur_Form",
-    "label": "Backus-Naur Form",
-    "comment": "A notation used to express context-free grammars, commonly used in the description of programming languages.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "239",
-    "class_uri": "http://opendsa.org/ontology#Record_Comparison",
-    "label": "Record Comparison",
-    "comment": "Techniques used to compare records in a dataset, often involving key fields to determine sorting or equalit",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "240",
-    "class_uri": "http://opendsa.org/ontology#Overhead",
-    "label": "Overhead",
-    "comment": "The additional memory required by an algorithm, beyond the data it processes, often due to data structures or recursive calls.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "241",
-    "class_uri": "http://opendsa.org/ontology#Heap",
-    "label": "Heap",
-    "comment": "A specialized tree-based data structure that satisfies the heap property.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "242",
-    "class_uri": "http://opendsa.org/ontology#JUnit_Testing",
-    "label": "JUnit Testing",
-    "comment": "A framework for writing and running automated tests in Java.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "243",
-    "class_uri": "http://opendsa.org/ontology#Mutation_Testing",
-    "label": "Mutation Testing",
-    "comment": "A method of testing software by introducing small changes (mutations) to the code and evaluating the effectiveness of test cases.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "244",
-    "class_uri": "http://opendsa.org/ontology#Code_Coverage",
-    "label": "Code Coverage",
-    "comment": "A measure of the extent to which a program is executed during testing.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "245",
-    "class_uri": "http://opendsa.org/ontology#Non-Deterministic_Pushdown_Automaton",
-    "label": "Non-Deterministic Pushdown Automaton",
-    "comment": "A pushdown automaton with non-deterministic transitions.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "246",
-    "class_uri": "http://opendsa.org/ontology#Deterministic_Pushdown_Automaton",
-    "label": "Deterministic Pushdown Automaton",
-    "comment": "A pushdown automaton with deterministic transitions.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "247",
-    "class_uri": "http://opendsa.org/ontology#Debugging_Methods",
-    "label": "Debugging Methods",
-    "comment": "Techniques used to identify and correct errors in software.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "248",
-    "class_uri": "http://opendsa.org/ontology#Source_Level_Debugging",
-    "label": "Source Level Debugging",
-    "comment": "The process of examining and fixing code by viewing and analyzing source code.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "249",
-    "class_uri": "http://opendsa.org/ontology#Kruskal's_Algorithm",
-    "label": "Kruskal's Algorithm",
-    "comment": "An algorithm that finds the minimum spanning tree for a connected, edge-weighted graph.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "250",
-    "class_uri": "http://opendsa.org/ontology#Link_Nodes",
-    "label": "Link Nodes",
-    "comment": "The fundamental building blocks of linked lists, where each node contains data and a reference to the next node.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "251",
-    "class_uri": "http://opendsa.org/ontology#Deterministic_Finite_Acceptor",
-    "label": "Deterministic Finite Acceptor",
-    "comment": "A theoretical machine used to recognize regular languages by accepting or rejecting strings.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "252",
-    "class_uri": "http://opendsa.org/ontology#Context-Free_Grammar_Transformations",
-    "label": "Context-Free Grammar Transformations",
-    "comment": "Techniques for converting context-free grammars into equivalent forms.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "253",
+    "#": "18",
     "class_uri": "http://opendsa.org/ontology#Composite_Design",
     "label": "Composite Design",
     "comment": "A structural design pattern that composes objects into tree structures to represent part-whole hierarchies, allowing clients to treat individual objects and compositions uniformly.",
@@ -1760,7 +144,2415 @@
     "is_active (default)": "TRUE"
   },
   {
+    "#": "19",
+    "class_uri": "http://opendsa.org/ontology#Sequential_Fit_Memory_Manager",
+    "label": "Sequential Fit Memory Manager",
+    "comment": "Allocates memory blocks by processing the free block list sequentially and deciding which is the most approrpriate to pick depending on its strategy.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "20",
+    "class_uri": "http://opendsa.org/ontology#Linked_Queue",
+    "label": "Linked Queue",
+    "comment": "Implements a queue using a linked list.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "21",
+    "class_uri": "http://opendsa.org/ontology#Software_Testing",
+    "label": "Software Testing",
+    "comment": "The process of determining if a program does or does not have bugs.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "22",
+    "class_uri": "http://opendsa.org/ontology#Parsing",
+    "label": "Parsing",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "23",
+    "class_uri": "http://opendsa.org/ontology#Permuation",
+    "label": "Permuation",
+    "comment": "The arrangement of elements in a specific order.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "24",
+    "class_uri": "http://opendsa.org/ontology#Array-Based_Queue",
+    "label": "Array-Based Queue",
+    "comment": "Implementing a queue using an array.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "25",
+    "class_uri": "http://opendsa.org/ontology#NP-completeness",
+    "label": "NP-completeness",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "26",
+    "class_uri": "http://opendsa.org/ontology#Closure_Property",
+    "label": "Closure Property",
+    "comment": "A property of a relation that ensure the relation is closed under certain operations.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "27",
+    "class_uri": "http://opendsa.org/ontology#Queue",
+    "label": "Queue",
+    "comment": "A linear data structure that supports first in/first out processing.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "28",
+    "class_uri": "http://opendsa.org/ontology#PR_Quadtree",
+    "label": "PR Quadtree",
+    "comment": "A tree data structure used to partition a two-dimensional space.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "29",
+    "class_uri": "http://opendsa.org/ontology#Sorting",
+    "label": "Sorting",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "30",
+    "class_uri": "http://opendsa.org/ontology#Parameter_Passing",
+    "label": "Parameter Passing",
+    "comment": "A mechanism for passing a parameter to a method or function. There are many variations on this.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "31",
+    "class_uri": "http://opendsa.org/ontology#Polynomial_Evaluation",
+    "label": "Polynomial Evaluation",
+    "comment": "The operation of computing the value of a polynomial on a given set of values for its variables.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "32",
+    "class_uri": "http://opendsa.org/ontology#Priority_Queue",
+    "label": "Priority Queue",
+    "comment": "An ADT whose primary operations of insert of records, and deletion of the greatest (or, in an alternative implementation, the least) valued record. Most often implemented using the heap data structure. The name comes from a common application where the records being stored represent tasks, with the ordering values based on the priorities of the tasks.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "33",
+    "class_uri": "http://opendsa.org/ontology#Set",
+    "label": "Set",
+    "comment": "A collection of distinguishable members or elements.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "34",
+    "class_uri": "http://opendsa.org/ontology#Adversary_Argument",
+    "label": "Adversary Argument",
+    "comment": "Techniques that use hypothetical adversaries to establish lower bounds on algorithm complexity, demonstrating the minimal resources required.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "35",
+    "class_uri": "http://opendsa.org/ontology#Full_Binary_Tree_Theorem",
+    "label": "Full Binary Tree Theorem",
+    "comment": "Theorem related to properties of full binary trees.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "36",
+    "class_uri": "http://opendsa.org/ontology#Lower_Bound_Proof",
+    "label": "Lower Bound Proof",
+    "comment": "Proof of the theoretical limit on the minimum cost of an algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "37",
+    "class_uri": "http://opendsa.org/ontology#Iteration",
+    "label": "Iteration",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "38",
+    "class_uri": "http://opendsa.org/ontology#Postorder_Traversal",
+    "label": "Postorder Traversal",
+    "comment": "A traversal method where the left subtree is visited first, then the right subtree, and the node is visited last.\r",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "39",
+    "class_uri": "http://opendsa.org/ontology#Buddy_Method_Memory_Manager",
+    "label": "Buddy Method Memory Manager",
+    "comment": "A memory allocation algorithm that splits blocks of memory in half, with the two halves defined to be buddies.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "40",
+    "class_uri": "http://opendsa.org/ontology#Testing",
+    "label": "Testing",
+    "comment": "The process for determining whether a program has bugs.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "41",
+    "class_uri": "http://opendsa.org/ontology#Random_Access_File",
+    "label": "Random Access File",
+    "comment": "A file that can be read or written in any order, allowing for non-sequential access.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "42",
+    "class_uri": "http://opendsa.org/ontology#Average_Case",
+    "label": "Average Case",
+    "comment": "Scenario describing algorithm performance for the weighted average of all inputs for a given size.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "43",
+    "class_uri": "http://opendsa.org/ontology#B-Tree",
+    "label": "B-Tree",
+    "comment": "A balanced tree data structure that maintains large sorted lists and allows for efficient insertion, deletion, and search operations. Widely used to store datbases on disk.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "44",
+    "class_uri": "http://opendsa.org/ontology#Fibonacci_Sequence",
+    "label": "Fibonacci Sequence",
+    "comment": "A series of numbers where each number is the sum of the two preceding ones, starting from 0 and 1. It appears in many natural phenomena and is used in algorithms.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "45",
+    "class_uri": "http://opendsa.org/ontology#Perfect_Hashing",
+    "label": "Perfect Hashing",
+    "comment": "A hashing technique that ensures no collisions.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "46",
+    "class_uri": "http://opendsa.org/ontology#First_Fit_Memory_Manager",
+    "label": "First Fit Memory Manager",
+    "comment": "In a memory manager, first fit is a heuristic for deciding which free block to use when allocating memory from a memory pool. First fit will always allocate the first free block on the free block list that is large enough to service the memory request. The advantage of this approach is that it is typically not necessary to look at all free blocks on the free block list to find a suitable free block. The disadvantage is that it is not \u201cintelligently\u201d selecting what might be a better choice of free block.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "47",
+    "class_uri": "http://opendsa.org/ontology#Complete_Binary_Tree",
+    "label": "Complete Binary Tree",
+    "comment": "Binary trees where all levels except possibly the last are completely filled.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "48",
+    "class_uri": "http://opendsa.org/ontology#Splay_Tree",
+    "label": "Splay Tree",
+    "comment": "A self-adjusting binary search tree that is meant to improve access time over the standard BST.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "49",
+    "class_uri": "http://opendsa.org/ontology#Empirical_Comparison",
+    "label": "Empirical Comparison",
+    "comment": "An approach to comparing to things by actually seeing how they perform. Most typically, we are referring to the comparison of two programs by running each on a suite of test data and measuring the actual running times. Empirical comparison is subject to many possible complications, including unfair selection of test data, and inaccuracies in the time measurements due to variations in the computing environment between various executions of the programs.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "50",
+    "class_uri": "http://opendsa.org/ontology#Worst_Case",
+    "label": "Worst Case",
+    "comment": "Scenario describing algorithm performance for the best of all inputs for a given size.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "51",
+    "class_uri": "http://opendsa.org/ontology#Binary_Tree",
+    "label": "Binary_Tree",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "52",
+    "class_uri": "http://opendsa.org/ontology#Shortest_Path_Problem",
+    "label": "Shortest Path Problem",
+    "comment": "Various problems that require finding shortest paths between pair of nodes in a graph.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "53",
+    "class_uri": "http://opendsa.org/ontology#Hamiltonian_Cycle_Problem",
+    "label": "Hamiltonian Cycle Problem",
+    "comment": "Find a cycle in a graph that visits every vertex exactly once.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "54",
+    "class_uri": "http://opendsa.org/ontology#Conditional_Statement",
+    "label": "Conditional Statement",
+    "comment": "A branch statement like an IF or CASE statement.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "55",
+    "class_uri": "http://opendsa.org/ontology#Container",
+    "label": "Container",
+    "comment": "An abstract data type that stores multiple elements, providing methods for accessing and modifying them.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "56",
+    "class_uri": "http://opendsa.org/ontology#Loop",
+    "label": "Loop",
+    "comment": "Generic term for a programming construct to do iteration, such as a for or while statement.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "57",
+    "class_uri": "http://opendsa.org/ontology#Grammar",
+    "label": "Grammar",
+    "comment": "Formal structures that define the syntax of languages.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "58",
+    "class_uri": "http://opendsa.org/ontology#2-3_Tree",
+    "label": "2-3 Tree",
+    "comment": "A balanced search tree where each node can have two or three children, maintaining efficient search, insertion, and deletion operations.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "59",
+    "class_uri": "http://opendsa.org/ontology#Relation",
+    "label": "Relation",
+    "comment": "In set notation, a relation R over set S is a set of tuples from S.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "60",
+    "class_uri": "http://opendsa.org/ontology#Minimum-Cost_Spanning_Tree",
+    "label": "Minimum-Cost Spanning Tree",
+    "comment": "A spanning tree of a graph that minimizes the total edge weight.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "61",
+    "class_uri": "http://opendsa.org/ontology#Turing_Machine",
+    "label": "Turing Machine",
+    "comment": "A mathematical model of computation that defines an abstract machine. A finite state machine.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "62",
+    "class_uri": "http://opendsa.org/ontology#Balanced_Binary_Tree",
+    "label": "Balanced Binary Tree",
+    "comment": "Binary tree that maintains balance to improve performance.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "63",
+    "class_uri": "http://opendsa.org/ontology#Disjoint_Set",
+    "label": "Disjoint Set",
+    "comment": "A collection of sets that are mutually exclusive, supporting efficient union and find operations.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "64",
+    "class_uri": "http://opendsa.org/ontology#Language",
+    "label": "Language",
+    "comment": "A set of strings whose symbols are taken from a set called the alphabet.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "65",
+    "class_uri": "http://opendsa.org/ontology#Search_Key",
+    "label": "Search Key",
+    "comment": "A field in a record that is used to order the records during a sort.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "66",
+    "class_uri": "http://opendsa.org/ontology#Pushdown_Automaton",
+    "label": "Pushdown_Automaton",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "67",
+    "class_uri": "http://opendsa.org/ontology#Dirty_Bit",
+    "label": "Dirty Bit",
+    "comment": "Within a buffer pool, a piece of information associated with each buffer that indicates whether the contents of the buffer have changed since being read in from backing storage.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "68",
+    "class_uri": "http://opendsa.org/ontology#Data_Compression",
+    "label": "Data_Compression",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "69",
+    "class_uri": "http://opendsa.org/ontology#Parse_Tree",
+    "label": "Parse Tree",
+    "comment": "A tree that represents the syntactic structure of an input string, making it easy to compare against a grammar to see if it is syntactically correct.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "70",
+    "class_uri": "http://opendsa.org/ontology#Inversion",
+    "label": "Inversion",
+    "comment": "A measure of how disordered a series of values is. For each element X in the series, count one inversion for each element to the left of X that is greater than the value of X (and so must ultimately be moved to the right of X during a sorting process).",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "71",
+    "class_uri": "http://opendsa.org/ontology#Polynomial_Multiplication",
+    "label": "Polynomial Multiplication",
+    "comment": "The operation of multiplying two polynomials together.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "72",
+    "class_uri": "http://opendsa.org/ontology#Local_Variable",
+    "label": "Local Variable",
+    "comment": "A variable defined within a function or block, accessible only within that scope.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "73",
+    "class_uri": "http://opendsa.org/ontology#Bit_Vector",
+    "label": "Bit Vector",
+    "comment": "A data structure that assigns each key to a position in an array that stroes a single bit to indicate if that key is in the represented set or not.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "74",
+    "class_uri": "http://opendsa.org/ontology#Equivalence_Class",
+    "label": "Equivalence Class",
+    "comment": "A distint subset that results from partitioning a set based on an equivalence relation.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "75",
+    "class_uri": "http://opendsa.org/ontology#Compiler",
+    "label": "Compiler",
+    "comment": "A program that takes a program as input and converts it to another form for more efficient processing.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "76",
+    "class_uri": "http://opendsa.org/ontology#Quadratic_Binary_Search",
+    "label": "Quadratic Binary Search",
+    "comment": "A form of interpolation search that (on each iteration) first computes an expected position for the key value, then makes a series of jumps by a root of the array size until the search key is bracketed.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "77",
+    "class_uri": "http://opendsa.org/ontology#List_ADT",
+    "label": "List ADT",
+    "comment": "An abstract data type defining list operations.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "78",
+    "class_uri": "http://opendsa.org/ontology#Search_Structures",
+    "label": "Search_Structures",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "79",
+    "class_uri": "http://opendsa.org/ontology#Lazy_List",
+    "label": "Lazy List",
+    "comment": "Computes the value of a position in a list only when needed.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "80",
+    "class_uri": "http://opendsa.org/ontology#Finite_State_Machines",
+    "label": "Finite_State_Machines",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "81",
+    "class_uri": "http://opendsa.org/ontology#Clique_Problem",
+    "label": "Clique Problem",
+    "comment": "Identifying the largest clique within a graph.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "82",
+    "class_uri": "http://opendsa.org/ontology#Skip_List",
+    "label": "Skip List",
+    "comment": "A data structure that allows generally fast search, insertion, and deletion operations. It's performance is dependent on chance, rather than on data input order, which is normally considered an advantage.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "83",
+    "class_uri": "http://opendsa.org/ontology#Hashing_Cost_Analysis",
+    "label": "Hashing Cost Analysis",
+    "comment": "Evaluating the efficiency of hashing operations.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "84",
+    "class_uri": "http://opendsa.org/ontology#Shellsort",
+    "label": "Shellsort",
+    "comment": "An in-place comparison-based sorting algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "85",
+    "class_uri": "http://opendsa.org/ontology#Image_Representation",
+    "label": "Image Representation",
+    "comment": "Representations for images",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "86",
+    "class_uri": "http://opendsa.org/ontology#Boolean_Expression",
+    "label": "Boolean Expression",
+    "comment": "A mathematical expression where boolean variables are combined using boolean operators.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "87",
+    "class_uri": "http://opendsa.org/ontology#Binary_Insertion_Sort",
+    "label": "Binary Insertion Sort",
+    "comment": "A (largely theoretical) variant on insertion sort where the location for inserting the next object into the sorted portion of the list is found using binary search. This minimizes the number of comparisons required, but in practice does not improve the amount of swaps required.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "88",
+    "class_uri": "http://opendsa.org/ontology#Towers_of_Hanoi",
+    "label": "Towers of Hanoi",
+    "comment": "A mathematical puzzle consisting of three rods and a number of disks of different sizes, which must be moved according to specific rules to solve the puzzle.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "89",
+    "class_uri": "http://opendsa.org/ontology#Transform",
+    "label": "Transform",
+    "comment": "Mathematical techniques used to change data representation in order to improve performance.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "90",
+    "class_uri": "http://opendsa.org/ontology#Indexing",
+    "label": "Indexing",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "91",
+    "class_uri": "http://opendsa.org/ontology#While_Loop",
+    "label": "While Loop",
+    "comment": "A standard programming construct for iteration.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "92",
+    "class_uri": "http://opendsa.org/ontology#Summation",
+    "label": "Summation",
+    "comment": "The operation of adding a sequence of numbers.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "93",
+    "class_uri": "http://opendsa.org/ontology#Hashing",
+    "label": "Hashing",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "94",
+    "class_uri": "http://opendsa.org/ontology#Pumping_Lemma",
+    "label": "Pumping Lemma",
+    "comment": "A method used to prove that certain languages are not regular.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "95",
+    "class_uri": "http://opendsa.org/ontology#Web-CAT",
+    "label": "Web-CAT",
+    "comment": "An automated assessment tool -- it takes program submissions and automatically grades them for correctness (as defined by passing unit tests) and style (as defined by a collection of style rules).",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "96",
+    "class_uri": "http://opendsa.org/ontology#Software_Design",
+    "label": "Software_Design",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "97",
+    "class_uri": "http://opendsa.org/ontology#Binary_Search_Tree",
+    "label": "Binary Search Tree",
+    "comment": "A binary tree where each node has a key greater than its left child and less than its right child.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "98",
+    "class_uri": "http://opendsa.org/ontology#Mergesort",
+    "label": "Mergesort",
+    "comment": "A stable sorting algorithm that divides the array into halves, sorts, and merges them.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "99",
+    "class_uri": "http://opendsa.org/ontology#Non-Deterministic_Finite_Automata",
+    "label": "Non-Deterministic Finite Automata",
+    "comment": "A finite automaton where each state can have zero, one, or multiple transitions for each symbol.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "100",
+    "class_uri": "http://opendsa.org/ontology#Serialization",
+    "label": "Serialization",
+    "comment": "Convert the information in a compound object into a sequential series of bytes or symbols for storage such as in an array or on disk.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "101",
+    "class_uri": "http://opendsa.org/ontology#General_Tree",
+    "label": "General Tree",
+    "comment": "A tree structure where any node is permitted to have any number of children.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "102",
+    "class_uri": "http://opendsa.org/ontology#Polynomial_Interpolation",
+    "label": "Polynomial Interpolation",
+    "comment": "The operation of constructing a polynomial from a set of points.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "103",
+    "class_uri": "http://opendsa.org/ontology#Fast_Fourier_Transform",
+    "label": "Fast Fourier Transform",
+    "comment": "An O(n log n) algorithm to compute the discrete Fourier transform, used for example to speed up polynomial multiplication.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "104",
+    "class_uri": "http://opendsa.org/ontology#State_Space_Lower_Bound",
+    "label": "State Space Lower Bound",
+    "comment": "Methods for proving lower bounds by examining the state space of algorithms and exploring possible configurations.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "105",
+    "class_uri": "http://opendsa.org/ontology#NP-Complete",
+    "label": "NP-Complete",
+    "comment": "A class of decision problems for which no polynomial algorithm is known, and where each problem is as hard as the hardest problems in NP. Generally, any problem where a proposed solution can be verified in polynomial time.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "106",
+    "class_uri": "http://opendsa.org/ontology#Boyer-Moore_String_Match_Algorithm",
+    "label": "Boyer-Moore String Match Algorithm",
+    "comment": "An algorithm for performing string matching.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "107",
+    "class_uri": "http://opendsa.org/ontology#Search_in_Sorted_Lists",
+    "label": "Search in Sorted Lists",
+    "comment": "Establishing the minimum number of comparisons needed to search in sorted lists.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "108",
+    "class_uri": "http://opendsa.org/ontology#Topological_Sort",
+    "label": "Topological Sort",
+    "comment": "Linear ordering of vertices in a directed acyclic graph, ensuring that for every directed edge, the start vertex comes before the end vertex.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "109",
+    "class_uri": "http://opendsa.org/ontology#NP-Completeness_Proof",
+    "label": "NP-Completeness Proof",
+    "comment": "Techniques used to demonstrate that a problem is NP-complete, indicating it is as hard as the hardest problems in NP.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "110",
+    "class_uri": "http://opendsa.org/ontology#Regular_Expression",
+    "label": "Regular Expression",
+    "comment": "A sequence of characters that define a search pattern, often used for pattern matching within strings.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "111",
+    "class_uri": "http://opendsa.org/ontology#Union/Find_Algorithm",
+    "label": "Union/Find Algorithm",
+    "comment": "An algorithm used to keep track of disjoint sets and perform union and find operations efficiently.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "112",
+    "class_uri": "http://opendsa.org/ontology#Variable",
+    "label": "Variable",
+    "comment": "In a program, an identifier for an object or primitive.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "113",
+    "class_uri": "http://opendsa.org/ontology#Recursive_Tree_Functions",
+    "label": "Recursive Tree Functions",
+    "comment": "Functions that call themselves to solve tree-related problems.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "114",
+    "class_uri": "http://opendsa.org/ontology#Sequential_Tree_Representation",
+    "label": "Sequential Tree Representation",
+    "comment": "Serialization of a tree structure.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "115",
+    "class_uri": "http://opendsa.org/ontology#Red-Black_Tree",
+    "label": "Red-Black Tree",
+    "comment": "A self-balancing binary search tree structure.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "116",
+    "class_uri": "http://opendsa.org/ontology#Array_Representation",
+    "label": "Array_Representation",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "117",
+    "class_uri": "http://opendsa.org/ontology#Preorder_Traversal",
+    "label": "Preorder Traversal",
+    "comment": "A traversal method where the node is visited first, followed by the left subtree, and then the right subtree.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "118",
+    "class_uri": "http://opendsa.org/ontology#Satisfiability_Problem",
+    "label": "Satisfiability Problem",
+    "comment": "Determine if there is a satisfying assignment for a Boolean formula.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "119",
+    "class_uri": "http://opendsa.org/ontology#List_Cost_Analysis",
+    "label": "List Cost Analysis",
+    "comment": "Evaluating the efficiency of list operations.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "120",
+    "class_uri": "http://opendsa.org/ontology#Upper_Bound",
+    "label": "Upper Bound",
+    "comment": "Theoretical limits on the maximum performance of an algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "121",
+    "class_uri": "http://opendsa.org/ontology#Garbage_Collection",
+    "label": "Garbage Collection",
+    "comment": "An automated process that periodically runs to reclaim memory that is no longer in use.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "122",
+    "class_uri": "http://opendsa.org/ontology#Tree",
+    "label": "Tree",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "123",
+    "class_uri": "http://opendsa.org/ontology#Comparator",
+    "label": "Comparator",
+    "comment": "A function that compares two objects (generally records in a collection for sorting or searching purposes).",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "124",
+    "class_uri": "http://opendsa.org/ontology#Mutation_Testing",
+    "label": "Mutation Testing",
+    "comment": "A method of testing software by introducing small changes (mutations) to the code and evaluating the effectiveness of test cases.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "125",
+    "class_uri": "http://opendsa.org/ontology#Eclipse_IDE",
+    "label": "Eclipse IDE",
+    "comment": "The Eclipse integrated programming environment.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "126",
+    "class_uri": "http://opendsa.org/ontology#Code_Tuning",
+    "label": "Code Tuning",
+    "comment": "The process of optimizing code to improve performance and efficiency, separate from improving the underlying algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "127",
+    "class_uri": "http://opendsa.org/ontology#Pointer",
+    "label": "Pointer",
+    "comment": "Variable that stores memory addresses, used for dynamic memory management.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "128",
+    "class_uri": "http://opendsa.org/ontology#Debugging",
+    "label": "Debugging",
+    "comment": "Techniques used to identify and correct errors in software.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "129",
+    "class_uri": "http://opendsa.org/ontology#Median_Finding",
+    "label": "Median Finding",
+    "comment": "The problem of finding the median value in a collection of values.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "130",
+    "class_uri": "http://opendsa.org/ontology#Inorder_Traversal",
+    "label": "Inorder Traversal",
+    "comment": "A traversal method where the left subtree is visited first, then the node, and finally the right subtree.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "131",
+    "class_uri": "http://opendsa.org/ontology#Backus-Naur_Form",
+    "label": "Backus-Naur Form",
+    "comment": "A notation used to express context-free grammars, commonly used in the description of programming languages.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "132",
+    "class_uri": "http://opendsa.org/ontology#Bintree",
+    "label": "Bintree",
+    "comment": "A spatial data structure with the shape of a binary tree, that splits the key space in half, alternating through each dimension.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "133",
+    "class_uri": "http://opendsa.org/ontology#Buffer_Pool",
+    "label": "Buffer_Pool",
+    "comment": "A data structure that caches frequently accessed data in memory to improve access times.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "134",
+    "class_uri": "http://opendsa.org/ontology#Rabin-Karp_String_Match_Algorithm",
+    "label": "Rabin-Karp String Match Algorithm",
+    "comment": "A string searching algorithm using hashing",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "135",
+    "class_uri": "http://opendsa.org/ontology#Record_Keys",
+    "label": "Record_Keys",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "136",
+    "class_uri": "http://opendsa.org/ontology#Poset",
+    "label": "Poset",
+    "comment": "Shorthand for Partially Ordered Set. In set notation, a binary relation is called a partial order if it is antisymmetric and transitive.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "137",
+    "class_uri": "http://opendsa.org/ontology#Context-Free_Grammar",
+    "label": "Context-Free Grammar",
+    "comment": "A grammar for a language that is confext free. ",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "138",
+    "class_uri": "http://opendsa.org/ontology#Exponentiation",
+    "label": "Exponentiation",
+    "comment": "The operation of computing a value to a given power.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "139",
+    "class_uri": "http://opendsa.org/ontology#Data_Type",
+    "label": "Data Type",
+    "comment": "A type together with a collection of operations to manipulate the type.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "140",
+    "class_uri": "http://opendsa.org/ontology#Unified_Modeling_Language",
+    "label": "Unified Modeling Language",
+    "comment": "A standardized modeling language used to visualize the design of software systems.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "141",
+    "class_uri": "http://opendsa.org/ontology#Sorting_Notation",
+    "label": "Sorting Notation",
+    "comment": "Terminology used to discuss the sorting problem and algorithms.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "142",
+    "class_uri": "http://opendsa.org/ontology#Functional_Programming",
+    "label": "Functional Programming",
+    "comment": "A programming paradigm where programs are constructed by applying and composing functions.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "143",
+    "class_uri": "http://opendsa.org/ontology#Linear_Probing",
+    "label": "Linear Probing",
+    "comment": "In hashing, this is the simplest collision resolution method. Term i of the probe sequence is simply i, meaning that collision resolution works by moving sequentially through the hash table from the home slot. While simple, it is also inefficient, since it quickly leads to certain free slots in the hash table having higher probability of being selected during insertion or search.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "144",
+    "class_uri": "http://opendsa.org/ontology#Reduction",
+    "label": "Reduction",
+    "comment": "Techniques for transforming one problem into another, used in complexity theory.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "145",
+    "class_uri": "http://opendsa.org/ontology#Bubble_Sort",
+    "label": "Bubble Sort",
+    "comment": "A simple, but inefficient, comparison-based sorting algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "146",
+    "class_uri": "http://opendsa.org/ontology#Test_Case",
+    "label": "Test Case",
+    "comment": "An individual input scenario normally used to test a specific piece of functionality in a program.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "147",
+    "class_uri": "http://opendsa.org/ontology#Scanner",
+    "label": "Scanner",
+    "comment": "The part of a compiler that is responsible for doing lexical analysis.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "148",
+    "class_uri": "http://opendsa.org/ontology#Ambiguity",
+    "label": "Ambiguity",
+    "comment": "In parsing, the property that a given string can be interpreted in multiple ways under the associated grammar.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "149",
+    "class_uri": "http://opendsa.org/ontology#Relations",
+    "label": "Relations",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "150",
+    "class_uri": "http://opendsa.org/ontology#Method",
+    "label": "Method",
+    "comment": "In the object-oriented programming paradigm, a method is an operation on a class. A synonym for member function.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "151",
+    "class_uri": "http://opendsa.org/ontology#Polymorphism",
+    "label": "Polymorphism",
+    "comment": "An object-oriented programming term meaning one name, many forms. It describes the ability of software to change its behavior dynamically. Two basic forms exist: run-time polymorphism and compile-time polymorphism.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "152",
+    "class_uri": "http://opendsa.org/ontology#Regular_Language",
+    "label": "Regular Language",
+    "comment": "A language that can be expressed with a regular expression, regular grammar, or a finite automata.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "153",
+    "class_uri": "http://opendsa.org/ontology#Unit_Testing",
+    "label": "Unit Testing",
+    "comment": "A type of testing that uses a collection of individual tests (called Unit Tests) to test various parts of the program.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "154",
+    "class_uri": "http://opendsa.org/ontology#Subclass",
+    "label": "Subclass",
+    "comment": "In Object-Oriented Programming, a class that inherits from another class.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "155",
+    "class_uri": "http://opendsa.org/ontology#Largest_Common_Factor",
+    "label": "Largest Common Factor",
+    "comment": "The problem of finding the largest common factor for two values.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "156",
+    "class_uri": "http://opendsa.org/ontology#Interpolation_Search",
+    "label": "Interpolation Search",
+    "comment": "Given a sorted array, and knowing the first and last key values stored in some subarray known to contain search key K, interpolation search will compute the expected location of K in the subarray as a fraction of the distance between the known key values. So it will next check that computed location, thus narrowing the search for the next iteration.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "157",
+    "class_uri": "http://opendsa.org/ontology#Java_Scanner_Class",
+    "label": "Java Scanner Class",
+    "comment": "A Java utility class used to parse primitive types and strings using regular expressions.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "158",
+    "class_uri": "http://opendsa.org/ontology#Merge_Insertion_Sort",
+    "label": "Merge Insertion Sort",
+    "comment": "A synonym for the Ford and Johnson sort.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "159",
+    "class_uri": "http://opendsa.org/ontology#Matrix_Multiplication",
+    "label": "Matrix Multiplication",
+    "comment": "The problem of multiplying two matrices together.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "160",
+    "class_uri": "http://opendsa.org/ontology#Link_Node",
+    "label": "Link Node",
+    "comment": "The fundamental building blocks of linked lists, where each node contains data and a reference to the next node.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "161",
+    "class_uri": "http://opendsa.org/ontology#Depth-First_Search",
+    "label": "Depth-First Search",
+    "comment": "A graph traversal algorithm. Whenever vertex v is visited during a traversal, DFS will recursively visit all of v's unvisted neighbors. In a tree, this results in a preorder traversal.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "162",
+    "class_uri": "http://opendsa.org/ontology#Deterministic_Pushdown_Automaton",
+    "label": "Deterministic Pushdown Automaton",
+    "comment": "A theoretical machine used to recognize context-free languages by accepting or rejecting strings. A pair of states has at most a single transition between them for a given symbol.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "163",
+    "class_uri": "http://opendsa.org/ontology#Main_Method",
+    "label": "Main Method",
+    "comment": "By default, the method in a class that gets called when the associated program is invoked.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "164",
+    "class_uri": "http://opendsa.org/ontology#N-squared_Sorts",
+    "label": "N-squared Sorts",
+    "comment": "Sorting algorithms with time complexity proportional to the square of the number of elements, such as bubble sort and insertion sort.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "165",
+    "class_uri": "http://opendsa.org/ontology#ArrayList_Class",
+    "label": "ArrayList Class",
+    "comment": "An array-based list implementation in Java",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "166",
+    "class_uri": "http://opendsa.org/ontology#Analyzing_Problems",
+    "label": "Analyzing Problems",
+    "comment": "Methods for assessing the complexity of different computational problems.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "167",
+    "class_uri": "http://opendsa.org/ontology#Independent_Set_Problem",
+    "label": "Independent Set Problem",
+    "comment": "Finding the largest set of vertices in a graph, no two of which are adjacent.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "168",
+    "class_uri": "http://opendsa.org/ontology#Language_Classification",
+    "label": "Language_Classification",
+    "comment": "The process of determining the classification for a langauge, such as regular, context free, etc.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "169",
+    "class_uri": "http://opendsa.org/ontology#File_System",
+    "label": "File System",
+    "comment": "The organization of data on peripheral storage, such as a disk drive or DVD drive.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "170",
+    "class_uri": "http://opendsa.org/ontology#AVL_Tree",
+    "label": "AVL Tree",
+    "comment": "A self-balancing binary search tree.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "171",
+    "class_uri": "http://opendsa.org/ontology#Reference",
+    "label": "Reference",
+    "comment": "A restricted form of pointer that may hold only addresses of objects or the null value.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "172",
+    "class_uri": "http://opendsa.org/ontology#Object-Oriented_Programming",
+    "label": "Object-Oriented_Programming",
+    "comment": "A programming paradigm based on the concept of objects, encapsulating data and behavior.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "173",
+    "class_uri": "http://opendsa.org/ontology#Heap",
+    "label": "Heap",
+    "comment": "A specialized tree-based data structure that satisfies the heap property.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "174",
+    "class_uri": "http://opendsa.org/ontology#Return_Statement",
+    "label": "Return Statement",
+    "comment": "A programming construct for returning from a method or function to its caller.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "175",
+    "class_uri": "http://opendsa.org/ontology#Induction_Proof",
+    "label": "Induction Proof",
+    "comment": "A method of mathematical proof used to prove statements about sets and natural numbers. Closely corresponds to recursion.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "176",
+    "class_uri": "http://opendsa.org/ontology#Tree-Based_Indexing",
+    "label": "Tree-Based Indexing",
+    "comment": "Using tree structures, such as B-trees, to index and access large amounts of data efficiently.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "177",
+    "class_uri": "http://opendsa.org/ontology#Java",
+    "label": "Java",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "178",
+    "class_uri": "http://opendsa.org/ontology#Open_Hashing",
+    "label": "Open Hashing",
+    "comment": "A method of handling collisions by using linked lists.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "179",
+    "class_uri": "http://opendsa.org/ontology#Analyzing_Programs",
+    "label": "Analyzing Programs",
+    "comment": "Techniques for examining the performance and behavior of computer programs.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "180",
+    "class_uri": "http://opendsa.org/ontology#Design_Pattern",
+    "label": "Design Pattern",
+    "comment": "Reusable solutions to common design problems in software development.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "181",
+    "class_uri": "http://opendsa.org/ontology#Growth_Rate",
+    "label": "Growth Rate",
+    "comment": "The rate at which an algorithm's runtime increases as the input size increases.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "182",
+    "class_uri": "http://opendsa.org/ontology#DFA_Minimization",
+    "label": "DFA Minimization",
+    "comment": "An algorithm to minimize the number of nodes in a DFA.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "183",
+    "class_uri": "http://opendsa.org/ontology#Inheritance",
+    "label": "Inheritance",
+    "comment": "In Object-Oriented Programming, the mechanism of basing an object or class upon another object or class, retaining similar implementation.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "184",
+    "class_uri": "http://opendsa.org/ontology#Complexity_Theory",
+    "label": "Complexity_Theory",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "185",
+    "class_uri": "http://opendsa.org/ontology#Traveling_Salesman_Problem",
+    "label": "Traveling Salesman Problem",
+    "comment": "Find the shortest possible route that visits each node in a graph once and returns to the origin node.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "186",
+    "class_uri": "http://opendsa.org/ontology#Binary_Tree_Space_Analysis",
+    "label": "Binary Tree Space Analysis",
+    "comment": "Evaluating the memory requirements for storing and processing binary trees.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "187",
+    "class_uri": "http://opendsa.org/ontology#Memory",
+    "label": "Memory",
+    "comment": "Hardware that stores data temporarily or permanently, providing data to the CPU as needed.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "188",
+    "class_uri": "http://opendsa.org/ontology#Memory_Allocation",
+    "label": "Memory Allocation",
+    "comment": "In a memory manager, the act of honoring a request for memory.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "189",
+    "class_uri": "http://opendsa.org/ontology#Modulus",
+    "label": "Modulus",
+    "comment": "The remainder operation in division, often used in modular arithmetic.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "190",
+    "class_uri": "http://opendsa.org/ontology#Numerical_Algorithm",
+    "label": "Numerical_Algorithm",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "191",
+    "class_uri": "http://opendsa.org/ontology#Least_Recently_Used",
+    "label": "Least Recently Used",
+    "comment": "Abbreviated LRU, it is a popular heuristic to use for deciding which buffer in a buffer pool to flush when data in the buffer pool must be replaced by new data being read into a cache. Analogous to the move-to-front heuristic for maintaining a self-organizing list.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "192",
+    "class_uri": "http://opendsa.org/ontology#Recurrence_Relation",
+    "label": "Recurrence Relation",
+    "comment": "Equations that define sequences recursively using previous terms.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "193",
+    "class_uri": "http://opendsa.org/ontology#Linear_Indexing",
+    "label": "Linear Indexing",
+    "comment": "A method of organizing large amounts of data on disk in a sequential manner, allowing for efficient search. Simpler than a B-tree, but does not support efficient database updates.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "194",
+    "class_uri": "http://opendsa.org/ontology#Algorithm_Analysis",
+    "label": "Algorithm_Analysis",
+    "comment": "A analytic process to determine the runtime cost of an algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "195",
+    "class_uri": "http://opendsa.org/ontology#Vertex_Cover_Problem",
+    "label": "Vertex Cover Problem",
+    "comment": "Find the smallest set of vertices such that every edge in the graph is incident to at least one vertex in the set.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "196",
+    "class_uri": "http://opendsa.org/ontology#Array-Based_List",
+    "label": "Array-Based List",
+    "comment": "Implementing a list using an array.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "197",
+    "class_uri": "http://opendsa.org/ontology#Selection_Sort",
+    "label": "Selection Sort",
+    "comment": "A simple comparison-based sorting algorithm that selects the smallest element and places it at the beginning.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "198",
+    "class_uri": "http://opendsa.org/ontology#Full_Binary_Tree",
+    "label": "Full Binary Tree",
+    "comment": "A binary tree where every node has no children or two children.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "199",
+    "class_uri": "http://opendsa.org/ontology#Chained_Matrix_Multplication_Problem",
+    "label": "Chained Matrix Multplication Problem",
+    "comment": "A series of matricies are multiplied together. While the order in which adjacent matricies are multiplied will not change the final answer, it can greatly affect the cost if the matricies are of different sizes.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "200",
+    "class_uri": "http://opendsa.org/ontology#Mathematical_Problem",
+    "label": "Mathematical_Problem",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "201",
+    "class_uri": "http://opendsa.org/ontology#KD_Tree",
+    "label": "KD Tree",
+    "comment": "A space-partitioning data structure for organizing points in a k-dimensional space.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "202",
+    "class_uri": "http://opendsa.org/ontology#Deductive_Proof",
+    "label": "Deductive Proof",
+    "comment": "The process of reasoning from general principles to derive specific instances.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "203",
+    "class_uri": "http://opendsa.org/ontology#Parser_Generator",
+    "label": "Parser Generator",
+    "comment": "A computer program that generates a parser (program) for a given grammar.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "204",
+    "class_uri": "http://opendsa.org/ontology#List_Implementation_Comparison",
+    "label": "List Implementation Comparison",
+    "comment": "Comparing the cost of two or more list implementations (time for various operations, space for an element or the entire list).",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "205",
+    "class_uri": "http://opendsa.org/ontology#String",
+    "label": "String",
+    "comment": "A series of symbols.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "206",
+    "class_uri": "http://opendsa.org/ontology#Recursion",
+    "label": "Recursion",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "207",
+    "class_uri": "http://opendsa.org/ontology#Linked_Stack",
+    "label": "Linked Stack",
+    "comment": "Implements a stack using a linked list.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "208",
+    "class_uri": "http://opendsa.org/ontology#External_Sorting",
+    "label": "External Sorting",
+    "comment": "Sorting methods that involve data stored outside of main memory, such as on disk.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "209",
+    "class_uri": "http://opendsa.org/ontology#Random_Number_Generator",
+    "label": "Random Number Generator",
+    "comment": "A process for generating a random number.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "210",
+    "class_uri": "http://opendsa.org/ontology#ISAM",
+    "label": "ISAM",
+    "comment": "(Indexed Sequential Access Method). A file organization method that combines sequential access with indexing to improve data retrieval.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "211",
+    "class_uri": "http://opendsa.org/ontology#String_Matching",
+    "label": "String_Matching",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "212",
+    "class_uri": "http://opendsa.org/ontology#Probabilistic_Data_Structure",
+    "label": "Probabilistic_Data_Structure",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "213",
+    "class_uri": "http://opendsa.org/ontology#Binary_Tree_Traversal",
+    "label": "Binary Tree Traversal",
+    "comment": "Technique for visiting all nodes in a binary.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "214",
+    "class_uri": "http://opendsa.org/ontology#Command_Line_Interface",
+    "label": "Command Line Interface",
+    "comment": "A text-based interface for interacting with computer programs by entering commands",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "215",
+    "class_uri": "http://opendsa.org/ontology#JUnit_Testing",
+    "label": "JUnit Testing",
+    "comment": "A framework for writing and running automated tests in Java.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "216",
+    "class_uri": "http://opendsa.org/ontology#Deterministic_Finite_Automata",
+    "label": "Deterministic Finite Automata",
+    "comment": "A theoretical machine used to recognize regular languages by accepting or rejecting strings. A pair of states has at most a single transition between them for a given symbol.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "217",
+    "class_uri": "http://opendsa.org/ontology#Non-Comparison_Sort",
+    "label": "Non-Comparison Sort",
+    "comment": "Sorting algorithms that do not rely on element comparisons, such as counting sort and radix sort.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "218",
+    "class_uri": "http://opendsa.org/ontology#Binary_Tree_Terminology",
+    "label": "Binary Tree Terminology",
+    "comment": "Terms and definitions related to binary trees.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "219",
+    "class_uri": "http://opendsa.org/ontology#File_Processing",
+    "label": "File_Processing",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "220",
+    "class_uri": "http://opendsa.org/ontology#Big_Theta",
+    "label": "Big Theta",
+    "comment": "Notation used to describe performance of an algorithm, indicating that the upper and lower bounds are the same within a constant factor.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "221",
+    "class_uri": "http://opendsa.org/ontology#Sparse_Matrix",
+    "label": "Sparse Matrix",
+    "comment": "A matrix in which most elements are zero. Sparse matrices are stored efficiently using specialized storage formats to save space and reduce computational costs.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "222",
+    "class_uri": "http://opendsa.org/ontology#Code_Coverage",
+    "label": "Code Coverage",
+    "comment": "A measure of the extent to which a program is executed during testing.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "223",
+    "class_uri": "http://opendsa.org/ontology#Search_Structure",
+    "label": "Search_Structure",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "224",
+    "class_uri": "http://opendsa.org/ontology#Abstract_Data_Type",
+    "label": "Abstract Data Type",
+    "comment": "A conceptual model that defines object in terms of a set of operations (their inputs and outputs).",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "225",
+    "class_uri": "http://opendsa.org/ontology#Graph",
+    "label": "Graph",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "226",
+    "class_uri": "http://opendsa.org/ontology#Dictionary",
+    "label": "Dictionary",
+    "comment": "An abstract data type representing a collection of key-value pairs.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "227",
+    "class_uri": "http://opendsa.org/ontology#Boolean_Operator",
+    "label": "Boolean Operator",
+    "comment": "A mathematical operator whose parameters are boolean variables.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "228",
+    "class_uri": "http://opendsa.org/ontology#Binary_Tree_Node_Implementation",
+    "label": "Binary Tree Node Implementation",
+    "comment": "Design techniques for the node of a binary tree.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "229",
+    "class_uri": "http://opendsa.org/ontology#Interface",
+    "label": "Interface",
+    "comment": "In Java, a definition for required operations (and their signatures) to be implemented by the adopting object.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "230",
+    "class_uri": "http://opendsa.org/ontology#Automata",
+    "label": "Automata",
+    "comment": "A generic term for a finite state machine.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "231",
+    "class_uri": "http://opendsa.org/ontology#Overhead",
+    "label": "Overhead",
+    "comment": "The additional memory required by an algorithm, beyond the data it processes, often due to data structures or recursive calls.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "232",
+    "class_uri": "http://opendsa.org/ontology#Finite_State_Machine",
+    "label": "Finite_State_Machine",
+    "comment": "A theoretical machine representation based on states and transitions between them. Finite refers to the number of states.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "233",
+    "class_uri": "http://opendsa.org/ontology#List_Element_Implementation",
+    "label": "List Element Implementation",
+    "comment": "Methods for implementing list elements.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "234",
+    "class_uri": "http://opendsa.org/ontology#Pumping_Lemma_Proof",
+    "label": "Pumping Lemma Proof",
+    "comment": "A proof that makes use of the pumping lemma to prove that certain languages are not regular, or not context-free.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "235",
+    "class_uri": "http://opendsa.org/ontology#Expression_Tree",
+    "label": "Expression Tree",
+    "comment": "A tree structure meant to represent a mathematical expression. Internal nodes of the expression tree are operators in the expression, with the subtrees being the sub-expressions that are its operand. All leaf nodes are operands.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "236",
+    "class_uri": "http://opendsa.org/ontology#Self-Organizing_List",
+    "label": "Self-Organizing List",
+    "comment": "Lists that reorder themselves based on access patterns to improve average access time.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "237",
+    "class_uri": "http://opendsa.org/ontology#Exchange_Sort",
+    "label": "Exchange Sort",
+    "comment": "Any sorting algorithm that can only reorder the list by swapping adjacent records.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "238",
+    "class_uri": "http://opendsa.org/ontology#Lower_Bound",
+    "label": "Lower Bound",
+    "comment": "Theoretical limit on the minimum cost of an algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "239",
+    "class_uri": "http://opendsa.org/ontology#Limits_to_Computing",
+    "label": "Limits to Computing",
+    "comment": "Theoretical limits on what can be computed or solved efficiently.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "240",
+    "class_uri": "http://opendsa.org/ontology#Disk_Drive",
+    "label": "Disk Drive",
+    "comment": "A device for storing and retrieving digital data using magnetic storage or other media.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "241",
+    "class_uri": "http://opendsa.org/ontology#Collision_Resolution",
+    "label": "Collision Resolution",
+    "comment": "Techniques used to handle collisions in hashing.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "242",
+    "class_uri": "http://opendsa.org/ontology#KMP_String_Match_Algorithm",
+    "label": "KMP String Match Algorithm",
+    "comment": "An efficient string matching algorithm that uses prefix functions.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "243",
+    "class_uri": "http://opendsa.org/ontology#Dynamic_Storage_Allocation",
+    "label": "Dynamic Storage Allocation",
+    "comment": "Allocates memory from a pool as needed",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "244",
+    "class_uri": "http://opendsa.org/ontology#Map",
+    "label": "Map",
+    "comment": "A data structure that relates a key to a record.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "245",
+    "class_uri": "http://opendsa.org/ontology#Big_O",
+    "label": "Big O",
+    "comment": "Notation used to describe an upper bound on performance of an algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "246",
+    "class_uri": "http://opendsa.org/ontology#Formal_Languages",
+    "label": "Formal_Languages",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "247",
+    "class_uri": "http://opendsa.org/ontology#Software_Development",
+    "label": "Software_Development",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "248",
+    "class_uri": "http://opendsa.org/ontology#Space_Analysis",
+    "label": "Space Analysis",
+    "comment": "Evaluating the memory usage of algorithms.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "249",
+    "class_uri": "http://opendsa.org/ontology#Binomial_Tree",
+    "label": "Binomial Tree",
+    "comment": "A Binomial Tree of order 0 has 1 node. A Binomial Tree of order k can be constructed by taking two binomial trees of order k-1 and making one the leftmost child of the other. ",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "250",
+    "class_uri": "http://opendsa.org/ontology#Amortized_Analysis",
+    "label": "Amortized Analysis",
+    "comment": "A technique in algorithm analysis used to average the running time of operations over a sequence of operations, providing a better understanding of the overall efficiency than analyzing individual operations in isolatio",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "251",
+    "class_uri": "http://opendsa.org/ontology#Search_in_Unsorted_Lists",
+    "label": "Search in Unsorted Lists",
+    "comment": "Establishing the minimum number of comparisons needed to search in unsorted lists.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "252",
+    "class_uri": "http://opendsa.org/ontology#Programming",
+    "label": "Programming",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "253",
+    "class_uri": "http://opendsa.org/ontology#Graph_Traversal",
+    "label": "Graph Traversal",
+    "comment": "Technique for visiting all nodes in a graph.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
     "#": "254",
+    "class_uri": "http://opendsa.org/ontology#Generics",
+    "label": "Generics",
+    "comment": "Parameterized types or methods.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "255",
+    "class_uri": "http://opendsa.org/ontology#Object",
+    "label": "Object",
+    "comment": "An instance of a class, that is, something that is created and takes up storage during the execution of a computer program. In the object-oriented programming paradigm, objects are the basic units of operation. Objects have state in the form of data members, and they know how to perform certain actions (methods).",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "256",
+    "class_uri": "http://opendsa.org/ontology#Sorting_Problem_Lower_Bound",
+    "label": "Sorting Problem Lower Bound",
+    "comment": "A proof for the lower bound cost of sorting.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "257",
+    "class_uri": "http://opendsa.org/ontology#Hash_Function",
+    "label": "Hash Function",
+    "comment": "A function used to compute the hash value for a key.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "258",
+    "class_uri": "http://opendsa.org/ontology#Tree_Structure",
+    "label": "Tree_Structure",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "259",
+    "class_uri": "http://opendsa.org/ontology#Doubly_Linked_List",
+    "label": "Doubly Linked List",
+    "comment": "A linked list where each node has pointers to both the previous and next nodes.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "260",
+    "class_uri": "http://opendsa.org/ontology#Misconception",
+    "label": "Misconception",
+    "comment": "A misunderstanding about something.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "261",
+    "class_uri": "http://opendsa.org/ontology#Problem_Solving_Heuristics",
+    "label": "Problem Solving Heuristics",
+    "comment": "Techniques or strategies used to simplify and solve complex problems.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "262",
+    "class_uri": "http://opendsa.org/ontology#Linked_List",
+    "label": "Linked List",
+    "comment": "A sequence of nodes where each node points to the next.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "263",
+    "class_uri": "http://opendsa.org/ontology#Probabilistic_Algorithm",
+    "label": "Probabilistic_Algorithm",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "264",
+    "class_uri": "http://opendsa.org/ontology#Type",
+    "label": "Type",
+    "comment": "A collection of values.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "265",
+    "class_uri": "http://opendsa.org/ontology#Regular_Grammar",
+    "label": "Regular Grammar",
+    "comment": "A grammar that generates a regular language.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "266",
+    "class_uri": "http://opendsa.org/ontology#Stack",
+    "label": "Stack",
+    "comment": "A list-like structure in which elements may be inserted or removed from only one end.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "267",
+    "class_uri": "http://opendsa.org/ontology#Heapsort",
+    "label": "Heapsort",
+    "comment": "A comparison-based sorting algorithm that uses a binary heap",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "268",
+    "class_uri": "http://opendsa.org/ontology#Program",
+    "label": "Program",
+    "comment": "An instance, or concrete representation, of an algorithm in some programming language.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "269",
+    "class_uri": "http://opendsa.org/ontology#Partial_Order",
+    "label": "Partial Order",
+    "comment": "A binary relation over a set that is reflexive, antisymmetric, and transitive.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "270",
+    "class_uri": "http://opendsa.org/ontology#Heap_Memory",
+    "label": "Heap Memory",
+    "comment": "Memory used for dynamic memory allocation.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "271",
+    "class_uri": "http://opendsa.org/ontology#Binary_Search",
+    "label": "Binary Search",
+    "comment": "A divide-and-conquer algorithm that finds the position of a target value within a sorted array.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "272",
+    "class_uri": "http://opendsa.org/ontology#Optimal_Sorting_Algorithms",
+    "label": "Optimal Sorting Algorithms",
+    "comment": "Sorting algorithms that achieve the best possible time complexity for specific datasets.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "273",
+    "class_uri": "http://opendsa.org/ontology#Equivalance_Class",
+    "label": "Equivalance_Class",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "274",
+    "class_uri": "http://opendsa.org/ontology#Radix_Sort",
+    "label": "Radix Sort",
+    "comment": "A (supposed) non-comparison-based sorting algorithm that sorts numbers digit by digit.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "275",
+    "class_uri": "http://opendsa.org/ontology#Record_Comparison",
+    "label": "Record Comparison",
+    "comment": "Techniques used to compare records in a dataset, often involving key fields to determine sorting or equalit",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "276",
+    "class_uri": "http://opendsa.org/ontology#Static",
+    "label": "Static",
+    "comment": "Something that is not changing (in contrast to dynamic). In computer programming, static normally refers to something that happens at compile time. For example, static analysis is analysis of the program\u2019s text or structure, as opposed to its run-time behavior. Static binding or static memory allocation occurs at compile time.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "277",
+    "class_uri": "http://opendsa.org/ontology#Binary_Trees",
+    "label": "Binary_Trees",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "278",
+    "class_uri": "http://opendsa.org/ontology#Edit_Distance_Problem",
+    "label": "Edit Distance Problem",
+    "comment": "A measure of the similarity between two strings, calculated by counting the minimum number of operations required to transform one string into another.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "279",
+    "class_uri": "http://opendsa.org/ontology#Trie",
+    "label": "Trie",
+    "comment": "A tree-like data structure used to store dynamic sets of strings, supporting efficient string search operations.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "280",
+    "class_uri": "http://opendsa.org/ontology#List",
+    "label": "List",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "281",
+    "class_uri": "http://opendsa.org/ontology#Strassen's_Algorithm",
+    "label": "Strassen's Algorithm",
+    "comment": "A recursive algorithm for matrix multiplication that is faster than the standard algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "282",
+    "class_uri": "http://opendsa.org/ontology#For-Each_Loop",
+    "label": "For-Each Loop",
+    "comment": "A type of for loop that iterates over the objects in a collection.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "283",
+    "class_uri": "http://opendsa.org/ontology#Compilers",
+    "label": "Compilers",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "284",
+    "class_uri": "http://opendsa.org/ontology#Bucket_Sort",
+    "label": "Bucket_Sort",
+    "comment": "Distributes elements into buckets and sorts each bucket individually. ",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "285",
+    "class_uri": "http://opendsa.org/ontology#Scope",
+    "label": "Scope",
+    "comment": "The parts of a program that can see and access a variable.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "286",
+    "class_uri": "http://opendsa.org/ontology#Pushdown_Automata",
+    "label": "Pushdown Automata",
+    "comment": "A type of Finite State Automata that adds a stack memory to the basic Deterministic Finite Automata machine. This extends the set of languages that can be recognize to the context-free languages.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "287",
+    "class_uri": "http://opendsa.org/ontology#Signature",
+    "label": "Signature",
+    "comment": "In a programming language, the signature for a function is its return type and its list of parameters and their types.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "288",
+    "class_uri": "http://opendsa.org/ontology#Big_Omega",
+    "label": "Big Omega",
+    "comment": "Notation used to describe a lower bound on performance of an algorithm.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "289",
+    "class_uri": "http://opendsa.org/ontology#Lists",
+    "label": "Lists",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "290",
+    "class_uri": "http://opendsa.org/ontology#Delegation",
+    "label": "Delegation",
+    "comment": "One object (the delegating object) passes responsibility for a task to another object (the delegate).",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "291",
+    "class_uri": "http://opendsa.org/ontology#Maximum_Value_Problem",
+    "label": "Maximum Value Problem",
+    "comment": "Determine the maximum value in a dataset.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "292",
+    "class_uri": "http://opendsa.org/ontology#Randomized_Algorithm",
+    "label": "Randomized Algorithm",
+    "comment": "An algorithm that makes use of random numbers at some point in its decision making.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "293",
+    "class_uri": "http://opendsa.org/ontology#Best_Case",
+    "label": "Best Case",
+    "comment": "Scenario describing algorithm performance for the best of all inputs for a given size.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "294",
+    "class_uri": "http://opendsa.org/ontology#Null",
+    "label": "Null",
+    "comment": "A value used in many programming languages for a pointer that currently has no target address.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "295",
+    "class_uri": "http://opendsa.org/ontology#Number_Problems",
+    "label": "Number Problems",
+    "comment": "Addressing mathematical problems related to numbers, such as prime finding or factorization.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "296",
+    "class_uri": "http://opendsa.org/ontology#Circuit_Satisfiability_Problem",
+    "label": "Circuit Satisfiability Problem",
+    "comment": "Determining the inputs to a Boolean circuit that result in a true output.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "297",
+    "class_uri": "http://opendsa.org/ontology#Dynamic_Programming",
+    "label": "Dynamic_Programming",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "298",
+    "class_uri": "http://opendsa.org/ontology#Shortest_Path",
+    "label": "Shortest_Path",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "299",
+    "class_uri": "http://opendsa.org/ontology#String_Matching_Problem",
+    "label": "String Matching Problem",
+    "comment": "The problem of finding occurrences of a substring (pattern) within a main string (text).",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "300",
+    "class_uri": "http://opendsa.org/ontology#Aggregation",
+    "label": "Aggregation",
+    "comment": "The process of creating a collection of records.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "301",
+    "class_uri": "http://opendsa.org/ontology#Master_Theorem",
+    "label": "Master Theorem",
+    "comment": "A theorem that makes it easy to solve divide-and-conquer recurrences.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "302",
+    "class_uri": "http://opendsa.org/ontology#Variable_Scope",
+    "label": "Variable Scope",
+    "comment": "The parts of a program that can see and access a variable.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "303",
+    "class_uri": "http://opendsa.org/ontology#Linear_Structures",
+    "label": "Linear_Structures",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "304",
+    "class_uri": "http://opendsa.org/ontology#Random_Number",
+    "label": "Random Number",
+    "comment": "Ideally, a number picked from some range such that all values in the range have equal probability of being selected next.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "305",
+    "class_uri": "http://opendsa.org/ontology#Getters_and_Setters",
+    "label": "Getters and Setters",
+    "comment": "Simple methods for getting or setting the value of a field in an opbject.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "306",
+    "class_uri": "http://opendsa.org/ontology#Array-Based_Stack",
+    "label": "Array-Based Stack",
+    "comment": "Implementing a stack using an array.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "307",
+    "class_uri": "http://opendsa.org/ontology#Search",
+    "label": "Search",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "308",
+    "class_uri": "http://opendsa.org/ontology#Linear_Structure",
+    "label": "Linear_Structure",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "309",
+    "class_uri": "http://opendsa.org/ontology#Command_Line_Parameter",
+    "label": "Command Line Parameter",
+    "comment": "Arguments passed to a program at the command line, used to customize program behavior.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "310",
+    "class_uri": "http://opendsa.org/ontology#Version_Control",
+    "label": "Version Control",
+    "comment": "A process of maintaining snapshots of a program during development.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "311",
+    "class_uri": "http://opendsa.org/ontology#Freelist",
+    "label": "Freelist",
+    "comment": "A list of free memory blocks.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "312",
+    "class_uri": "http://opendsa.org/ontology#Key",
+    "label": "Key",
+    "comment": "A field or part of a larger record used to represent that record for the purpose of searching or comparing. Another term for search key.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "313",
+    "class_uri": "http://opendsa.org/ontology#Ford_and_Johnson_Sort",
+    "label": "Ford and Johnson Sort",
+    "comment": "A sorting algorithm that is close to the theoretical minimum number of key comparisons necessary to sort. Generally not considered practical in practice due to the fact that it is not efficient in terms of the number of records that need to be moved. It consists of first sorting pairs of nodes into winners and losers (of the pairs comparisons), then (recursively) sorting the winners of the pairs, and then finally carefully selecting the order in which the losers are added to the chain of sorted items.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "314",
+    "class_uri": "http://opendsa.org/ontology#Binary_Tree_Traversals",
+    "label": "Binary_Tree_Traversals",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "315",
+    "class_uri": "http://opendsa.org/ontology#Floyd's_Algorithm",
+    "label": "Floyd's Algorithm",
+    "comment": "An algorithm for finding shortest paths in a weighted graph with positive or negative edge weights (but no negative cycles).",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "316",
+    "class_uri": "http://opendsa.org/ontology#Computability",
+    "label": "Computability",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "317",
+    "class_uri": "http://opendsa.org/ontology#Bucket_Hashing",
+    "label": "Bucket Hashing",
+    "comment": "A type of hashing where keys are hashed to a bucket that might store multiple records.",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "318",
+    "class_uri": "http://opendsa.org/ontology#Spatial_Data_Structures",
+    "label": "Spatial_Data_Structures",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "319",
+    "class_uri": "http://opendsa.org/ontology#Programming_Language_Construct",
+    "label": "Programming_Language_Construct",
+    "comment": "",
+    "description (optional)": "",
+    "is_active (default)": "TRUE"
+  },
+  {
+    "#": "320",
     "class_uri": "http://opendsa.org/ontology#Unsolvable_Problems",
     "label": "Unsolvable Problems",
     "comment": "Problems that cannot be solved by any algorithm, often serving as examples of the limits of computation.",
@@ -1768,115 +2560,51 @@
     "is_active (default)": "TRUE"
   },
   {
-    "#": "255",
-    "class_uri": "http://opendsa.org/ontology#Debugging",
-    "label": "Debugging",
-    "comment": "The process of identifying, analyzing, and fixing bugs or defects in software to ensure correct operation.",
+    "#": "321",
+    "class_uri": "http://opendsa.org/ontology#Spatial_Data_Structure",
+    "label": "Spatial_Data_Structure",
+    "comment": "A data structure designed to support efficient processing when a spatial attribute is used as the key. In particular, a data structure that supports efficient search by location, or finds all records within a given region in two or more dimensions. Examples of spatial data structures to store point data include the bintree, the PR quadtree and the kd tree.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "256",
-    "class_uri": "http://opendsa.org/ontology#Problem_Solving_Heuristics",
-    "label": "Problem Solving Heuristics",
-    "comment": "Techniques and strategies used to solve computational problems efficiently, often used as a basis for algorithms.",
+    "#": "322",
+    "class_uri": "http://opendsa.org/ontology#I'th_Element_Problem",
+    "label": "I'th Element Problem",
+    "comment": "Determine the ith greatest (or smallest) value in a collection.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "257",
-    "class_uri": "http://opendsa.org/ontology#Algorithm_Definition",
-    "label": "Algorithm Definition",
-    "comment": "An explicit, step-by-step description of a process to solve a problem or perform a computation.",
+    "#": "323",
+    "class_uri": "http://opendsa.org/ontology#Lambda_Calculus",
+    "label": "Lambda Calculus",
+    "comment": "A formal system in mathematical logic for expressing computation through function abstraction and application.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "258",
-    "class_uri": "http://opendsa.org/ontology#Problem_Definition",
-    "label": "Problem Definition",
-    "comment": "Formal representation and specification of a problem to determine its computational solution.",
+    "#": "324",
+    "class_uri": "http://opendsa.org/ontology#K-ary_Tree_Implementation",
+    "label": "K-ary Tree Implementation",
+    "comment": "Methods for implementing trees where each node has up to k children, used for organizing hierarchical data.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "259",
-    "class_uri": "http://opendsa.org/ontology#Command_Line_Interface",
-    "label": "Command Line Interface",
-    "comment": "Text-based interface used to interact with software systems by entering commands.",
+    "#": "325",
+    "class_uri": "http://opendsa.org/ontology#Source_Level_Debugging",
+    "label": "Source Level Debugging",
+    "comment": "A technique that allows developers to debug programs using the original source code, making it easier to identify and fix issues. It provides a way to see the correspondence between the source code and the executable code, helping to track down bugs more effectively.",
     "description (optional)": "",
     "is_active (default)": "TRUE"
   },
   {
-    "#": "260",
-    "class_uri": "http://opendsa.org/ontology#Java_Scanner_Class",
-    "label": "Java Scanner Class",
-    "comment": "A class in Java used to parse and read input from various sources like strings, files, and streams.",
+    "#": "326",
+    "class_uri": "http://opendsa.org/ontology#Breadth-First_Search",
+    "label": "Breadth-First Search",
+    "comment": "An organized process to visit all nodes in a graph by first visiting all nodes one step from the source, then two steps, and so on. If the graph were actually a tree, this would be visitng nodes level by level.",
     "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "261",
-    "class_uri": "http://opendsa.org/ontology#Command_Line_Parameters",
-    "label": "Command Line Parameters",
-    "comment": "Arguments passed to programs via the command line to control the program's behavior.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "262",
-    "class_uri": "http://opendsa.org/ontology#Factorial_Algorithms",
-    "label": "Factorial Algorithms",
-    "comment": "Algorithms to calculate the factorial of a number, commonly used in combinatorics and probability.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "263",
-    "class_uri": "http://opendsa.org/ontology#Math_Background",
-    "label": "Math Background",
-    "comment": "Extended topics in mathematics such as modulus, summations, and recurrence relations, relevant to computer science.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "264",
-    "class_uri": "http://opendsa.org/ontology#File_Processing",
-    "label": "File Processing",
-    "comment": "A method to read or write data at arbitrary locations in a file, allowing non-sequential access.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "265",
-    "class_ri": "http://opendsa.org/ontology#Data_Compression",
-    "label": "Data Compression",
-    "comment": "the process of encoding, restructuring or otherwise modifying data in order to reduce its size.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "266",
-    "class_uri": "http://opendsa.org/ontology#Exception_Handling",
-    "label": "Exception Handling",
-    "comment": "Programming techniques to manage errors or exceptional cases, ensuring robustness and preventing program crashes.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "267",
-    "class_uri": "http://opendsa.org/ontology#Control_Structures",
-    "label": "Control Structures",
-    "comment": "Focus on the use of programming control flow elements like conditional statements, loops, and decision-making structures.",
-    "description (optional)": "",
-    "is_active (default)": "TRUE"
-  },
-  {
-    "#": "268",
-    "class_uri": "http://opendsa.org/ontology#Programming_Concepts",
-    "label": "Programming Concepts",
-    "comment": "A foundational class covering fundamental programming concepts such as loops, variables, functions, and basic constructs for understanding programming.",
-    "description (optional)": "This class covers essential programming topics for beginner programmers, introducing fundamental concepts needed to write and understand code.",
     "is_active (default)": "TRUE"
   }
 ]
