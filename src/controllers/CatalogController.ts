@@ -1,9 +1,9 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
-import { ResponseUtil } from '../utils/Response';
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
+import { AppDataSource } from '../db/data-source.js';
+import { ResponseUtil } from '../utils/Response.js';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 
 export class CatalogController {
   async getCatalog(req: Request, res: Response): Promise<Response> {

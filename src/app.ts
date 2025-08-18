@@ -1,17 +1,18 @@
 import cors from 'cors';
 import helmet from 'helmet';
 import express, { Express } from 'express';
-import catalogRoutes from './routes/catalog';
-import aboutRoutes from './routes/about';
-import searchRoutes from './routes/search';
-import viewRoutes from './routes/view';
-import reviewRoutes from './routes/review';
-import ontologyRoutes from './routes/ontology';
-import { ErrorHandler } from './utils/ErrorHandler';
+import catalogRoutes from './routes/catalog.js';
+import aboutRoutes from './routes/about.js';
+import searchRoutes from './routes/search.js';
+import viewRoutes from './routes/view.js';
+import reviewRoutes from './routes/review.js';
+import ontologyRoutes from './routes/ontology.js';
+import { ErrorHandler } from './utils/ErrorHandler.js';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import { auth } from 'express-openid-connect';
 import * as dotenv from 'dotenv';
-import { AppDataSource } from './db/data-source';
+import { AppDataSource } from './db/data-source.js';
 
 (async () => {
   try {
@@ -46,6 +47,9 @@ if (process.env.NODE_ENV === 'production') {
     }),
   );
 }
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));

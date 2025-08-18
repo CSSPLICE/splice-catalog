@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
+import { AppDataSource } from '../db/data-source.js';
 import { FindOptionsWhere, ILike, IsNull } from 'typeorm';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import { SLCItem } from 'src/types/ItemTypes';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
+import { SLCItem } from 'src/types/ItemTypes.js';
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {

@@ -1,5 +1,5 @@
 import express from 'express';
-import { SearchController } from '../controllers/SearchController';
+import { SearchController } from '../controllers/SearchController.js';
 
 
 const searchController = new SearchController();

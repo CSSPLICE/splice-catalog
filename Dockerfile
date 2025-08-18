@@ -1,10 +1,9 @@
-FROM node:lts-buster-slim AS development
+FROM node:lts-bookworm-slim AS development
 
 WORKDIR /app
 
 COPY package.json yarn.lock ./
 RUN yarn install
-RUN yarn global add ts-node
 
 COPY . .
 
