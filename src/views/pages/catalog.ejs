@@ -93,3 +93,25 @@
 </body>
 <%- include('../partials/footer') -%>
 </html>
+
+<script>
+  async function downloadFullCatalog () {
+    try {
+      const res = await fetch('/catalog/dump/all');
+      if (!res.ok) throw new Error('Server error ' + res.status);
+
+      const blob = await res.blob();                       // get data
+      const url  = URL.createObjectURL(blob);              // make temp URL
+
+      const a   = document.createElement('a');
+      a.href     = url;
+      a.download = 'full-catalog.json';
+      document.body.appendChild(a);
+      a.click();                                           // trigger save
+      a.remove();
+      URL.revokeObjectURL(url);                            // free memory
+    } catch (err) {
+      alert('Download failed: ' + err.message);
+    }
+  }
+</script>

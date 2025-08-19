@@ -85,4 +85,89 @@ export class CatalogController {
       return res.status(500).send('Internal Server Error');
     }
   }
+
+  async dumpItem(req: Request, res: Response) {
+  const id = parseInt(req.params.id, 10);
+  if (isNaN(id)) {
+    return res.status(400).json({ error: "Invalid item ID" });
+  }
+
+  try {
+    const item = await AppDataSource.getRepository(slc_item_catalog).findOne({
+      where: { id },
+    });
+
+    if (!item) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    // Create a safe filename based on the item's name
+    const safeName = item.exercise_name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "");
+
+    const filename = `${safeName || "slc_item_" + id}.json`;
+
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+    res.setHeader("Content-Type", "application/json");
+
+    // Exclude the id field
+    const { id: _, ...itemWithoutId } = item;
+    const json = JSON.stringify(itemWithoutId, null, 2);
+    res.send(json);
+  } catch (error) {
+    console.error("Error dumping item:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 }
+
+async dumpFullCatalog(req: Request, res: Response){
+  try {
+    const allItems = await AppDataSource.getRepository(slc_item_catalog).find();
+    
+    const results = allItems.map(({ id, ...rest }) => rest);
+
+    const jsonData = JSON.stringify(results, null, 2);
+
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', 'attachment; filename="full-catalog.json"');
+    res.send(jsonData);
+  } catch (error) {
+    console.error("Error dumping full catalog:", error);
+    res.status(500).json({ error: "Failed to dump catalog" });
+  }
+};
+
+async dumpByQuery(req: Request, res: Response) {
+  const { query } = req.params;
+
+  try {
+    const decodedQuery = decodeURIComponent(query).toLowerCase();
+
+    const matchingItems = await AppDataSource.getRepository(slc_item_catalog)
+      .createQueryBuilder("item")
+      .where("LOWER(item.exercise_name) LIKE :query", { query: `%${decodedQuery}%` })
+      .orWhere("LOWER(item.description) LIKE :query", { query: `%${decodedQuery}%` }) // optional: match on other fields
+      .getMany();
+
+    if (matchingItems.length === 0) {
+      return res.status(404).json({ error: "No matching items found." });
+    }
+
+    const results = matchingItems.map(({ id, ...rest }) => rest);
+
+    const filename = `slc_items_matching_${decodedQuery.replace(/[^a-z0-9]/g, '_')}.json`;
+
+    res.setHeader("Content-Type", "application/json");
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+
+    res.send(JSON.stringify(results, null, 2));
+  } catch (error) {
+    console.error("Error dumping items by query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+}
+

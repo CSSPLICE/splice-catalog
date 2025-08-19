@@ -1,3 +1,4 @@
+
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
@@ -39,6 +40,29 @@ export class ViewController {
       showLoginButton: res.locals.showLoginButton,
     });
   }
+
+  async itemViewById(req: Request, res: Response) {
+  const id = Number(req.params.id);
+
+  if (isNaN(id)) {
+    return res.status(400).send('Invalid item ID');
+  }
+
+  try {
+    const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({ id });
+
+    if (!item) {
+      return res.status(404).render('pages/item', { item: null, title: 'Item Not Found' });
+    }
+
+    res.render('pages/item', { item, title: 'Item View' });
+  } catch (error) {
+    console.error('Error fetching item:', error);
+    res.status(500).send('Internal Server Error');
+  }
+}
+
+
 
   async instructionsView(req: Request, res: Response) {
     res.render('pages/instructions', {
@@ -206,6 +230,7 @@ export class ViewController {
   async rejectAll(req: Request, res: Response) {
     return res.redirect('/upload');
   }
+}
 
   /* async itemViewByName(req: Request, res: Response) {
     const { name } = req.params;
@@ -224,8 +249,8 @@ export class ViewController {
       return res.status(500).send('Internal Server Error');
     }
   }*/
-}
-export async function downloadValidationResults(req: Request, res: Response) {
+
+    export async function downloadValidationResults(req: Request, res: Response) {
   try {
     const repo = AppDataSource.getRepository(ValidationResults);
     const results = await repo.find({ relations: ['item'] });
