@@ -1,10 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
 
-export enum roles {
+export const enum roles {
 		admin = "admin",
 		contributor = "contributor",
 }
 
+/**
+ * Middleware wrapper to check role of client in accessing routes
+ *
+ * Usage:
+ * 		app.use('/route', checkRole("admin"), router)
+ *
+ * @param {roles} role Role required to access route
+ * @returns {function} Middleware that performs the relevant checks
+ */
 export function checkRole(role: roles): (req: Request, res: Response, next: NextFunction) => void {
 		return (req: Request, res: Response, next: NextFunction) => {
 				if (!req.oidc.isAuthenticated()) {
