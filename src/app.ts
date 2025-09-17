@@ -15,6 +15,7 @@ import * as dotenv from 'dotenv';
 import { setup } from './admin-panel/adminjs-setup.js'
 import { AppDataSource } from './db/data-source.js';
 import { EventEmitter } from 'events';
+import { checkRole, roles } from "./middleware/middleware.js";
 
 const emitter = new EventEmitter();
 (async () => {
@@ -86,7 +87,7 @@ emitter.on('DataSourceInitialized',
 )
 emitter.on('DataSourceInitialized', () => {
   const adminRouter = setup();
-  app.use('/admin', adminRouter);
+  app.use('/admin', checkRole(roles.admin), adminRouter);
 })
 
 app.use(ErrorHandler.handleErrors);
