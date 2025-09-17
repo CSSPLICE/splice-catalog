@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, BaseEntity } from 'typeorm';
 
 @Entity('item_classification')
-export class ItemClassification {
+export class ItemClassification extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

@@ -6,11 +6,12 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  BaseEntity,
 } from 'typeorm';
 // import { OntologyClasses } from './OntologyClass.js';
 
 @Entity('ontology_aliases')
-export class OntologyAliases {
+export class OntologyAliases  extends BaseEntity{
   @PrimaryGeneratedColumn()
   id!: number;
 

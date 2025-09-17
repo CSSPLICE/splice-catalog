@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, BaseEntity } from 'typeorm';
 
 @Entity()
-export class OntologyRelations {
+export class OntologyRelations extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

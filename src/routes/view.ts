@@ -14,8 +14,8 @@ const maxSize = 1000000 * 50;
 const upload = multer({ dest: '/tmp', limits: { fieldSize: maxSize } });
 
 router.get('/', viewController.homeView);
-router.post('/upload', upload.single('file'), viewController.uploadPost);
-router.get('/upload', viewController.uploadView);
+router.post('/upload', requiresAuth(), upload.single('file'), viewController.uploadPost);
+router.get('/upload', requiresAuth(), viewController.uploadView);
 
 router.get('/instructions', viewController.instructionsView);
 router.get('/catalog', viewController.catalogView);
