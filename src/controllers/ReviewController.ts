@@ -26,7 +26,7 @@ export class ReviewController {
       logger.info('Starting metadata validation');
 
       // Separate the items by catalog type
-      const slcItemCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCItemCatalog');
+      const slcItemCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCItem');
       const slcToolsCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCToolsCatalog');
 
       // Process SLCItemCatalogs
