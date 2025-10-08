@@ -24,31 +24,31 @@ export class slc_item_catalog extends BaseEntity {
   @Column()
   description!: string;
 
-  @Column()
+  @Column('simple-array')
   author!: string[];
 
-  @Column()
+  @Column('simple-array')
   institution!: string[];
 
-  @Column('json')
+  @Column('simple-array')
   keywords!: string[];
 
-  @Column()
+  @Column('simple-array')
   features!: string[];
 
   @Column()
   title!: string;
 
-  @Column()
+  @Column('simple-array')
   programming_language?: string[];
 
-  @Column()
+  @Column('simple-array')
   natural_language!: string[];
 
-  @Column()
+  @Column('simple-array')
   protocol?: string[]
 
-  @Column()
+  @Column('simple-array')
   protocol_url?: string[]
 
   @OneToMany('ValidationResults', (validationResult: any) => validationResult.item, {
