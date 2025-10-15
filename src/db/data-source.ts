@@ -12,7 +12,7 @@ import { SeedInitialSchema1759958275364 } from './migrations/1759958275364-SeedI
 
 dotenv.config();
 
-export const AppDataSource = new DataSource({
+export const AppDataSource: DataSource = new DataSource({
   type: 'mysql',
   host: process.env.DB_HOST || 'db',
   port: Number(process.env.DB_PORT) || 3306,

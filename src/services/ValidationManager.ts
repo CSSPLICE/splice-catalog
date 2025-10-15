@@ -92,11 +92,7 @@ export class ValidationManager {
       logger.info(`DENIS IS STARTING metadata validation for ${jsonArray.length} items`);
 
       // 1. Transform SLCItem[] -> CreateSLCItemDTO[]
-      const createDtoArray: CreateSLCItemDTO[] = jsonArray.map((item) => ({
-        ...item,
-        keywords: item.keywords ?? [], // Ensure keywords is string[]
-        lti_instructions_url: item.lti_instructions_url ?? '',
-      }));
+      const createDtoArray: CreateSLCItemDTO[] = jsonArray
 
       // 2. Validate the CreateSLCItemDTO[] array
       const result = await this.metadataValidator.validate(createDtoArray);
