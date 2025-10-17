@@ -94,10 +94,9 @@ export class ReviewController {
         // }
 
         for (const item of slcItemCatalogs) {
-          const dto = plainToInstance(CreateSLCItemDTO, item)
-          const result = await validate(dto)
+          const entity = catalogRepository.create(item)
+          const result = await validate(entity)
           if (result.length === 0) {
-            const entity = catalogRepository.create(item)
             await catalogRepository.save(entity)
           }
           else {
