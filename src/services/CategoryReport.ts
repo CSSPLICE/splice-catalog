@@ -18,7 +18,7 @@ export class CategoryReport {
     const unmatched: MatchedItem[] = [];
 
     for (const item of items) {
-      logger.info(`Processing item: ${item.exercise_name}`);
+      logger.info(`Processing item: ${item.title}`);
       const matchedClasses = await this.matcher.matchKeywordsToOntology({
         keywords: item.keywords || [],
       });

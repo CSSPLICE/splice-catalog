@@ -10,13 +10,13 @@ import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO.js';
 import { ReviewController } from './ReviewController.js';
-import { ValidationManager } from '../services/ValidationManager.js';
+// import { ValidationManager } from '../services/ValidationManager.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
 
 const reviewController = new ReviewController();
 const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
 const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
-const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
+// const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {
@@ -184,8 +184,8 @@ export class ViewController {
     // Proceed to store and classify items after processing all entries
     if (itemsToClassify.length > 0) {
       logger.info('calling storeAndClassifyItems');
-      const categoryReport = await validationManager.generateCategoryReport(itemsToClassify);
-      await validationManager.storeAndClassifyItems(categoryReport);
+      // const categoryReport = await validationManager.generateCategoryReport(itemsToClassify);
+      // await validationManager.storeAndClassifyItems(categoryReport);
     }
 
     return ResponseUtil.sendResponse(res, `${processedCount} entries processed successfully`, 201);

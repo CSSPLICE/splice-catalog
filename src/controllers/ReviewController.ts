@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import logger from '../utils/logger.js';
-import { ValidationManager } from '../services/ValidationManager.js';
+// import { ValidationManager } from '../services/ValidationManager.js';
 import { ToolsCatalogController } from './ToolsCatalogController.js';
 import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
@@ -13,7 +13,7 @@ export class ReviewController {
     const jsonArray = Array.isArray(req.body) ? req.body : [req.body];
     const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
     const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
-    const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
+    // const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
     const toolsCatalogController = new ToolsCatalogController();
 
     let metadataIssues: MetadataIssue[] = [];
@@ -51,8 +51,9 @@ export class ReviewController {
           res.status(500).send(
             errors.map(
               (error: ValidationError) => {
+                const target = error.target as slc_item_catalog | undefined;
                 return {
-                  persistentID: error.target?.persistentID || "missing id",
+                  persistentID: target?.persistentID || "missing id",
                   constraints: error.constraints,
                 }
               }
