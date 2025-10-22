@@ -8,7 +8,8 @@ import { AppDataSource } from '../db/data-source.js'; // Adjust the path to your
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import {plainToInstance} from "class-transformer";
 import {CreateSLCItemDTO} from "../dtos/SLCItemDTO.js";
-import {validate} from "class-validator";
+import {validate, ValidationError} from "class-validator";
+import {error} from "winston";
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
@@ -93,16 +94,34 @@ export class ReviewController {
         //   res.locals.io.emit('categorizationComplete', categorizationResults);
         // }
 
+        const errors: ValidationError[] = [];
+        let saves: number = 0;
         for (const item of slcItemCatalogs) {
-          const entity = catalogRepository.create(item)
-          const result = await validate(entity)
+          const entity = catalogRepository.create(item);
+          const result = await validate(entity);
           if (result.length === 0) {
-            await catalogRepository.save(entity)
+            saves++;
+            await catalogRepository.save(entity);
           }
           else {
-            console.log(`Error: ${result.length} validation issues:`, result)
-            throw new Error("Failed: Validation Issues");
+            errors.push(...result);
           }
+        }
+        if (errors.length > 0) {
+          console.log("Validation Errors: ", errors);
+          res.status(500).send(
+            errors.map(
+              (error: ValidationError) => {
+                return {
+                  persistentID: error.target?.persistentID || "missing id",
+                  constraints: error.constraints,
+                }
+              }
+            )
+          );
+        }
+        else {
+          res.status(200).send(`successfully saved ${saves} entries`);
         }
       }
 
