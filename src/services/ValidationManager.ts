@@ -1,17 +1,17 @@
-import logger from '../utils/logger';
-import { MetadataValidator } from './MetadataValidator';
-import { URLValidator } from './URLValidator';
-import { CategoryReport } from './CategoryReport';
-import { Categorizer } from './Categorizer';
-import { MetadataIssue, URLValidationResult } from '../types/ValidationTypes';
-import { SLCItem } from '../types/ItemTypes';
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { CategorizationReport } from '../types/CategorizationTypes';
+import logger from '../utils/logger.js';
+import { MetadataValidator } from './MetadataValidator.js';
+import { URLValidator } from './URLValidator.js';
+import { CategoryReport } from './CategoryReport.js';
+import { Categorizer } from './Categorizer.js';
+import { MetadataIssue, URLValidationResult } from '../types/ValidationTypes.js';
+import { SLCItem } from '../types/ItemTypes.js';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
+import { CategorizationReport } from '../types/CategorizationTypes.js';
 import { Repository } from 'typeorm';
-import { ValidationResults } from '../db/entities/ValidationResults';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import { validateLTI } from './ValidatorLTI';
-import { runIframeValidation } from './IframeValidatorService';
+import { ValidationResults } from '../db/entities/ValidationResults.js';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
+import { validateLTI } from './ValidatorLTI.js';
+import { runIframeValidation } from './IframeValidatorService.js';
 
 export class ValidationManager {
   private metadataValidator: MetadataValidator;
@@ -92,11 +92,7 @@ export class ValidationManager {
       logger.info(`DENIS IS STARTING metadata validation for ${jsonArray.length} items`);
 
       // 1. Transform SLCItem[] -> CreateSLCItemDTO[]
-      const createDtoArray: CreateSLCItemDTO[] = jsonArray.map((item) => ({
-        ...item,
-        keywords: item.keywords ?? [], // Ensure keywords is string[]
-        lti_instructions_url: item.lti_instructions_url ?? '',
-      }));
+      const createDtoArray: CreateSLCItemDTO[] = jsonArray
 
       // 2. Validate the CreateSLCItemDTO[] array
       const result = await this.metadataValidator.validate(createDtoArray);

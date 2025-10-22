@@ -13,11 +13,17 @@ rebuild: ## This builds the images with no-cache
 up: build ## This brings up the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) up
 
+upd: build ## This requests docker daemon to launch the app
+	$(COMPOSE_COMMAND) $(DEV_PROFILE) up -d
+
 down: ## This takes down the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) down
 
 exec: ## This execs into the running catalog container
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) exec catalog bash
+
+install: ## This installs necessary yarn dependencies into the catalog container
+	$(COMPOSE_COMMAND) $(DEV_PROFILE) run catalog yarn install
 
 nuke: ## This removes all the volumes as well as taking down the app
 	$(COMPOSE_COMMAND) $(DEV_PROFILE) down -v --remove-orphans

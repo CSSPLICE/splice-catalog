@@ -10,9 +10,9 @@ process.on('uncaughtException', (err) => {
 
 import * as dotenv from 'dotenv';
 import 'reflect-metadata';
-import app from './app';
-import { AppDataSource } from './db/data-source';
-import logger from './utils/logger';
+import app from './app.js';
+import { AppDataSource } from './db/data-source.js';
+import logger from './utils/logger.js';
 import http from 'http';
 import { Server } from 'socket.io';
 

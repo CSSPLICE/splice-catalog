@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
-import logger from '../utils/logger';
-import { ValidationManager } from '../services/ValidationManager';
-import { ToolsCatalogController } from './ToolsCatalogController';
-import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes';
-import { ValidationResults } from '../db/entities/ValidationResults';
-import { AppDataSource } from '../db/data-source'; // Adjust the path to your data-source file
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
+import logger from '../utils/logger.js';
+import { ValidationManager } from '../services/ValidationManager.js';
+import { ToolsCatalogController } from './ToolsCatalogController.js';
+import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes.js';
+import { ValidationResults } from '../db/entities/ValidationResults.js';
+import { AppDataSource } from '../db/data-source.js'; // Adjust the path to your data-source file
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
+import {validate, ValidationError} from "class-validator";
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
@@ -26,68 +27,40 @@ export class ReviewController {
       logger.info('Starting metadata validation');
 
       // Separate the items by catalog type
-      const slcItemCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCItemCatalog');
+      const slcItemCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCItem');
       const slcToolsCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCToolsCatalog');
 
       // Process SLCItemCatalogs
       if (slcItemCatalogs.length > 0) {
         logger.info(`Processing ${slcItemCatalogs.length} SLCItemCatalog items`);
-
-        // Validate metadata
-        const metadataResult = await validationManager.validateMetadata(slcItemCatalogs);
-        metadataIssues = metadataResult.issues as MetadataIssue[];
-        successfulVerifications += metadataResult.successfulVerifications;
-        totalSubmissions += metadataResult.totalSubmissions;
-        allValidItems = metadataResult.validItems;
-
-        if (res.locals.io) {
-          res.locals.io.emit('metadataValidationComplete', metadataResult);
+        const errors: ValidationError[] = [];
+        let saves: number = 0;
+        for (const item of slcItemCatalogs) {
+          const entity = catalogRepository.create(item);
+          const result = await validate(entity);
+          if (result.length === 0) {
+            saves++;
+            await catalogRepository.save(entity);
+          }
+          else {
+            errors.push(...result);
+          }
         }
-
-        // URL Validation
-        logger.info('Starting URL validation for SLCItemCatalog');
-        urlResult = await validationManager.validateUrls(allValidItems);
-        const { urlsChecked, successfulUrls } = urlResult;
-        if (res.locals.io) {
-          res.locals.io.emit('urlValidationComplete', urlResult);
+        if (errors.length > 0) {
+          console.log("Validation Errors: ", errors);
+          res.status(500).send(
+            errors.map(
+              (error: ValidationError) => {
+                return {
+                  persistentID: error.target?.persistentID || "missing id",
+                  constraints: error.constraints,
+                }
+              }
+            )
+          );
         }
-        logger.info(`URL Validation Completed: ${successfulUrls}/${urlsChecked} successful`);
-
-        // Categorization Process
-        logger.info('Starting category report generation for validated items');
-        const categoryReport = await validationManager.generateCategoryReport(allValidItems);
-        if (res.locals.io) {
-          res.locals.io.emit('categoryReportComplete', categoryReport);
-        }
-
-        // Store and classify all items
-        try {
-          logger.info('Starting storage and classification of all valid items');
-          await validationManager.storeAndClassifyItems(categoryReport);
-          logger.info('Successfully stored and classified all items');
-        } catch (error) {
-          logger.error('Error in storing and classifying items:', error);
-        }
-
-        categorizationResults = [
-          ...categoryReport.matched.map((item) => ({
-            item: item.item.exercise_name,
-            status: 'success' as const,
-            matchedClass: item.matchedClass,
-          })),
-          ...categoryReport.unclassified.map((item) => ({
-            item: item.item.exercise_name,
-            status: 'Unclassified' as const,
-            matchedClass: 'Unclassified',
-          })),
-          ...categoryReport.unmatched.map((item) => ({
-            item: item.item.exercise_name,
-            status: 'failed' as const,
-            matchedClass: 'None',
-          })),
-        ];
-        if (res.locals.io) {
-          res.locals.io.emit('categorizationComplete', categorizationResults);
+        else {
+          res.status(200).send(`successfully saved ${saves} entries`);
         }
       }
 

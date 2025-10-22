@@ -1,8 +1,9 @@
 import express from 'express';
-import { ViewController } from '../controllers/ViewController';
-import { downloadValidationResults } from '../controllers/ViewController';
+import {downloadValidationResults, ViewController} from '../controllers/ViewController.js';
 import multer from 'multer';
-import { requiresAuth } from 'express-openid-connect';
+import pkg from 'express-openid-connect';
+import { checkRole, roles } from "../middleware/middleware.js";
+const { requiresAuth } = pkg;
 
 const viewController = new ViewController();
 
@@ -13,8 +14,8 @@ const maxSize = 1000000 * 50;
 const upload = multer({ dest: '/tmp', limits: { fieldSize: maxSize } });
 
 router.get('/', viewController.homeView);
-router.post('/upload', upload.single('file'), viewController.uploadPost);
-router.get('/upload', viewController.uploadView);
+router.post('/upload', checkRole(roles.contributor), upload.single('file'), viewController.uploadPost);
+router.get('/upload', checkRole(roles.contributor), viewController.uploadView);
 
 router.get('/instructions', viewController.instructionsView);
 router.get('/catalog', viewController.catalogView);
