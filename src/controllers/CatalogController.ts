@@ -57,12 +57,17 @@ export class CatalogController {
     }
     return ResponseUtil.sendResponse(res, 'failed to delete the CatalogItem', 400);
   }
-  async getCatalogItemByName(req: Request, res: Response): Promise<Response | void> {
-    const { name } = req.params;
+  async getCatalogItemByID(req: Request, res: Response): Promise<Response | void> {
+    const { id } = req.params;
+    const idNumber = Number(id);
+
+    if (isNaN(idNumber)) {
+      return res.status(400).send('Invalid catalog ID');
+    }
 
     try {
       const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({
-        exercise_name: decodeURIComponent(name),
+        id: idNumber,
       });
 
       if (!item) {

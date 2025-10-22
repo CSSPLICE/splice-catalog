@@ -19,23 +19,23 @@ export class Categorizer {
     for (const item of items) {
       try {
         //Find or insert the item in slc_item_catalog
-        let itemRecord = await this.itemRepo.findOne({ where: { exercise_name: item.exercise_name } });
+        let itemRecord = await this.itemRepo.findOne({ where: { title: item.title } });
 
         if (!itemRecord) {
-          logger.info(`Inserting new item into slc_item_catalog: ${item.exercise_name}`);
+          logger.info(`Inserting new item into slc_item_catalog: ${item.title}`);
           itemRecord = await this.itemRepo.save(item);
-          logger.info(`Inserted item with ID: ${itemRecord?.id} for exercise: ${item.exercise_name}`);
+          logger.info(`Inserted item with ID: ${itemRecord?.id} for exercise: ${item.title}`);
         } else {
-          logger.info(`Found existing item with ID: ${itemRecord.id} for exercise: ${item.exercise_name}`);
+          logger.info(`Found existing item with ID: ${itemRecord.id} for exercise: ${item.title}`);
         }
 
         if (!itemRecord || !itemRecord.id) {
-          logger.error(`Item ${item.exercise_name} could not be saved or retrieved from slc_item_catalog.`);
+          logger.error(`Item ${item.title} could not be saved or retrieved from slc_item_catalog.`);
           continue; // Skip if itemRecord is null
         }
 
         //Find or assign class
-        const matchedItem = matchedItems.find((m) => m.item.exercise_name === item.exercise_name);
+        const matchedItem = matchedItems.find((m) => m.item.title === item.title);
         let classEntity: OntologyClasses | null = null;
 
         if (matchedItem && matchedItem.matchedClass) {
@@ -43,7 +43,7 @@ export class Categorizer {
         }
 
         if (!classEntity) {
-          logger.info(`Assigning 'Unclassified' class to item ${item.exercise_name}`);
+          logger.info(`Assigning 'Unclassified' class to item ${item.title}`);
           classEntity = await this.ontologyRepo.findOne({ where: { label: 'Unclassified' } });
           if (!classEntity) {
             logger.error(`"Unclassified" class not found in ontology.`);
@@ -63,9 +63,9 @@ export class Categorizer {
 
         await this.classificationRepo.save(classification);
 
-        logger.info(`Successfully classified item ${item.exercise_name} under class ${classEntity.label}`);
+        logger.info(`Successfully classified item ${item.title} under class ${classEntity.label}`);
       } catch (error) {
-        logger.error(`Failed to classify item ${item.exercise_name}:`, error);
+        logger.error(`Failed to classify item ${item.title}:`, error);
       }
     }
   }

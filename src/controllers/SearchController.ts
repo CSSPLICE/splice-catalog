@@ -25,7 +25,7 @@ export class SearchController {
     let dbQuery: FindOptionsWhere<SLCItem>[] = [
       { keywords: ILike(`%${query}%`) },
       { platform_name: ILike(`%${query}%`) },
-      { exercise_name: ILike(`%${query}%`) },
+      { title: ILike(`%${query}%`) },
       { catalog_type: ILike(`%${query}%`) },
     ];
 
@@ -92,8 +92,7 @@ export class SearchController {
         where: [
           { keywords: ILike(`%${query}%`) },
           { platform_name: ILike(`%${query}%`) },
-          { exercise_name: ILike(`%${query}%`) },
-          { exercise_type: ILike(`%${query}%`) },
+          { title: ILike(`%${query}%`) },
           { catalog_type: ILike(`%${query}%`) },
         ],
         skip: (currentPage - 1) * ITEMS_PER_PAGE,
