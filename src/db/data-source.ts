@@ -8,21 +8,11 @@ import { OntologyRelations } from './entities/OntologyRelation.js';
 import { OntologyAliases } from './entities/OntologyAlias.js';
 import { ItemClassification } from './entities/ItemClassification.js';
 import { ValidationResults } from './entities/ValidationResults.js';
-// import { CreateSPLICECatalog1699653593228 } from './migrations/1699653593228-CreateSPLICECatalog';
-import { CreateSLCToolsCatalog1708095482368 } from './migrations/1708095482368-CreateSLCToolsCatalog.js';
-import { CreateDatasetCatalog1708977188986 } from './migrations/1708977188986-CreateDatasetCatalog.js';
-import { CreateSpliceCatalog1710861730789 } from './migrations/1710861730789-CreateSpliceCatalog.js';
-import { CreateOntologyClasses1727750586131 } from './migrations/1727750586131-CreateOntologyClasses.js';
-import { CreateOntologyAliases1727750762837 } from './migrations/1727750762837-CreateOntologyAliases.js';
-import { CreateOntologyRelations1727750789779 } from './migrations/1727750789779-CreateOntologyRelations.js';
-import { CreateItemClassification1727750775894 } from './migrations/1727750775894-CreateItemClassification.js';
-import { CreateValidationResults1743975897306 } from './migrations/1743975897306-CreateValidationResults.js';
-import { AddRelationToValidationResults1744043458304 } from './migrations/1744043458304-AddRelationToValidationResults.js';
-import { AddValidationFields1744688022277 } from './migrations/1744688022277-AddValidationFields.js';
+import { SeedInitialSchema1759958275364 } from './migrations/1759958275364-SeedInitialSchema.js';
 
 dotenv.config();
 
-export const AppDataSource = new DataSource({
+export const AppDataSource: DataSource = new DataSource({
   type: 'mysql',
   host: process.env.DB_HOST || 'db',
   port: Number(process.env.DB_PORT) || 3306,
@@ -30,17 +20,7 @@ export const AppDataSource = new DataSource({
   password: process.env.DB_PASSWORD || 'splice',
   database: process.env.DB_DATABASE || 'splice',
   migrations: [
-    CreateSpliceCatalog1710861730789,
-    CreateSLCToolsCatalog1708095482368,
-    CreateDatasetCatalog1708977188986,
-    CreateOntologyClasses1727750586131,
-    CreateOntologyRelations1727750789779,
-    CreateOntologyAliases1727750762837,
-    CreateItemClassification1727750775894,
-    CreateValidationResults1743975897306,
-    AddRelationToValidationResults1744043458304,
-    AddValidationFields1744688022277,
-    // SeedInitialData1699653979099,  // seed migration runs, #Todo include import for dev environment
+    SeedInitialSchema1759958275364,
   ],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [

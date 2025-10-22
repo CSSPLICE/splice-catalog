@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
-import { argv } from 'yargs';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 import { execSync } from 'child_process';
+
+const argv = yargs(hideBin(process.argv)).argv;
 
 // Parse the command-line arguments
 const {

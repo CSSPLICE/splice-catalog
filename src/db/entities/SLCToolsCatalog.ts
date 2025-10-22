@@ -1,25 +1,49 @@
 import { Entity, PrimaryColumn, Column, BaseEntity } from 'typeorm';
+import { CatalogInterface } from "./CatalogInterface.js";
+import { IsNotEmpty, IsOptional, IsString, IsUrl } from "class-validator";
 
-@Entity('slc_tools_catalog')
-export class slc_tools_catalog extends BaseEntity {
+@Entity()
+export class slc_tools_catalog extends BaseEntity implements CatalogInterface {
   @PrimaryColumn()
+  id!: number;
+
+  @Column()
+  @IsNotEmpty()
+  @IsString()
+  catalog_type!: string;
+
+  @Column()
+  @IsNotEmpty()
+  @IsString()
   platform_name!: string;
 
   @Column()
+  @IsNotEmpty()
+  @IsUrl()
   url!: string;
 
   @Column({ nullable: true })
-  tool_description!: string;
+  @IsNotEmpty()
+  @IsString()
+  description!: string;
 
   @Column({ nullable: true })
-  license!: string;
+  @IsOptional()
+  @IsString()
+  license?: string;
 
   @Column({ nullable: true })
-  standard_support!: string;
+  @IsOptional()
+  @IsString()
+  interface?: string;
 
   @Column({ nullable: true })
-  keywords!: string;
-
-  @Column({ nullable: true })
+  @IsNotEmpty()
+  @IsString()
   contact_email!: string;
+
+  @Column({ nullable: true })
+  @IsOptional()
+  @IsString()
+  lti_credentials?: string;
 }
