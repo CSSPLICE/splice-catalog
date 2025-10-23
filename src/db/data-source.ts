@@ -33,5 +33,5 @@ export const AppDataSource: DataSource = new DataSource({
   ],
   synchronize: false,
   subscribers: [],
-  migrationsRun: true,
+  migrationsRun: false,
 });

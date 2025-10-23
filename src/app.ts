@@ -43,13 +43,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 if (process.env.NODE_ENV === 'production') {
   app.use(
     helmet({
-      contentSecurityPolicy: {
-        directives: {
-          'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu', 'acos.cs.vt.edu', 'codecheck.io'],
-          'script-src': ["'self'", 'splice.cs.vt.edu', 'cdn.jsdelivr.net'],
-        },
-        reportOnly: true,
-      },
+      contentSecurityPolicy: false,
     }),
   );
 }
