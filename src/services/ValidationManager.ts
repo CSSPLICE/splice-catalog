@@ -1,349 +1,364 @@
-// import logger from '../utils/logger.js';
-// import { MetadataValidator } from './MetadataValidator.js';
-// import { URLValidator } from './URLValidator.js';
-// import { CategoryReport } from './CategoryReport.js';
-// import { Categorizer } from './Categorizer.js';
-// import { MetadataIssue, URLValidationResult } from '../types/ValidationTypes.js';
-// import { SLCItem } from '../types/ItemTypes.js';
-// import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
-// import { CategorizationReport } from '../types/CategorizationTypes.js';
-// import { Repository } from 'typeorm';
-// import { ValidationResults } from '../db/entities/ValidationResults.js';
-// import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
-// import { validateLTI } from './ValidatorLTI.js';
-// import { runIframeValidation } from './IframeValidatorService.js';
+import logger from '../utils/logger.js';
+import { MetadataValidator } from './MetadataValidator.js';
+import { URLValidator } from './URLValidator.js';
+import { CategoryReport } from './CategoryReport.js';
+import { Categorizer } from './Categorizer.js';
+import { MetadataIssue, URLValidationResult } from '../types/ValidationTypes.js';
+import { SLCItem } from '../types/ItemTypes.js';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
+import { CategorizationReport } from '../types/CategorizationTypes.js';
+import { Repository } from 'typeorm';
+import { ValidationResults } from '../db/entities/ValidationResults.js';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
+import { validateLTI } from './ValidatorLTI.js';
+import { runIframeValidation } from './IframeValidatorService.js';
 
-// export class ValidationManager {
-//   private metadataValidator: MetadataValidator;
-//   private urlValidator: URLValidator;
-//   private categoryReport: CategoryReport;
-//   private categorizer: Categorizer;
-//   private validationResultsRepository: Repository<ValidationResults>;
-//   private catalogRepository: Repository<slc_item_catalog>;
+export class ValidationManager {
+  private metadataValidator: MetadataValidator;
+  private urlValidator: URLValidator;
+  private categoryReport: CategoryReport;
+  private categorizer: Categorizer;
+  private validationResultsRepository: Repository<ValidationResults>;
+  private catalogRepository: Repository<slc_item_catalog>;
 
-//   constructor(
-//     validationResultsRepository: Repository<ValidationResults>,
-//     catalogRepository: Repository<slc_item_catalog>,
-//   ) {
-//     this.metadataValidator = new MetadataValidator();
-//     this.urlValidator = new URLValidator();
-//     this.categoryReport = new CategoryReport();
-//     this.categorizer = new Categorizer();
-//     this.validationResultsRepository = validationResultsRepository;
-//     this.catalogRepository = catalogRepository;
-//   }
-//   private async getOrCreateValidationResultByUrl(url: string, slcItem?: SLCItem): Promise<ValidationResults | null> {
-//     let catalogItem = await this.catalogRepository.findOne({ where: { url }, relations: ['validationResults'] });
+  constructor(
+    validationResultsRepository: Repository<ValidationResults>,
+    catalogRepository: Repository<slc_item_catalog>,
+  ) {
+    this.metadataValidator = new MetadataValidator();
+    this.urlValidator = new URLValidator();
+    this.categoryReport = new CategoryReport();
+    this.categorizer = new Categorizer();
+    this.validationResultsRepository = validationResultsRepository;
+    this.catalogRepository = catalogRepository;
+  }
+  private async getOrCreateValidationResultByUrl(url: string, slcItem?: SLCItem): Promise<ValidationResults | null> {
+    let catalogItem = await this.catalogRepository.findOne({ where: { iframe_url: slcItem?.iframe_url }, relations: ['validationResults'] });
 
-//     const default_key = 'empty';
+    const default_key = 'empty';
 
-//     if (!catalogItem) {
-//       logger.warn(`Catalog item not found for URL: ${url}`);
+    if (!catalogItem) {
+      logger.warn(`Catalog item not found for URL: ${url}`);
 
-//       const dummyExerciseName = `autogen_${Date.now()}`;
+      const dummyExerciseName = `autogen_${Date.now()}`;
 
-//       // rework this code such that if they are not in the database it puts it in their
-//       // also create validated slc item
-//       const newItem = {
-//         catalog_type: slcItem?.catalog_type ?? default_key,
-//         url: url,
-//         keywords: slcItem?.keywords ?? [],
-//         description: slcItem?.description ?? default_key,
-//         author: slcItem?.author ?? default_key,
-//         institution: slcItem?.institution ?? default_key,
-//         language: slcItem?.language ?? default_key,
-//         platform_name: slcItem?.platform_name ?? default_key,
-//         lti_instructions_url: slcItem?.lti_instructions_url ?? default_key,
-//         exercise_type: slcItem?.exercise_type ?? default_key,
-//         exercise_name: slcItem?.exercise_name ?? dummyExerciseName,
-//         iframe_url: slcItem?.iframe_url ?? default_key,
-//         lti_url: slcItem?.lti_url ?? default_key,
-//       };
+      // rework this code such that if they are not in the database it puts it in their
+      // also create validated slc item
+      const newItem = {
+        catalog_type: slcItem?.catalog_type ?? default_key,
+        persistentID: slcItem?.persistentID ?? default_key,
+        platform_name: slcItem?.platform_name ?? default_key,
+        iframe_url: slcItem?.iframe_url ?? default_key,
+        license: slcItem?.license ?? default_key,
+        description: slcItem?.description ?? default_key,
+        author: Array.isArray(slcItem?.author) ? slcItem.author : [default_key],
+        institution: Array.isArray(slcItem?.institution) ? slcItem.institution : [default_key],
+        keywords: Array.isArray(slcItem?.keywords) ? slcItem.keywords : [default_key],
+        features: Array.isArray(slcItem?.features) ? slcItem.features : [default_key],
+        title: slcItem?.title ?? default_key,
+        programming_language: Array.isArray(slcItem?.programming_language)
+            ? slcItem.programming_language
+            : [default_key],
+        natural_language: Array.isArray(slcItem?.natural_language)
+            ? slcItem.natural_language
+            : [default_key],
+        protocol: Array.isArray(slcItem?.protocol) ? slcItem.protocol : [default_key],
+        protocol_url: Array.isArray(slcItem?.protocol_url) ? slcItem.protocol_url : [default_key],
+    };
 
-//       catalogItem = this.catalogRepository.create(newItem);
-//       await this.catalogRepository.save(catalogItem);
-//       logger.info(`Creating new catalog item with data:`, newItem);
-//     }
+      catalogItem = this.catalogRepository.create(newItem);
+      await this.catalogRepository.save(catalogItem);
+      logger.info(`Creating new catalog item with data:`, newItem);
+    }
 
-//     let validationResult = await this.validationResultsRepository.findOne({
-//       where: { item: { id: catalogItem.id } },
-//       order: { dateLastUpdated: 'DESC' },
-//     });
+    let validationResult = await this.validationResultsRepository.findOne({
+      where: { item: { id: catalogItem.id } },
+      order: { dateLastUpdated: 'DESC' },
+    });
 
-//     if (!validationResult) {
-//       validationResult = this.validationResultsRepository.create({ item: catalogItem, user: 'user' });
-//       await this.validationResultsRepository.save(validationResult);
-//     }
+    if (!validationResult) {
+      validationResult = this.validationResultsRepository.create({ item: catalogItem, user: 'user' });
+      await this.validationResultsRepository.save(validationResult);
+    }
 
-//     return validationResult;
-//   }
-//   /**
-//    * Validates metadata items and returns the result.
-//    * @param jsonArray - Array of SLCItems to validate
-//    * @returns Metadata validation result
-//    */
-//   async validateMetadata(jsonArray: SLCItem[]): Promise<{
-//     issues: MetadataIssue[];
-//     validItems: SLCItem[];
-//     totalSubmissions: number;
-//     successfulVerifications: number;
-//   }> {
-//     try {
-//       logger.info(`DENIS IS STARTING metadata validation for ${jsonArray.length} items`);
+    return validationResult;
+  }
+  /**
+   * Validates metadata items and returns the result.
+   * @param jsonArray - Array of SLCItems to validate
+   * @returns Metadata validation result
+   */
+  async validateMetadata(jsonArray: SLCItem[]): Promise<{
+    issues: MetadataIssue[];
+    validItems: SLCItem[];
+    totalSubmissions: number;
+    successfulVerifications: number;
+  }> {
+    try {
+      logger.info(`DENIS IS STARTING metadata validation for ${jsonArray.length} items`);
 
-//       // 1. Transform SLCItem[] -> CreateSLCItemDTO[]
-//       const createDtoArray: CreateSLCItemDTO[] = jsonArray
+      // 1. Transform SLCItem[] -> CreateSLCItemDTO[]
+      const createDtoArray: CreateSLCItemDTO[] = jsonArray
 
-//       // 2. Validate the CreateSLCItemDTO[] array
-//       const result = await this.metadataValidator.validate(createDtoArray);
+      // 2. Validate the CreateSLCItemDTO[] array
+      const result = await this.metadataValidator.validate(createDtoArray);
 
-//       // Save validation results for each item
-//       for (const item of jsonArray) {
-//         const validationErrors =
-//           result.issues.find((issue) => issue.item.exercise_name === item.exercise_name)?.validationErrors || null;
+      // Save validation results for each item
+      for (const item of jsonArray) {
+        const validationErrors =
+          result.issues.find((issue) => issue.item.persistentID === item.persistentID)?.validationErrors || null;
 
-//         const catalogItem = await this.catalogRepository.findOne({ where: { url: item.url } });
+        const catalogItem = await this.catalogRepository.findOne({ where: { persistentID: item.persistentID} });
 
-//         if (!catalogItem) {
-//           logger.warn(`No catalog item found for URL: ${item.url}`);
-//           continue;
-//         }
+        if (!catalogItem) {
+          logger.warn(`No catalog item found for persistentID: ${item.persistentID}`);
+          continue;
+        }
 
-//         const validationResult = await this.getOrCreateValidationResultByUrl(item.url, item);
-//         if (!validationResult) continue;
+        const validationResult = await this.getOrCreateValidationResultByUrl(item.iframe_url, item);
+        if (!validationResult) continue;
 
-//         // Build detailed metadata error string
-//         const formattedErrors = validationErrors?.length
-//           ? validationErrors
-//               .map((err) => {
-//                 const constraints = err.constraints ? Object.values(err.constraints).join(', ') : 'Unknown issue';
-//                 return `Field "${err.property}": ${constraints}`;
-//               })
-//               .join('; ')
-//           : 'no issues';
+        // Build detailed metadata error string
+        const formattedErrors = validationErrors?.length
+          ? validationErrors
+              .map((err) => {
+                const constraints = err.constraints ? Object.values(err.constraints).join(', ') : 'Unknown issue';
+                return `Field "${err.property}": ${constraints}`;
+              })
+              .join('; ')
+          : 'no issues';
 
-//         validationResult.metadataIssues = formattedErrors;
-//         validationResult.user = item.exercise_name;
-//         validationResult.dateLastUpdated = new Date();
-//         await this.validationResultsRepository.save(validationResult);
-//       }
-//       logger.info(`Metadata validation completed: ${result.validItems.length} valid items`);
-//       //logger.info(); print the validation results
-//       const validSLCItems: SLCItem[] = result.validItems.map((dto) => ({
-//         ...dto,
+        validationResult.metadataIssues = formattedErrors;
+        validationResult.user = item.title;
+        validationResult.dateLastUpdated = new Date();
+        await this.validationResultsRepository.save(validationResult);
+      }
+      logger.info(`Metadata validation completed: ${result.validItems.length} valid items`);
+      //logger.info(); print the validation results
+      const validSLCItems: SLCItem[] = result.validItems.map((dto) => ({
+        ...dto,
 
-//         keywords: dto.keywords ?? [],
-//         lti_instructions_url: dto.lti_instructions_url || undefined,
-//       }));
+        keywords: dto.keywords ?? [],
+      }));
 
-//       return {
-//         issues: result.issues,
-//         validItems: validSLCItems,
-//         totalSubmissions: result.totalSubmissions,
-//         successfulVerifications: result.successfulVerifications,
-//       };
-//     } catch (error) {
-//       logger.error('Error in metadata validation:', error);
-//       throw error;
-//     }
-//   }
+      return {
+        issues: result.issues,
+        validItems: validSLCItems,
+        totalSubmissions: result.totalSubmissions,
+        successfulVerifications: result.successfulVerifications,
+      };
+    } catch (error) {
+      logger.error('Error in metadata validation:', error);
+      throw error;
+    }
+  }
 
-//   /**
-//    * Validates URLs for valid metadata items.
-//    * @param validItems - Array of valid SLCItems
-//    * @returns URL validation result
-//    */
-//   async validateUrls(validItems: SLCItem[]): Promise<URLValidationResult> {
-//     try {
-//       logger.info(`Starting URL validation for ${validItems.length} items`);
-//       const result = await this.urlValidator.validate(validItems);
-//       // Save individual URL validation results into the database
-//       for (const [index, item] of validItems.entries()) {
-//         const isValid = result.successfulUrls > index;
+  /**
+   * Validates URLs for valid metadata items.
+   * @param validItems - Array of valid SLCItems
+   * @returns URL validation result
+   */
+  async validateUrls(validItems: SLCItem[]): Promise<URLValidationResult> {
+    try {
+      logger.info(`Starting URL validation for ${validItems.length} items`);
+      const result = await this.urlValidator.validate(validItems);
+      // Save individual URL validation results into the database
+      for (const [index, item] of validItems.entries()) {
+        const isValid = result.successfulUrls > index;
 
-//         const validationResult = await this.getOrCreateValidationResultByUrl(item.url, item);
-//         if (!validationResult) continue;
+        const validationResult = await this.getOrCreateValidationResultByUrl(item.iframe_url, item);
+        if (!validationResult) continue;
 
-//         validationResult.isUrlValid = isValid;
-//         try {
-//           const iframeResult = await runIframeValidation(item.url);
-//           validationResult.iframeValidationError = iframeResult.passed
-//             ? 'Passed: SPLICE message received'
-//             : iframeResult.message || 'Unknown error';
-//         } catch (iframeError) {
-//           logger.error(`Iframe validation failed for ${item.iframe_url}:`, iframeError);
-//           validationResult.iframeValidationError = 'Iframe validation failed';
-//         }
+        validationResult.isUrlValid = isValid;
+        try {
+          const iframeResult = await runIframeValidation(item.iframe_url);
+          validationResult.iframeValidationError = iframeResult.passed
+            ? 'Passed: SPLICE message received'
+            : iframeResult.message || 'Unknown error';
+        } catch (iframeError) {
+          logger.error(`Iframe validation failed for ${item.iframe_url}:`, iframeError);
+          validationResult.iframeValidationError = 'Iframe validation failed';
+        }
 
-//         //lti validation
-//         if (item.lti_url) {
-//           try {
-//             const ltiPayload = {
-//               launch_url: 'https://codeworkout.cs.vt.edu/lti/launch',
-//               key: 'canvas_key', // replace with real values when available
-//               secret: 'canvas_secret',
-//             };
+        function getLTIURL(item: {protocol?: string[]; protocol_url?: string[];}): string | undefined {
+            const protocolIndex = item.protocol?.findIndex((protocol) => protocol === 'LTI');
+            if (protocolIndex !== undefined && protocolIndex >= 0 && item.protocol_url && item.protocol_url[protocolIndex]) {
+                return item.protocol_url[protocolIndex];
+            }
+            return undefined;
+        }
 
-//             const ltiResult = await validateLTI(ltiPayload);
+        const lti_url = getLTIURL(item);
 
-//             validationResult.ltiValidationStatus = ltiResult.launchable
-//               ? 'Launchable'
-//               : `Not Launchable (status ${ltiResult.status_code || 'unknown'})`;
-//           } catch (error: unknown) {
-//             let message = 'Unknown error';
+        //lti validation
+        if (lti_url) {
+          try {
+            const ltiPayload = {
+              launch_url: 'https://codeworkout.cs.vt.edu/lti/launch',
+              key: 'canvas_key', // replace with real values when available
+              secret: 'canvas_secret',
+            };
 
-//             if (error instanceof Error) {
-//               message = error.message;
-//             }
+            const ltiResult = await validateLTI(ltiPayload);
 
-//             logger.error(`Error validating LTI URL for ${item.lti_url}:`, error);
-//             validationResult.ltiValidationStatus = `Validation Failed: ${message}`;
-//           }
-//         } else {
-//           validationResult.ltiValidationStatus = 'No LTI URL Provided';
-//         }
-//         //end of lti validation
+            validationResult.ltiValidationStatus = ltiResult.launchable
+              ? 'Launchable'
+              : `Not Launchable (status ${ltiResult.status_code || 'unknown'})`;
+          } catch (error: unknown) {
+            let message = 'Unknown error';
 
-//         validationResult.dateLastUpdated = new Date();
+            if (error instanceof Error) {
+              message = error.message;
+            }
 
-//         await this.validationResultsRepository.save(validationResult);
-//       }
-//       logger.info(`URL validation completed: ${result.successfulUrls} successful URLs`);
-//       return result;
-//     } catch (error) {
-//       logger.error('Error in URL validation:', error);
-//       throw error;
-//     }
-//   }
+            logger.error(`Error validating LTI URL for ${lti_url}:`, error);
+            validationResult.ltiValidationStatus = `Validation Failed: ${message}`;
+          }
+        } else {
+          validationResult.ltiValidationStatus = 'No LTI URL Provided';
+        }
+        //end of lti validation
 
-//   /**
-//    * Generates a category report for given items.
-//    * @param items - Array of items to classify
-//    * @returns Categorization report with matched/unclassified/unmatched
-//    */
-//   async generateCategoryReport(items: SLCItem[]): Promise<CategorizationReport> {
-//     try {
-//       logger.info(`Generating category report for ${items.length} items`);
-//       const report = await this.categoryReport.generateReport(items);
+        validationResult.dateLastUpdated = new Date();
 
-//       logger.info('Category report generated successfully:', {
-//         matched: report.matched.length,
-//         unclassified: report.unclassified.length,
-//         unmatched: report.unmatched.length,
-//       });
+        await this.validationResultsRepository.save(validationResult);
+      }
+      logger.info(`URL validation completed: ${result.successfulUrls} successful URLs`);
+      return result;
+    } catch (error) {
+      logger.error('Error in URL validation:', error);
+      throw error;
+    }
+  }
 
-//       return report;
-//     } catch (error) {
-//       logger.error('Error generating category report:', error);
-//       throw error;
-//     }
-//   }
+  /**
+   * Generates a category report for given items.
+   * @param items - Array of items to classify
+   * @returns Categorization report with matched/unclassified/unmatched
+   */
+  async generateCategoryReport(items: SLCItem[]): Promise<CategorizationReport> {
+    try {
+      logger.info(`Generating category report for ${items.length} items`);
+      const report = await this.categoryReport.generateReport(items);
 
-//   /**
-//    * Stores items in the catalog and classifies them.
-//    * @param report - Categorization report containing matched, unclassified, and unmatched items
-//    */
-//   async storeAndClassifyItems(report: CategorizationReport): Promise<void> {
-//     try {
-//       logger.info('Starting items storage and classification');
-//       const items = [...report.matched, ...report.unclassified, ...report.unmatched];
+      logger.info('Category report generated successfully:', {
+        matched: report.matched.length,
+        unclassified: report.unclassified.length,
+        unmatched: report.unmatched.length,
+      });
 
-//       if (!items.length) {
-//         const error = new Error('No items to process');
-//         logger.error(error.message);
-//         throw error;
-//       }
+      return report;
+    } catch (error) {
+      logger.error('Error generating category report:', error);
+      throw error;
+    }
+  }
 
-//       // The categorizer expects an array of SLCItems and matched items
-//       const itemsToProcess: SLCItem[] = items.map((obj) => obj.item);
-//       await this.categorizer.storeItemsAndClassify(itemsToProcess, report.matched);
-//       //new stuff
-//       for (const item of itemsToProcess) {
-//         try {
-//           await this.categorizer.storeItemsAndClassify([item], report.matched);
-//           const validationResult = await this.getOrCreateValidationResultByUrl(item.url, item);
-//           if (validationResult) {
-//             validationResult.categorizationResults = 'Success';
-//             validationResult.dateLastUpdated = new Date();
-//             await this.validationResultsRepository.save(validationResult);
-//           }
-//         } catch (error) {
-//           logger.error(`Error reprocessing item for error capture: ${item.url}`, error);
-//           const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
-//           if (!validationResult) return;
-//           validationResult.categorizationResults = `Categorization failed: No matching ontology class for keywords [${item.keywords?.join(', ') || 'none'}]`;
-//           validationResult.dateLastUpdated = new Date();
-//           await this.validationResultsRepository.save(validationResult);
-//           throw error;
-//         }
-//       }
-//       logger.info(`Successfully stored and classified ${items.length} items`);
-//     } catch (error) {
-//       logger.error('Failed to store and classify items:', error);
-//       throw error;
-//     }
-//   }
+  /**
+   * Stores items in the catalog and classifies them.
+   * @param report - Categorization report containing matched, unclassified, and unmatched items
+   */
+  async storeAndClassifyItems(report: CategorizationReport): Promise<void> {
+    try {
+      logger.info('Starting items storage and classification');
+      const items = [...report.matched, ...report.unclassified, ...report.unmatched];
 
-//   /**
-//    * Executes the full validation workflow: metadata validation, URL validation, categorization, and storing results.
-//    * @param items - Array of SLCItems to process
-//    * @returns Summary of the validation process
-//    */
-//   async fullValidationWorkflow(items: SLCItem[]): Promise<{
-//     metadataValidated: number;
-//     urlsChecked: number;
-//     urlsValidated: number;
-//     reportSummary: {
-//       matched: number;
-//       unclassified: number;
-//       unmatched: number;
-//     };
-//   }> {
-//     try {
-//       if (!items?.length) {
-//         throw new Error('No items provided for validation');
-//       }
+      if (!items.length) {
+        const error = new Error('No items to process');
+        logger.error(error.message);
+        throw error;
+      }
 
-//       logger.info(`Starting full validation workflow for ${items.length} items`);
+      // The categorizer expects an array of SLCItems and matched items
+      const itemsToProcess: SLCItem[] = items.map((obj) => obj.item);
+      await this.categorizer.storeItemsAndClassify(itemsToProcess, report.matched);
+      //new stuff
+      for (const item of itemsToProcess) {
+        try {
+          await this.categorizer.storeItemsAndClassify([item], report.matched);
+          const validationResult = await this.getOrCreateValidationResultByUrl(item.iframe_url, item);
+          if (validationResult) {
+            validationResult.categorizationResults = 'Success';
+            validationResult.dateLastUpdated = new Date();
+            await this.validationResultsRepository.save(validationResult);
+          }
+        } catch (error) {
+          logger.error(`Error reprocessing item for error capture: ${item.iframe_url}`, error);
+          const validationResult = await this.getOrCreateValidationResultByUrl(item.iframe_url);
+          if (!validationResult) return;
+          validationResult.categorizationResults = `Categorization failed: No matching ontology class for keywords [${item.keywords?.join(', ') || 'none'}]`;
+          validationResult.dateLastUpdated = new Date();
+          await this.validationResultsRepository.save(validationResult);
+          throw error;
+        }
+      }
+      logger.info(`Successfully stored and classified ${items.length} items`);
+    } catch (error) {
+      logger.error('Failed to store and classify items:', error);
+      throw error;
+    }
+  }
 
-//       // Step 1: Metadata Validation
-//       const metadataResult = await this.validateMetadata(items);
-//       const validatedMetadataItems = metadataResult.validItems;
+  /**
+   * Executes the full validation workflow: metadata validation, URL validation, categorization, and storing results.
+   * @param items - Array of SLCItems to process
+   * @returns Summary of the validation process
+   */
+  async fullValidationWorkflow(items: SLCItem[]): Promise<{
+    metadataValidated: number;
+    urlsChecked: number;
+    urlsValidated: number;
+    reportSummary: {
+      matched: number;
+      unclassified: number;
+      unmatched: number;
+    };
+  }> {
+    try {
+      if (!items?.length) {
+        throw new Error('No items provided for validation');
+      }
 
-//       if (!validatedMetadataItems.length) {
-//         throw new Error('No items passed metadata validation');
-//       }
+      logger.info(`Starting full validation workflow for ${items.length} items`);
 
-//       // Step 2: URL Validation
-//       const urlValidationResult = await this.validateUrls(validatedMetadataItems);
-//       const successfulUrlItems = validatedMetadataItems.filter(
-//         (_, index) => urlValidationResult.successfulUrls > index,
-//       );
+      // Step 1: Metadata Validation
+      const metadataResult = await this.validateMetadata(items);
+      const validatedMetadataItems = metadataResult.validItems;
 
-//       if (!successfulUrlItems.length) {
-//         throw new Error('No items passed URL validation');
-//       }
+      if (!validatedMetadataItems.length) {
+        throw new Error('No items passed metadata validation');
+      }
 
-//       // Step 3: Category Report Generation
-//       const report = await this.generateCategoryReport(successfulUrlItems);
+      // Step 2: URL Validation
+      const urlValidationResult = await this.validateUrls(validatedMetadataItems);
+      const successfulUrlItems = validatedMetadataItems.filter(
+        (_, index) => urlValidationResult.successfulUrls > index,
+      );
 
-//       // Step 4: Store and Classify
-//       await this.storeAndClassifyItems(report);
+      if (!successfulUrlItems.length) {
+        throw new Error('No items passed URL validation');
+      }
 
-//       // Return summary
-//       return {
-//         metadataValidated: validatedMetadataItems.length,
-//         urlsChecked: urlValidationResult.urlsChecked,
-//         urlsValidated: successfulUrlItems.length,
-//         reportSummary: {
-//           matched: report.matched.length,
-//           unclassified: report.unclassified.length,
-//           unmatched: report.unmatched.length,
-//         },
-//       };
-//     } catch (error) {
-//       logger.error('Error in validation workflow:', error);
-//       throw error;
-//     }
-//   }
-// }
+      // Step 3: Category Report Generation
+      const report = await this.generateCategoryReport(successfulUrlItems);
+
+      // Step 4: Store and Classify
+      await this.storeAndClassifyItems(report);
+
+      // Return summary
+      return {
+        metadataValidated: validatedMetadataItems.length,
+        urlsChecked: urlValidationResult.urlsChecked,
+        urlsValidated: successfulUrlItems.length,
+        reportSummary: {
+          matched: report.matched.length,
+          unclassified: report.unclassified.length,
+          unmatched: report.unmatched.length,
+        },
+      };
+    } catch (error) {
+      logger.error('Error in validation workflow:', error);
+      throw error;
+    }
+  }
+}
