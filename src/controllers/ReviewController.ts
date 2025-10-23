@@ -6,7 +6,7 @@ import { MetadataIssue, CategorizationResult, URLValidationResult } from '../typ
 import { ValidationResults } from '../db/entities/ValidationResults.js';
 import { AppDataSource } from '../db/data-source.js'; // Adjust the path to your data-source file
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
-import {validate, ValidationError} from "class-validator";
+import { validate, ValidationError } from 'class-validator';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
@@ -16,11 +16,11 @@ export class ReviewController {
     // const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
     const toolsCatalogController = new ToolsCatalogController();
 
-    let metadataIssues: MetadataIssue[] = [];
-    let categorizationResults: CategorizationResult[] = [];
-    let totalSubmissions = 0;
-    let successfulVerifications = 0;
-    let allValidItems = [];
+    const metadataIssues: MetadataIssue[] = [];
+    const categorizationResults: CategorizationResult[] = [];
+    const totalSubmissions = 0;
+    const successfulVerifications = 0;
+    // const allValidItems = [];
     let urlResult: URLValidationResult | undefined;
 
     try {
@@ -41,26 +41,22 @@ export class ReviewController {
           if (result.length === 0) {
             saves++;
             await catalogRepository.save(entity);
-          }
-          else {
+          } else {
             errors.push(...result);
           }
         }
         if (errors.length > 0) {
-          console.log("Validation Errors: ", errors);
+          console.log('Validation Errors: ', errors);
           res.status(500).send(
-            errors.map(
-              (error: ValidationError) => {
-                const target = error.target as slc_item_catalog | undefined;
-                return {
-                  persistentID: target?.persistentID || "missing id",
-                  constraints: error.constraints,
-                }
-              }
-            )
+            errors.map((error: ValidationError) => {
+              const target = error.target as slc_item_catalog | undefined;
+              return {
+                persistentID: target?.persistentID || 'missing id',
+                constraints: error.constraints,
+              };
+            }),
           );
-        }
-        else {
+        } else {
           res.status(200).send(`successfully saved ${saves} entries`);
         }
       }

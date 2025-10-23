@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from 'typeorm';
 import { IsNotEmpty, IsString, IsOptional, IsUrl, IsArray } from 'class-validator';
-import { CatalogInterface } from "./CatalogInterface.js";
+import { CatalogInterface } from './CatalogInterface.js';
 // import { ValidationResults } from './ValidationResults.js';
 
 @Entity()
@@ -13,10 +13,10 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsString()
   catalog_type!: string;
 
-	@Column({ nullable: false })
+  @Column({ nullable: false })
   @IsNotEmpty()
   @IsString()
-	persistentID!: string;
+  persistentID!: string;
 
   @Column()
   @IsNotEmpty()
@@ -32,7 +32,7 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @Column()
   @IsOptional()
   @IsString()
-  license?: string
+  license?: string;
 
   @Column()
   @IsNotEmpty()
@@ -84,12 +84,11 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  protocol?: string[]
+  protocol?: string[];
 
   @Column('simple-array')
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  protocol_url?: string[]
-
+  protocol_url?: string[];
 }

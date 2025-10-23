@@ -33,14 +33,15 @@ export class ValidationManager {
     this.catalogRepository = catalogRepository;
   }
   private async getOrCreateValidationResultByUrl(url: string, slcItem?: SLCItem): Promise<ValidationResults | null> {
-    let catalogItem = await this.catalogRepository.findOne({ where: { iframe_url: slcItem?.iframe_url }, relations: ['validationResults'] });
+    let catalogItem = await this.catalogRepository.findOne({
+      where: { iframe_url: slcItem?.iframe_url },
+      relations: ['validationResults'],
+    });
 
     const default_key = 'empty';
 
     if (!catalogItem) {
       logger.warn(`Catalog item not found for URL: ${url}`);
-
-      const dummyExerciseName = `autogen_${Date.now()}`;
 
       // rework this code such that if they are not in the database it puts it in their
       // also create validated slc item
@@ -57,14 +58,12 @@ export class ValidationManager {
         features: Array.isArray(slcItem?.features) ? slcItem.features : [default_key],
         title: slcItem?.title ?? default_key,
         programming_language: Array.isArray(slcItem?.programming_language)
-            ? slcItem.programming_language
-            : [default_key],
-        natural_language: Array.isArray(slcItem?.natural_language)
-            ? slcItem.natural_language
-            : [default_key],
+          ? slcItem.programming_language
+          : [default_key],
+        natural_language: Array.isArray(slcItem?.natural_language) ? slcItem.natural_language : [default_key],
         protocol: Array.isArray(slcItem?.protocol) ? slcItem.protocol : [default_key],
         protocol_url: Array.isArray(slcItem?.protocol_url) ? slcItem.protocol_url : [default_key],
-    };
+      };
 
       catalogItem = this.catalogRepository.create(newItem);
       await this.catalogRepository.save(catalogItem);
@@ -98,7 +97,7 @@ export class ValidationManager {
       logger.info(`DENIS IS STARTING metadata validation for ${jsonArray.length} items`);
 
       // 1. Transform SLCItem[] -> CreateSLCItemDTO[]
-      const createDtoArray: CreateSLCItemDTO[] = jsonArray
+      const createDtoArray: CreateSLCItemDTO[] = jsonArray;
 
       // 2. Validate the CreateSLCItemDTO[] array
       const result = await this.metadataValidator.validate(createDtoArray);
@@ -108,7 +107,7 @@ export class ValidationManager {
         const validationErrors =
           result.issues.find((issue) => issue.item.persistentID === item.persistentID)?.validationErrors || null;
 
-        const catalogItem = await this.catalogRepository.findOne({ where: { persistentID: item.persistentID} });
+        const catalogItem = await this.catalogRepository.findOne({ where: { persistentID: item.persistentID } });
 
         if (!catalogItem) {
           logger.warn(`No catalog item found for persistentID: ${item.persistentID}`);
@@ -180,12 +179,17 @@ export class ValidationManager {
           validationResult.iframeValidationError = 'Iframe validation failed';
         }
 
-        function getLTIURL(item: {protocol?: string[]; protocol_url?: string[];}): string | undefined {
-            const protocolIndex = item.protocol?.findIndex((protocol) => protocol === 'LTI');
-            if (protocolIndex !== undefined && protocolIndex >= 0 && item.protocol_url && item.protocol_url[protocolIndex]) {
-                return item.protocol_url[protocolIndex];
-            }
-            return undefined;
+        function getLTIURL(item: { protocol?: string[]; protocol_url?: string[] }): string | undefined {
+          const protocolIndex = item.protocol?.findIndex((protocol) => protocol === 'LTI');
+          if (
+            protocolIndex !== undefined &&
+            protocolIndex >= 0 &&
+            item.protocol_url &&
+            item.protocol_url[protocolIndex]
+          ) {
+            return item.protocol_url[protocolIndex];
+          }
+          return undefined;
         }
 
         const lti_url = getLTIURL(item);
