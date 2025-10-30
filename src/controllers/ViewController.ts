@@ -35,8 +35,6 @@ export class ViewController {
       currentPage,
       totalPages,
       title: 'SPLICE Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
@@ -59,20 +57,16 @@ export class ViewController {
       toolCatalogCount: toolCatalogCount,
       slcItemCount: slcItemCount,
       datasetCount: datasetCount, // to be replaced with actual dataset count
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', {
       title: 'Upload Data',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
   async aboutView(req: Request, res: Response) {
-    res.render('pages/about', { title: 'About', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
+    res.render('pages/about', { title: 'About' });
   }
 
   async toolView(req: Request, res: Response) {
@@ -81,8 +75,6 @@ export class ViewController {
     res.render('pages/toolcatalog', {
       toolsCatalog: toolsCatalog_data,
       title: 'Tools Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
@@ -92,8 +84,6 @@ export class ViewController {
       res.render('pages/datasetcatalog', {
         datasets: datasetCatalog_data,
         title: 'Dataset Catalog',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
       });
     } catch (error) {
       logger.error('Failed to fetch dataset catalog data:', error);
@@ -191,14 +181,12 @@ export class ViewController {
     res.render('pages/index', {
       catalog: catalog_data,
       title: 'SPLICE Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   profileView(req: Request, res: Response) {
     // res.render('pages/profile', { title: 'Profile', user: JSON.stringify(req.oidc.user, null, 2) });
-    res.render('pages/profile', { title: 'Profile', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
+    res.render('pages/profile', { title: 'Profile' });
   }
 
   async rejectAll(req: Request, res: Response) {
