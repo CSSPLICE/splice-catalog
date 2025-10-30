@@ -43,8 +43,6 @@ export class ViewController {
   async instructionsView(req: Request, res: Response) {
     res.render('pages/instructions', {
       title: 'Instructions',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 

@@ -57,12 +57,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use((req, res, next) => {
-  res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
-  res.locals.showLoginButton = req.path.startsWith('/instructions') && !req.oidc?.user;
-  next();
-});
-
 const oidc_config = {
   authRequired: false,
   auth0Logout: true,
@@ -73,6 +67,12 @@ const oidc_config = {
 };
 
 app.use(auth(oidc_config));
+
+app.use((req, res, next) => {
+  res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
+  res.locals.showLoginButton = req.path.startsWith('/instructions') && !req.oidc?.user;
+  next();
+});
 
 app.use('/', viewRoutes);
 app.use('/about', aboutRoutes);
