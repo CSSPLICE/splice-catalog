@@ -30,10 +30,12 @@ export class ViewController {
       skip: offset,
       take: ITEMS_PER_PAGE,
     });
-    res.render('pages/catalog', {
-      catalog: catalog_data,
+    res.render('pages/search', {
+      results: catalog_data,
       currentPage,
       totalPages,
+      query:'',
+      exerciseType: [],
       title: 'SPLICE Catalog',
       user: req.oidc.user,
       showLoginButton: res.locals.showLoginButton,
