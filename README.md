@@ -35,6 +35,10 @@ mysql -usplice -psplice
 use splice;
 ```
 
+## Clear Database
+
+If you end up needing to clear the database and start over, you can run `docker compose --profile catalog down --remove-orphans -v to remove the volumes. You should accompny this with a `build` and an `up` to reset everything
+
 ## Swap Branches
 
 If you are developing the catalog, you should be checking out the staging branch `git checkout staging`
