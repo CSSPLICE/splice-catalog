@@ -63,7 +63,7 @@ export class CreateSLCItemDTO {
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  protocol?: string[]
+  protocol?: string[];
 
   @IsOptional()
   @IsArray()

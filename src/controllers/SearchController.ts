@@ -17,8 +17,6 @@ export class SearchController {
         query: '',
         exerciseType,
         title: 'Search Results',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
       });
     }
 
@@ -74,8 +72,6 @@ export class SearchController {
       query, // Pass the query parameter to the view
       exerciseType,
       title: 'Search Results',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
   async searchCatalogAPI(req: Request, res: Response) {

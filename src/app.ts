@@ -12,16 +12,18 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { auth } from 'express-openid-connect';
 import * as dotenv from 'dotenv';
-import { setup } from './admin-panel/adminjs-setup.js'
+import { setup } from './admin-panel/adminjs-setup.js';
 import { AppDataSource } from './db/data-source.js';
 import { EventEmitter } from 'events';
-import { checkRole, roles } from "./middleware/middleware.js";
+import { checkRole, roles } from './middleware/middleware.js';
 
 const emitter = new EventEmitter();
 (async () => {
   try {
     if (!AppDataSource.isInitialized) {
-      await AppDataSource.initialize().then(() => {emitter.emit('DataSourceInitialized')});
+      await AppDataSource.initialize().then(() => {
+        emitter.emit('DataSourceInitialized');
+      });
       console.log('Database connection initialized successfully!');
     }
   } catch (error) {
@@ -41,13 +43,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 if (process.env.NODE_ENV === 'production') {
   app.use(
     helmet({
-      contentSecurityPolicy: {
-        directives: {
-          'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu', 'acos.cs.vt.edu', 'codecheck.io'],
-          'script-src': ["'self'", 'splice.cs.vt.edu', 'cdn.jsdelivr.net'],
-        },
-        reportOnly: true,
-      },
+      contentSecurityPolicy: false,
     }),
   );
 }
@@ -72,6 +68,12 @@ const oidc_config = {
 
 app.use(auth(oidc_config));
 
+app.use((req, res, next) => {
+  res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
+  res.locals.showLoginButton = req.path.startsWith('/instructions') && !req.oidc?.user;
+  next();
+});
+
 app.use('/', viewRoutes);
 app.use('/about', aboutRoutes);
 app.use('/catalog', catalogRoutes);
@@ -80,15 +82,13 @@ app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
 app.use('/ontology', ontologyRoutes);
 
-emitter.on('DataSourceInitialized',
-  () => {
-    console.log('DataSourceInitialized')
-  }
-)
+emitter.on('DataSourceInitialized', () => {
+  console.log('DataSourceInitialized');
+});
 emitter.on('DataSourceInitialized', () => {
   const adminRouter = setup();
   app.use('/admin', checkRole(roles.admin), adminRouter);
-})
+});
 
 app.use(ErrorHandler.handleErrors);
 

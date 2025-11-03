@@ -33,11 +33,6 @@ async function startServer() {
       next();
     });
 
-    app.use((req, res, next) => {
-      res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
-      res.locals.showLoginButton = req.path.startsWith('/upload');
-    });
-
     server.listen(PORT, () => {
       logger.info(`Server is running on port ${PORT}`);
     });

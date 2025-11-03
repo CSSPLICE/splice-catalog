@@ -37,8 +37,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      lti-validator:
-        condition: service_started
+        # lti-validator:
+          # condition: service_started
       chrome:
         condition: service_started
     ports:
@@ -76,8 +76,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      lti-validator:
-        condition: service_healthy
+      # lti-validator:
+        # condition: service_healthy
     volumes:
       - staticvolume:/home/deploy/app/dist/public
     ports:

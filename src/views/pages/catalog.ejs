@@ -5,33 +5,43 @@
 <%- include('../partials/header') -%>
 <body>
   <div class="container">
-    <% const selectedTypes = typeof exerciseType !== 'undefined' ? exerciseType : []; %>
+    <div class="search-sidebar-layout">
+  <!-- Sidebar Filter -->
+  <aside class="search-sidebar">
+    <h2>Filter</h2>
+    <form action="/search" method="get" id="filterForm">
+      <fieldset>
+        <legend>Exercise Types</legend>
+        <% const types = ["Coding Question", "Multiple Choice Question", "ka", "ss", "pe", "extr", "Untagged"]; %>
+        <% const selectedTypes = typeof exerciseType !== 'undefined' ? exerciseType : []; %>
+        <% types.forEach(type => { %>
+          <label>
+            <input type="checkbox" class="exerciseTypeInput" name="Exercise type: <%= type %>" value="<%= type %>"
+              <%= selectedTypes.includes(type) ? 'checked' : '' %> />
+            <%= type %>
+          </label>
+        <% }) %>
+      </fieldset>
 
+      <h3>Tools</h3>
+      <ul>
+        <li>GitHub</li>
+        <li>Docker</li>
+        <li>VS Code</li>
+        <li>Postman</li>
+      </ul>
 
-    <div class="filter-bar">
-      <h2 class="header">Filter</h2>
-      <form action="/search" method="get" id="filterForm">
-        <fieldset>
-          <legend>Exercise Types:</legend>
-          <% const types = ["Coding Question", "Multiple Choice Question", "ka", "ss", "pe", "extr", "Untagged"]; %>
-          <% types.forEach(type => { %>
-            <div>
-              <input type="checkbox" class="exerciseTypeInput" name="Exercise type: <%= type %>" value="<%= type %>"
-                <%= selectedTypes.includes(type) ? 'checked' : '' %>>
-              <label for="<%= type %>"><%= type %></label>
-            </div>
-          <% }) %>
-        </fieldset>
-        <input type="hidden" name="query" value="">
-        <button type="submit">Apply Filters</button>
-      </form>
-    </div>
+      <input type="hidden" name="query" value="">
+      <button type="submit">Apply Filters</button>
+    </form>
+  </aside>
 
-
+  <!-- Catalog Content -->
+  <section class="search-content">
     <h3 class="header">SLC Item Catalog</h3>
-
-
     <%- include('../pages/table', { items: catalog, isSearchPage: false }) %>
+  </section>
+</div>
 
 
     <div class="pagination">
