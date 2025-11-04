@@ -29,6 +29,11 @@
 
 
     <h3 class="header">SLC Item Catalog</h3>
+    <!-- add button to download the entire catalog as JSON -->
+    <div style="margin:.75rem 0;">
+      <a class="btn btn-secondary" href="/export/catalog">Download entire catalog</a>
+    </div>
+
 
 
     <%- include('../pages/table', { items: catalog, isSearchPage: false }) %>
