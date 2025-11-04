@@ -1,8 +1,15 @@
 <table class="table table-striped">
+    <%
+        const truncateWords = (s, n = 20) => {
+            if (!s) return "";
+            const words = String(s).trim().split(/\s+/);
+            return words.length <= n ? s : words.slice(0, n).join(' ') + '...';
+        };
+    %>
     <thead>
         <tr>
             <th scope="col">Exercise Title</th>
-            <th scope="col">Exercise Type</th>
+            <th scope="col">Features</th>
             <th scope="col">Description</th>
             <th scope="col">Platform</th>
             <th scope="col">Keywords</th>
@@ -22,10 +29,21 @@
                 </a>
                 <% } %>
                 </td>
-                <td><%= SLCItem.exercise_type %></td>
                 <td>
-                    <span class="short-description" data-description="<%= SLCItem.description %>" style="cursor: pointer;">
-                        Short Description...
+                    <%
+                    let featureList = [];
+                    if (Array.isArray(item.features)) {
+                        featureList = item.features;
+                    }
+                    else if (typeof item.features === 'string') {
+                        featureList = item.features.split(/\s*, \s*/).filter(Boolean);
+                    }
+                    %>
+                    <%= featureList.length ? featureList.join(', ') : '_' %>
+                </td>
+                <td>
+                    <span class="short-description" data-description="<%= SLCItem.description || '' %>" style="cursor: pointer;">
+                        <%- truncateWords(SLCItem.description, 20) %>
                     </span>
                 </td>
                 <td><a href="<%= SLCItem.url %>"><%= SLCItem.platform_name %></a></td>

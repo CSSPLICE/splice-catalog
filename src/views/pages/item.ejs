@@ -95,8 +95,18 @@ window.addEventListener('DOMContentLoaded', () => {
                     <td><%= item.platform_name %></td>
                 </tr>
                 <tr>
-                    <td>Exercise Type</td>
-                    <td><%= item.exercise_type %></td>
+                  <td>Features</td>
+                  <td>
+                    <%
+                      let featuresList = [];
+                      if (Array.isArray(item.features)) {
+                        featuresList = item.features;
+                      } else if (typeof item.features === 'string') {
+                        featuresList = item.features.split(/\s*,\s*/).filter(Boolean);
+                      }
+                    %>
+                    <%= featuresList.length ? featuresList.join(', ') : '—' %>
+                  </td>
                 </tr>
                 <tr>
                     <td>Language</td>
