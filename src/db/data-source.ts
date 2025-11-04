@@ -19,9 +19,7 @@ export const AppDataSource: DataSource = new DataSource({
   username: process.env.DB_USER || 'splice',
   password: process.env.DB_PASSWORD || 'splice',
   database: process.env.DB_DATABASE || 'splice',
-  migrations: [
-    SeedInitialSchema1759958275364,
-  ],
+  migrations: [SeedInitialSchema1759958275364],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [
     slc_item_catalog,
@@ -35,5 +33,5 @@ export const AppDataSource: DataSource = new DataSource({
   ],
   synchronize: false,
   subscribers: [],
-  migrationsRun: true,
+  migrationsRun: false,
 });

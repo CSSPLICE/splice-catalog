@@ -1,35 +1,20 @@
 {
-    "catalog_type": "SLCItem",
-    "platform_name": "OpenDSA",
-    "iframe_url": "https://opendsa-server.cs.vt.edu/OpenDSA/Exercises/IntroToSoftwareDesign/Week1Quiz1Summ.html",
-    "persistentID": "https://opendsa-server.cs.vt.edu/OpenDSA/Exercises/IntroToSoftwareDesign/Week1Quiz1Summ.html",
-    "protocol_url": [
-      "https://opendsa-server.cs.vt.edu/lti/launch?custom_ex_short_name=Week1Quiz1Summ&custom_ex_settings=%7B%7D",
-      "https://opendsa-server.cs.vt.edu/OpenDSA/Exercises/IntroToSoftwareDesign/Week1Quiz1Summ.html"
-    ],
-    "protocol": [
-      "LTI 1.1",
-      "SPLICE"
-    ],
-    "license": "https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt",
-    "description": "Intro to Software Design Week 1 battery of self-assessment questions: Micro-Worlds",
-    "author": [
-      "Molly Domino"
-    ],
-    "institution": [
-      "Virginia Tech"
-    ],
-    "keywords": [
-      "Software Design"
-    ],
-    "features": [
-      "Question Set"
-    ],
-    "title": "Introduction Chapter for CS1: Review Questions 1",
-    "programming_language": [
-      "Java"
-    ],
-    "natural_language": [
-      "en"
-    ]
-  }
+  "catalog_type": "SLCItem",
+  "platform_name": "OpenDSA",
+  "iframe_url": "https://opendsa-server.cs.vt.edu/OpenDSA/Exercises/IntroToSoftwareDesign/Week1Quiz1Summ.html",
+  "persistentID": "https://opendsa-server.cs.vt.edu/OpenDSA/Exercises/IntroToSoftwareDesign/Week1Quiz1Summ.html",
+  "protocol_url": [
+    "https://opendsa-server.cs.vt.edu/lti/launch?custom_ex_short_name=Week1Quiz1Summ&custom_ex_settings=%7B%7D",
+    "https://opendsa-server.cs.vt.edu/OpenDSA/Exercises/IntroToSoftwareDesign/Week1Quiz1Summ.html"
+  ],
+  "protocol": ["LTI 1.1", "SPLICE"],
+  "license": "https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt",
+  "description": "Intro to Software Design Week 1 battery of self-assessment questions: Micro-Worlds",
+  "author": ["Molly Domino"],
+  "institution": ["Virginia Tech"],
+  "keywords": ["Software Design"],
+  "features": ["Question Set"],
+  "title": "Introduction Chapter for CS1: Review Questions 1",
+  "programming_language": ["Java"],
+  "natural_language": ["en"]
+}

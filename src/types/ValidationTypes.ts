@@ -19,7 +19,7 @@ export interface ValidationIssue {
 }
 
 export interface URLValidationItem extends SLCItem {
-  url: string;
+  iframe_url: string;
 }
 
 export interface URLValidationIssue {

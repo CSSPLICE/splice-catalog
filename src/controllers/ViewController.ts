@@ -10,13 +10,13 @@ import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO.js';
 import { ReviewController } from './ReviewController.js';
-// import { ValidationManager } from '../services/ValidationManager.js';
+import { ValidationManager } from '../services/ValidationManager.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
 
 const reviewController = new ReviewController();
 const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
 const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
-// const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
+const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
 
 export class ViewController {
   async catalogView(req: Request, res: Response) {
@@ -37,16 +37,12 @@ export class ViewController {
       query:'',
       exerciseType: [],
       title: 'SPLICE Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   async instructionsView(req: Request, res: Response) {
     res.render('pages/instructions', {
       title: 'Instructions',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
@@ -63,20 +59,16 @@ export class ViewController {
       toolCatalogCount: toolCatalogCount,
       slcItemCount: slcItemCount,
       datasetCount: datasetCount, // to be replaced with actual dataset count
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', {
       title: 'Upload Data',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
   async aboutView(req: Request, res: Response) {
-    res.render('pages/about', { title: 'About', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
+    res.render('pages/about', { title: 'About' });
   }
 
   async toolView(req: Request, res: Response) {
@@ -85,8 +77,6 @@ export class ViewController {
     res.render('pages/toolcatalog', {
       toolsCatalog: toolsCatalog_data,
       title: 'Tools Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
@@ -96,8 +86,6 @@ export class ViewController {
       res.render('pages/datasetcatalog', {
         datasets: datasetCatalog_data,
         title: 'Dataset Catalog',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
       });
     } catch (error) {
       logger.error('Failed to fetch dataset catalog data:', error);
@@ -186,8 +174,8 @@ export class ViewController {
     // Proceed to store and classify items after processing all entries
     if (itemsToClassify.length > 0) {
       logger.info('calling storeAndClassifyItems');
-      // const categoryReport = await validationManager.generateCategoryReport(itemsToClassify);
-      // await validationManager.storeAndClassifyItems(categoryReport);
+      const categoryReport = await validationManager.generateCategoryReport(itemsToClassify);
+      await validationManager.storeAndClassifyItems(categoryReport);
     }
 
     return ResponseUtil.sendResponse(res, `${processedCount} entries processed successfully`, 201);
@@ -195,14 +183,12 @@ export class ViewController {
     res.render('pages/index', {
       catalog: catalog_data,
       title: 'SPLICE Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   profileView(req: Request, res: Response) {
     // res.render('pages/profile', { title: 'Profile', user: JSON.stringify(req.oidc.user, null, 2) });
-    res.render('pages/profile', { title: 'Profile', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
+    res.render('pages/profile', { title: 'Profile' });
   }
 
   async rejectAll(req: Request, res: Response) {
