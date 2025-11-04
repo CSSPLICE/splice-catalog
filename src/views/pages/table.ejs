@@ -16,7 +16,18 @@
         </tr>
     </thead>
     <tbody class="table-group-divider">
-        <% items.forEach((SLCItem) => { %>
+        <% if (!items || items.length === 0) { %>
+            <tr> </tr>
+        <% } else { %>
+            <% items.forEach((SLCItem) => { %>
+                <%
+                    const featuresArr = Array.isArray(SLCItem.features)
+                        ? SLCItem.features
+                        : (typeof SLCItem.features === 'string'
+                            ? SLCItem.features.split(/\s*,\s*/).filter(Boolean)
+                            : []);
+                    const keywordsArr = Array.isArray(SLCItem.keywords) ? SLCItem.keywords : [];
+                %>
             <tr>
                 <td scope="row">
                     <% if (isSearchPage) { %>
@@ -32,11 +43,11 @@
                 <td>
                     <%
                     let featureList = [];
-                    if (Array.isArray(item.features)) {
-                        featureList = item.features;
+                    if (Array.isArray(SLCItem.features)) {
+                        featureList = SLCItem.features;
                     }
-                    else if (typeof item.features === 'string') {
-                        featureList = item.features.split(/\s*, \s*/).filter(Boolean);
+                    else if (typeof SLCItem.features === 'string') {
+                        featureList = SLCItem.features.split(/\s*, \s*/).filter(Boolean);
                     }
                     %>
                     <%= featureList.length ? featureList.join(', ') : '_' %>
@@ -58,6 +69,7 @@
                 </td>
             </tr>
         <% }) %>
+    <% } %>
     </tbody>
 </table>
 <!-- Modal -->
