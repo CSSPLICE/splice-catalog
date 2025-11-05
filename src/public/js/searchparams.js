@@ -1,46 +1,48 @@
-  document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
   const form = document.getElementById('filterForm');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
   const tableBody = document.querySelector('.table-group-divider');
   const paginationContainer = document.querySelector('.pagination');
 
-  tableBody.addEventListener('click', function(e) {
+  tableBody.addEventListener('click', function (e) {
     console.log('Clicked element:', e.target);
     if (e.target.classList.contains('keyword-link')) {
       handleKeywordSearch.call(e.target, e);
     }
     if (e.target.classList.contains('feature-link')) {
-        e.preventDefault();
-        const feature = e.target.dataset.feature;
-        const featureCheckbox = form.querySelector(`.exerciseTypeInput[value="${feature}"]`);
-        if (featureCheckbox) {
+      e.preventDefault();
+      const feature = e.target.dataset.feature;
+      const featureCheckbox = form.querySelector(`.exerciseTypeInput[value="${feature}"]`);
+      if (featureCheckbox) {
         featureCheckbox.checked = true;
         updateResults();
-        }
+      }
     }
   });
   const ITEMS_PER_PAGE = 25;
   let currentPage = 1;
 
   function filterItems() {
-    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map(cb => cb.value);
+    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
     console.log('Selected features:', selectedFeatures);
-    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map(cb => cb.value);
+    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
 
     let filteredItems = currentItems;
 
     if (selectedFeatures.length > 0) {
       console.log('Filtering by features:', selectedFeatures);
       console.log('Items before feature filter:', filteredItems);
-      filteredItems = filteredItems.filter(item => {
-        const itemFeatures = Array.isArray(item.features) ? item.features : (item.features || '').split(',').map(s => s.trim());
-        return selectedFeatures.some(sf => itemFeatures.includes(sf));
+      filteredItems = filteredItems.filter((item) => {
+        const itemFeatures = Array.isArray(item.features)
+          ? item.features
+          : (item.features || '').split(',').map((s) => s.trim());
+        return selectedFeatures.some((sf) => itemFeatures.includes(sf));
       });
       console.log('Items after feature filter:', filteredItems);
     }
 
     if (selectedTools.length > 0) {
-      filteredItems = filteredItems.filter(item => {
+      filteredItems = filteredItems.filter((item) => {
         return selectedTools.includes(item.platform_name);
       });
     }
@@ -60,9 +62,16 @@
     }
 
     let tableHTML = '';
-    paginatedItems.forEach(item => {
-      const features = Array.isArray(item.features) ? item.features : (item.features || '').split(',').map(s => s.trim()).filter(Boolean);
-      const featureLinks = features.map(f => `<a href="#" class="feature-link" data-feature="${f}">${f}</a>`).join(', ');
+    paginatedItems.forEach((item) => {
+      const features = Array.isArray(item.features)
+        ? item.features
+        : (item.features || '')
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean);
+      const featureLinks = features
+        .map((f) => `<a href="#" class="feature-link" data-feature="${f}">${f}</a>`)
+        .join(', ');
 
       const row = `
         <tr>
@@ -79,9 +88,13 @@
           </td>
           <td><a href="${item.iframe_url}" target="_blank">${item.platform_name}</a></td>
           <td>
-            ${(item.keywords || []).map(keyword => `
+            ${(item.keywords || [])
+              .map(
+                (keyword) => `
               <a href="#" class="keyword-link" data-keyword="${keyword}" style="text-decoration: underline; color: #0000EE">${keyword}</a>
-            `).join(', ')}
+            `,
+              )
+              .join(', ')}
           </td>
         </tr>
       `;
@@ -210,23 +223,18 @@
     renderPagination(filtered.length);
   }
 
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', function(e) {
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', function (e) {
       console.log('Checkbox changed!', e.target.value, e.target.checked);
       updateResults();
     });
   });
-
-
-
-
 
   async function handleKeywordSearch(e) {
     e.preventDefault();
     console.log('handleKeywordSearch called');
     const keyword = this.dataset.keyword;
     document.querySelector('input[name="query"]').value = keyword;
-    document.querySelector('.header').innerText = `Search Results for "${keyword}"`;
 
     try {
       const response = await fetch(`/search/api?query=${encodeURIComponent(keyword)}`);
@@ -247,7 +255,7 @@
 
   function debounce(func, delay) {
     let timeout;
-    return function(...args) {
+    return function (...args) {
       const context = this;
       clearTimeout(timeout);
       timeout = setTimeout(() => func.apply(context, args), delay);
@@ -255,8 +263,6 @@
   }
 
   const debouncedSearch = debounce(async (query) => {
-    document.querySelector('.header').innerText = `Search Results for "${query}"`;
-
     if (!query) {
       currentItems = allItems;
       updateResults();

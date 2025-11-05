@@ -5,7 +5,7 @@ import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
-    const query = (req.query.query) as string;
+    const query = req.query.query as string;
     const features = req.query.features || [];
     let featureTypes: string[] = [];
     if (typeof features === 'string') {
@@ -83,11 +83,8 @@ export class SearchController {
       return res.status(400).json({ error: 'Missing query parameter' });
     }
 
-    const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25;
-
     try {
-      const [search_data, totalItems] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
+      const [search_data] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
         where: [
           { keywords: Like(`%${query}%`) },
           { platform_name: Like(`%${query}%`) },
