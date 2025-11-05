@@ -38,7 +38,7 @@ export class slc_tools_catalog extends BaseEntity implements CatalogInterface {
   interface?: string;
 
   @Column({ nullable: true })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   contact_email!: string;
 

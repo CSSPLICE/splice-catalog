@@ -79,12 +79,34 @@ window.addEventListener('DOMContentLoaded', () => {
             </thead> -->
             <tbody class="table-group-divider">
                 <tr>
+                    <td>Title</td>
+                    <td><%= item.title %></td>
+                </tr>
+                <tr>
+                    <td>Catalog Type</td>
+                    <td><%= item.catalog_type %></td>
+                </tr>
+                <tr>
+                    <td>Persistent ID</td>
+                    <td><%= item.persistentID %></td>
+                </tr>
+                <tr>
                     <td>Platform Name</td>
                     <td><%= item.platform_name %></td>
                 </tr>
                 <tr>
-                    <td>Exercise Type</td>
-                    <td><%= item.exercise_type %></td>
+                  <td>Features</td>
+                  <td>
+                    <%
+                      let featuresList = [];
+                      if (Array.isArray(item.features)) {
+                        featuresList = item.features;
+                      } else if (typeof item.features === 'string') {
+                        featuresList = item.features.split(/\s*,\s*/).filter(Boolean);
+                      }
+                    %>
+                    <%= featuresList.length ? featuresList.join(', ') : '—' %>
+                  </td>
                 </tr>
                 <tr>
                     <td>Language</td>
@@ -133,6 +155,61 @@ window.addEventListener('DOMContentLoaded', () => {
                     <td>LTI Instructions URL</td>
                     <td><a href="<%= item.lti_instructions_url %>" target=_blank><%= item.lti_instructions_url %></a></td>
                 </tr>
+                <tr>
+                  <td>Protocol</td>
+                  <td>
+                    <% if (item.protocol && item.protocol.length) { %>
+                      <%= item.protocol.join(', ') %>
+                    <% } else { %>
+                      N/A
+                    <% } %>
+                  </td>
+                </tr>
+                <!--add more field-->
+                <tr>
+                  <td>Protocol URL</td>
+                  <td>
+                    <% if (item.protocol_url && item.protocol_url.length) { %>
+                      <% item.protocol_url.forEach(u => { %>
+                        <div><a href="<%= u %>" target="_blank"><%= u %></a></div>
+                      <% }) %>
+                    <% } else { %>
+                      N/A
+                    <% } %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>License</td>
+                  <td>
+                    <% if (item.license) { %>
+                      <a href="<%= item.license %>" target="_blank"><%= item.license %></a>
+                    <% } else { %>
+                      N/A
+                    <% } %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Features</td>
+                  <td>
+                    <%= (item.features || []).join(', ') %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Programming Language</td>
+                  <td>
+                    <%= (item.programming_language || []).join(', ') %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td>Natural Language</td>
+                  <td>
+                    <%= (item.natural_language || []).join(', ') %>
+                  </td>
+                </tr>
+
             </tbody>
         </table>
           <!-- Iframe with border -->
