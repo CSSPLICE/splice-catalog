@@ -9,43 +9,86 @@
       
       <%- include('../partials/filter') -%>
 
-      <main class="search-content">
-        <h1 class="header">Search Results for "<%= query %>"</h1>
+      <%
+        const q = (typeof query === 'string') ? query : '';
+        const selectedTypes = Array.isArray(exerciseType)
+          ? exerciseType
+          : (exerciseType ? [exerciseType] : []);
+        const filterChoices = ["Coding Question","Multiple Choice Question","ka","ss","pe","extr","Untagged"];
+      %>
 
-        <%- include('../pages/table', { items: results, isSearchPage: true }) %>
+      <aside class="search-sidebar">
+        <h2 class="header">Filter</h2>
+        <form action="/search" method="get" id="filterForm">
+          <fieldset>
+            <legend>Exercise Types:</legend>
+            <% filterChoices.forEach(t => { %>
+              <div>
+                <input
+                  type="checkbox"
+                  class="exerciseTypeInput"
+                  name="Exercise type: <%= t %>"
+                  value="<%= t %>"
+                  <%= selectedTypes.includes(t) ? 'checked' : '' %>>
+                <label for="<%= t %>"><%= t %></label>
+              </div>
+            <% }) %>
+
+          </fieldset>
+          <input type="hidden" name="query" value="<%= q %>">
+          <button type="submit">Apply Filters</button>
+        </form>
+      </aside>
+
+      <main class="search-content">
+        <h1 class="header">Search Results for "<%= q %>"</h1>
+        <div style="margin-bottom: 1rem;">
+          <!-- add button to download the JSON results -->
+          <form action="/export/search" method="get" style="display:inline;">
+            <input type="hidden" name="query" value="<%= q %>">
+            <% selectedTypes.forEach(t => { %>
+              <input type="hidden" name="exerciseType" value="<%= t %>">
+            <% }) %>
+
+            <button type="submit" class="btn btn-primary"> Download results </button>
+          </form>
+        </div>
+
+
+        <%- include('../pages/table', { items: results || [], isSearchPage: true }) %>
 
 
         <div class="pagination">
           <ul class="pagination-list">
             <% if (totalPages > 10) { %>
               <% if (currentPage > 1) { %>
-                <li><a href="?query=<%= query %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
+                <li><a href="?query=<%= q %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
               <% } %>
               <% if (currentPage > 10) { %>
-                <li><a href="?query=<%= query %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
+                <li><a href="?query=<%= q %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
               <% } %>
               <% if (totalPages <= 5) { %>
                 <% for (let i = 1; i <= totalPages; i++) { %>
-                  <li><a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+                  <li><a href="?query=<%= q %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
                 <% } %>
               <% } else { %>
                 <% if (currentPage > 2) { %>
-                  <li><a href="?query=<%= query %>&page=1">1</a></li>
+                  <li><a href="?query=<%= q %>&page=1">1</a></li>
                   <% if (currentPage > 3) { %><li class="ellipsis">...</li><% } %>
                 <% } %>
                 <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
-                  <li><a href="?query=<%= query %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
+                  <li><a href="?query=<%= q %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
                 <% } %>
                 <% if (currentPage < totalPages - 1) { %>
                   <% if (currentPage < totalPages - 2) { %><li class="ellipsis">...</li><% } %>
-                  <li><a href="?query=<%= query %>&page=<%= totalPages %>"><%= totalPages %></a></li>
+                  <li><a href="?query=<%= q %>&page=<%= totalPages %>"><%= totalPages %></a></li>
                 <% } %>
               <% } %>
               <% if (currentPage + 10 <= totalPages) { %>
-                <li><a href="?query=<%= query %>&page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
+                <li><a href="?query=<%= q %>&page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
               <% } %>
               <% if (currentPage < totalPages) { %>
-                <li><a href="?query=<%= query %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
+                <li><a href="?query=<%= q %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
               <% } %>
             <% } %>
           </ul>
