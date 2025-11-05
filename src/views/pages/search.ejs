@@ -6,6 +6,8 @@
 
   <body>
     <div class="container search-sidebar-layout">
+      
+      <%- include('../partials/filter') -%>
 
       <%
         const q = (typeof query === 'string') ? query : '';
@@ -37,7 +39,6 @@
           <button type="submit">Apply Filters</button>
         </form>
       </aside>
-
 
       <main class="search-content">
         <h1 class="header">Search Results for "<%= q %>"</h1>
