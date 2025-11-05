@@ -7,25 +7,7 @@
   <body>
     <div class="container search-sidebar-layout">
 
-
-      <aside class="search-sidebar">
-        <h2 class="header">Filter</h2>
-        <form action="/search" method="get" id="filterForm">
-          <fieldset>
-            <legend>Exercise Types:</legend>
-            <% const types = ["Coding Question", "Multiple Choice Question", "ka", "ss", "pe", "extr", "Untagged"]; %>
-            <% types.forEach(type => { %>
-              <div>
-                <input type="checkbox" class="exerciseTypeInput" name="Exercise type: <%= type %>" value="<%= type %>" <%= exerciseType.includes(type) ? 'checked' : '' %>>
-                <label for="<%= type %>"><%= type %></label>
-              </div>
-            <% }) %>
-          </fieldset>
-          <input type="hidden" name="query" value="<%= query %>">
-          <button type="submit">Apply Filters</button>
-        </form>
-      </aside>
-
+      <%- include('../partials/filter') -%>
 
       <%
         const q = (typeof query === 'string') ? query : '';
