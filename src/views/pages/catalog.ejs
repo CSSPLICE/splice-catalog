@@ -7,7 +7,34 @@
   <div class="container">
     <div class="search-sidebar-layout">
   <!-- Sidebar Filter -->
-  <%- include('../partials/filter') %>
+  <aside class="search-sidebar">
+    <h2>Filter</h2>
+    <form action="/search" method="get" id="filterForm">
+      <fieldset>
+        <legend>Exercise Types</legend>
+        <% const types = ["Coding Question", "Multiple Choice Question", "ka", "ss", "pe", "extr", "Untagged"]; %>
+        <% const selectedTypes = typeof exerciseType !== 'undefined' ? exerciseType : []; %>
+        <% types.forEach(type => { %>
+          <label>
+            <input type="checkbox" class="exerciseTypeInput" name="Exercise type: <%= type %>" value="<%= type %>"
+              <%= selectedTypes.includes(type) ? 'checked' : '' %> />
+            <%= type %>
+          </label>
+        <% }) %>
+      </fieldset>
+
+      <h3>Tools</h3>
+      <ul>
+        <li>GitHub</li>
+        <li>Docker</li>
+        <li>VS Code</li>
+        <li>Postman</li>
+      </ul>
+
+      <input type="hidden" name="query" value="">
+      <button type="submit">Apply Filters</button>
+    </form>
+  </aside>
 
   <!-- Catalog Content -->
   <section class="search-content">
