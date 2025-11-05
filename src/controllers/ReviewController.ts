@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import logger from '../utils/logger.js';
 // import { ValidationManager } from '../services/ValidationManager.js';
-import { ToolsCatalogController } from './ToolsCatalogController.js';
+// import { ToolsCatalogController } from './ToolsCatalogController.js';
 import { MetadataIssue, CategorizationResult, URLValidationResult } from '../types/ValidationTypes.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
 import { AppDataSource } from '../db/data-source.js'; // Adjust the path to your data-source file
@@ -15,7 +15,7 @@ export class ReviewController {
     const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
     const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
     // const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
-    const toolsCatalogController = new ToolsCatalogController();
+    // const toolsCatalogController = new ToolsCatalogController();
 
     const metadataIssues: MetadataIssue[] = [];
     const categorizationResults: CategorizationResult[] = [];

@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source.js';
 import { Brackets, Like } from 'typeorm';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
-import { SLCItem } from 'src/types/ItemTypes.js';
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
@@ -10,78 +9,94 @@ export class SearchController {
     const features = req.query.features || [];
     let featureTypes: string[] = [];
     if (typeof features === 'string') {
-        featureTypes = features.split(',').map(s => s.trim()).filter(Boolean);
+      featureTypes = features
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else if (Array.isArray(features)) {
-        featureTypes = features as string[];
+      featureTypes = features as string[];
     }
     const tools = req.query.tool || [];
     let toolTypes: string[] = [];
     if (typeof tools === 'string') {
-        toolTypes = tools.split(',').map(s => s.trim()).filter(Boolean);
+      toolTypes = tools
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else if (Array.isArray(tools)) {
-        toolTypes = tools as string[];
+      toolTypes = tools as string[];
     }
     const currentPage = Number(req.query.page) || 1;
     const ITEMS_PER_PAGE = 25;
 
-    const queryBuilder = AppDataSource.getRepository(slc_item_catalog).createQueryBuilder("item");
+    const queryBuilder = AppDataSource.getRepository(slc_item_catalog).createQueryBuilder('item');
 
     if (query) {
-        queryBuilder.where(new Brackets(qb => {
-            qb.where("item.keywords LIKE :query", { query: `%${query}%` })
-              .orWhere("item.platform_name LIKE :query", { query: `%${query}%` })
-              .orWhere("item.title LIKE :query", { query: `%${query}%` })
-              .orWhere("item.catalog_type LIKE :query", { query: `%${query}%` });
-        }));
+      queryBuilder.where(
+        new Brackets((qb) => {
+          qb.where('item.keywords LIKE :query', { query: `%${query}%` })
+            .orWhere('item.platform_name LIKE :query', { query: `%${query}%` })
+            .orWhere('item.title LIKE :query', { query: `%${query}%` })
+            .orWhere('item.catalog_type LIKE :query', { query: `%${query}%` });
+        }),
+      );
     }
 
     if (featureTypes.length > 0) {
-        queryBuilder.andWhere(new Brackets(qb => {
-            for (const type of featureTypes) {
-                if (type === 'Untagged') {
-                    qb.orWhere("item.features IS NULL");
-                } else {
-                    const paramName = `type_${featureTypes.indexOf(type)}`;
-                    qb.orWhere(`item.features LIKE :${paramName}`, { [paramName]: `%${type}%` });
-                }
+      queryBuilder.andWhere(
+        new Brackets((qb) => {
+          for (const type of featureTypes) {
+            if (type === 'Untagged') {
+              qb.orWhere('item.features IS NULL');
+            } else {
+              const paramName = `type_${featureTypes.indexOf(type)}`;
+              qb.orWhere(`item.features LIKE :${paramName}`, { [paramName]: `%${type}%` });
             }
-        }));
+          }
+        }),
+      );
     }
 
     if (toolTypes.length > 0) {
-        queryBuilder.andWhere(new Brackets(qb => {
-            for (const type of toolTypes) {
-                const paramName = `tool_type_${toolTypes.indexOf(type)}`;
-                qb.orWhere(`item.platform_name LIKE :${paramName}`, { [paramName]: `%${type}%` });
-            }
-        }));
+      queryBuilder.andWhere(
+        new Brackets((qb) => {
+          for (const type of toolTypes) {
+            const paramName = `tool_type_${toolTypes.indexOf(type)}`;
+            qb.orWhere(`item.platform_name LIKE :${paramName}`, { [paramName]: `%${type}%` });
+          }
+        }),
+      );
     }
 
     const [search_data, totalItems] = await queryBuilder
-        .skip((currentPage - 1) * ITEMS_PER_PAGE)
-        .take(ITEMS_PER_PAGE)
-        .getManyAndCount();
+      .skip((currentPage - 1) * ITEMS_PER_PAGE)
+      .take(ITEMS_PER_PAGE)
+      .getManyAndCount();
 
     const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
     const allFeatures = await AppDataSource.getRepository(slc_item_catalog)
-      .createQueryBuilder("item")
-      .select("DISTINCT item.features", "features")
+      .createQueryBuilder('item')
+      .select('DISTINCT item.features', 'features')
       .getRawMany();
-    const featureChoices = [...new Set(allFeatures
-      .map(t => t.features)
-      .flat()
-      .flatMap(featureString => featureString.split(',').map((s: string) => s.trim()))
-      .filter(Boolean))];
+    const featureChoices = [
+      ...new Set(
+        allFeatures
+          .map((t) => t.features)
+          .flat()
+          .flatMap((featureString) => featureString.split(',').map((s: string) => s.trim()))
+          .filter(Boolean),
+      ),
+    ];
     if (!featureChoices.includes('Untagged')) {
       featureChoices.push('Untagged');
     }
 
     const allTools = await AppDataSource.getRepository(slc_item_catalog)
-      .createQueryBuilder("item")
-      .select("DISTINCT item.platform_name", "platform_name")
+      .createQueryBuilder('item')
+      .select('DISTINCT item.platform_name', 'platform_name')
       .getRawMany();
-    const toolChoices = allTools.map(t => t.platform_name).filter(Boolean);
+    const toolChoices = allTools.map((t) => t.platform_name).filter(Boolean);
 
     res.render('pages/search', {
       results: search_data,
