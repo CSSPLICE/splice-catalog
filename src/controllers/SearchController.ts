@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source.js';
-import { Brackets, FindOptionsWhere, IsNull, Like } from 'typeorm';
+import { Brackets, Like } from 'typeorm';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import { SLCItem } from 'src/types/ItemTypes.js';
 
@@ -13,6 +13,13 @@ export class SearchController {
         featureTypes = features.split(',').map(s => s.trim()).filter(Boolean);
     } else if (Array.isArray(features)) {
         featureTypes = features as string[];
+    }
+    const tools = req.query.tool || [];
+    let toolTypes: string[] = [];
+    if (typeof tools === 'string') {
+        toolTypes = tools.split(',').map(s => s.trim()).filter(Boolean);
+    } else if (Array.isArray(tools)) {
+        toolTypes = tools as string[];
     }
     const currentPage = Number(req.query.page) || 1;
     const ITEMS_PER_PAGE = 25;
@@ -41,6 +48,15 @@ export class SearchController {
         }));
     }
 
+    if (toolTypes.length > 0) {
+        queryBuilder.andWhere(new Brackets(qb => {
+            for (const type of toolTypes) {
+                const paramName = `tool_type_${toolTypes.indexOf(type)}`;
+                qb.orWhere(`item.platform_name LIKE :${paramName}`, { [paramName]: `%${type}%` });
+            }
+        }));
+    }
+
     const [search_data, totalItems] = await queryBuilder
         .skip((currentPage - 1) * ITEMS_PER_PAGE)
         .take(ITEMS_PER_PAGE)
@@ -61,6 +77,12 @@ export class SearchController {
       featureChoices.push('Untagged');
     }
 
+    const allTools = await AppDataSource.getRepository(slc_item_catalog)
+      .createQueryBuilder("item")
+      .select("DISTINCT item.platform_name", "platform_name")
+      .getRawMany();
+    const toolChoices = allTools.map(t => t.platform_name).filter(Boolean);
+
     res.render('pages/search', {
       results: search_data,
       currentPage,
@@ -69,6 +91,8 @@ export class SearchController {
       features,
       title: 'Search Results',
       featureChoices,
+      tools,
+      toolChoices,
     });
   }
   async searchCatalogAPI(req: Request, res: Response) {

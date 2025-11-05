@@ -16,8 +16,8 @@
 
     <h3>Tools</h3>
     <fieldset>
-      <% const tools = ["Acos Server", "CodeCheck", "Codespec", "CodeWorkout", "HypoCompass", "OpenDSA"]; %>
-      <% const selectedTools = typeof toolFilter !== 'undefined' ? toolFilter : []; %>
+      <% const tools = toolChoices || []; %>
+      <% const selectedTools = typeof tools !== 'undefined' ? tools : []; %>
       <% tools.forEach(tool => { %>
         <label>
           <input type="checkbox" class="toolInput" name="tool" value="<%= tool %>"
