@@ -5,7 +5,7 @@ import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
-    const query = (req.body.query || req.query.query) as string;
+    const query = req.query.query as string;
     const features = req.query.features || [];
     let featureTypes: string[] = [];
     if (typeof features === 'string') {
@@ -26,8 +26,6 @@ export class SearchController {
     } else if (Array.isArray(tools)) {
       toolTypes = tools as string[];
     }
-    const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25;
 
     const queryBuilder = AppDataSource.getRepository(slc_item_catalog).createQueryBuilder('item');
 
@@ -42,38 +40,7 @@ export class SearchController {
       );
     }
 
-    if (featureTypes.length > 0) {
-      queryBuilder.andWhere(
-        new Brackets((qb) => {
-          for (const type of featureTypes) {
-            if (type === 'Untagged') {
-              qb.orWhere('item.features IS NULL');
-            } else {
-              const paramName = `type_${featureTypes.indexOf(type)}`;
-              qb.orWhere(`item.features LIKE :${paramName}`, { [paramName]: `%${type}%` });
-            }
-          }
-        }),
-      );
-    }
-
-    if (toolTypes.length > 0) {
-      queryBuilder.andWhere(
-        new Brackets((qb) => {
-          for (const type of toolTypes) {
-            const paramName = `tool_type_${toolTypes.indexOf(type)}`;
-            qb.orWhere(`item.platform_name LIKE :${paramName}`, { [paramName]: `%${type}%` });
-          }
-        }),
-      );
-    }
-
-    const [search_data, totalItems] = await queryBuilder
-      .skip((currentPage - 1) * ITEMS_PER_PAGE)
-      .take(ITEMS_PER_PAGE)
-      .getManyAndCount();
-
-    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    const search_data = await queryBuilder.getMany();
 
     const allFeatures = await AppDataSource.getRepository(slc_item_catalog)
       .createQueryBuilder('item')
@@ -84,7 +51,7 @@ export class SearchController {
         allFeatures
           .map((t) => t.features)
           .flat()
-          .flatMap((featureString) => featureString.split(',').map((s: string) => s.trim()))
+          .flatMap((featureString) => (featureString || '').split(',').map((s: string) => s.trim()))
           .filter(Boolean),
       ),
     ];
@@ -100,13 +67,13 @@ export class SearchController {
 
     res.render('pages/search', {
       results: search_data,
-      currentPage,
-      totalPages,
+      currentPage: 1,
+      totalPages: 1,
       query,
-      features,
+      features: featureTypes,
       title: 'Search Results',
       featureChoices,
-      tools,
+      tools: toolTypes,
       toolChoices,
     });
   }
@@ -116,27 +83,18 @@ export class SearchController {
       return res.status(400).json({ error: 'Missing query parameter' });
     }
 
-    const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25;
-
     try {
-      const [search_data, totalItems] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
+      const [search_data] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
         where: [
           { keywords: Like(`%${query}%`) },
           { platform_name: Like(`%${query}%`) },
           { title: Like(`%${query}%`) },
           { catalog_type: Like(`%${query}%`) },
         ],
-        skip: (currentPage - 1) * ITEMS_PER_PAGE,
-        take: ITEMS_PER_PAGE,
       });
-
-      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
       return res.json({
         results: search_data,
-        currentPage,
-        totalPages,
         query,
       });
     } catch (error) {

@@ -17,7 +17,7 @@
       %>
 
       <main class="search-content">
-        <h1 class="header">Search Results for "<%= q %>"</h1>
+
         <div style="margin-bottom: 1rem;">
           <!-- add button to download the JSON results -->
           <form action="/export/search" method="get" style="display:inline;">
@@ -35,46 +35,16 @@
 
 
         <div class="pagination">
-          <ul class="pagination-list">
-            <% if (totalPages > 10) { %>
-              <% if (currentPage > 1) { %>
-                <li><a href="?query=<%= q %>&page=<%= currentPage - 1 %>" class="pagination-btn">❮ Previous</a></li>
-              <% } %>
-              <% if (currentPage > 10) { %>
-                <li><a href="?query=<%= q %>&page=<%= Math.max(1, currentPage - 10) %>" class="pagination-btn">« -10</a></li>
-              <% } %>
-              <% if (totalPages <= 5) { %>
-                <% for (let i = 1; i <= totalPages; i++) { %>
-                  <li><a href="?query=<%= q %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
-                <% } %>
-              <% } else { %>
-                <% if (currentPage > 2) { %>
-                  <li><a href="?query=<%= q %>&page=1">1</a></li>
-                  <% if (currentPage > 3) { %><li class="ellipsis">...</li><% } %>
-                <% } %>
-                <% for (let i = Math.max(1, currentPage - 1); i <= Math.min(totalPages, currentPage + 1); i++) { %>
-                  <li><a href="?query=<%= q %>&page=<%= i %>" class="<%= currentPage === i ? 'active' : '' %>"><%= i %></a></li>
-                <% } %>
-                <% if (currentPage < totalPages - 1) { %>
-                  <% if (currentPage < totalPages - 2) { %><li class="ellipsis">...</li><% } %>
-                  <li><a href="?query=<%= q %>&page=<%= totalPages %>"><%= totalPages %></a></li>
-                <% } %>
-              <% } %>
-              <% if (currentPage + 10 <= totalPages) { %>
-                <li><a href="?query=<%= q %>&page=<%= Math.min(totalPages, currentPage + 10) %>" class="pagination-btn">+10 »</a></li>
-              <% } %>
-              <% if (currentPage < totalPages) { %>
-                <li><a href="?query=<%= q %>&page=<%= currentPage + 1 %>" class="pagination-btn">Next ❯</a></li>
-              <% } %>
-            <% } %>
-          </ul>
         </div>
       </main>
     </div>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const allItems = <%- JSON.stringify(results || []) %>;
+      let currentItems = allItems;
+    </script>
     <script src="/js/searchparams.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const modal = document.getElementById("descriptionModal");
