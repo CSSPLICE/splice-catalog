@@ -50,21 +50,17 @@
                         featureList = SLCItem.features.split(/\s*, \s*/).filter(Boolean);
                     }
                     %>
-                    <%= featureList.length ? featureList.join(', ') : '_' %>
+                    <%- featureList.map(feature => `<a href="#" class="feature-link" data-feature="${feature.trim()}">${feature.trim()}</a>`).join(', ') %>
                 </td>
                 <td>
                     <span class="short-description" data-description="<%= SLCItem.description || '' %>" style="cursor: pointer;">
                         <%- truncateWords(SLCItem.description, 20) %>
                     </span>
                 </td>
-                <td><a href="<%= SLCItem.url %>"><%= SLCItem.platform_name %></a></td>
+                <td><a href="<%= SLCItem.iframe_url %>" target="_blank"><%= SLCItem.platform_name %></a></td>
                 <td>
                     <% SLCItem.keywords.forEach((keyword, index) => { %>
-                        <form style="display: none" action="/search/" method="post">
-                            <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>">
-                        </form>
-                        <label style="text-decoration: underline; color: #0000EE" for="query<%= keyword %>"><%= keyword %></label>
-                        <% if (index < SLCItem.keywords.length - 1) { %>, <% } %>
+                        <a href="#" class="keyword-link" data-keyword="<%= keyword %>" style="text-decoration: underline; color: #0000EE"><%= keyword %></a><% if (index < SLCItem.keywords.length - 1) { %>, <% } %>
                     <% }); %>
                 </td>
             </tr>
