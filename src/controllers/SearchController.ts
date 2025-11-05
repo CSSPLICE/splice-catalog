@@ -71,7 +71,7 @@ export class SearchController {
     const featureChoices = [...new Set(allFeatures
       .map(t => t.features)
       .flat()
-      .flatMap(featureString => featureString.split(',').map(s => s.trim()))
+      .flatMap(featureString => featureString.split(',').map((s: string) => s.trim()))
       .filter(Boolean))];
     if (!featureChoices.includes('Untagged')) {
       featureChoices.push('Untagged');
