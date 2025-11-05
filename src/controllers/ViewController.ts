@@ -18,33 +18,18 @@ const validationResultsRepository = AppDataSource.getRepository(ValidationResult
 const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
 const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
 
+import { SearchController } from './SearchController.js';
+
+const searchController = new SearchController();
+
 export class ViewController {
   async catalogView(req: Request, res: Response) {
-    const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25; // subject to change
-    const totalItems = await AppDataSource.getRepository(slc_item_catalog).count();
-    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
-    const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find({
-      skip: offset,
-      take: ITEMS_PER_PAGE,
-    });
-    res.render('pages/catalog', {
-      catalog: catalog_data,
-      currentPage,
-      totalPages,
-      title: 'SPLICE Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
-    });
+    return searchController.searchCatalog(req, res);
   }
 
   async instructionsView(req: Request, res: Response) {
     res.render('pages/instructions', {
       title: 'Instructions',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
@@ -61,20 +46,16 @@ export class ViewController {
       toolCatalogCount: toolCatalogCount,
       slcItemCount: slcItemCount,
       datasetCount: datasetCount, // to be replaced with actual dataset count
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', {
       title: 'Upload Data',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
   async aboutView(req: Request, res: Response) {
-    res.render('pages/about', { title: 'About', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
+    res.render('pages/about', { title: 'About' });
   }
 
   async toolView(req: Request, res: Response) {
@@ -83,8 +64,6 @@ export class ViewController {
     res.render('pages/toolcatalog', {
       toolsCatalog: toolsCatalog_data,
       title: 'Tools Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
@@ -94,8 +73,6 @@ export class ViewController {
       res.render('pages/datasetcatalog', {
         datasets: datasetCatalog_data,
         title: 'Dataset Catalog',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
       });
     } catch (error) {
       logger.error('Failed to fetch dataset catalog data:', error);
@@ -193,14 +170,12 @@ export class ViewController {
     res.render('pages/index', {
       catalog: catalog_data,
       title: 'SPLICE Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   profileView(req: Request, res: Response) {
     // res.render('pages/profile', { title: 'Profile', user: JSON.stringify(req.oidc.user, null, 2) });
-    res.render('pages/profile', { title: 'Profile', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
+    res.render('pages/profile', { title: 'Profile' });
   }
 
   async rejectAll(req: Request, res: Response) {

@@ -51,8 +51,6 @@ export class OntologyController {
       res.render('pages/ontologyTiles', {
         title: 'Ontology Browser',
         description: 'Explore the SPLICE Ontology and navigate through categories and subcategories.',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
       });
     } catch (error) {
       console.error('Error rendering ontology tiles page:', error);

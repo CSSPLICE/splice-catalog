@@ -1,0 +1,32 @@
+<aside class="search-sidebar">
+  <h2>Filter</h2>
+  <form action="/search" method="get" id="filterForm">
+    <fieldset>
+      <legend>Features</legend>
+      <% const allFeatures = featureChoices || []; %>
+      <% const selectedFeatures = features || []; %>
+      <% allFeatures.forEach(type => { %>
+        <label>
+          <input type="checkbox" class="exerciseTypeInput" name="features" value="<%= type %>"
+            <%= selectedFeatures.includes(type) ? 'checked' : '' %> />
+          <%= type %>
+        </label>
+      <% }) %>
+    </fieldset>
+
+    <h3>Tools</h3>
+    <fieldset>
+      <% const allTools = toolChoices || []; %>
+      <% const selectedTools = tools || []; %>
+      <% allTools.forEach(tool => { %>
+        <label>
+          <input type="checkbox" class="toolInput" name="tool" value="<%= tool %>"
+            <%= selectedTools.includes(tool) ? 'checked' : '' %> />
+          <%= tool %>
+        </label>
+      <% }) %>
+    </fieldset>
+
+    <input type="hidden" name="query" value="<%= typeof query !== 'undefined' ? query : '' %>">
+  </form>
+</aside>

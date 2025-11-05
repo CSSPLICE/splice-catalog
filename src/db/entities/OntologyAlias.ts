@@ -11,7 +11,7 @@ import {
 // import { OntologyClasses } from './OntologyClass.js';
 
 @Entity('ontology_aliases')
-export class OntologyAliases  extends BaseEntity{
+export class OntologyAliases extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 

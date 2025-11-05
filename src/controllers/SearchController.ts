@@ -1,81 +1,80 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source.js';
-import { FindOptionsWhere, ILike, IsNull } from 'typeorm';
+import { Brackets, Like } from 'typeorm';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
-import { SLCItem } from 'src/types/ItemTypes.js';
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
-    const query = req.body.query || req.query.query; // Handle GET and POST requests
-    const exerciseType = req.query.exerciseType || [];
-    const exerciseTypes = typeof exerciseType === 'string' ? exerciseType.split(',') : [];
-    if (!query) {
-      return res.render('pages/search', {
-        results: [],
-        currentPage: 1,
-        totalPages: 0,
-        query: '',
-        exerciseType,
-        title: 'Search Results',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
-      });
+    const query = req.query.query as string;
+    const features = req.query.features || [];
+    let featureTypes: string[] = [];
+    if (typeof features === 'string') {
+      featureTypes = features
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+    } else if (Array.isArray(features)) {
+      featureTypes = features as string[];
+    }
+    const tools = req.query.tool || [];
+    let toolTypes: string[] = [];
+    if (typeof tools === 'string') {
+      toolTypes = tools
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+    } else if (Array.isArray(tools)) {
+      toolTypes = tools as string[];
     }
 
-    let dbQuery: FindOptionsWhere<SLCItem>[] = [
-      { keywords: ILike(`%${query}%`) },
-      { platform_name: ILike(`%${query}%`) },
-      { exercise_name: ILike(`%${query}%`) },
-      { catalog_type: ILike(`%${query}%`) },
+    const queryBuilder = AppDataSource.getRepository(slc_item_catalog).createQueryBuilder('item');
+
+    if (query) {
+      queryBuilder.where(
+        new Brackets((qb) => {
+          qb.where('item.keywords LIKE :query', { query: `%${query}%` })
+            .orWhere('item.platform_name LIKE :query', { query: `%${query}%` })
+            .orWhere('item.title LIKE :query', { query: `%${query}%` })
+            .orWhere('item.catalog_type LIKE :query', { query: `%${query}%` });
+        }),
+      );
+    }
+
+    const search_data = await queryBuilder.getMany();
+
+    const allFeatures = await AppDataSource.getRepository(slc_item_catalog)
+      .createQueryBuilder('item')
+      .select('DISTINCT item.features', 'features')
+      .getRawMany();
+    const featureChoices = [
+      ...new Set(
+        allFeatures
+          .map((t) => t.features)
+          .flat()
+          .flatMap((featureString) => (featureString || '').split(',').map((s: string) => s.trim()))
+          .filter(Boolean),
+      ),
     ];
-
-    if (exerciseTypes.length > 0) {
-      // Split your base query OR conditions
-      let queryWithExerciseTypes: FindOptionsWhere<SLCItem>[] = [];
-
-      if (exerciseTypes.includes('Untagged')) {
-        queryWithExerciseTypes = dbQuery.map((orcond) => ({
-          ...orcond,
-          exercise_type: IsNull(),
-        }));
-      }
-
-      const nonNullTypes = exerciseTypes.filter((type) => type !== 'Untagged');
-
-      if (nonNullTypes.length > 0) {
-        for (const type of nonNullTypes) {
-          queryWithExerciseTypes.push(
-            ...dbQuery.map((orcond) => ({
-              ...orcond,
-              exercise_type: ILike(`%${type}%`),
-            })),
-          );
-        }
-      }
-
-      dbQuery = queryWithExerciseTypes;
+    if (!featureChoices.includes('Untagged')) {
+      featureChoices.push('Untagged');
     }
 
-    const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25;
-
-    const [search_data, totalItems] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
-      where: dbQuery,
-      skip: (currentPage - 1) * ITEMS_PER_PAGE,
-      take: ITEMS_PER_PAGE,
-    });
-
-    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    const allTools = await AppDataSource.getRepository(slc_item_catalog)
+      .createQueryBuilder('item')
+      .select('DISTINCT item.platform_name', 'platform_name')
+      .getRawMany();
+    const toolChoices = allTools.map((t) => t.platform_name).filter(Boolean);
 
     res.render('pages/search', {
       results: search_data,
-      currentPage,
-      totalPages,
-      query, // Pass the query parameter to the view
-      exerciseType,
+      currentPage: 1,
+      totalPages: 1,
+      query,
+      features: featureTypes,
       title: 'Search Results',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
+      featureChoices,
+      tools: toolTypes,
+      toolChoices,
     });
   }
   async searchCatalogAPI(req: Request, res: Response) {
@@ -84,28 +83,18 @@ export class SearchController {
       return res.status(400).json({ error: 'Missing query parameter' });
     }
 
-    const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25;
-
     try {
-      const [search_data, totalItems] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
+      const [search_data] = await AppDataSource.getRepository(slc_item_catalog).findAndCount({
         where: [
-          { keywords: ILike(`%${query}%`) },
-          { platform_name: ILike(`%${query}%`) },
-          { exercise_name: ILike(`%${query}%`) },
-          { exercise_type: ILike(`%${query}%`) },
-          { catalog_type: ILike(`%${query}%`) },
+          { keywords: Like(`%${query}%`) },
+          { platform_name: Like(`%${query}%`) },
+          { title: Like(`%${query}%`) },
+          { catalog_type: Like(`%${query}%`) },
         ],
-        skip: (currentPage - 1) * ITEMS_PER_PAGE,
-        take: ITEMS_PER_PAGE,
       });
-
-      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
       return res.json({
         results: search_data,
-        currentPage,
-        totalPages,
         query,
       });
     } catch (error) {

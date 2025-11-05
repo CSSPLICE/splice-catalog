@@ -221,9 +221,9 @@ const processItems = async (
         keywords = [];
       }
     }
-    const exerciseName: string = item.exercise_name || '';
+    const title: string = item.title || '';
 
-    const terms = [...keywords, exerciseName].map((term) => normalizeText(term)).filter((term) => term.length > 0);
+    const terms = [...keywords, title].map((term) => normalizeText(term)).filter((term) => term.length > 0);
 
     logger.debug(`Processing Item ID ${item.id} with terms: [${terms.join(', ')}]`);
 

@@ -1,45 +1,71 @@
 <table class="table table-striped">
+    <%
+        const truncateWords = (s, n = 20) => {
+            if (!s) return "";
+            const words = String(s).trim().split(/\s+/);
+            return words.length <= n ? s : words.slice(0, n).join(' ') + '...';
+        };
+    %>
     <thead>
         <tr>
             <th scope="col">Exercise Title</th>
-            <th scope="col">Exercise Type</th>
+            <th scope="col">Features</th>
             <th scope="col">Description</th>
             <th scope="col">Platform</th>
             <th scope="col">Keywords</th>
         </tr>
     </thead>
     <tbody class="table-group-divider">
-        <% items.forEach((SLCItem) => { %> 
+        <% if (!items || items.length === 0) { %>
+            <tr> </tr>
+        <% } else { %>
+            <% items.forEach((SLCItem) => { %>
+                <%
+                    const featuresArr = Array.isArray(SLCItem.features)
+                        ? SLCItem.features
+                        : (typeof SLCItem.features === 'string'
+                            ? SLCItem.features.split(/\s*,\s*/).filter(Boolean)
+                            : []);
+                    const keywordsArr = Array.isArray(SLCItem.keywords) ? SLCItem.keywords : [];
+                %>
             <tr>
                 <td scope="row">
                     <% if (isSearchPage) { %>
-                <a href="/catalog/item/<%= encodeURIComponent(SLCItem.exercise_name) %>" style="text-decoration: underline; color: #0000EE;">
-                         <%= SLCItem.exercise_name %>
+                <a href="/catalog/item/<%= encodeURIComponent(SLCItem.id) %>" style="text-decoration: underline; color: #0000EE;">
+                         <%= SLCItem.title %>
                  </a>
                 <% } else { %>
-                 <a href="/catalog/item/<%= encodeURIComponent(SLCItem.exercise_name) %>" style="text-decoration: underline; color: #0000EE;">
-                 <%= SLCItem.exercise_name %>
+                 <a href="/catalog/item/<%= encodeURIComponent(SLCItem.id) %>" style="text-decoration: underline; color: #0000EE;">
+                 <%= SLCItem.title %>
                 </a>
                 <% } %>
                 </td>
-                <td><%= SLCItem.exercise_type %></td>
                 <td>
-                    <span class="short-description" data-description="<%= SLCItem.description %>" style="cursor: pointer;">
-                        Short Description...
+                    <%
+                    let featureList = [];
+                    if (Array.isArray(SLCItem.features)) {
+                        featureList = SLCItem.features;
+                    }
+                    else if (typeof SLCItem.features === 'string') {
+                        featureList = SLCItem.features.split(/\s*, \s*/).filter(Boolean);
+                    }
+                    %>
+                    <%- featureList.map(feature => `<a href="#" class="feature-link" data-feature="${feature.trim()}">${feature.trim()}</a>`).join(', ') %>
+                </td>
+                <td>
+                    <span class="short-description" data-description="<%= SLCItem.description || '' %>" style="cursor: pointer;">
+                        <%- truncateWords(SLCItem.description, 20) %>
                     </span>
                 </td>
-                <td><a href="<%= SLCItem.url %>"><%= SLCItem.platform_name %></a></td>
+                <td><a href="<%= SLCItem.iframe_url %>" target="_blank"><%= SLCItem.platform_name %></a></td>
                 <td>
                     <% SLCItem.keywords.forEach((keyword, index) => { %>
-                        <form style="display: none" action="/search/" method="post">
-                            <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>">
-                        </form>
-                        <label style="text-decoration: underline; color: #0000EE" for="query<%= keyword %>"><%= keyword %></label>
-                        <% if (index < SLCItem.keywords.length - 1) { %>, <% } %>
+                        <a href="#" class="keyword-link" data-keyword="<%= keyword %>" style="text-decoration: underline; color: #0000EE"><%= keyword %></a><% if (index < SLCItem.keywords.length - 1) { %>, <% } %>
                     <% }); %>
                 </td>
             </tr>
         <% }) %>
+    <% } %>
     </tbody>
 </table>
 <!-- Modal -->

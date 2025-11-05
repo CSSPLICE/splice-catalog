@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import logger from '../utils/logger.js';
 import { AppDataSource } from '../db/data-source.js'; // Adjust the path to your data-source file
+import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import {validate, ValidationError} from "class-validator";
 import {slc_tools_catalog} from "../db/entities/SLCToolsCatalog.js";

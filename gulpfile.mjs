@@ -9,6 +9,9 @@ export function views() {
   return gulp.src('./src/views/**/*.ejs').pipe(gulp.dest('./dist/views'));
 }
 
-export default gulp.series(assets, views, () => {
+function finish(done) {
   console.log('gulp done');
-});
+  done();
+}
+
+export default gulp.series(assets, views, finish);

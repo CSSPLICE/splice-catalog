@@ -11,28 +11,24 @@ import { Database, Resource } from '@adminjs/typeorm';
 import { buildRouter } from '@adminjs/express';
 
 export function setup() {
-  AdminJS.registerAdapter(
-    {
-      Database,
-      Resource,
-    },
-  );
+  AdminJS.registerAdapter({
+    Database,
+    Resource,
+  });
 
-  const adminJs = new AdminJS(
-    {
-      resources: [
-        { resource: slc_item_catalog },
-        { resource: slc_tools_catalog },
-        { resource: dataset_catalog },
-        { resource: OntologyClasses },
-        { resource: OntologyRelations },
-        { resource: OntologyAliases },
-        { resource: ItemClassification },
-        { resource: ValidationResults },
-      ],
-      rootPath: '/admin',
-    },
-  );
+  const adminJs = new AdminJS({
+    resources: [
+      { resource: slc_item_catalog },
+      { resource: slc_tools_catalog },
+      { resource: dataset_catalog },
+      { resource: OntologyClasses },
+      { resource: OntologyRelations },
+      { resource: OntologyAliases },
+      { resource: ItemClassification },
+      { resource: ValidationResults },
+    ],
+    rootPath: '/admin',
+  });
 
   return buildRouter(adminJs);
 }

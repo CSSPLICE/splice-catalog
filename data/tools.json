@@ -1,0 +1,62 @@
+[
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "Acos Server",
+    "url": "https://acos.cs.vt.edu",
+    "description": "Acos server and related sub-projects are a method of distributing browser-based smart learning content in a reusable and interoperable way.",
+    "license": "CC BY-NC-SA 4.0",
+    "interface": "LTI, xAPI",
+    "contact_email": "cskamil@gmail.com",
+    "lti_credentials": null
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "CodeCheck",
+    "url": "https://codecheck.io/",
+    "description": "CodeCheck is an anonymous, author-friendly autograder optimized for simple programming assignments that provide practice and build confidence.",
+    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA)",
+    "interface": "LTI, SPLICE protocol",
+    "contact_email": "cay@horstmann.com",
+    "lti_credentials": null
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "Codespec",
+    "url": "https://www.codespec.org/",
+    "description": "Codespec is a computer programming tutor that offers learners multiple means of engagement, including Parsons problems, debugging, and step-by-step guidance.",
+    "license": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)",
+    "interface": null,
+    "contact_email": "cchmagyar@gmail.com",
+    "lti_credentials": null
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "CodeWorkout",
+    "url": "https://codeworkout.cs.vt.edu",
+    "description": "CodeWorkout is an online exercise system to help people practice coding exercises on various programming concepts within a web browser, providing customized feedback.",
+    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+    "interface": "LTI",
+    "contact_email": "",
+    "lti_credentials": null
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "HypoCompass",
+    "url": "http://141.148.1.3:8080/",
+    "description": "HypoCompass is a learning-by-teaching tutoring system with debugging practices focusing on test case development and testing for CS1 students.",
+    "license": "Apache License 2.0",
+    "interface": null,
+    "contact_email": "qianouma@cmu.edu",
+    "lti_credentials": null
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "OpenDSA",
+    "url": "https://opendsa-server.cs.vt.edu",
+    "description": "OpenDSA provides infrastructure and materials to support courses in data structures, algorithms, and other CS-related topics.",
+    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
+    "interface": "LTI",
+    "contact_email": "",
+    "lti_credentials": null
+  }
+]

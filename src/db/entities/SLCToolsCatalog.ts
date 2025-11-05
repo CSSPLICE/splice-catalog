@@ -1,6 +1,6 @@
 import { Entity, PrimaryColumn, Column, BaseEntity } from 'typeorm';
-import { CatalogInterface } from "./CatalogInterface.js";
-import { IsNotEmpty, IsOptional, IsString, IsUrl } from "class-validator";
+import { CatalogInterface } from './CatalogInterface.js';
+import { IsNotEmpty, IsOptional, IsString, IsUrl } from 'class-validator';
 
 @Entity()
 export class slc_tools_catalog extends BaseEntity implements CatalogInterface {
@@ -38,7 +38,7 @@ export class slc_tools_catalog extends BaseEntity implements CatalogInterface {
   interface?: string;
 
   @Column({ nullable: true })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   contact_email!: string;
 

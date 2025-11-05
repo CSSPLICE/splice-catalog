@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/', catalogController.createCatalogItem);
 router.post('/:id', catalogController.deleteCatalogItem);
-router.get('/item/:name', (req, res) => catalogController.getCatalogItemByName(req, res));
+router.get('/item/:id', (req, res) => catalogController.getCatalogItemByID(req, res));
 
 export default router;
