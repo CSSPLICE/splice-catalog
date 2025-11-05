@@ -1,0 +1,33 @@
+<aside class="search-sidebar">
+  <h2>Filter</h2>
+  <form action="/search" method="get" id="filterForm">
+    <fieldset>
+      <legend>Features</legend>
+      <% const types = ["Coding Question", "Multiple Choice Question", "ka", "ss", "pe", "extr", "Untagged"]; %>
+      <% const selectedTypes = typeof exerciseType !== 'undefined' ? exerciseType : []; %>
+      <% types.forEach(type => { %>
+        <label>
+          <input type="checkbox" class="exerciseTypeInput" name="Exercise type: <%= type %>" value="<%= type %>"
+            <%= selectedTypes.includes(type) ? 'checked' : '' %> />
+          <%= type %>
+        </label>
+      <% }) %>
+    </fieldset>
+
+    <h3>Tools</h3>
+    <fieldset>
+      <% const tools = ["Acos Server", "CodeCheck", "Codespec", "CodeWorkout", "HypoCompass", "OpenDSA"]; %>
+      <% const selectedTools = typeof toolFilter !== 'undefined' ? toolFilter : []; %>
+      <% tools.forEach(tool => { %>
+        <label>
+          <input type="checkbox" class="toolInput" name="tool" value="<%= tool %>"
+            <%= selectedTools.includes(tool) ? 'checked' : '' %> />
+          <%= tool %>
+        </label>
+      <% }) %>
+    </fieldset>
+
+    <input type="hidden" name="query" value="">
+    <button type="submit">Apply Filters</button>
+  </form>
+</aside>
