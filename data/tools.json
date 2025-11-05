@@ -47,10 +47,10 @@
   {
     "platform_name": "OpenDSA",
     "url": "https://opendsa-server.cs.vt.edu",
-    "tool_description": "OpenDSA provides infrastructure and materials to support courses in data structures, algorithms, and other CS-related topics.",
-    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
-    "standard_support": "LTI",
-    "keywords": ["data structures", "algorithms", "education"],
-    "contact_email": null
+    "tool_description": "OpenDSA provides infrastructure and materials to support courses in data structures, algorithms, formal languages, and other CS-related topics.",
+    "license": "MIT",
+    "standard_support": "LTI, SPLICE protocol",
+    "keywords": ["data structures", "algorithms", "formal languages", "education", "algorithm visualization", "interative exercises"],
+    "contact_email": "opendsa@cs.vt.edu"
   }
 ]
