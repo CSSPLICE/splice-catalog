@@ -1,5 +1,5 @@
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { MatchedItem } from './ItemTypes';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
+import { MatchedItem } from './ItemTypes.js';
 
 export interface CategorizedItem {
   item: CreateSLCItemDTO;

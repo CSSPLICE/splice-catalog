@@ -30,18 +30,20 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/app
+      - /app/node_modules
     command: ["sh", "-c", "yarn migrate && yarn dev"]
     env_file:
       - .env
     depends_on:
       db:
         condition: service_healthy
-      lti-validator:
-        condition: service_started
+        # lti-validator:
+          # condition: service_started
       chrome:
         condition: service_started
     ports:
       - '3000:3000'
+      - '9229:9229'
     networks:
       - splice
     healthcheck:
@@ -74,8 +76,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
-      lti-validator:
-        condition: service_healthy
+      # lti-validator:
+        # condition: service_healthy
     volumes:
       - staticvolume:/home/deploy/app/dist/public
     ports:

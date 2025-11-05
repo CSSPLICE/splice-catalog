@@ -1,10 +1,10 @@
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
 
 export class MetadataExtractor {
   public static extractMetadata(item: CreateSLCItemDTO) {
     return {
       keywords: item.keywords,
-      exercise_name: item.exercise_name,
+      title: item.title,
       author: item.author,
     };
   }

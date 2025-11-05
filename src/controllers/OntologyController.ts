@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
-import { OntologyClasses } from '../db/entities/OntologyClass';
+import { AppDataSource } from '../db/data-source.js';
+import { OntologyClasses } from '../db/entities/OntologyClass.js';
 
 export class OntologyController {
   // Fetch ontology tiles data for parents
@@ -51,8 +51,6 @@ export class OntologyController {
       res.render('pages/ontologyTiles', {
         title: 'Ontology Browser',
         description: 'Explore the SPLICE Ontology and navigate through categories and subcategories.',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
       });
     } catch (error) {
       console.error('Error rendering ontology tiles page:', error);

@@ -1,22 +1,29 @@
 import cors from 'cors';
 import helmet from 'helmet';
 import express, { Express } from 'express';
-import catalogRoutes from './routes/catalog';
-import aboutRoutes from './routes/about';
-import searchRoutes from './routes/search';
-import viewRoutes from './routes/view';
-import reviewRoutes from './routes/review';
-import ontologyRoutes from './routes/ontology';
-import { ErrorHandler } from './utils/ErrorHandler';
+import catalogRoutes from './routes/catalog.js';
+import aboutRoutes from './routes/about.js';
+import searchRoutes from './routes/search.js';
+import viewRoutes from './routes/view.js';
+import reviewRoutes from './routes/review.js';
+import ontologyRoutes from './routes/ontology.js';
+import { ErrorHandler } from './utils/ErrorHandler.js';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import { auth } from 'express-openid-connect';
 import * as dotenv from 'dotenv';
-import { AppDataSource } from './db/data-source';
+import { setup } from './admin-panel/adminjs-setup.js';
+import { AppDataSource } from './db/data-source.js';
+import { EventEmitter } from 'events';
+import { checkRole, roles } from './middleware/middleware.js';
 
+const emitter = new EventEmitter();
 (async () => {
   try {
     if (!AppDataSource.isInitialized) {
-      await AppDataSource.initialize();
+      await AppDataSource.initialize().then(() => {
+        emitter.emit('DataSourceInitialized');
+      });
       console.log('Database connection initialized successfully!');
     }
   } catch (error) {
@@ -36,16 +43,13 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 if (process.env.NODE_ENV === 'production') {
   app.use(
     helmet({
-      contentSecurityPolicy: {
-        directives: {
-          'frame-src': ['codeworkoutdev.cs.vt.edu', 'opendsax.cs.vt.edu', 'acos.cs.vt.edu', 'codecheck.io'],
-          'script-src': ["'self'", 'splice.cs.vt.edu', 'cdn.jsdelivr.net'],
-        },
-        reportOnly: true,
-      },
+      contentSecurityPolicy: false,
     }),
   );
 }
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Serve static files from 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -64,6 +68,12 @@ const oidc_config = {
 
 app.use(auth(oidc_config));
 
+app.use((req, res, next) => {
+  res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
+  res.locals.showLoginButton = req.path.startsWith('/instructions') && !req.oidc?.user;
+  next();
+});
+
 app.use('/', viewRoutes);
 app.use('/about', aboutRoutes);
 app.use('/catalog', catalogRoutes);
@@ -71,6 +81,14 @@ app.use('/search', searchRoutes);
 app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
 app.use('/ontology', ontologyRoutes);
+
+emitter.on('DataSourceInitialized', () => {
+  console.log('DataSourceInitialized');
+});
+emitter.on('DataSourceInitialized', () => {
+  const adminRouter = setup();
+  app.use('/admin', checkRole(roles.admin), adminRouter);
+});
 
 app.use(ErrorHandler.handleErrors);
 

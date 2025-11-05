@@ -1,9 +1,9 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
-import { ResponseUtil } from '../utils/Response';
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
+import { AppDataSource } from '../db/data-source.js';
+import { ResponseUtil } from '../utils/Response.js';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 
 export class CatalogController {
   async getCatalog(req: Request, res: Response): Promise<Response> {
@@ -57,28 +57,29 @@ export class CatalogController {
     }
     return ResponseUtil.sendResponse(res, 'failed to delete the CatalogItem', 400);
   }
-  async getCatalogItemByName(req: Request, res: Response): Promise<Response | void> {
-    const { name } = req.params;
+  async getCatalogItemByID(req: Request, res: Response): Promise<Response | void> {
+    const { id } = req.params;
+    const idNumber = Number(id);
+
+    if (isNaN(idNumber)) {
+      return res.status(400).send('Invalid catalog ID');
+    }
 
     try {
       const item = await AppDataSource.getRepository(slc_item_catalog).findOneBy({
-        exercise_name: decodeURIComponent(name),
+        id: idNumber,
       });
 
       if (!item) {
         return res.status(404).render('pages/item', {
           item: null,
           title: 'Item Not Found',
-          user: req.oidc.user,
-          showLoginButton: res.locals.showLoginButton,
         });
       }
 
       return res.render('pages/item', {
         item,
         title: 'Item View',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
       });
     } catch (error) {
       console.error('Error retrieving item:', error);

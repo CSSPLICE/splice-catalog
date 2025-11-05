@@ -1,8 +1,8 @@
 import { ValidationError } from 'class-validator';
 import { NextFunction, Request, Response } from 'express';
 import { EntityNotFoundError } from 'typeorm';
-import { ResponseUtil } from './Response';
-import logger from './logger';
+import { ResponseUtil } from './Response.js';
+import logger from './logger.js';
 
 export class ErrorHandler {
   static handleErrors(err: Error, req: Request, res: Response, next: NextFunction) {

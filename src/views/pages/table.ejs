@@ -9,16 +9,16 @@
         </tr>
     </thead>
     <tbody class="table-group-divider">
-        <% items.forEach((SLCItem) => { %> 
+        <% items.forEach((SLCItem) => { %>
             <tr>
                 <td scope="row">
                     <% if (isSearchPage) { %>
-                <a href="/catalog/item/<%= encodeURIComponent(SLCItem.exercise_name) %>" style="text-decoration: underline; color: #0000EE;">
-                         <%= SLCItem.exercise_name %>
+                <a href="/catalog/item/<%= encodeURIComponent(SLCItem.id) %>" style="text-decoration: underline; color: #0000EE;">
+                         <%= SLCItem.title %>
                  </a>
                 <% } else { %>
-                 <a href="/catalog/item/<%= encodeURIComponent(SLCItem.exercise_name) %>" style="text-decoration: underline; color: #0000EE;">
-                 <%= SLCItem.exercise_name %>
+                 <a href="/catalog/item/<%= encodeURIComponent(SLCItem.id) %>" style="text-decoration: underline; color: #0000EE;">
+                 <%= SLCItem.title %>
                 </a>
                 <% } %>
                 </td>

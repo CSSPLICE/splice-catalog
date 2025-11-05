@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
+import { AppDataSource } from '../db/data-source.js';
 import { FindOptionsWhere, ILike, IsNull } from 'typeorm';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import { SLCItem } from 'src/types/ItemTypes';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
+import { SLCItem } from 'src/types/ItemTypes.js';
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
@@ -17,15 +17,13 @@ export class SearchController {
         query: '',
         exerciseType,
         title: 'Search Results',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
       });
     }
 
     let dbQuery: FindOptionsWhere<SLCItem>[] = [
       { keywords: ILike(`%${query}%`) },
       { platform_name: ILike(`%${query}%`) },
-      { exercise_name: ILike(`%${query}%`) },
+      { title: ILike(`%${query}%`) },
       { catalog_type: ILike(`%${query}%`) },
     ];
 
@@ -74,8 +72,6 @@ export class SearchController {
       query, // Pass the query parameter to the view
       exerciseType,
       title: 'Search Results',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
   async searchCatalogAPI(req: Request, res: Response) {
@@ -92,8 +88,7 @@ export class SearchController {
         where: [
           { keywords: ILike(`%${query}%`) },
           { platform_name: ILike(`%${query}%`) },
-          { exercise_name: ILike(`%${query}%`) },
-          { exercise_type: ILike(`%${query}%`) },
+          { title: ILike(`%${query}%`) },
           { catalog_type: ILike(`%${query}%`) },
         ],
         skip: (currentPage - 1) * ITEMS_PER_PAGE,

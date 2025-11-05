@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as https from 'https';
-import { URLValidationItem, URLValidationIssue } from '../types/ValidationTypes';
+import { URLValidationItem, URLValidationIssue } from '../types/ValidationTypes.js';
 
 export class URLValidator {
   async validate(validItems: URLValidationItem[]): Promise<{
@@ -20,17 +20,17 @@ export class URLValidator {
         urlsChecked++;
         // const response = await axios.get(item.url);
         // Disable SSL certificate validation for axios
-        const response = await axios.get(item.url, {
+        const response = await axios.get(item.iframe_url, {
           httpsAgent: new https.Agent({ rejectUnauthorized: false }),
           timeout: 4000,
         });
 
         if (response.status === 200) {
           successfulUrls++;
-          console.log(`success ${item.url} is reachable, returned status: ${response.status}`);
+          console.log(`success ${item.iframe_url} is reachable, returned status: ${response.status}`);
         } else {
           unsuccessfulUrls++;
-          const msg = `[ERROR] ${item.url} returned status ${response.status}`;
+          const msg = `[ERROR] ${item.iframe_url} returned status ${response.status}`;
           console.error(msg);
           issues.push({ item, error: `URL returned status ${response.status}` });
         }
@@ -51,7 +51,7 @@ export class URLValidator {
           errorMessage = 'Unknown error occurred.';
         }
 
-        console.error(`error ${item.url} message: ${errorMessage}`);
+        console.error(`error ${item.iframe_url} message: ${errorMessage}`);
         issues.push({ item, error: errorMessage });
       }
     });

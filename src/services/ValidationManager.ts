@@ -1,17 +1,17 @@
-import logger from '../utils/logger';
-import { MetadataValidator } from './MetadataValidator';
-import { URLValidator } from './URLValidator';
-import { CategoryReport } from './CategoryReport';
-import { Categorizer } from './Categorizer';
-import { MetadataIssue, URLValidationResult } from '../types/ValidationTypes';
-import { SLCItem } from '../types/ItemTypes';
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
-import { CategorizationReport } from '../types/CategorizationTypes';
+import logger from '../utils/logger.js';
+import { MetadataValidator } from './MetadataValidator.js';
+import { URLValidator } from './URLValidator.js';
+import { CategoryReport } from './CategoryReport.js';
+import { Categorizer } from './Categorizer.js';
+import { MetadataIssue, URLValidationResult } from '../types/ValidationTypes.js';
+import { SLCItem } from '../types/ItemTypes.js';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
+import { CategorizationReport } from '../types/CategorizationTypes.js';
 import { Repository } from 'typeorm';
-import { ValidationResults } from '../db/entities/ValidationResults';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import { validateLTI } from './ValidatorLTI';
-import { runIframeValidation } from './IframeValidatorService';
+import { ValidationResults } from '../db/entities/ValidationResults.js';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
+import { validateLTI } from './ValidatorLTI.js';
+import { runIframeValidation } from './IframeValidatorService.js';
 
 export class ValidationManager {
   private metadataValidator: MetadataValidator;
@@ -33,31 +33,36 @@ export class ValidationManager {
     this.catalogRepository = catalogRepository;
   }
   private async getOrCreateValidationResultByUrl(url: string, slcItem?: SLCItem): Promise<ValidationResults | null> {
-    let catalogItem = await this.catalogRepository.findOne({ where: { url }, relations: ['validationResults'] });
+    let catalogItem = await this.catalogRepository.findOne({
+      where: { iframe_url: slcItem?.iframe_url },
+      relations: ['validationResults'],
+    });
 
     const default_key = 'empty';
 
     if (!catalogItem) {
       logger.warn(`Catalog item not found for URL: ${url}`);
 
-      const dummyExerciseName = `autogen_${Date.now()}`;
-
       // rework this code such that if they are not in the database it puts it in their
       // also create validated slc item
       const newItem = {
         catalog_type: slcItem?.catalog_type ?? default_key,
-        url: url,
-        keywords: slcItem?.keywords ?? [],
-        description: slcItem?.description ?? default_key,
-        author: slcItem?.author ?? default_key,
-        institution: slcItem?.institution ?? default_key,
-        language: slcItem?.language ?? default_key,
+        persistentID: slcItem?.persistentID ?? default_key,
         platform_name: slcItem?.platform_name ?? default_key,
-        lti_instructions_url: slcItem?.lti_instructions_url ?? default_key,
-        exercise_type: slcItem?.exercise_type ?? default_key,
-        exercise_name: slcItem?.exercise_name ?? dummyExerciseName,
         iframe_url: slcItem?.iframe_url ?? default_key,
-        lti_url: slcItem?.lti_url ?? default_key,
+        license: slcItem?.license ?? default_key,
+        description: slcItem?.description ?? default_key,
+        author: Array.isArray(slcItem?.author) ? slcItem.author : [default_key],
+        institution: Array.isArray(slcItem?.institution) ? slcItem.institution : [default_key],
+        keywords: Array.isArray(slcItem?.keywords) ? slcItem.keywords : [default_key],
+        features: Array.isArray(slcItem?.features) ? slcItem.features : [default_key],
+        title: slcItem?.title ?? default_key,
+        programming_language: Array.isArray(slcItem?.programming_language)
+          ? slcItem.programming_language
+          : [default_key],
+        natural_language: Array.isArray(slcItem?.natural_language) ? slcItem.natural_language : [default_key],
+        protocol: Array.isArray(slcItem?.protocol) ? slcItem.protocol : [default_key],
+        protocol_url: Array.isArray(slcItem?.protocol_url) ? slcItem.protocol_url : [default_key],
       };
 
       catalogItem = this.catalogRepository.create(newItem);
@@ -92,11 +97,7 @@ export class ValidationManager {
       logger.info(`DENIS IS STARTING metadata validation for ${jsonArray.length} items`);
 
       // 1. Transform SLCItem[] -> CreateSLCItemDTO[]
-      const createDtoArray: CreateSLCItemDTO[] = jsonArray.map((item) => ({
-        ...item,
-        keywords: item.keywords ?? [], // Ensure keywords is string[]
-        lti_instructions_url: item.lti_instructions_url ?? '',
-      }));
+      const createDtoArray: CreateSLCItemDTO[] = jsonArray;
 
       // 2. Validate the CreateSLCItemDTO[] array
       const result = await this.metadataValidator.validate(createDtoArray);
@@ -104,16 +105,16 @@ export class ValidationManager {
       // Save validation results for each item
       for (const item of jsonArray) {
         const validationErrors =
-          result.issues.find((issue) => issue.item.exercise_name === item.exercise_name)?.validationErrors || null;
+          result.issues.find((issue) => issue.item.persistentID === item.persistentID)?.validationErrors || null;
 
-        const catalogItem = await this.catalogRepository.findOne({ where: { url: item.url } });
+        const catalogItem = await this.catalogRepository.findOne({ where: { persistentID: item.persistentID } });
 
         if (!catalogItem) {
-          logger.warn(`No catalog item found for URL: ${item.url}`);
+          logger.warn(`No catalog item found for persistentID: ${item.persistentID}`);
           continue;
         }
 
-        const validationResult = await this.getOrCreateValidationResultByUrl(item.url, item);
+        const validationResult = await this.getOrCreateValidationResultByUrl(item.iframe_url, item);
         if (!validationResult) continue;
 
         // Build detailed metadata error string
@@ -127,7 +128,7 @@ export class ValidationManager {
           : 'no issues';
 
         validationResult.metadataIssues = formattedErrors;
-        validationResult.user = item.exercise_name;
+        validationResult.user = item.title;
         validationResult.dateLastUpdated = new Date();
         await this.validationResultsRepository.save(validationResult);
       }
@@ -137,7 +138,6 @@ export class ValidationManager {
         ...dto,
 
         keywords: dto.keywords ?? [],
-        lti_instructions_url: dto.lti_instructions_url || undefined,
       }));
 
       return {
@@ -165,12 +165,12 @@ export class ValidationManager {
       for (const [index, item] of validItems.entries()) {
         const isValid = result.successfulUrls > index;
 
-        const validationResult = await this.getOrCreateValidationResultByUrl(item.url, item);
+        const validationResult = await this.getOrCreateValidationResultByUrl(item.iframe_url, item);
         if (!validationResult) continue;
 
         validationResult.isUrlValid = isValid;
         try {
-          const iframeResult = await runIframeValidation(item.url);
+          const iframeResult = await runIframeValidation(item.iframe_url);
           validationResult.iframeValidationError = iframeResult.passed
             ? 'Passed: SPLICE message received'
             : iframeResult.message || 'Unknown error';
@@ -179,8 +179,23 @@ export class ValidationManager {
           validationResult.iframeValidationError = 'Iframe validation failed';
         }
 
+        function getLTIURL(item: { protocol?: string[]; protocol_url?: string[] }): string | undefined {
+          const protocolIndex = item.protocol?.findIndex((protocol) => protocol === 'LTI');
+          if (
+            protocolIndex !== undefined &&
+            protocolIndex >= 0 &&
+            item.protocol_url &&
+            item.protocol_url[protocolIndex]
+          ) {
+            return item.protocol_url[protocolIndex];
+          }
+          return undefined;
+        }
+
+        const lti_url = getLTIURL(item);
+
         //lti validation
-        if (item.lti_url) {
+        if (lti_url) {
           try {
             const ltiPayload = {
               launch_url: 'https://codeworkout.cs.vt.edu/lti/launch',
@@ -200,7 +215,7 @@ export class ValidationManager {
               message = error.message;
             }
 
-            logger.error(`Error validating LTI URL for ${item.lti_url}:`, error);
+            logger.error(`Error validating LTI URL for ${lti_url}:`, error);
             validationResult.ltiValidationStatus = `Validation Failed: ${message}`;
           }
         } else {
@@ -265,15 +280,15 @@ export class ValidationManager {
       for (const item of itemsToProcess) {
         try {
           await this.categorizer.storeItemsAndClassify([item], report.matched);
-          const validationResult = await this.getOrCreateValidationResultByUrl(item.url, item);
+          const validationResult = await this.getOrCreateValidationResultByUrl(item.iframe_url, item);
           if (validationResult) {
             validationResult.categorizationResults = 'Success';
             validationResult.dateLastUpdated = new Date();
             await this.validationResultsRepository.save(validationResult);
           }
         } catch (error) {
-          logger.error(`Error reprocessing item for error capture: ${item.url}`, error);
-          const validationResult = await this.getOrCreateValidationResultByUrl(item.url);
+          logger.error(`Error reprocessing item for error capture: ${item.iframe_url}`, error);
+          const validationResult = await this.getOrCreateValidationResultByUrl(item.iframe_url);
           if (!validationResult) return;
           validationResult.categorizationResults = `Categorization failed: No matching ontology class for keywords [${item.keywords?.join(', ') || 'none'}]`;
           validationResult.dateLastUpdated = new Date();

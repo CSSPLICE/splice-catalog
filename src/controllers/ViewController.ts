@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../db/data-source';
-import { slc_item_catalog } from '../db/entities/SLCItemCatalog';
-import logger from '../utils/logger';
+import { AppDataSource } from '../db/data-source.js';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
+import logger from '../utils/logger.js';
 import fs from 'fs';
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO';
+import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
 import { validate } from 'class-validator';
-import { ResponseUtil } from '../utils/Response';
-import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog';
-import { dataset_catalog } from '../db/entities/DatasetCatalog';
-import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO';
-import { ReviewController } from './ReviewController';
-import { ValidationManager } from '../services/ValidationManager';
-import { ValidationResults } from '../db/entities/ValidationResults';
+import { ResponseUtil } from '../utils/Response.js';
+import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
+import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
+import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO.js';
+import { ReviewController } from './ReviewController.js';
+import { ValidationManager } from '../services/ValidationManager.js';
+import { ValidationResults } from '../db/entities/ValidationResults.js';
 
 const reviewController = new ReviewController();
 const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
@@ -35,16 +35,12 @@ export class ViewController {
       currentPage,
       totalPages,
       title: 'SPLICE Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   async instructionsView(req: Request, res: Response) {
     res.render('pages/instructions', {
       title: 'Instructions',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
@@ -61,20 +57,16 @@ export class ViewController {
       toolCatalogCount: toolCatalogCount,
       slcItemCount: slcItemCount,
       datasetCount: datasetCount, // to be replaced with actual dataset count
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   async uploadView(req: Request, res: Response) {
     res.render('pages/upload', {
       title: 'Upload Data',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
   async aboutView(req: Request, res: Response) {
-    res.render('pages/about', { title: 'About', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
+    res.render('pages/about', { title: 'About' });
   }
 
   async toolView(req: Request, res: Response) {
@@ -83,8 +75,6 @@ export class ViewController {
     res.render('pages/toolcatalog', {
       toolsCatalog: toolsCatalog_data,
       title: 'Tools Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
@@ -94,8 +84,6 @@ export class ViewController {
       res.render('pages/datasetcatalog', {
         datasets: datasetCatalog_data,
         title: 'Dataset Catalog',
-        user: req.oidc.user,
-        showLoginButton: res.locals.showLoginButton,
       });
     } catch (error) {
       logger.error('Failed to fetch dataset catalog data:', error);
@@ -193,14 +181,12 @@ export class ViewController {
     res.render('pages/index', {
       catalog: catalog_data,
       title: 'SPLICE Catalog',
-      user: req.oidc.user,
-      showLoginButton: res.locals.showLoginButton,
     });
   }
 
   profileView(req: Request, res: Response) {
     // res.render('pages/profile', { title: 'Profile', user: JSON.stringify(req.oidc.user, null, 2) });
-    res.render('pages/profile', { title: 'Profile', user: req.oidc.user, showLoginButton: res.locals.showLoginButton });
+    res.render('pages/profile', { title: 'Profile' });
   }
 
   async rejectAll(req: Request, res: Response) {
