@@ -3,11 +3,11 @@
   <form action="/search" method="get" id="filterForm">
     <fieldset>
       <legend>Features</legend>
-      <% const types = ["Coding Question", "Multiple Choice Question", "ka", "ss", "pe", "extr", "Untagged"]; %>
-      <% const selectedTypes = typeof exerciseType !== 'undefined' ? exerciseType : []; %>
+      <% const types = featureChoices || []; %>
+      <% const selectedTypes = typeof features !== 'undefined' ? features : []; %>
       <% types.forEach(type => { %>
         <label>
-          <input type="checkbox" class="exerciseTypeInput" name="Exercise type: <%= type %>" value="<%= type %>"
+          <input type="checkbox" class="exerciseTypeInput" name="features" value="<%= type %>"
             <%= selectedTypes.includes(type) ? 'checked' : '' %> />
           <%= type %>
         </label>
@@ -27,7 +27,7 @@
       <% }) %>
     </fieldset>
 
-    <input type="hidden" name="query" value="">
+    <input type="hidden" name="query" value="<%= typeof query !== 'undefined' ? query : '' %>">
     <button type="submit">Apply Filters</button>
   </form>
 </aside>

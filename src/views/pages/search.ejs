@@ -11,34 +11,10 @@
 
       <%
         const q = (typeof query === 'string') ? query : '';
-        const selectedTypes = Array.isArray(exerciseType)
-          ? exerciseType
-          : (exerciseType ? [exerciseType] : []);
-        const filterChoices = ["Coding Question","Multiple Choice Question","ka","ss","pe","extr","Untagged"];
+        const selectedFeatures = Array.isArray(features)
+          ? features
+          : (features ? [features] : []);
       %>
-
-      <aside class="search-sidebar">
-        <h2 class="header">Filter</h2>
-        <form action="/search" method="get" id="filterForm">
-          <fieldset>
-            <legend>Exercise Types:</legend>
-            <% filterChoices.forEach(t => { %>
-              <div>
-                <input
-                  type="checkbox"
-                  class="exerciseTypeInput"
-                  name="Exercise type: <%= t %>"
-                  value="<%= t %>"
-                  <%= selectedTypes.includes(t) ? 'checked' : '' %>>
-                <label for="<%= t %>"><%= t %></label>
-              </div>
-            <% }) %>
-
-          </fieldset>
-          <input type="hidden" name="query" value="<%= q %>">
-          <button type="submit">Apply Filters</button>
-        </form>
-      </aside>
 
       <main class="search-content">
         <h1 class="header">Search Results for "<%= q %>"</h1>
@@ -46,8 +22,8 @@
           <!-- add button to download the JSON results -->
           <form action="/export/search" method="get" style="display:inline;">
             <input type="hidden" name="query" value="<%= q %>">
-            <% selectedTypes.forEach(t => { %>
-              <input type="hidden" name="exerciseType" value="<%= t %>">
+            <% selectedFeatures.forEach(t => { %>
+              <input type="hidden" name="features" value="<%= t %>">
             <% }) %>
 
             <button type="submit" class="btn btn-primary"> Download results </button>

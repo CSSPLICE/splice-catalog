@@ -18,26 +18,13 @@ const validationResultsRepository = AppDataSource.getRepository(ValidationResult
 const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
 const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
 
+import { SearchController } from './SearchController.js';
+
+const searchController = new SearchController();
+
 export class ViewController {
   async catalogView(req: Request, res: Response) {
-    const currentPage = Number(req.query.page) || 1;
-    const ITEMS_PER_PAGE = 25; // subject to change
-    const totalItems = await AppDataSource.getRepository(slc_item_catalog).count();
-    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-
-    const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find({
-      skip: offset,
-      take: ITEMS_PER_PAGE,
-    });
-    res.render('pages/search', {
-      results: catalog_data,
-      currentPage,
-      totalPages,
-      query:'',
-      exerciseType: [],
-      title: 'SPLICE Catalog',
-    });
+    return searchController.searchCatalog(req, res);
   }
 
   async instructionsView(req: Request, res: Response) {

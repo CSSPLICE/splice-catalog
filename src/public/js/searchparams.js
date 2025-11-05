@@ -9,7 +9,7 @@ document.getElementById('filterForm').addEventListener('submit', function (e) {
 
   const url = new URL(window.location.href);
   url.searchParams.set('query', query);
-  url.searchParams.set('exerciseType', selectedExerciseTypes);
+  url.searchParams.set('features', selectedExerciseTypes);
   url.searchParams.set('page', '1');
 
   window.location.href = url.toString(); // Trigger page reload with updated query params
