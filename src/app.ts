@@ -7,6 +7,7 @@ import searchRoutes from './routes/search.js';
 import viewRoutes from './routes/view.js';
 import reviewRoutes from './routes/review.js';
 import ontologyRoutes from './routes/ontology.js';
+import apiRoutes from './routes/api.js';
 import { ErrorHandler } from './utils/ErrorHandler.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -81,6 +82,7 @@ app.use('/search', searchRoutes);
 app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
 app.use('/ontology', ontologyRoutes);
+app.use('/api', apiRoutes);
 
 emitter.on('DataSourceInitialized', () => {
   console.log('DataSourceInitialized');
