@@ -8,7 +8,7 @@ import { OntologyRelations } from './entities/OntologyRelation.js';
 import { OntologyAliases } from './entities/OntologyAlias.js';
 import { ItemClassification } from './entities/ItemClassification.js';
 import { ValidationResults } from './entities/ValidationResults.js';
-import { SeedInitialSchema1759958275364 } from './migrations/1759958275364-SeedInitialSchema.js';
+import { SeedInitialData1762794315112 } from './migrations/1762794315112-SeedInitialData.js';
 
 dotenv.config();
 
@@ -19,7 +19,7 @@ export const AppDataSource: DataSource = new DataSource({
   username: process.env.DB_USER || 'splice',
   password: process.env.DB_PASSWORD || 'splice',
   database: process.env.DB_DATABASE || 'splice',
-  migrations: [SeedInitialSchema1759958275364],
+  migrations: [SeedInitialData1762794315112],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [
     slc_item_catalog,

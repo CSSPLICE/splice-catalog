@@ -1,55 +1,61 @@
 [
   {
+    "catalog_type": "SLCToolsCatalog",
     "platform_name": "Acos Server",
     "url": "https://acos.cs.vt.edu",
-    "tool_description": "Acos server and related sub-projects are a method of distributing browser-based smart learning content in a reusable and interoperable way.",
+    "description": "Acos server and related sub-projects are a method of distributing browser-based smart learning content in a reusable and interoperable way.",
     "license": "CC BY-NC-SA 4.0",
-    "standard_support": "LTI, xAPI",
+    "interface": "LTI, xAPI",
     "keywords": ["smart learning content", "interoperability", "parsons"],
     "contact_email": "cskamil@gmail.com"
   },
   {
+    "catalog_type": "SLCToolsCatalog",
     "platform_name": "CodeCheck",
     "url": "https://codecheck.io/",
-    "tool_description": "CodeCheck is an anonymous, author-friendly autograder optimized for simple programming assignments that provide practice and build confidence.",
+    "description": "CodeCheck is an anonymous, author-friendly autograder optimized for simple programming assignments that provide practice and build confidence.",
     "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA)",
-    "standard_support": "LTI, SPLICE protocol",
+    "interface": "LTI, SPLICE protocol",
     "keywords": ["autograder", "programming assignments", "parsons problems"],
     "contact_email": "cay@horstmann.com"
   },
   {
+    "catalog_type": "SLCToolsCatalog",
     "platform_name": "Codespec",
     "url": "https://www.codespec.org/",
-    "tool_description": "Codespec is a computer programming tutor that offers learners multiple means of engagement, including Parsons problems, debugging, and step-by-step guidance.",
+    "description": "Codespec is a computer programming tutor that offers learners multiple means of engagement, including Parsons problems, debugging, and step-by-step guidance.",
     "license": "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)",
-    "standard_support": null,
+    "interface": null,
     "keywords": ["parsons problems", "practice", "code-writing", "debugging", "auto-assessment"],
     "contact_email": "cchmagyar@gmail.com"
   },
   {
+    "catalog_type": "SLCToolsCatalog",
     "platform_name": "CodeWorkout",
     "url": "https://codeworkout.cs.vt.edu",
-    "tool_description": "CodeWorkout is an online exercise system to help people practice coding exercises on various programming concepts within a web browser, providing customized feedback.",
+    "description": "CodeWorkout is an online exercise system to help people practice coding exercises on various programming concepts within a web browser, providing customized feedback.",
     "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
-    "standard_support": "LTI",
+    "interface": "LTI",
     "keywords": ["coding", "practice", "feedback"],
     "contact_email": null
   },
   {
+    "catalog_type": "SLCToolsCatalog",
     "platform_name": "HypoCompass",
     "url": "http://141.148.1.3:8080/",
-    "tool_description": "HypoCompass is a learning-by-teaching tutoring system with debugging practices focusing on test case development and testing for CS1 students.",
+    "description": "HypoCompass is a learning-by-teaching tutoring system with debugging practices focusing on test case development and testing for CS1 students.",
     "license": "Apache License 2.0",
-    "standard_support": null,
+    "interface": null,
     "keywords": ["debugging", "testing", "learning by teaching", "LLM", "CS1"],
     "contact_email": "qianouma@cmu.edu"
   },
   {
+    "catalog_type": "SLCToolsCatalog",
     "platform_name": "OpenDSA",
     "url": "https://opendsa-server.cs.vt.edu",
-    "tool_description": "OpenDSA provides infrastructure and materials to support courses in data structures, algorithms, formal languages, and other CS-related topics.",
+    "description": "OpenDSA provides infrastructure and materials to support courses in data structures, algorithms, formal languages, and other CS-related topics.",
     "license": "MIT",
-    "standard_support": "LTI, SPLICE protocol",
+    "interface": "LTI, SPLICE protocol",
     "keywords": [
       "data structures",
       "algorithms",

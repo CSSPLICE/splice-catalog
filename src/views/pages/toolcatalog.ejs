@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-<% 
-        const truncateWords = (s, n = 20) => {
-            if (!s) return "";
-            const words = String(s).trim().split(/\s+/);
-            return words.length <= n ? s : words.slice(0, n).join(' ') + '...';
-        };
-    %>
+<%
+  const truncateWords = (s, n = 20) => {
+    if (!s) return "";
+    const words = String(s).trim().split(/\s+/);
+    return words.length <= n ? s : words.slice(0, n).join(' ') + '...';
+  };
+%>
 <%- include('../partials/head') -%>
 <%- include('../partials/header') -%>
 <body>
@@ -22,14 +22,14 @@
                 </tr>
             </thead>
             <tbody>
-                <% toolsCatalog.forEach((tool) => { %> 
+                <% toolsCatalog.forEach((tool) => { %>
                     <tr>
                         <td><a href="<%= tool.url %>" target="_blank"><%= tool.platform_name %></a></td>
                         <td><span class="short-description" data-description="<%= tool.description || '' %>" style="cursor: pointer;">
                             <%- truncateWords(tool.description, 20) %>
                         </span></td>
                         <td><%= tool.license %></td>
-                        <td><%= tool.interface %></td>
+                        <td><%= tool.interface%></td>
                     </tr>
                 <% }) %>
             </tbody>

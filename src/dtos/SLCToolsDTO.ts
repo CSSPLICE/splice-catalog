@@ -20,7 +20,7 @@ export class CreateSLCToolsDTO {
 
   @IsString()
   @IsOptional()
-  standard_support!: string;
+  interface!: string;
 
   @IsString()
   @IsOptional()
