@@ -21,19 +21,13 @@ export class dataset_catalog extends BaseEntity {
   dataFormats!: string[];
 
   @Column('json')
-  dataType!: string[];
+  dataType!: string[]; 
 
   @Column('json')
   keywords!: string[];
 
   @Column('json', { nullable: true })
   contributors!: Contributor[];
-
-  @Column({ nullable: true })
-  language?: string;
-
-  @Column()
-  publicationYear!: number;
 
   @Column({ length: 255, nullable: true })
   publisher?: string;
@@ -44,17 +38,29 @@ export class dataset_catalog extends BaseEntity {
   @Column({ length: 255, nullable: true })
   resourceUrlType?: string;
 
-  @Column({ length: 1024, nullable: true })
+  @Column('text', { nullable: true })
   bibtexSource?: string;
 
   @Column({ length: 255, nullable: true })
-  rights?: string;
+  creator?: string;
+
+  @Column({ length: 255, nullable: true })
+  givenName?: string;
+
+  @Column({ length: 255, nullable: true })
+  familyName?: string;
+
+  @Column({ length: 255, nullable: true })
+  nameIdentifier?: string;
+
+  @Column({ length: 255, nullable: true })
+  affiliation?: string;
 
   @Column({ length: 255, nullable: true })
   availability?: string;
 
-  @Column({ type: 'float', nullable: true })
-  fairnessScore?: number;
+  @Column({ length: 255, nullable: true })
+  rights?: string;
 
   @Column('json', { nullable: true })
   programmingLanguages?: string[];
@@ -64,6 +70,27 @@ export class dataset_catalog extends BaseEntity {
 
   @Column({ type: 'date', nullable: true })
   dataCollectionEndDate?: string;
+
+  @Column({ type: 'int' })
+  publicationYear!: number; 
+
+  @Column({ type: 'int', nullable: true })
+  numberOfSemesters?: number;
+
+  @Column({ length: 255, nullable: true })
+  dataProtection?: string;
+
+  @Column({ length: 255, nullable: true })
+  measurementType?: string;
+
+  @Column('text', { nullable: true })
+  dataProcessing?: string; 
+
+  @Column({ length: 255, nullable: true })
+  population?: string;
+
+  @Column({ type: 'int', nullable: true })
+  unitsNumber?: number; 
 
   @Column({ type: 'int', nullable: true })
   taskNumber?: number;
@@ -93,16 +120,22 @@ export class dataset_catalog extends BaseEntity {
   aggregationLevel?: string;
 
   @Column({ length: 1024, nullable: true })
-  relatedPublicationUrl?: string;
+  relatedPublicationUrl?: string; 
 
   @Column('text', { nullable: true })
   relatedPublication?: string;
 
   @Column('text', { nullable: true })
-  researchQuestion?: string;
+  researchQuestion?: string; 
 
   @Column('text', { nullable: true })
-  futureWork?: string;
+  futureWork?: string; 
+
+  @Column('text', { nullable: true })
+  fairnessScoreText?: string;
+
+  @Column({ type: 'float', nullable: true })
+  fairnessScore?: number; 
 }
 
 export interface Contributor {
