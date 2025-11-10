@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
 import logger from '../utils/logger.js';
 import { AppDataSource } from '../db/data-source.js'; // Adjust the path to your data-source file
-import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
-import { validate, ValidationError } from 'class-validator';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
+import { validate, ValidationError } from 'class-validator';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
@@ -65,12 +64,22 @@ export class ReviewController {
           }
         }
       }
+      function hasPersistentID(obj: object): obj is { persistentID: string } {
+        return Object.prototype.hasOwnProperty.call(obj, 'persistentID');
+      }
+
+      // ... (rest of the code)
+
       if (errors.length > 0) {
         console.log('Validation Errors: ', errors);
         res.status(500).send(
           errors.map((error: ValidationError) => {
+            let persistentID = 'missing id';
+            if (error.target && typeof error.target === 'object' && hasPersistentID(error.target)) {
+              persistentID = error.target.persistentID;
+            }
             return {
-              persistentID: error.target?.persistentID || 'missing id',
+              persistentID: persistentID,
               constraints: error.constraints,
             };
           }),

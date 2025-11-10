@@ -18,7 +18,7 @@ export class ValidURLConstraint implements ValidatorConstraintInterface {
       });
       clearTimeout(timeoutId);
       return response.status >= 200 && response.status < 400;
-    } catch (error: Error) {
+    } catch (error: any) {
       clearTimeout(timeoutId);
       if (error.name === 'AbortError') {
         console.warn(`URL validation for "${url}" timed out.`);
