@@ -3,12 +3,11 @@ import {
   ValidatorConstraintInterface,
   ValidationArguments,
   registerDecorator,
-  ValidationOptions
+  ValidationOptions,
 } from 'class-validator';
 
 @ValidatorConstraint({ name: 'ValidURL', async: true })
 export class ValidURLConstraint implements ValidatorConstraintInterface {
-
   async validate(url: string) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
@@ -24,14 +23,11 @@ export class ValidURLConstraint implements ValidatorConstraintInterface {
       if (error.name === 'AbortError') {
         console.warn(`URL validation for "${url}" timed out.`);
       } else {
-        console.warn(
-          `URL validation failed for "${url}": ${error.message}`,
-        );
+        console.warn(`URL validation failed for "${url}": ${error.message}`);
       }
       return false;
     }
   }
-
 
   defaultMessage() {
     return 'Text ($value) is too short or too long!';
@@ -50,11 +46,9 @@ export function IsLongerThan(property: string, validationOptions?: ValidationOpt
         validate(value: any, args: ValidationArguments) {
           const [relatedPropertyName] = args.constraints;
           const relatedValue = (args.object as any)[relatedPropertyName];
-          return typeof value === 'string' &&
-               typeof relatedValue === 'string' &&
-               value.length > relatedValue.length;
-        }
-      }
+          return typeof value === 'string' && typeof relatedValue === 'string' && value.length > relatedValue.length;
+        },
+      },
     });
-    };
+  };
 }

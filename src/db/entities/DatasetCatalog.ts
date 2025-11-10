@@ -21,7 +21,7 @@ export class dataset_catalog extends BaseEntity {
   dataFormats!: string[];
 
   @Column('json')
-  dataType!: string[]; 
+  dataType!: string[];
 
   @Column('json')
   keywords!: string[];
@@ -72,7 +72,7 @@ export class dataset_catalog extends BaseEntity {
   dataCollectionEndDate?: string;
 
   @Column({ type: 'int' })
-  publicationYear!: number; 
+  publicationYear!: number;
 
   @Column({ type: 'int', nullable: true })
   numberOfSemesters?: number;
@@ -84,13 +84,13 @@ export class dataset_catalog extends BaseEntity {
   measurementType?: string;
 
   @Column('text', { nullable: true })
-  dataProcessing?: string; 
+  dataProcessing?: string;
 
   @Column({ length: 255, nullable: true })
   population?: string;
 
   @Column({ type: 'int', nullable: true })
-  unitsNumber?: number; 
+  unitsNumber?: number;
 
   @Column({ type: 'int', nullable: true })
   taskNumber?: number;
@@ -120,22 +120,22 @@ export class dataset_catalog extends BaseEntity {
   aggregationLevel?: string;
 
   @Column({ length: 1024, nullable: true })
-  relatedPublicationUrl?: string; 
+  relatedPublicationUrl?: string;
 
   @Column('text', { nullable: true })
   relatedPublication?: string;
 
   @Column('text', { nullable: true })
-  researchQuestion?: string; 
+  researchQuestion?: string;
 
   @Column('text', { nullable: true })
-  futureWork?: string; 
+  futureWork?: string;
 
   @Column('text', { nullable: true })
   fairnessScoreText?: string;
 
   @Column({ type: 'float', nullable: true })
-  fairnessScore?: number; 
+  fairnessScore?: number;
 }
 
 export interface Contributor {

@@ -3,9 +3,9 @@ import logger from '../utils/logger.js';
 import { AppDataSource } from '../db/data-source.js'; // Adjust the path to your data-source file
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
-import {validate, ValidationError} from "class-validator";
-import {slc_tools_catalog} from "../db/entities/SLCToolsCatalog.js";
-import {dataset_catalog} from "../db/entities/DatasetCatalog.js";
+import { validate, ValidationError } from 'class-validator';
+import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
+import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
@@ -32,8 +32,7 @@ export class ReviewController {
           if (result.length === 0) {
             saves++;
             await itemsRepository.save(entity);
-          }
-          else {
+          } else {
             errors.push(...result);
           }
         }
@@ -47,8 +46,7 @@ export class ReviewController {
           if (result.length === 0) {
             saves++;
             await toolsRepository.save(entity);
-          }
-          else {
+          } else {
             errors.push(...result);
           }
         }
@@ -62,26 +60,22 @@ export class ReviewController {
           if (result.length === 0) {
             saves++;
             await datasetRepository.save(entity);
-          }
-          else {
+          } else {
             errors.push(...result);
           }
         }
       }
       if (errors.length > 0) {
-        console.log("Validation Errors: ", errors);
+        console.log('Validation Errors: ', errors);
         res.status(500).send(
-          errors.map(
-            (error: ValidationError) => {
-              return {
-                persistentID: error.target?.persistentID || "missing id",
-                constraints: error.constraints,
-              }
-            }
-          )
+          errors.map((error: ValidationError) => {
+            return {
+              persistentID: error.target?.persistentID || 'missing id',
+              constraints: error.constraints,
+            };
+          }),
         );
-      }
-      else {
+      } else {
         res.status(200).send(`successfully saved ${saves} entries`);
       }
     } catch (error) {
