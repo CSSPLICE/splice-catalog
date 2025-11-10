@@ -5,53 +5,53 @@ export class dataset_catalog extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ length: 255 })
-  title!: string;
+  @Column({ length: 255, nullable: true })
+  title?: string;
 
-  @Column({ length: 255 })
-  platform!: string;
+  @Column({ length: 255, nullable: true })
+  platform?: string;
 
-  @Column({ length: 255 })
-  datasetName!: string;
+  @Column({ length: 255, nullable: true })
+  dataset_name?: string;
 
-  @Column('text')
-  description!: string;
+  @Column('text', { nullable: true })
+  description?: string;
 
-  @Column('json')
-  dataFormats!: string[];
+  @Column('text', { nullable: true })
+  data_formats?: string[];
 
-  @Column('json')
-  dataType!: string[];
+  @Column('text', { nullable: true })
+  data_type?: string[];
 
-  @Column('json')
-  keywords!: string[];
+  @Column('text', { nullable: true })
+  keywords?: string[];
 
-  @Column('json', { nullable: true })
+  @Column('text', { nullable: true })
   contributors!: Contributor[];
 
   @Column({ length: 255, nullable: true })
   publisher?: string;
 
   @Column({ length: 1024, nullable: true })
-  resourceUrl?: string;
+  resource_url?: string;
 
   @Column({ length: 255, nullable: true })
-  resourceUrlType?: string;
+  resource_url_type?: string;
 
   @Column('text', { nullable: true })
-  bibtexSource?: string;
+  bibtex_source?: string;
 
   @Column({ length: 255, nullable: true })
   creator?: string;
 
   @Column({ length: 255, nullable: true })
-  givenName?: string;
+  given_name?: string;
 
   @Column({ length: 255, nullable: true })
-  familyName?: string;
+  family_name?: string;
 
   @Column({ length: 255, nullable: true })
-  nameIdentifier?: string;
+  name_identifier?: string;
 
   @Column({ length: 255, nullable: true })
   affiliation?: string;
@@ -62,80 +62,80 @@ export class dataset_catalog extends BaseEntity {
   @Column({ length: 255, nullable: true })
   rights?: string;
 
-  @Column('json', { nullable: true })
-  programmingLanguages?: string[];
+  @Column('text', { nullable: true })
+  programming_language?: string[];
 
-  @Column({ type: 'date', nullable: true })
-  dataCollectionStartDate?: string;
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  data_collection_start_date?: string;
 
-  @Column({ type: 'date', nullable: true })
-  dataCollectionEndDate?: string;
-
-  @Column({ type: 'int' })
-  publicationYear!: number;
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  data_collection_end_date?: string;
 
   @Column({ type: 'int', nullable: true })
-  numberOfSemesters?: number;
+  publication_year?: number;
+
+  @Column({ type: 'int', nullable: true })
+  number_of_semesters?: number;
 
   @Column({ length: 255, nullable: true })
-  dataProtection?: string;
+  data_protection?: string;
 
   @Column({ length: 255, nullable: true })
-  measurementType?: string;
+  measurement_type?: string;
 
   @Column('text', { nullable: true })
-  dataProcessing?: string;
+  data_processing?: string;
 
   @Column({ length: 255, nullable: true })
   population?: string;
 
-  @Column({ type: 'int', nullable: true })
-  unitsNumber?: number;
+  @Column({ length: 255, nullable: true })
+  units_number?: string;
 
-  @Column({ type: 'int', nullable: true })
-  taskNumber?: number;
+  @Column({ length: 255, nullable: true })
+  task_number?: string;
 
-  @Column({ type: 'int', nullable: true })
-  sampleSize?: number;
+  @Column({ length: 255, nullable: true })
+  sample_size?: string;
 
   @Column('text', { nullable: true })
-  sampleDemographics?: string;
+  sample_demographics?: string;
 
-  @Column('json', { nullable: true })
+  @Column('text', { nullable: true })
   country?: string[];
 
   @Column({ length: 255, nullable: true })
-  educationalInstitution?: string;
+  educational_institution?: string;
 
   @Column({ length: 255, nullable: true })
-  dataStandard?: string;
+  data_standard?: string;
 
   @Column({ length: 255, nullable: true })
-  learningEnvironment?: string;
+  learning_environment?: string;
 
   @Column({ length: 255, nullable: true })
   aggregation?: string;
 
   @Column({ length: 255, nullable: true })
-  aggregationLevel?: string;
+  aggregation_level?: string;
 
   @Column({ length: 1024, nullable: true })
-  relatedPublicationUrl?: string;
+  related_publication_url?: string;
 
   @Column('text', { nullable: true })
-  relatedPublication?: string;
+  related_publication?: string;
 
   @Column('text', { nullable: true })
-  researchQuestion?: string;
+  research_question?: string;
 
   @Column('text', { nullable: true })
-  futureWork?: string;
+  future_work?: string;
 
   @Column('text', { nullable: true })
-  fairnessScoreText?: string;
+  fairness_score_text?: string;
 
-  @Column({ type: 'float', nullable: true })
-  fairnessScore?: number;
+  @Column('text', { nullable: true })
+  fairness_score?: string;
 }
 
 export interface Contributor {
