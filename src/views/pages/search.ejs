@@ -20,7 +20,7 @@
 
         <div style="margin-bottom: 1rem;">
           <!-- add button to download the JSON results -->
-          <form action="/export/search" method="get" style="display:inline;">
+          <form action="/search/export" method="get" style="display:inline;">
             <input type="hidden" name="query" value="<%= q %>">
             <% selectedFeatures.forEach(t => { %>
               <input type="hidden" name="features" value="<%= t %>">
