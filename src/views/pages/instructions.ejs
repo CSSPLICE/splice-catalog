@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('../partials/head') -%>
-<link rel="stylesheet" href="/css/instructions.css"> 
+<link rel="stylesheet" href="/css/instructions.css">
 <%- include('../partials/header') -%>
 <body>
     <div class="container">
@@ -22,44 +22,46 @@
                         <li>Dataset Catalog</li>
                     </ul>
                     <p>Each type has a specific JSON format. Below are examples and field descriptions for each category:</p>
-                    
+
                     <div class="content-section">
                         <h5>SLC Items Catalog</h5>
                         <p>A collection of Smart Learning Content (SLC) items should be described as a series of JSON records, each formatted as follows:</p>
                         <pre><code>{
-    "catalog_type": "SLCItemCatalog",
+    "catalog_type": "SLCItem",
+    "persistentID": "...",
     "platform_name": "...",
-    "url": "...",
-    "lti_instructions_url (required if LTI URL)": "...",
-    "exercise_type": "...",
-    "license (optional)": "...",
-    "description (optional)": "...",
-    "author (optional)": "...",
-    "institution": "...",
-    "keywords": ["...", "..."],
-    "exercise_name": "...",
-    "language (optional)": "...",
     "iframe_url": "...",
-    "lti_url": "..."
+    "license (optional)": "...",
+    "description": "...",
+    "author": ["...", "..."],
+    "institution": ["...", "..."],
+    "keywords": ["...", "..."],
+    "features": ["...", "..."],
+    "title": "...",
+    "programming_language (optional)": ["...", "..."],
+    "natural_language": ["...", "..."],
+    "protocol (optional)": ["...", "..."],
+    "protocol_url (optional)": ["...", "..."]
 }</code></pre>
-                        <p><strong>Field Descriptions:</strong></p>
-                        <ul>
-                            <li><strong>catalog_type</strong>: The type of catalog, e.g., "SLCItemCatalog".</li>
-                            <li><strong>platform_name</strong>: Name of the platform offering the SLC item.</li>
-                            <li><strong>url</strong>: URL of the SLC item.</li>
-                            <li><strong>lti_instructions_url</strong>: Required if an LTI URL is provided.</li>
-                            <li><strong>exercise_type</strong>: Type of exercise, e.g., "KA" for Khan Academy.</li>
-                            <li><strong>license</strong>: Content license (optional).</li>
-                            <li><strong>description</strong>: Brief description of the SLC item (optional).</li>
-                            <li><strong>author</strong>: Author of the SLC item (optional).</li>
-                            <li><strong>institution</strong>: Institution associated with the SLC item.</li>
-                            <li><strong>keywords</strong>: Relevant keywords.</li>
-                            <li><strong>exercise_name</strong>: Name of the exercise.</li>
-                            <li><strong>language</strong>: Language of the content (optional).</li>
-                            <li><strong>iframe_url</strong>: URL for embedding the exercise.</li>
-                            <li><strong>lti_url</strong>: LTI launch URL.</li>
-                        </ul>
-                    </div>
+    <p><strong>Field Descriptions:</strong></p>
+    <ul>
+        <li><strong>catalog_type</strong>: The type of catalog, e.g., "SLCItem".</li>
+        <li><strong>persistentID</strong>: A unique identifier for the SLC item, must be included to update existing entries.</li>
+        <li><strong>platform_name</strong>: Name of the platform offering the SLC item.</li>
+        <li><strong>iframe_url</strong>: URL of the SLC item.</li>
+        <li><strong>license</strong>: Content license (optional).</li>
+        <li><strong>description</strong>: Brief description of the SLC item (optional).</li>
+        <li><strong>author</strong>: Author of the SLC item (optional).</li>
+        <li><strong>institution</strong>: Institution associated with the SLC item.</li>
+        <li><strong>keywords</strong>: Relevant keywords.</li>
+        <li><strong>features</strong>: Relevant features.</li>
+        <li><strong>title</strong>: Title of the SLC item.</li>
+        <li><strong>programming_language</strong>: Programming language of the SLC item.</li>
+        <li><strong>natural_language</strong>: Natural language of the SLC item.</li>
+        <li><strong>protocol</strong>: Any protocols the SLC item supports.</li>
+        <li><strong>protocol_url</strong>: URLs for any protocols the SLC item supports.</li>
+    </ul>
+</div>
 
                     <div class="content-section">
                         <h5>SLC Tools Catalog</h5>
@@ -68,21 +70,19 @@
     "catalog_type": "SLCToolsCatalog",
     "platform_name": "...",
     "url": "...",
-    "tool_description": "...",
-    "license" (optional): "...",
-    "standard_support": "...", 
-    "keywords": "...",
-    "contact_email": "..." 
+    "description": "...",
+    "license (optional)": "...",
+    "interface (optional)": "...",
+    "contact_email": "..."
 }</code></pre>
                         <p><strong>Field Descriptions:</strong></p>
                         <ul>
                             <li><strong>catalog_type</strong>: Type of catalog, e.g., "SLCToolsCatalog".</li>
                             <li><strong>platform_name</strong>: Name of the platform offering the tool.</li>
                             <li><strong>url</strong>: URL of the tool.</li>
-                            <li><strong>tool_description</strong>: Brief description of the tool.</li>
+                            <li><strong>description</strong>: Brief description of the tool.</li>
                             <li><strong>license</strong>: Content license (optional).</li>
-                            <li><strong>standard_support</strong>: Standards supported by the tool.</li>
-                            <li><strong>keywords</strong>: Relevant keywords.</li>
+                            <li><strong>interface</strong>: Standards supported by the tool.</li>
                             <li><strong>contact_email</strong>: Contact email for the tool provider.</li>
                         </ul>
                     </div>
@@ -91,36 +91,91 @@
                         <h5>Dataset Catalog</h5>
                         <p>Describe datasets available for Smart Learning Content with the following JSON format:</p>
                         <pre><code>{
-    "catalog_type": "dataset",
-    "title": "...",
+    "catalog_type": "DatasetCatalog",
     "publisher": "...",
-    "dataset_name": "...",
-    "url": "...",
-    "description": "...",
-    "data_format": "...",
-    "data_type": "...",
-    "keywords": "...",
-    "population": "...",
+    "resource_url": "...",
+    "resource_url_type": "...",
+    "bibtex_source": "...",
+    "title": "...",
+    "creator": "...",
+    "given_name": "...",
+    "family_name": "...",
+    "name_identifier": "...",
     "affiliation": "...",
-    "language": "...",
-    "date": "..."
+    "availability": "...",
+    "format": "...",
+    "programming_language": "...",
+    "data_collection_start_date": "...",
+    "data_collection_end_date": "...",
+    "publication_year": "...",
+    "number_of_semesters": "...",
+    "data_protection": "...",
+    "data_type": "...",
+    "measurement_type": "...",
+    "data_processing": "...",
+    "population": "...",
+    "units_number": "...",
+    "task_number": "...",
+    "sample_size": "...",
+    "sample_demographics": "...",
+    "country": "...",
+    "educational_institution": "...",
+    "data_standard": "...",
+    "learning_environment": "...",
+    "aggregation": "...",
+    "aggregation_level": "...",
+    "related_publication_url": "...",
+    "related_publication": "...",
+    "rights": "...",
+    "description": "...",
+    "research_question": "...",
+    "future_work": "...",
+    "fairness_score": "...",
 }</code></pre>
                         <p><strong>Field Descriptions:</strong></p>
                         <ul>
-                            <li><strong>catalog_type</strong>: The type of catalog, e.g., "dataset".</li>
-                            <li><strong>title</strong>: Title of the dataset.</li>
-                            <li><strong>publisher</strong>: Publisher of the dataset.</li>
-                            <li><strong>dataset_name</strong>: Name of the dataset.</li>
-                            <li><strong>url</strong>: URL where the dataset can be accessed.</li>
-                            <li><strong>description</strong>: Brief description of the dataset.</li>
-                            <li><strong>data_format</strong>: Format of the dataset.</li>
-                            <li><strong>data_type</strong>: Type of data in the dataset.</li>
-                            <li><strong>keywords</strong>: Relevant keywords.</li>
-                            <li><strong>population</strong>: Target population of the dataset.</li>
-                            <li><strong>affiliation</strong>: Affiliation associated with the dataset.</li>
-                            <li><strong>language</strong>: Language of the dataset.</li>
-                            <li><strong>date</strong>: Publication date of the dataset.</li>
-                        </ul>
+    <li><strong>catalog_type</strong>: The type of catalog, e.g., "DatasetCatalog".</li>
+    <li><strong>publisher</strong>: The organization or individual that published the dataset.</li>
+    <li><strong>resource_url</strong>: URL where the dataset can be accessed.</li>
+    <li><strong>resource_url_type</strong>: Type of resource the URL points to.</li>
+    <li><strong>bibtex_source</strong>: BibTeX citation source for referencing the dataset.</li>
+    <li><strong>title</strong>: Title of the dataset.</li>
+    <li><strong>creator</strong>: Author of the dataset.</li>
+    <li><strong>given_name</strong>: Author given (first) name.</li>
+    <li><strong>family_name</strong>: Author family (last) name.</li>
+    <li><strong>name_identifier</strong>: Unique identifier for the author (e.g., ORCID ID).</li>
+    <li><strong>affiliation</strong>: Institution or organization the author is affiliated with.</li>
+    <li><strong>availability</strong>: Availability status of the dataset.</li>
+    <li><strong>format</strong>: File format of the dataset.</li>
+    <li><strong>programming_language</strong>: Programming language used for data collection or processing.</li>
+    <li><strong>data_collection_start_date</strong>: Start date of data collection.</li>
+    <li><strong>data_collection_end_date</strong>: End date of data collection.</li>
+    <li><strong>publication_year</strong>: Year the dataset was published.</li>
+    <li><strong>number_of_semesters</strong>: Number of semesters included in the dataset.</li>
+    <li><strong>data_protection</strong>: Information on how the dataset ensures data protection and privacy.</li>
+    <li><strong>data_type</strong>: Type of data collected.</li>
+    <li><strong>measurement_type</strong>: Type of measurements represented in the dataset.</li>
+    <li><strong>data_processing</strong>: Description of data processing or cleaning procedures.</li>
+    <li><strong>population</strong>: Description of the population represented in the dataset.</li>
+    <li><strong>units_number</strong>: Number of items in the dataset.</li>
+    <li><strong>task_number</strong>: Number of tasks or activities included in the dataset.</li>
+    <li><strong>sample_size</strong>: Size of the dataset sample.</li>
+    <li><strong>sample_demographics</strong>: Demographic characteristics of the sample.</li>
+    <li><strong>country</strong>: Country where the data was collected.</li>
+    <li><strong>educational_institution</strong>: Educational institution associated with the dataset.</li>
+    <li><strong>data_standard</strong>: Data standards or schemas followed in the dataset.</li>
+    <li><strong>learning_environment</strong>: Type of learning environment represented.</li>
+    <li><strong>aggregation</strong>: How the data has been aggregated.</li>
+    <li><strong>aggregation_level</strong>: The level at which the data is aggregated.</li>
+    <li><strong>related_publication_url</strong>: URL to a related publication describing the dataset.</li>
+    <li><strong>related_publication</strong>: Title or citation of a related publication.</li>
+    <li><strong>rights</strong>: Licensing or rights information associated with the dataset.</li>
+    <li><strong>description</strong>: Brief description of the dataset and its contents.</li>
+    <li><strong>research_question</strong>: Research question(s) the dataset addresses.</li>
+    <li><strong>future_work</strong>: Suggested directions for future research using this dataset.</li>
+    <li><strong>fairness_score</strong>: Metric of usability of the dataset.</li>
+</ul>
+
                     </div>
                 </div>
             </div>
@@ -136,72 +191,83 @@
                     <p>We look forward to your contribution to the SPLICE Catalog!</p>
                 </div>
             </div>
-            
+
             <!-- Examples -->
             <div class="examples">
                 <h4>Examples</h4>
-                <p>Here are JSON exports examples for OpenDSA, CodeWorkout SLC items submission, OpenDSA tool submission and a Dataset submission:</p>
+                <p>Here are JSON exports examples for an OpenDSA, SLC item submission, an OpenDSA tool submission and a Dataset submission:</p>
                 <pre><code>{
-    "catalog_type": "SLCItemCatalog",
+    "catalog_type": "SLCItem",
     "platform_name": "OpenDSA",
-    "url": "https://opendsa-server.cs.vt.edu",
-    "exercise_type": "KA",
-    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
-    "description": "Introduction Summary Questions",
-    "author": "Cliff Shaffer",
-    "keywords": ["Introduction"],
-    "exercise_name": "Introduction Summary Questions",
-    "language": "N/A",
-    "iframe_url": "https://opendsax.cs.vt.edu/embed/IntroSumm",
-    "lti_url": "https://opendsax.cs.vt.edu/lti/launch?custom_ex_short_name=IntroSumm",
-    "lti_instructions_url": "https://opendsa-server.cs.vt.edu/guides/opendsa-canvas"
-}</code></pre>
-                <pre><code>{
-    "catalog_type": "SLCItemCatalog",
-    "platform_name": "CodeWorkout",
-    "url": "https://codeworkout.cs.vt.edu",
-    "exercise_type": "Coding Question",
-    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)",
-    "description": "Introduction Summary Questions",
-    "author": "Stephen Edwards",
-    "keywords": ["programming", "coding"],
-    "exercise_name": "Introduction Summary Questions",
-    "language": "N/A",
-    "iframe_url": "https://codeworkout.cs.vt.edu/gym/exercises/1/practice",
-    "lti_url": "https://codeworkout.cs.vt.edu/lti/launch/gym/exercises/1/practice",
-    "lti_instructions_url": "https://codeworkout.cs.vt.edu"
+    "iframe_url": "https://opendsa-server.cs.vt.edu/OpenDSA/Exercises/Background/IntroSumm.html",
+    "persistentID": "https://opendsa-server.cs.vt.edu/OpenDSA/Exercises/Background/IntroSumm.html",
+    "protocol_url": [
+      "https://opendsa-server.cs.vt.edu/lti/launch?custom_ex_short_name=IntroSumm&custom_ex_settings=%7B%7D",
+      "https://opendsa-server.cs.vt.edu/OpenDSA/Exercises/Background/IntroSumm.html"
+    ],
+    "protocol": ["LTI 1.1", "SPLICE"],
+    "license": "https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt",
+    "description": "Data Structures introduction battery of self-assessment questions.",
+    "author": ["Cliff Shaffer"],
+    "institution": ["Virginia Tech"],
+    "keywords": ["Data Structures"],
+    "features": ["Question Set"],
+    "title": "Introduction to Data Structures and Algorithms Review Questions",
+    "programming_language": ["N/A"],
+    "natural_language": ["en"]
 }</code></pre>
 <p>SLC tools catalog</p>
                     <pre><code>{
     "catalog_type": "SLCToolsCatalog",
     "platform_name": "OpenDSA",
-    "url": "https://opendsa.server.vt.edu/",
-    "tool_description": "CS e-textbook platform.",
-    "license": "Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International",
-    "standard_support": "LTI", 
-    "keywords": ["Algorithm visualization", "practice", "auto-assessment"],
-    "contact_email": "opendsa@cs.vt.edu" 
+    "url": "https://opendsa-server.cs.vt.edu",
+    "description": "OpenDSA provides infrastructure and materials to support courses in data structures, algorithms, formal languages, and other CS-related topics.",
+    "license": "MIT",
+    "interface": "LTI, SPLICE protocol",
+    "contact_email": "opendsa@cs.vt.edu"
 }</code></pre>
 <p>Dataset catalog</p>
                   <pre><code>{
     "catalog_type": "DatasetCatalog",
+    "publisher": "DataShop",
+    "resource_url": "https://pslcdatashop.web.cmu.edu/Project?id=321",
+    "resource_url_type": "URL",
+    "bibtex_source": "@data{iSnap15,\nurl = {https://pslcdatashop.web.cmu.edu/Project?id=321},\nauthor = {Thomas Price},\npublisher = {DataShop},\ntitle = {iSnap},\nyear = {N/A}, \nnote = {Last Access: 5 February, 2024}, \n}",
     "title": "iSnap - Introductory Programming",
-    "platform": "DataShop",
-    "datasetName": "iSnap - Introductory Programming",
-    "url": "https://datashop.web.cmu.edu/DatasetInfo?datasetId=321",
-    "description": "This project contains programming log data from iSnap, a visual, block-based programming environment based on Snap!. The data were collected from an introductory programming course for non-majors, starting in Fall 2015. Starting in Spring 2016, the environment provided students with on-demand hints for some assignments. The data includes not only detailed logs of all student actions within the environment, but also complete snapshots of student code as it was edited.",
-    "dataFormats": ["txt"],
-    "dataType": ["Programming"],
-    "keywords": ["programming", "log data"],
+    "creator": "Price, Thomas",
+    "given_name": "Thomas",
+    "family_name": "Price",
+    "name_identifier": "https://orcid.org/0000-0001-9375-2292",
+    "affiliation": "North Carolina State University ",
+    "availability": "open",
+    "format": "txt",
+    "programming_language": "Snap!",
+    "data_collection_start_date": 2015,
+    "data_collection_end_date": 2017,
+    "publication_year": null,
+    "number_of_semesters": 5,
+    "data_protection": "Anonymized",
+    "data_type": "Programming",
+    "measurement_type": "log data",
+    "data_processing": null,
     "population": "CS0 (non-majors)",
-    "contributors": [
-        {
-            "Name": "Thomas Price",
-            "affiliation": "North Carolina State University"
-        }
-    ],
-    <!-- "language": ["Python", "Java"], -->
-    "yearPublished": 2015
+    "units_number": "F15: 84243; F16: 208105; S16: 172160; F17: 161255; S17: 140581; Total: 766344",
+    "task_number": "6 assignments",
+    "sample_size": "~350",
+    "sample_demographics": "Introductory Computing Students",
+    "country": "USA",
+    "educational_institution": "NCSU",
+    "data_standard": "ProgSnap",
+    "learning_environment": "iSnap",
+    "aggregation": "Yes",
+    "aggregation_level": "Complete snapshot; Detailed Log",
+    "related_publication_url": "Price et al. 2017",
+    "related_publication": "@inproceedings{price2017isnap,\n  title={iSnap: towards intelligent tutoring in novice programming environments},\n  author={Price, Thomas W and Dong, Yihuan and Lipovac, Dragan},\n  booktitle={Proceedings of the 2017 ACM SIGCSE Technical Symposium on computer science education},\n  pages={483--488},\n  year={2017}\n}",
+    "rights": null,
+    "description": "\"iSnap logs all student actions to a remote database, including any interactions with the user interface and coding\narea. It also logs complete snapshots of students’ code after each edit, allowing for complete replay of a student’s\nactions within the environment. Each entry in iSnap’s logs\nconsists of an event type (e.g. “block grabbed”, “project exported”), any associated data (e.g. an ID for the grabbed\nblock) and an updated snapshot of the student’s code (if\nchanged). While this data could have many uses, we use it\nspecifically to automatically generate contextual hints\"",
+    "research_question": null,
+    "future_work": null,
+    "fairness_score": "Total score: 4% (initial)\nFindability: 1 of 7\nAccessibility:  0 of 3\nInteroperability: 0 of 4\nReusability: 0 of 10"
 }</code></pre>
 <button onclick="window.location.href='/upload/'" style="cursor: pointer;">Upload Content</button>
 
