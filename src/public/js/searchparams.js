@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('input[name="query"]').value = keyword;
 
     try {
-      const response = await fetch(`/search/api?query=${encodeURIComponent(keyword)}`);
+      const response = await fetch(`/api?items=${encodeURIComponent(keyword)}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
