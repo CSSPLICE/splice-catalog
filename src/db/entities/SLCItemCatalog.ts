@@ -1,19 +1,20 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from 'typeorm';
+import {Entity, Column, BaseEntity, PrimaryColumn, Generated} from 'typeorm';
 import { IsNotEmpty, IsString, IsOptional, IsUrl, IsArray } from 'class-validator';
 import { CatalogInterface } from './CatalogInterface.js';
 // import { ValidationResults } from './ValidationResults.js';
 
 @Entity()
 export class slc_item_catalog extends BaseEntity implements CatalogInterface {
-  @PrimaryGeneratedColumn()
+  @Column()
+  @Generated("increment")
   id!: number;
 
-  @Column({ nullable: false })
+  @Column()
   @IsNotEmpty()
   @IsString()
   catalog_type!: string;
 
-  @Column({ nullable: false })
+  @PrimaryColumn()
   @IsNotEmpty()
   @IsString()
   persistentID!: string;
