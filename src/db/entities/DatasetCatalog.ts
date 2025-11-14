@@ -53,7 +53,7 @@ export class dataset_catalog extends BaseEntity {
   @Column({ length: 255, nullable: true })
   name_identifier?: string;
 
-  @Column({ length: 255, nullable: true })
+  @Column('text', { nullable: true })
   affiliation?: string;
 
   @Column({ length: 255, nullable: true })
