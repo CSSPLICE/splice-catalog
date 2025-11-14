@@ -215,12 +215,30 @@ document.addEventListener('DOMContentLoaded', function () {
     paginationContainer.appendChild(ul);
   }
 
+  function updateURL() {
+    const searchInput = searchForm.querySelector('input[name="query"]');
+    const query = searchInput.value;
+    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
+    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
+
+    const params = new URLSearchParams();
+    if (query) {
+      params.set('query', query);
+    }
+    selectedFeatures.forEach((f) => params.append('features', f));
+    selectedTools.forEach((t) => params.append('tools', t));
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    history.pushState({ path: newUrl }, '', newUrl);
+  }
+
   function updateResults() {
     currentPage = 1;
     const filtered = filterItems();
     console.log('Filtered items:', filtered);
     renderTable(filtered, currentPage);
     renderPagination(filtered.length);
+    updateURL();
   }
 
   checkboxes.forEach((checkbox) => {
@@ -235,19 +253,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('handleKeywordSearch called');
     const keyword = this.dataset.keyword;
     document.querySelector('input[name="query"]').value = keyword;
-
-    try {
-      const response = await fetch(`/api/items?terms=${encodeURIComponent(keyword)}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      console.log('API Response:', data);
-      currentItems = data.results;
-      updateResults();
-    } catch (error) {
-      console.error('There has been a problem with your fetch operation:', error);
-    }
+    debouncedSearch(keyword);
   }
 
   const searchForm = document.getElementById('searchForm');
@@ -292,6 +298,35 @@ document.addEventListener('DOMContentLoaded', function () {
     debouncedSearch(searchInput.value);
   });
 
+  function applyFiltersFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('query');
+    const features = params.getAll('features');
+    const tools = params.getAll('tools');
+
+    if (query) {
+      searchInput.value = query;
+    }
+
+    document.querySelectorAll('.exerciseTypeInput').forEach((cb) => {
+      if (features.includes(cb.value)) {
+        cb.checked = true;
+      }
+    });
+
+    document.querySelectorAll('.toolInput').forEach((cb) => {
+      if (tools.includes(cb.value)) {
+        cb.checked = true;
+      }
+    });
+  }
+
   // Initial render
-  updateResults();
+  applyFiltersFromURL();
+  const initialQuery = new URLSearchParams(window.location.search).get('query');
+  if (initialQuery) {
+    debouncedSearch(initialQuery);
+  } else {
+    updateResults();
+  }
 });
