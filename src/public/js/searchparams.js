@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('input[name="query"]').value = keyword;
 
     try {
-      const response = await fetch(`/api?items=${encodeURIComponent(keyword)}`);
+      const response = await fetch(`/api/items?terms=${encodeURIComponent(keyword)}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     try {
-      const response = await fetch(`/search/api?query=${encodeURIComponent(query)}`);
+      const response = await fetch(`/api/items?terms=${encodeURIComponent(query)}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
