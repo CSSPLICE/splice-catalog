@@ -17,6 +17,7 @@ import { setup } from './admin-panel/adminjs-setup.js';
 import { AppDataSource } from './db/data-source.js';
 import { EventEmitter } from 'events';
 import { checkRole, roles } from './middleware/middleware.js';
+import exportRouter from "./routes/export.js";
 
 const emitter = new EventEmitter();
 (async () => {
@@ -37,6 +38,7 @@ dotenv.config();
 
 const app: Express = express();
 
+app.use("/api", exportRouter);
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));

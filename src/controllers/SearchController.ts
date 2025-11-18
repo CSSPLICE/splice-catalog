@@ -157,6 +157,49 @@ export class SearchController {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+async searchCatalogRaw(query: any, features: any) {
+  const repo = AppDataSource.getRepository(slc_item_catalog);
+
+  const q = typeof query === 'string' ? query : '';
+
+  let featureList: string[] = [];
+  if (typeof features === 'string') featureList = features.split(',');
+  if (Array.isArray(features)) featureList = features;
+
+  const qb = repo.createQueryBuilder('item');
+
+  // text search
+  if (q) {
+    qb.where(
+      new Brackets(qb2 => {
+        qb2.where('item.keywords LIKE :q', { q: `%${q}%` })
+           .orWhere('item.platform_name LIKE :q', { q: `%${q}%` })
+           .orWhere('item.title LIKE :q', { q: `%${q}%` })
+           .orWhere('item.catalog_type LIKE :q', { q: `%${q}%` });
+      })
+    );
+  }
+
+  // feature filter
+  if (featureList.length > 0) {
+    qb.andWhere(
+      new Brackets(qb2 => {
+        featureList.forEach(f => {
+          qb2.orWhere('item.features LIKE :f', { f: `%${f}%` });
+        });
+      })
+    );
+  }
+
+  const raw = await qb.getMany();
+
+  // Clean into uploadable JSON format
+  return raw.map(formatItemForExport);
+}
+
+
+
+
   async exportSearchResults(req: Request, res: Response) {
     try {
       const rawQuery = req.query.query;
@@ -209,9 +252,6 @@ export class SearchController {
       const results = await repo.find({ where: dbQuery });
 
       const payload = {
-        query,
-        exerciseTypes,
-        count: results.length,
         results,
       };
 
@@ -229,4 +269,25 @@ export class SearchController {
         .json({ success: false, message: 'Failed to export search results' });
     }
   }
+  
+  
+}
+function formatItemForExport(item: any) {
+  return {
+    catalog_type: item.catalog_type,
+    platform_name: item.platform_name,
+    iframe_url: item.iframe_url,
+    persistentID: item.persistentID,
+    protocol_url: item.protocol_url,
+    protocol: item.protocol,
+    license: item.license,
+    description: item.description,
+    author: item.author,
+    institution: item.institution,
+    keywords: item.keywords,
+    features: item.features,
+    title: item.title,
+    programming_language: item.programming_language,
+    natural_language: item.natural_language,
+  };
 }
