@@ -17,16 +17,11 @@
       %>
 
       <main class="search-content">
-
         <div style="margin-bottom: 1rem;">
           <!-- add button to download the JSON results -->
-          <form action="/search/export" method="get" style="display:inline;">
+          <form id="downloadForm" action="/search/export" method="get" style="display:inline;">
             <input type="hidden" name="query" value="<%= q %>">
-            <% selectedFeatures.forEach(t => { %>
-              <input type="hidden" name="features" value="<%= t %>">
-            <% }) %>
-
-            <button type="submit" class="btn btn-primary"> Download results </button>
+            <button type="submit" class="btn btn-primary">Download results</button>
           </form>
         </div>
 
@@ -62,6 +57,22 @@
         });
       });
     </script>
+    <script>
+      document.getElementById('downloadForm').addEventListener('submit', function () {
+        const form = this;
+
+        form.querySelectorAll('input[name="features"]').forEach(el => el.remove());
+
+        document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+          const hidden = document.createElement('input');
+          hidden.type = 'hidden';
+          hidden.name = 'features';
+          hidden.value = cb.value;
+          form.appendChild(hidden);
+        });
+      });
+  </script>
+
   </body>
 
   <%- include('../partials/footer') -%>
