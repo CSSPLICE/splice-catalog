@@ -5,7 +5,7 @@ import { CatalogInterface } from './CatalogInterface.js';
 
 @Entity()
 export class slc_item_catalog extends BaseEntity implements CatalogInterface {
-  @Column()
+  @Column({"unique" : true})
   @Generated("increment")
   id!: number;
 
