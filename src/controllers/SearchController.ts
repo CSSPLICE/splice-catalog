@@ -16,181 +16,35 @@ const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_ca
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
-    const query = req.query.query as string;
-    const features = req.query.features || [];
-    let featureTypes: string[] = [];
-    if (typeof features === 'string') {
-      featureTypes = features
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
-    } else if (Array.isArray(features)) {
-      featureTypes = features as string[];
-    }
-    const tools = req.query.tool || [];
-    let toolTypes: string[] = [];
-    if (typeof tools === 'string') {
-      toolTypes = tools
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
-    } else if (Array.isArray(tools)) {
-      toolTypes = tools as string[];
-    }
+    const query = typeof req.query.query === 'string' ? req.query.query : '';
+    const featuresParam = req.query.features || [];
 
-    const queryBuilder = AppDataSource.getRepository(slc_item_catalog).createQueryBuilder('item');
+    const features =
+      typeof featuresParam === 'string'
+        ? [featuresParam]
+        : Array.isArray(featuresParam)
+        ? featuresParam
+        : [];
 
-    if (query) {
-      queryBuilder.where(
-        new Brackets((qb) => {
-          qb.where('item.keywords LIKE :query', { query: `%${query}%` })
-            .orWhere('item.platform_name LIKE :query', { query: `%${query}%` })
-            .orWhere('item.title LIKE :query', { query: `%${query}%` })
-            .orWhere('item.catalog_type LIKE :query', { query: `%${query}%` });
-        }),
-      );
-    }
-
-    const search_data = await queryBuilder.getMany();
-
-    const allFeatures = await AppDataSource.getRepository(slc_item_catalog)
-      .createQueryBuilder('item')
-      .select('DISTINCT item.features', 'features')
-      .getRawMany();
-    const featureChoices = [
-      ...new Set(
-        allFeatures
-          .map((t) => t.features)
-          .flat()
-          .flatMap((featureString) => (featureString || '').split(',').map((s: string) => s.trim()))
-          .filter(Boolean),
-      ),
-    ];
-    if (!featureChoices.includes('Untagged')) {
-      featureChoices.push('Untagged');
-    }
-
-    const allTools = await AppDataSource.getRepository(slc_item_catalog)
-      .createQueryBuilder('item')
-      .select('DISTINCT item.platform_name', 'platform_name')
-      .getRawMany();
-    const toolChoices = allTools.map((t) => t.platform_name).filter(Boolean);
-
-    res.render('pages/search', {
-      results: search_data,
-      currentPage: 1,
-      totalPages: 1,
-      query,
-      features: featureTypes,
-      title: 'Search Results',
-      featureChoices,
-      tools: toolTypes,
-      toolChoices,
-    });
-  }
-
-  async searchCatalogAPI(req: Request, res: Response) {
-    const catalogName = req.params.catalog;
-    const entity = catalogMap[catalogName];
-
-    if (!entity) {
-      return res.status(404).json({ error: 'Catalog not found' });
-    }
-
-    const repository = AppDataSource.getRepository(entity);
-    const metadata = repository.metadata;
-    const queryBuilder = repository.createQueryBuilder('item');
-    let hasWhereClause = false;
-
-    const generalTerms = req.query.terms as string;
-    if (generalTerms) {
-      const generalWhereClauses = metadata.columns
-        .filter((col) => ['varchar', 'text', 'string'].includes(col.type.toString()))
-        .map((col) => `item.${col.propertyName} LIKE :generalTerms`);
-
-      if (generalWhereClauses.length > 0) {
-        queryBuilder.where(
-          new Brackets((qb) => {
-            qb.where(generalWhereClauses.join(' OR '), { generalTerms: `%${generalTerms}%` });
-          }),
-        );
-        hasWhereClause = true;
-      }
-    }
-
-    for (const key in req.query) {
-      if (key === 'terms') {
-        continue;
-      }
-
-      const value = req.query[key];
-
-      if (typeof value === 'string') {
-        const columnName = key;
-
-        const column = metadata.findColumnWithPropertyName(columnName);
-        if (column) {
-          const paramName = `${columnName}_${Math.random().toString(36).substring(7)}`;
-          const condition = `item.${columnName} LIKE :${paramName}`;
-          const paramValue: string = `%${value}%`;
-
-          if (hasWhereClause) {
-            queryBuilder.andWhere(condition, { [paramName]: paramValue });
-          } else {
-            queryBuilder.where(condition, { [paramName]: paramValue });
-            hasWhereClause = true;
-          }
-        }
-      }
-    }
-
-    if (!hasWhereClause && !generalTerms) {
-      const results = await repository.find();
-      return res.json({ results });
-    }
-
-    try {
-      const results = await queryBuilder.getMany();
-      return res.json({ results });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
-  }
-  async searchCatalogRaw(query: any, features: any) {
     const repo = AppDataSource.getRepository(slc_item_catalog);
-
-    // text box query
-    const q = typeof query === 'string' ? query : '';
-
-    // checkbox filters from sidebar
-    let featureList: string[] = [];
-    if (typeof features === 'string') {
-      featureList = [features];
-    } else if (Array.isArray(features)) {
-      featureList = features as string[];
-    }
-
     const qb = repo.createQueryBuilder('item');
 
-    // same text search as searchCatalog()
-    if (q) {
+    if (query) {
       qb.where(
         new Brackets((qb2) => {
           qb2
-            .where('item.keywords LIKE :q', { q: `%${q}%` })
-            .orWhere('item.platform_name LIKE :q', { q: `%${q}%` })
-            .orWhere('item.title LIKE :q', { q: `%${q}%` })
-            .orWhere('item.catalog_type LIKE :q', { q: `%${q}%` });
+            .where('item.keywords LIKE :q', { q: `%${query}%` })
+            .orWhere('item.platform_name LIKE :q', { q: `%${query}%` })
+            .orWhere('item.title LIKE :q', { q: `%${query}%` })
+            .orWhere('item.catalog_type LIKE :q', { q: `%${query}%` });
         }),
       );
     }
 
-    // filter by selected features (Question Set, Concept Map, etc.)
-    if (featureList.length > 0) {
+    if (features.length > 0) {
       qb.andWhere(
         new Brackets((qb2) => {
-          featureList.forEach((f, idx) => {
+          features.forEach((f, idx) => {
             qb2.orWhere(`item.features LIKE :f${idx}`, {
               [`f${idx}`]: `%${f}%`,
             });
@@ -201,97 +55,34 @@ export class SearchController {
 
     const rows = await qb.getMany();
 
-    // return in “re-uploadable” shape (no id, no metadata)
-    return rows.map((item) => ({
-      catalog_type: item.catalog_type,
-      platform_name: item.platform_name,
-      iframe_url: item.iframe_url,
-      persistentID: item.persistentID,
-      protocol_url: item.protocol_url,
-      protocol: item.protocol,
-      license: item.license,
-      description: item.description,
-      author: item.author,
-      institution: item.institution,
-      keywords: item.keywords,
-      features: item.features,
-      title: item.title,
-      programming_language: item.programming_language,
-      natural_language: item.natural_language,
-    }));
-  }
+    // export
+    if (req.route?.path === '/export') {
+      const payload = rows.map((item) => ({
+        catalog_type: item.catalog_type,
+        platform_name: item.platform_name,
+        iframe_url: item.iframe_url,
+        persistentID: item.persistentID,
+        protocol_url: item.protocol_url,
+        protocol: item.protocol,
+        license: item.license,
+        description: item.description,
+        author: item.author,
+        institution: item.institution,
+        keywords: item.keywords,
+        features: item.features,
+        title: item.title,
+        programming_language: item.programming_language,
+        natural_language: item.natural_language,
+      }));
 
-
-
-
-  async exportSearchResults(req: Request, res: Response) {
-    try {
-      const rawQuery = req.query.query;
-      const query = typeof rawQuery === 'string' ? rawQuery : '';
-
-      const exerciseTypeParam = req.query.exerciseType || [];
-      const exerciseTypes =
-        typeof exerciseTypeParam === 'string'
-          ? exerciseTypeParam.split(',')
-          : Array.isArray(exerciseTypeParam)
-          ? exerciseTypeParam
-          : [];
-
-      let dbQuery: FindOptionsWhere<SLCItem>[] = [
-        { keywords: ILike(`%${query}%`) },
-        { platform_name: ILike(`%${query}%`) },
-        { title: ILike(`%${query}%`) },
-        { catalog_type: ILike(`%${query}%`) },
-      ];
-
-      if (exerciseTypes.length > 0) {
-        let queryWithExerciseTypes: FindOptionsWhere<SLCItem>[] = [];
-
-        if (exerciseTypes.includes('Untagged')) {
-          queryWithExerciseTypes = dbQuery.map((orcond) => ({
-            ...orcond,
-            exercise_type: IsNull(),
-          }));
-        }
-
-        const nonNullTypes = exerciseTypes.filter((type) => type !== 'Untagged');
-
-        if (nonNullTypes.length > 0) {
-          for (const type of nonNullTypes) {
-            queryWithExerciseTypes.push(
-              ...dbQuery.map((orcond) => ({
-                ...orcond,
-                exercise_type: ILike(`%${type}%`),
-              })),
-            );
-          }
-        }
-
-        if (queryWithExerciseTypes.length > 0) {
-          dbQuery = queryWithExerciseTypes;
-        }
-      }
-
-      const repo = AppDataSource.getRepository(slc_item_catalog);
-      const results = await repo.find({ where: dbQuery });
-
-      const payload = {
-        results,
-      };
-
-      res.setHeader('Content-Type', 'application/json');
-      res.setHeader(
-        'Content-Disposition',
-        'attachment; filename="search-results.json"',
-      );
-
-      return res.send(JSON.stringify(payload, null, 2));
-    } catch (err) {
-      console.error('Error exporting search results:', err);
-      return res
-        .status(500)
-        .json({ success: false, message: 'Failed to export search results' });
+      return res.json(payload);
     }
+
+    return res.render('pages/search', {
+      results: rows,
+      query,
+      features,
+      title: 'Search Results',
+    });
   }
-  
 }
