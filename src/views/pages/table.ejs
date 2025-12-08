@@ -1,3 +1,4 @@
+<!-- TABLE FILE LOADED -->
 <table class="table table-striped">
     <%
         const truncateWords = (s, n = 20) => {
@@ -8,6 +9,7 @@
     %>
     <thead>
         <tr>
+            <th scope="col">#</th>
             <th scope="col">Exercise Title</th>
             <th scope="col">Features</th>
             <th scope="col">Description</th>
@@ -19,7 +21,7 @@
         <% if (!items || items.length === 0) { %>
             <tr> </tr>
         <% } else { %>
-            <% items.forEach((SLCItem) => { %>
+            <% items.forEach((SLCItem, index) => { %>
                 <%
                     const featuresArr = Array.isArray(SLCItem.features)
                         ? SLCItem.features
@@ -29,6 +31,7 @@
                     const keywordsArr = Array.isArray(SLCItem.keywords) ? SLCItem.keywords : [];
                 %>
             <tr>
+                <td><%= index + 1 %></td> 
                 <td scope="row">
                     <% if (isSearchPage) { %>
                 <a href="/catalog/item/<%= encodeURIComponent(SLCItem.id) %>" style="text-decoration: underline; color: #0000EE;">

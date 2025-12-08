@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     let tableHTML = '';
-    paginatedItems.forEach((item) => {
+    paginatedItems.forEach((item, index) => {
       const features = Array.isArray(item.features)
         ? item.features
         : (item.features || '')
@@ -95,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       const row = `
         <tr>
+          <td>${start + index + 1}</td>
           <td scope="row">
             <a href="/catalog/item/${encodeURIComponent(item.id)}" style="text-decoration: underline; color: #0000EE;">
               ${item.title}
