@@ -26,8 +26,21 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   });
-  const ITEMS_PER_PAGE = 25;
+  let ITEMS_PER_PAGE = 25;
   let currentPage = 1;
+
+  const itemsPerPageSelect = document.getElementById('itemsPerPage');
+
+  if (itemsPerPageSelect) {
+    itemsPerPageSelect.addEventListener('change', function () {
+      ITEMS_PER_PAGE = parseInt(this.value);
+      currentPage = 1;
+
+      renderTable(currentItems, currentPage);
+      renderPagination(currentItems.length);
+      updateRecordCount();
+    });
+  }
 
   function filterItems() {
     const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
