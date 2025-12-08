@@ -27,7 +27,7 @@
 
         <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:10px;">
           <p class="text-muted">
-            <strong id="recordCount"><%= results.length %></strong> records found
+            <strong id="recordCount">0</strong> records found
           </p>
         </div>
 
@@ -79,6 +79,20 @@
       });
   </script>
 
+  <script>
+    function updateRecordCount() {
+      const counter = document.getElementById('recordCount');
+      if (counter && Array.isArray(currentItems)) {
+        counter.textContent = currentItems.length;
+      }
+    }
+
+    // Run once on page load
+    updateRecordCount();
+  </script>
+
+
+  
   </body>
 
   <%- include('../partials/footer') -%>

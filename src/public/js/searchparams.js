@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', function () {
+    function updateRecordCount() {
+      const counter = document.getElementById('recordCount');
+      if (counter && Array.isArray(currentItems)) {
+        counter.textContent = currentItems.length;
+      }
+    }
+
   const form = document.getElementById('filterForm');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
   const tableBody = document.querySelector('.table-group-divider');
@@ -27,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Selected features:', selectedFeatures);
     const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
 
-    let filteredItems = currentItems;
+    let filteredItems = allItems;
 
     if (selectedFeatures.length > 0) {
       console.log('Filtering by features:', selectedFeatures);
@@ -218,9 +225,18 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateResults() {
     currentPage = 1;
     const filtered = filterItems();
-    console.log('Filtered items:', filtered);
+    if (
+      document.querySelectorAll('.exerciseTypeInput:checked').length === 0 &&
+      document.querySelectorAll('.toolInput:checked').length === 0
+    ) {
+      currentItems = allItems;
+    } else {
+      currentItems = filtered;
+    }
+
     renderTable(filtered, currentPage);
     renderPagination(filtered.length);
+    updateRecordCount();
   }
 
   checkboxes.forEach((checkbox) => {
