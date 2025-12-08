@@ -25,6 +25,12 @@
           </form>
         </div>
 
+        <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:10px;">
+          <p class="text-muted">
+            <strong id="recordCount"><%= results.length %></strong> records found
+          </p>
+        </div>
+
 
         <%- include('../pages/table', { items: results || [], isSearchPage: true }) %>
 
