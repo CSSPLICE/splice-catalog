@@ -1,5 +1,15 @@
 import * as dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
+import { slc_item_catalog } from './entities/SLCItemCatalog.js';
+import { slc_tools_catalog } from './entities/SLCToolsCatalog.js';
+import { dataset_catalog } from './entities/DatasetCatalog.js';
+import { OntologyClasses } from './entities/OntologyClass.js';
+import { OntologyRelations } from './entities/OntologyRelation.js';
+import { OntologyAliases } from './entities/OntologyAlias.js';
+import { ItemClassification } from './entities/ItemClassification.js';
+import { ValidationResults } from './entities/ValidationResults.js';
+import { SeedInitialData1764779460569 } from './migrations/1764779460569-SeedInitialData.js';
+
 dotenv.config();
 
 export const AppDataSource: DataSource = new DataSource({
@@ -9,9 +19,18 @@ export const AppDataSource: DataSource = new DataSource({
   username: process.env.DB_USER || 'splice',
   password: process.env.DB_PASSWORD || 'splice',
   database: process.env.DB_DATABASE || 'splice',
-  migrations: ['./src/db/migrations/*.ts'],
+  migrations: [SeedInitialData1764779460569],
   logging: process.env.ORM_LOGGING === 'true',
-  entities: ['./src/db/entities/*.ts'],
+  entities: [
+    slc_item_catalog,
+    slc_tools_catalog,
+    dataset_catalog,
+    OntologyClasses,
+    OntologyRelations,
+    OntologyAliases,
+    ItemClassification,
+    ValidationResults,
+  ],
   synchronize: false,
   subscribers: [],
   migrationsRun: false,
