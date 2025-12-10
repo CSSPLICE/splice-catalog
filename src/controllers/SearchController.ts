@@ -158,69 +158,75 @@ export class SearchController {
   }
   async exportSearchResults(req: Request, res: Response) {
     try {
-      const rawQuery = req.query.query;
-      const query = typeof rawQuery === 'string' ? rawQuery : '';
+      const query = req.query.query as string;
+      const features = req.query.features || [];
 
-      const exerciseTypeParam = req.query.exerciseType || [];
-      const exerciseTypes =
-        typeof exerciseTypeParam === 'string'
-          ? exerciseTypeParam.split(',')
-          : Array.isArray(exerciseTypeParam)
-            ? exerciseTypeParam
-            : [];
-
-      let dbQuery: FindOptionsWhere<SLCItem>[] = [
-        { keywords: ILike(`%${query}%`) },
-        { platform_name: ILike(`%${query}%`) },
-        { title: ILike(`%${query}%`) },
-        { catalog_type: ILike(`%${query}%`) },
-      ];
-
-      if (exerciseTypes.length > 0) {
-        let queryWithExerciseTypes: FindOptionsWhere<SLCItem>[] = [];
-
-        if (exerciseTypes.includes('Untagged')) {
-          queryWithExerciseTypes = dbQuery.map((orcond) => ({
-            ...orcond,
-            exercise_type: IsNull(),
-          }));
-        }
-
-        const nonNullTypes = exerciseTypes.filter((type) => type !== 'Untagged');
-
-        if (nonNullTypes.length > 0) {
-          for (const type of nonNullTypes) {
-            queryWithExerciseTypes.push(
-              ...dbQuery.map((orcond) => ({
-                ...orcond,
-                exercise_type: ILike(`%${type}%`),
-              })),
-            );
-          }
-        }
-
-        if (queryWithExerciseTypes.length > 0) {
-          dbQuery = queryWithExerciseTypes;
-        }
+      let featureTypes: string[] = [];
+      if (typeof features === 'string') {
+        featureTypes = features.split(',').map((s) => s.trim()).filter(Boolean);
+      } else if (Array.isArray(features)) {
+        featureTypes = features as string[];
       }
 
-      const repo = AppDataSource.getRepository(slc_item_catalog);
-      const results = await repo.find({ where: dbQuery });
+      const queryBuilder =
+        AppDataSource.getRepository(slc_item_catalog).createQueryBuilder('item');
 
-      const payload = {
-        query,
-        exerciseTypes,
-        count: results.length,
-        results,
-      };
+      if (query) {
+        queryBuilder.where(
+          new Brackets((qb) => {
+            qb.where('item.keywords LIKE :query', { query: `%${query}%` })
+              .orWhere('item.platform_name LIKE :query', { query: `%${query}%` })
+              .orWhere('item.title LIKE :query', { query: `%${query}%` })
+              .orWhere('item.catalog_type LIKE :query', { query: `%${query}%` });
+          }),
+        );
+      }
+
+      if (featureTypes.length > 0) {
+        queryBuilder.andWhere(
+          new Brackets((qb) => {
+            featureTypes.forEach((f, idx) => {
+              qb.orWhere(`item.features LIKE :f${idx}`, {
+                [`f${idx}`]: `%${f}%`,
+              });
+            });
+          }),
+        );
+      }
+
+      const results = await queryBuilder.getMany();
+
+      const payload = results.map((item) => ({
+        catalog_type: item.catalog_type,
+        platform_name: item.platform_name,
+        iframe_url: item.iframe_url,
+        persistentID: item.persistentID,
+        protocol_url: item.protocol_url,
+        protocol: item.protocol,
+        license: item.license,
+        description: item.description,
+        author: item.author,
+        institution: item.institution,
+        keywords: item.keywords,
+        features: item.features,
+        title: item.title,
+        programming_language: item.programming_language,
+        natural_language: item.natural_language,
+      }));
 
       res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Content-Disposition', 'attachment; filename="search-results.json"');
+      res.setHeader(
+        'Content-Disposition',
+        'attachment; filename="search-results.json"',
+      );
 
       return res.send(JSON.stringify(payload, null, 2));
     } catch (err) {
       console.error('Error exporting search results:', err);
-      return res.status(500).json({ success: false, message: 'Failed to export search results' });
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to export search results',
+      });
     }
   }
 }
