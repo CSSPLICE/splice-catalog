@@ -79,6 +79,7 @@
 
     <script>
     const allItems = <%- JSON.stringify(results || []) %>;
+    let currentItems = [...allItems];
 
     let currentPage = 1;
     let itemsPerPage = 25;
@@ -93,7 +94,7 @@
 
       const start = (currentPage - 1) * itemsPerPage;
       const end = start + itemsPerPage;
-      const pageItems = allItems.slice(start, end);
+      const pageItems = currentItems.slice(start, end);
 
       if (pageItems.length === 0) {
         tableBody.innerHTML = "<tr><td colspan='6' class='text-center'>No results</td></tr>";
@@ -117,17 +118,18 @@
         tableBody.appendChild(row);
       });
 
-      const startNum = Math.min((currentPage - 1) * itemsPerPage + 1, allItems.length);
-      const endNum = Math.min(currentPage * itemsPerPage, allItems.length);
+      const startNum = Math.min((currentPage - 1) * itemsPerPage + 1, currentItems.length);
+      const endNum = Math.min(currentPage * itemsPerPage, currentItems.length);
 
       recordCountEl.textContent =
-        `Showing ${startNum}–${endNum} of ${allItems.length} results`;
+        `Showing ${startNum}–${endNum} of ${currentItems.length} results`;
+
     }
 
     function renderPagination() {
       paginationEl.innerHTML = "";
 
-      const totalPages = Math.ceil(allItems.length / itemsPerPage);
+      const totalPages = Math.ceil(currentItems.length / itemsPerPage);
 
       for (let i = 1; i <= totalPages; i++) {
         const btn = document.createElement("button");
