@@ -14,7 +14,7 @@ services:
     expose:
       - '3306'
     ports:
-      - '3306:3306'
+      - '127.0.0.1:3306:3306'
     healthcheck:
       test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
       interval: 10s
@@ -42,8 +42,8 @@ services:
       chrome:
         condition: service_started
     ports:
-      - '3000:3000'
-      - '9229:9229'
+      - '127.0.0.1:3000:3000'
+      - '127.0.0.1:9229:9229'
     networks:
       - splice
     healthcheck:
@@ -59,7 +59,7 @@ services:
       - production
     image: browserless/chrome:latest
     ports:
-      - '3001:3000'
+      - '127.0.0.1:3001:3000'
     networks:
       - splice
 
@@ -82,7 +82,7 @@ services:
       - staticvolume:/home/deploy/app/dist/public
       - ./uploads:/home/deploy/app/uploads
     ports:
-      - '3000:3000'
+      - '127.0.0.1:3000:3000'
     networks:
       - splice
     healthcheck:
@@ -115,7 +115,7 @@ services:
     build:
       context: ./src/lti-microservice
     ports:
-      - "4000:4000"
+      - "127.0.0.1:4000:4000"
     networks:
       - splice
     restart: always
