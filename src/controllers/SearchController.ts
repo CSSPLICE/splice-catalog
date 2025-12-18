@@ -158,69 +158,17 @@ export class SearchController {
   }
   async exportSearchResults(req: Request, res: Response) {
     try {
-      const rawQuery = req.query.query;
-      const query = typeof rawQuery === 'string' ? rawQuery : '';
-
-      const exerciseTypeParam = req.query.exerciseType || [];
-      const exerciseTypes =
-        typeof exerciseTypeParam === 'string'
-          ? exerciseTypeParam.split(',')
-          : Array.isArray(exerciseTypeParam)
-            ? exerciseTypeParam
-            : [];
-
-      let dbQuery: FindOptionsWhere<SLCItem>[] = [
-        { keywords: ILike(`%${query}%`) },
-        { platform_name: ILike(`%${query}%`) },
-        { title: ILike(`%${query}%`) },
-        { catalog_type: ILike(`%${query}%`) },
-      ];
-
-      if (exerciseTypes.length > 0) {
-        let queryWithExerciseTypes: FindOptionsWhere<SLCItem>[] = [];
-
-        if (exerciseTypes.includes('Untagged')) {
-          queryWithExerciseTypes = dbQuery.map((orcond) => ({
-            ...orcond,
-            exercise_type: IsNull(),
-          }));
-        }
-
-        const nonNullTypes = exerciseTypes.filter((type) => type !== 'Untagged');
-
-        if (nonNullTypes.length > 0) {
-          for (const type of nonNullTypes) {
-            queryWithExerciseTypes.push(
-              ...dbQuery.map((orcond) => ({
-                ...orcond,
-                exercise_type: ILike(`%${type}%`),
-              })),
-            );
-          }
-        }
-
-        if (queryWithExerciseTypes.length > 0) {
-          dbQuery = queryWithExerciseTypes;
-        }
-      }
-
       const repo = AppDataSource.getRepository(slc_item_catalog);
-      const results = await repo.find({ where: dbQuery });
-
-      const payload = {
-        query,
-        exerciseTypes,
-        count: results.length,
-        results,
-      };
+      const results = await repo.find();
 
       res.setHeader('Content-Type', 'application/json');
-      res.setHeader('Content-Disposition', 'attachment; filename="search-results.json"');
+      res.setHeader('Content-Disposition', 'attachment; filename="catalog.json"');
 
-      return res.send(JSON.stringify(payload, null, 2));
+      return res.send(JSON.stringify(results, null, 2));
     } catch (err) {
-      console.error('Error exporting search results:', err);
-      return res.status(500).json({ success: false, message: 'Failed to export search results' });
+      console.error('Error exporting catalog:', err);
+      return res.status(500).json({ message: 'Failed to export catalog' });
     }
   }
+
 }
