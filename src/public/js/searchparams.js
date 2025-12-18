@@ -1,5 +1,9 @@
+window.currentItems = [];
+
 document.addEventListener('DOMContentLoaded', function () {
   let currentItems = [...allItems];
+  window.currentItems = [...currentItems];
+
   const form = document.getElementById('filterForm');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
   const tableBody = document.querySelector('.table-group-divider');
@@ -55,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     currentItems = filteredItems;
+    window.currentItems = filteredItems;
     return filteredItems;
   }
 
@@ -358,5 +363,26 @@ document.addEventListener('DOMContentLoaded', function () {
     debouncedSearch(initialQuery);
   } else {
     updateResults();
+  }
+
+  const downloadBtn = document.getElementById("downloadResultsBtn");
+  if (downloadBtn) {
+    downloadBtn.addEventListener("click", () => {
+      const dataToDownload = window.currentItems.length ? window.currentItems : currentItems;
+
+      const blob = new Blob(
+        [JSON.stringify(dataToDownload, null, 2)],
+        { type: "application/json" }
+      );
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "results.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
   }
 });
