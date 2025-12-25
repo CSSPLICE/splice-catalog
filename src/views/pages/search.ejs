@@ -31,6 +31,24 @@
         </div>
 
 
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+          <div id="recordCount" class="fw-semibold text-muted">
+            Showing 0-0 of 0 results
+          </div>
+
+          <div>
+            <label for="itemsPerPage" class="me-2">Items per page:</label>
+            <select id="itemsPerPage" class="form-select d-inline-block w-auto">
+              <option value="10">10</option>
+              <option value="25" selected>25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+
+        </div>
+
         <%- include('../pages/table', { items: results || [], isSearchPage: true }) %>
 
 
@@ -39,10 +57,6 @@
       </main>
     </div>
 
-    <script>
-      const allItems = <%- JSON.stringify(results || []) %>;
-      let currentItems = allItems;
-    </script>
     <script src="/js/searchparams.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -62,6 +76,90 @@
         });
       });
     </script>
+
+    <script>
+    const allItems = <%- JSON.stringify(results || []) %>;
+    let currentItems = [...allItems];
+
+    let currentPage = 1;
+    let itemsPerPage = 25;
+
+    const recordCountEl = document.getElementById("recordCount");
+    const paginationEl = document.querySelector(".pagination");
+    const itemsPerPageSelect = document.getElementById("itemsPerPage");
+    const tableBody = document.querySelector("tbody");
+
+    function renderTable() {
+      tableBody.innerHTML = "";
+
+      const start = (currentPage - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+      const pageItems = currentItems.slice(start, end);
+
+      if (pageItems.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='6' class='text-center'>No results</td></tr>";
+        recordCountEl.textContent = "Showing 0–0 of 0 results";
+        return;
+      }
+
+      pageItems.forEach((item, index) => {
+        const row = document.createElement("tr");
+        const rowNumber = (currentPage - 1) * itemsPerPage + index + 1;
+
+        row.innerHTML = `
+          <td>${rowNumber}</td>
+          <td><a href="/catalog/item/${encodeURIComponent(item.id)}">${item.title}</a></td>
+          <td>${Array.isArray(item.features) ? item.features.join(", ") : item.features || ""}</td>
+          <td>${item.description?.split(" ").slice(0, 20).join(" ")}...</td>
+          <td><a href="${item.iframe_url}" target="_blank">${item.platform_name}</a></td>
+          <td>${(item.keywords || []).join(", ")}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+
+      const startNum = Math.min((currentPage - 1) * itemsPerPage + 1, currentItems.length);
+      const endNum = Math.min(currentPage * itemsPerPage, currentItems.length);
+
+      recordCountEl.textContent =
+        `Showing ${startNum}–${endNum} of ${currentItems.length} results`;
+
+    }
+
+    function renderPagination() {
+      paginationEl.innerHTML = "";
+
+      const totalPages = Math.ceil(currentItems.length / itemsPerPage);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.className = "btn btn-sm btn-outline-primary me-1";
+
+        if (i === currentPage) btn.classList.add("active");
+
+        btn.onclick = () => {
+          currentPage = i;
+          renderTable();
+          renderPagination();
+        };
+
+        paginationEl.appendChild(btn);
+      }
+    }
+
+    itemsPerPageSelect.addEventListener("change", () => {
+      itemsPerPage = Number(itemsPerPageSelect.value);
+      currentPage = 1;
+      renderTable();
+      renderPagination();
+    });
+
+    renderTable();
+    renderPagination();
+  </script>
+
+
   </body>
 
   <%- include('../partials/footer') -%>

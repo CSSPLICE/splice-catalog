@@ -8,6 +8,41 @@
     };
 %>
 <%- include('../partials/head') -%>
+<style>
+    .table {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    .table th:nth-child(3),
+    .table td:nth-child(3) {
+        width: 30%;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .table th:nth-child(4),
+    .table td:nth-child(4) {
+        width: 10%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .table th:nth-child(5),
+    .table td:nth-child(5) {
+        width: 8%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+</style>
 <%- include('../partials/header') -%>
 <body>
     <div class="container mt-5">

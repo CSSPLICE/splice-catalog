@@ -9,12 +9,59 @@
 <body>
   <%- include('../partials/header') %>
   <div class="container">
-    <h4>SPLICE Ontology</h4>
+    <h4>Catalog Search Vision and the SPLICE Ontology</h4>
     <p>
-      Welcome to the SPLICE Keyword Ontology page! This ontology is integrated into our Catalog. The Catalog is organized with keywords from the ontology on the tiles, explore and delve deeper into specific topics.
-      The keywords from the ontology can be used to search the SPLICE Catalog, helping you find exactly what you're looking for.
-      The ontology is a Directed Acyclic Graph (DAG), it provides a structured way to navigate through the Catalog to see related content as well.
-      You can view the OWL graph <a href="[https://webprotege.stanford.edu/#projects/c1bf6baa-c45a-449d-8171-a5e2671b84ab/edit/Classes?selection=Class(%3Chttp://opendsa.org/ontology%23Preorder_Traversal%3E)">here</a>.
+      As of this writing, the SPLICE SLC Content Catalog supports two
+      types of search: Limited filtered search by certain fields
+      (tools and features) with check boxes, and a basic general text
+      search through the search box at the top of the page.
+    </p>
+
+    <p>
+      Ultimately, we hope to support a richer search mechanism.
+      This will include filtered search by clicking on a collection of
+      check boxes for some fields where that makes sense.
+      We also plan to include a much richer full-text search from the
+      full database.
+      But the main innovation that we plan for is an ontology-based
+      search on either of two important fields: The keywords and the
+      features.
+    </p>
+    
+    <p>
+      What makes ontology-based search important is that an ontology
+      is a hierarchical arrangement of a collection of specific terms,
+      meaning that the terms are organized into a directed-acyclic
+      graph (DAG).
+      This is important because it means that a good search tool will
+      let users browse up and down the DAG to discover terms, and
+      ultimately more easily discover content that they are interested
+      in.
+      For example, you might know that you are interested in search
+      trees, but don't know the terms for specific instances of search
+      trees.
+      Keyword search won't help you out unless the individual records
+      include all the specific keywords that might be relevant, such
+      as having both Red-Black Trees and Search Trees.
+      Typically, content contributors to the catalog will provide the
+      more specific terms, but not the general terms.
+    </p>
+
+    <p>
+      Another example might be if a catalog visitor wants to see all
+      exercises from a given tool.
+      With a view of the ontology graph, users could then browse down
+      to see specific types of exercises even if they didn't know in
+      advance which ones are available.
+    </p>
+    
+      
+    <p>
+      You can find more information about the current status of the
+      SPLICE ontology development efforts at the
+      <a href="https://cssplice.org/portal/index.html">
+        SPLICE Portal Working Group page</a>.
+    </p>
 
     </p>
     <!-- Breadcrumb container -->

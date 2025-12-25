@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  let currentItems = [...allItems];
   const form = document.getElementById('filterForm');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
   const tableBody = document.querySelector('.table-group-divider');
@@ -23,22 +24,28 @@ document.addEventListener('DOMContentLoaded', function () {
   let currentPage = 1;
 
   function filterItems() {
-    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
-    console.log('Selected features:', selectedFeatures);
-    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
+    const selectedFeatures = Array.from(
+      document.querySelectorAll('.exerciseTypeInput:checked')
+    ).map((cb) => cb.value);
 
-    let filteredItems = currentItems;
+    const selectedTools = Array.from(
+      document.querySelectorAll('.toolInput:checked')
+    ).map((cb) => cb.value);
+
+    const queryValue = document.querySelector('input[name="query"]').value.trim();
+
+    let filteredItems = queryValue ? currentItems : allItems;
 
     if (selectedFeatures.length > 0) {
-      console.log('Filtering by features:', selectedFeatures);
-      console.log('Items before feature filter:', filteredItems);
       filteredItems = filteredItems.filter((item) => {
         const itemFeatures = Array.isArray(item.features)
           ? item.features
-          : (item.features || '').split(',').map((s) => s.trim());
+          : (item.features || '')
+              .split(',')
+              .map((s) => s.trim());
+
         return selectedFeatures.some((sf) => itemFeatures.includes(sf));
       });
-      console.log('Items after feature filter:', filteredItems);
     }
 
     if (selectedTools.length > 0) {
@@ -47,8 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
+    currentItems = filteredItems;
     return filteredItems;
   }
+
 
   function renderTable(items, page) {
     tableBody.innerHTML = '';
@@ -57,12 +66,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const paginatedItems = items.slice(start, end);
 
     if (paginatedItems.length === 0) {
-      tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No results found.</td></tr>';
+      tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No results found.</td></tr>';
       return;
     }
 
     let tableHTML = '';
-    paginatedItems.forEach((item) => {
+    paginatedItems.forEach((item, index) => {
       const features = Array.isArray(item.features)
         ? item.features
         : (item.features || '')
@@ -73,8 +82,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .map((f) => `<a href="#" class="feature-link" data-feature="${f}">${f}</a>`)
         .join(', ');
 
+      const rowNumber = (page - 1) * ITEMS_PER_PAGE + index + 1;
       const row = `
         <tr>
+          <td>${rowNumber}</td>
           <td scope="row">
             <a href="/catalog/item/${encodeURIComponent(item.id)}" style="text-decoration: underline; color: #0000EE;">
               ${item.title}
@@ -101,6 +112,14 @@ document.addEventListener('DOMContentLoaded', function () {
       tableHTML += row;
     });
     tableBody.innerHTML = tableHTML;
+    const recordCountEl = document.getElementById("recordCount");
+
+    const startNum = Math.min((page - 1) * ITEMS_PER_PAGE + 1, items.length);
+    const endNum = Math.min(page * ITEMS_PER_PAGE, items.length);
+
+    recordCountEl.textContent =
+      `Showing ${startNum}–${endNum} of ${items.length} results`;
+
   }
 
   function renderPagination(totalItems) {
@@ -215,13 +234,42 @@ document.addEventListener('DOMContentLoaded', function () {
     paginationContainer.appendChild(ul);
   }
 
+  function updateURL() {
+    const searchInput = searchForm.querySelector('input[name="query"]');
+    const query = searchInput.value;
+    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
+    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
+
+    const params = new URLSearchParams();
+    if (query) {
+      params.set('query', query);
+    }
+    selectedFeatures.forEach((f) => params.append('features', f));
+    selectedTools.forEach((t) => params.append('tools', t));
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    history.pushState({ path: newUrl }, '', newUrl);
+  }
+
   function updateResults() {
     currentPage = 1;
+
+    const anyFeatureChecked = document.querySelectorAll('.exerciseTypeInput:checked').length > 0;
+    const anyToolChecked = document.querySelectorAll('.toolInput:checked').length > 0;
+    const queryValue = document.querySelector('input[name="query"]').value.trim();
+
+    if (!anyFeatureChecked && !anyToolChecked && !queryValue) {
+      currentItems = [...allItems];
+    }
+
+    currentPage = 1;
+
     const filtered = filterItems();
-    console.log('Filtered items:', filtered);
     renderTable(filtered, currentPage);
     renderPagination(filtered.length);
+    updateURL();
   }
+
 
   checkboxes.forEach((checkbox) => {
     checkbox.addEventListener('change', function (e) {
@@ -235,19 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('handleKeywordSearch called');
     const keyword = this.dataset.keyword;
     document.querySelector('input[name="query"]').value = keyword;
-
-    try {
-      const response = await fetch(`/search/api?query=${encodeURIComponent(keyword)}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      console.log('API Response:', data);
-      currentItems = data.results;
-      updateResults();
-    } catch (error) {
-      console.error('There has been a problem with your fetch operation:', error);
-    }
+    debouncedSearch(keyword);
   }
 
   const searchForm = document.getElementById('searchForm');
@@ -270,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     try {
-      const response = await fetch(`/search/api?query=${encodeURIComponent(query)}`);
+      const response = await fetch(`/api/items?terms=${encodeURIComponent(query)}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -292,6 +328,35 @@ document.addEventListener('DOMContentLoaded', function () {
     debouncedSearch(searchInput.value);
   });
 
+  function applyFiltersFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get('query');
+    const features = params.getAll('features');
+    const tools = params.getAll('tools');
+
+    if (query) {
+      searchInput.value = query;
+    }
+
+    document.querySelectorAll('.exerciseTypeInput').forEach((cb) => {
+      if (features.includes(cb.value)) {
+        cb.checked = true;
+      }
+    });
+
+    document.querySelectorAll('.toolInput').forEach((cb) => {
+      if (tools.includes(cb.value)) {
+        cb.checked = true;
+      }
+    });
+  }
+
   // Initial render
-  updateResults();
+  applyFiltersFromURL();
+  const initialQuery = new URLSearchParams(window.location.search).get('query');
+  if (initialQuery) {
+    debouncedSearch(initialQuery);
+  } else {
+    updateResults();
+  }
 });

@@ -4,9 +4,8 @@ import { Brackets } from 'typeorm';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
-import {FindOptionsWhere, ILike, IsNull} from 'typeorm';
+import { FindOptionsWhere, ILike, IsNull } from 'typeorm';
 import { SLCItem } from 'src/types/ItemTypes.js';
-
 
 const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_catalog | typeof dataset_catalog } = {
   items: slc_item_catalog,
@@ -167,8 +166,8 @@ export class SearchController {
         typeof exerciseTypeParam === 'string'
           ? exerciseTypeParam.split(',')
           : Array.isArray(exerciseTypeParam)
-          ? exerciseTypeParam
-          : [];
+            ? exerciseTypeParam
+            : [];
 
       let dbQuery: FindOptionsWhere<SLCItem>[] = [
         { keywords: ILike(`%${query}%`) },
@@ -216,17 +215,12 @@ export class SearchController {
       };
 
       res.setHeader('Content-Type', 'application/json');
-      res.setHeader(
-        'Content-Disposition',
-        'attachment; filename="search-results.json"',
-      );
+      res.setHeader('Content-Disposition', 'attachment; filename="search-results.json"');
 
       return res.send(JSON.stringify(payload, null, 2));
     } catch (err) {
       console.error('Error exporting search results:', err);
-      return res
-        .status(500)
-        .json({ success: false, message: 'Failed to export search results' });
+      return res.status(500).json({ success: false, message: 'Failed to export search results' });
     }
   }
 }

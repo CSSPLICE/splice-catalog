@@ -11,7 +11,7 @@ const router = express.Router();
 
 const maxSize = 1000000 * 50;
 
-const upload = multer({ dest: '/tmp', limits: { fieldSize: maxSize } });
+const upload = multer({ dest: '/home/deploy/app/uploads', limits: { fieldSize: maxSize } });
 
 router.get('/', viewController.homeView);
 router.post('/upload', checkRole(roles.contributor), upload.single('file'), viewController.uploadPost);
