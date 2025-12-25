@@ -65,6 +65,19 @@ FIELD_ORDER = [
     "fairness_score",
 ]
 
+FOOTNOTE = (
+    "This dataset catalog is a compilation of open-source datasets in computing "
+    "education, curated by the \"Where is the data? Finding and reusing datasets "
+    "in computing education\" CompEd 23' working group. The working group aims to "
+    "make research data more accessible and encourage open data practices in the "
+    "computing education research (CER) community. For more information, please "
+    "refer to the working group's paper: Kiesler, Natalie, John Impagliazzo, "
+    "Katarzyna Biernacka, Amanpreet Kapoor, Zain Kazmi, Sujeeth Goud Ramagoni, "
+    "Aamod Sane, Keith Tran, Shubbhi Taneja, and Zihan Wu. \"Where's the Data? "
+    "Exploring Datasets in Computing Education.\" In Proceedings of the ACM "
+    "Conference on Global Computing Education Vol 2, pp. 209-210. 2023."
+)
+
 # Map normalized column headers to JSON fields
 HEADER_MAP = {
     "publisher": "publisher",
@@ -312,6 +325,13 @@ def rows_to_records(rows: Sequence[Sequence[str]]) -> List[Dict[str, object]]:
         for col_idx, field in col_to_field.items():
             cell_value = row[col_idx] if col_idx < len(row) else ""
             record[field] = clean_cell(cell_value, field)
+
+        # Always embed the catalog footnote into description
+        desc = record.get("description")
+        if desc is None or desc == "":
+            record["description"] = FOOTNOTE
+        else:
+            record["description"] = f"{desc}\n\n{FOOTNOTE}"
 
         if all(record.get(field) in (None, "") for field in FIELD_ORDER if field != "catalog_type"):
             continue
