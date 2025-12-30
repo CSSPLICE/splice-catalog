@@ -10,7 +10,7 @@ export const seedDatabase = async () => {
     connection = await mysql.createConnection({
       host: process.env.DB_HOST || 'db',
       port: Number(process.env.DB_PORT) || 3306,
-      user: process.env.DB_USER || 'splice',
+      user: process.env.DB_USERNAME || 'splice',
       password: process.env.DB_PASSWORD || 'splice',
       database: process.env.DB_DATABASE || 'splice',
     });

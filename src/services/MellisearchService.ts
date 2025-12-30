@@ -1,4 +1,5 @@
 import { MeiliSearch, Index } from 'meilisearch';
+import 'dotenv/config';
 
 export class MeilisearchService {
   private client: MeiliSearch;
