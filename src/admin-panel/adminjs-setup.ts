@@ -6,8 +6,9 @@ import { OntologyRelations } from '../db/entities/OntologyRelation.js';
 import { OntologyAliases } from '../db/entities/OntologyAlias.js';
 import { ItemClassification } from '../db/entities/ItemClassification.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
-import AdminJS from 'adminjs';
+import { AdminJS, ResourceOptions } from 'adminjs';
 import { Database, Resource } from '@adminjs/typeorm';
+import { AppDataSource } from "../db/data-source.js";
 import { buildRouter } from '@adminjs/express';
 
 export function setup() {
@@ -16,11 +17,42 @@ export function setup() {
     Resource,
   });
 
+  const bulkDelete: ResourceOptions = {
+    actions: {
+      deleteAll: {
+        actionType: 'resource',
+        icon: 'TrashCan',
+        component: false,
+        variant: 'danger',
+        guard: 'Irreversible Delete Operation',
+        handler: async (request, response, context) => {
+          const { resource, h } = context
+          console.log((resource as any).model)
+          await AppDataSource.getRepository((resource as any).model).delete({});
+          console.log(h.resourceUrl({resourceId: resource.id()}))
+          return {
+            notice: { message: 'All records deleted', type: 'success' },
+            redirectUrl: `${h.resourceUrl({resourceId: resource.id()})}?refresh=${Date.now()}`
+          };
+        },
+      },
+    },
+  };
+
   const adminJs = new AdminJS({
     resources: [
-      { resource: slc_item_catalog },
-      { resource: slc_tools_catalog },
-      { resource: dataset_catalog },
+      {
+        resource: slc_item_catalog,
+        options: bulkDelete,
+      },
+      {
+        resource: slc_tools_catalog,
+        options: bulkDelete,
+      },
+      {
+        resource: dataset_catalog,
+        options: bulkDelete,
+      },
       { resource: OntologyClasses },
       { resource: OntologyRelations },
       { resource: OntologyAliases },
