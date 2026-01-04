@@ -1,6 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryColumn, Generated } from 'typeorm';
 import { IsNotEmpty, IsString, IsOptional, IsUrl, IsArray } from 'class-validator';
 import { CatalogInterface } from './CatalogInterface.js';
+import { Reachable } from "../validators/url_validator.js";
 // import { ValidationResults } from './ValidationResults.js';
 
 @Entity()
@@ -28,6 +29,7 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsNotEmpty()
   @IsString()
   @IsUrl()
+  @Reachable()
   iframe_url!: string;
 
   @Column()
@@ -91,5 +93,6 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
+  @Reachable()
   protocol_url?: string[];
 }
