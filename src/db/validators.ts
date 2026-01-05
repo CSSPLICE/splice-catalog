@@ -9,10 +9,8 @@ export function Reachable(opts?: ValidationOptions) {
 			options: opts,
 			validator: {
 				async validate(value: string) {
-					console.log(`type: ${ typeof value } value: ${value}`);
 					try {
 						const result = await fetch(value, {method: 'HEAD'});
-						console.log(`res:${ result }`);
 						return result.ok;
 						// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					} catch (e) {
