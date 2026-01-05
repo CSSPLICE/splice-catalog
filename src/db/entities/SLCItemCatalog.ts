@@ -1,7 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryColumn, Generated } from 'typeorm';
 import { IsNotEmpty, IsString, IsOptional, IsUrl, IsArray } from 'class-validator';
 import { CatalogInterface } from './CatalogInterface.js';
-import { Reachable } from "../validators/url_validator.js";
+import { Reachable } from "../validators.js";
 // import { ValidationResults } from './ValidationResults.js';
 
 @Entity()
