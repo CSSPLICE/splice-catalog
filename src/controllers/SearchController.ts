@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source.js';
-import { Brackets } from 'typeorm';
+import { Brackets, FindOptionsWhere, ILike, IsNull } from 'typeorm'; 
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
-import { FindOptionsWhere, ILike, IsNull } from 'typeorm';
-import { SLCItem } from 'src/types/ItemTypes.js';
+import { SLCItem } from '../types/ItemTypes.js'; 
+import { meilisearchService } from '../services/MeilisearchService.js'; 
 
 const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_catalog | typeof dataset_catalog } = {
   items: slc_item_catalog,
@@ -15,47 +15,70 @@ const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_ca
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
-    const query = req.query.query as string;
+    const query = req.query.query as string || '';
+
     const features = req.query.features || [];
     let featureTypes: string[] = [];
     if (typeof features === 'string') {
-      featureTypes = features
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
+      featureTypes = features.split(',').map((s) => s.trim()).filter(Boolean);
     } else if (Array.isArray(features)) {
       featureTypes = features as string[];
     }
+
     const tools = req.query.tool || [];
     let toolTypes: string[] = [];
     if (typeof tools === 'string') {
-      toolTypes = tools
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
+      toolTypes = tools.split(',').map((s) => s.trim()).filter(Boolean);
     } else if (Array.isArray(tools)) {
       toolTypes = tools as string[];
     }
 
-    const queryBuilder = AppDataSource.getRepository(slc_item_catalog).createQueryBuilder('item');
+    let search_data: any[] = [];
 
-    if (query) {
-      queryBuilder.where(
-        new Brackets((qb) => {
-          qb.where('item.keywords LIKE :query', { query: `%${query}%` })
-            .orWhere('item.platform_name LIKE :query', { query: `%${query}%` })
-            .orWhere('item.title LIKE :query', { query: `%${query}%` })
-            .orWhere('item.catalog_type LIKE :query', { query: `%${query}%` });
-        }),
-      );
+    try {
+      if (query) {
+        search_data = await meilisearchService.search(query);
+      } else {
+        search_data = await AppDataSource.getRepository(slc_item_catalog).find();
+      }
+    } catch (err) {
+      console.error("Meilisearch failed, falling back to DB", err);
+      search_data = await AppDataSource.getRepository(slc_item_catalog).find();
     }
 
-    const search_data = await queryBuilder.getMany();
+    search_data = search_data.map(item => {
+      if (item.keywords && typeof item.keywords === 'string') {
+        item.keywords = item.keywords.split(',').map((s: string) => s.trim()).filter(Boolean);
+      } else if (!item.keywords) {
+        item.keywords = [];
+      }
+
+      if (item.features && typeof item.features === 'string') {
+        item.features = item.features.split(',').map((s: string) => s.trim()).filter(Boolean);
+      } else if (!item.features) {
+        item.features = [];
+      }
+      return item;
+    });
+
+    if (featureTypes.length > 0) {
+      search_data = search_data.filter(item => {
+        const itemFeatures = Array.isArray(item.features) ? item.features : (item.features || '').split(',');
+        return featureTypes.some(f => itemFeatures.map((s: string) => s.trim()).includes(f));
+      });
+    }
+
+    if (toolTypes.length > 0) {
+      search_data = search_data.filter(item => {
+        return toolTypes.includes(item.platform_name);
+      });
+    }
 
     const allFeatures = await AppDataSource.getRepository(slc_item_catalog)
       .createQueryBuilder('item')
       .select('DISTINCT item.features', 'features')
       .getRawMany();
+      
     const featureChoices = [
       ...new Set(
         allFeatures
@@ -76,7 +99,7 @@ export class SearchController {
     const toolChoices = allTools.map((t) => t.platform_name).filter(Boolean);
 
     res.render('pages/search', {
-      results: search_data,
+      results: search_data, 
       currentPage: 1,
       totalPages: 1,
       query,
@@ -156,6 +179,7 @@ export class SearchController {
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
   async exportSearchResults(req: Request, res: Response) {
     try {
       const rawQuery = req.query.query;

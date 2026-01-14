@@ -8,7 +8,8 @@ import { ItemClassification } from '../db/entities/ItemClassification.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
 import AdminJS from 'adminjs';
 import { Database, Resource } from '@adminjs/typeorm';
-import { buildRouter } from '@adminjs/express';
+import AdminJSExpress from '@adminjs/express';
+const { buildRouter } = AdminJSExpress;
 
 export function setup() {
   AdminJS.registerAdapter({
