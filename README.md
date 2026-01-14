@@ -4,6 +4,25 @@
 
 `cp env.example .env` - contact a member of the SPLICE team for an updated environment file if you are interested in helping with development
 
+## Search Configuration (Meilisearch)
+
+This project uses Meilisearch for full-text search.
+
+### 1. Setup Environment
+In your `.env` file, you must define a `MEILI_MASTER_KEY`. This can be any secure random string.
+```bash
+MEILI_MASTER_KEY=masterKey123
+---
+
+### 2: One Final Check (The `package.json`)
+We fixed the `seed` script earlier, but we didn't add shortcuts for these new search scripts yet. It is "Best Practice" to add them so you don't have to type the long `npx tsx...` command every time.
+
+**Open `package.json`** and add these two lines to your `"scripts"` section:
+
+```json
+"search:seed": "tsx scripts/directSeed.ts",
+"search:sync": "tsx scripts/syncMeili.ts"
+
 ## Development
 
 In order to get the development environment setup, you'll need to follow these steps:

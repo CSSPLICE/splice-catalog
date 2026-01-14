@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-import { meilisearchService } from '../src/services/MellisearchService.ts'; 
+import { meilisearchService } from '../src/services/MeilisearchService.js'; 
 import 'dotenv/config';
 
 export const syncCatalogToMeili = async () => {
