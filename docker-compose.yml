@@ -28,18 +28,16 @@ services:
     profiles:
       - catalog 
     environment:
-      # CRITICAL: Use the secure key from your .env file
       - MEILI_MASTER_KEY=${MEILI_MASTER_KEY} 
     volumes:
-      # Persist the search index data 
       - meili_data:/meili_data
     expose:
       - '7700'
     ports:
-      # Expose for local testing/development
       - '127.0.0.1:7700:7700'
     networks:
       - splice
+      
     healthcheck: 
       
       test: ["CMD", "curl", "-f", "http://localhost:7700/health"]

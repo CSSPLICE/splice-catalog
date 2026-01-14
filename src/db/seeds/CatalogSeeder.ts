@@ -1,4 +1,4 @@
-import { AppDataSource } from '../data-source.ts';
+import { AppDataSource } from '../data-source.js';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';

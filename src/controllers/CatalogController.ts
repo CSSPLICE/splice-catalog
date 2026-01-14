@@ -7,6 +7,17 @@ import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 
 export class CatalogController {
+  async searchCatalog(req: Request, res: Response): Promise<Response> {
+    try {
+      const query = req.query.q as string || '';
+      const searchResults = await meilisearchService.search(query);
+      return ResponseUtil.sendResponse(res, searchResults, 200);
+    } catch (error) {
+      console.error('Search Error:', error);
+      return ResponseUtil.sendError(res, 'Search operation failed', 500, error);
+    }
+  }
+  
   async getCatalog(req: Request, res: Response): Promise<Response> {
     const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find();
     return ResponseUtil.sendResponse(res, catalog_data, 200);

@@ -16,7 +16,7 @@ export class MeilisearchService {
 
   async indexCatalogItems(items: any[]) {
     try {
-      const task = await this.index.addDocuments(items);
+      const task = await this.index.addDocuments(items, { primaryKey: 'id' });
       console.log(`Meilisearch: Indexing task submitted. Task ID: ${task.taskUid}`);
       return task;
     } catch (error) {
@@ -32,6 +32,16 @@ export class MeilisearchService {
       return task;
     } catch (error) {
       console.error('Meilisearch: Error deleting document:', error);
+      throw error;
+    }
+  }
+
+  async search(query: string) {
+    try {
+      const searchResults = await this.index.search(query);
+      return searchResults.hits; // Return just the list of items
+    } catch (error) {
+      console.error('Meilisearch: Error performing search:', error);
       throw error;
     }
   }
