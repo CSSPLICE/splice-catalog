@@ -111,71 +111,33 @@ export class SearchController {
     });
   }
 
-  async searchCatalogAPI(req: Request, res: Response) {
-    const catalogName = req.params.catalog;
-    const entity = catalogMap[catalogName];
+ async searchCatalogAPI(req: Request, res: Response) {
+    const query = req.query.terms as string || '';
 
-    if (!entity) {
-      return res.status(404).json({ error: 'Catalog not found' });
-    }
-
-    const repository = AppDataSource.getRepository(entity);
-    const metadata = repository.metadata;
-    const queryBuilder = repository.createQueryBuilder('item');
-    let hasWhereClause = false;
-
-    const generalTerms = req.query.terms as string;
-    if (generalTerms) {
-      const generalWhereClauses = metadata.columns
-        .filter((col) => ['varchar', 'text', 'string'].includes(col.type.toString()))
-        .map((col) => `item.${col.propertyName} LIKE :generalTerms`);
-
-      if (generalWhereClauses.length > 0) {
-        queryBuilder.where(
-          new Brackets((qb) => {
-            qb.where(generalWhereClauses.join(' OR '), { generalTerms: `%${generalTerms}%` });
-          }),
-        );
-        hasWhereClause = true;
-      }
-    }
-
-    for (const key in req.query) {
-      if (key === 'terms') {
-        continue;
-      }
-
-      const value = req.query[key];
-
-      if (typeof value === 'string') {
-        const columnName = key;
-
-        const column = metadata.findColumnWithPropertyName(columnName);
-        if (column) {
-          const paramName = `${columnName}_${Math.random().toString(36).substring(7)}`;
-          const condition = `item.${columnName} LIKE :${paramName}`;
-          const paramValue: string = `%${value}%`;
-
-          if (hasWhereClause) {
-            queryBuilder.andWhere(condition, { [paramName]: paramValue });
-          } else {
-            queryBuilder.where(condition, { [paramName]: paramValue });
-            hasWhereClause = true;
-          }
-        }
-      }
-    }
-
-    if (!hasWhereClause && !generalTerms) {
-      const results = await repository.find();
-      return res.json({ results });
-    }
+    let results: any[] = [];
 
     try {
-      const results = await queryBuilder.getMany();
+      if (query) {
+        results = await meilisearchService.search(query);
+      } else {
+        const catalogName = req.params.catalog || 'items';
+        const entity = catalogMap[catalogName] || slc_item_catalog;
+        results = await AppDataSource.getRepository(entity).find();
+      }
+
+      results = results.map(item => {
+        item.keywords = typeof item.keywords === 'string' 
+          ? item.keywords.split(',').map((s: string) => s.trim()).filter(Boolean) 
+          : (item.keywords || []);
+        item.features = typeof item.features === 'string' 
+          ? item.features.split(',').map((s: string) => s.trim()).filter(Boolean) 
+          : (item.features || []);
+        return item;
+      });
+
       return res.json({ results });
     } catch (error) {
-      console.error(error);
+      console.error("API Search Error:", error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
