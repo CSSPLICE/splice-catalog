@@ -6,32 +6,29 @@
 
 ## Search Configuration (Meilisearch)
 
-This project uses Meilisearch for full-text search.
+This project uses Meilisearch for high-performance, fuzzy full-text search.
 
 ### 1. Setup Environment
-In your `.env` file, you must define a `MEILI_MASTER_KEY`. This can be any secure random string.
-```bash
+In your .env file, ensure you have defined the following variables:
 MEILI_MASTER_KEY=masterKey123
+MEILISEARCH_HOST=http://meilisearch:7700
 ---
 
-### 2: One Final Check (The `package.json`)
-We fixed the `seed` script earlier, but we didn't add shortcuts for these new search scripts yet. It is "Best Practice" to add them so you don't have to type the long `npx tsx...` command every time.
-
-**Open `package.json`** and add these two lines to your `"scripts"` section:
-
-```json
-"search:seed": "tsx scripts/directSeed.ts",
-"search:sync": "tsx scripts/syncMeili.ts"
+### 2: Search Scripts
+The following scripts are available via yarn to manage the search index:
+"yarn search:seed" - Clears the DB, seeds 782 items from data/slc.json, and initializes the Search index.
+"yarn search:sync" - Pushes current MySQL database records into the Meilisearch index.
 
 ## Development
 
 In order to get the development environment setup, you'll need to follow these steps:
-1. Build the catalog container: `docker compose --profile catalog build`. [Depending on your internet connection, this might take a long time.]
+1. Build the catalog container and start: `docker compose --profile catalog up --build -V`. [Depending on your internet connection, this might take a long time.] [The -V flag is critical if dependencies (like meilisearch) have changed, as it refreshes anonymous Docker volumes.]
 2. [If this is a fresh install:] cp env.example .env
 3. Install the node packages: `docker compose --profile catalog run catalog yarn install`
-4. Start the splice catalog application: `docker compose --profile catalog up`
-
-5. Running the application per step 3 will consume the current terminal. To exec into the running container, open a new terminal in the repository and run: `docker compose --profile catalog exec catalog bash` (if you are on windows, you'll need to add winpty)
+4. Seed Data (Massive Seed): To populate the database and search index with the full 780+ records, run: `docker compose --profile catalog exec catalog yarn search:seed`
+   
+5. Start the splice catalog application: `docker compose --profile catalog up`
+6. Running the application per step 3 will consume the current terminal. To exec into the running container, open a new terminal in the repository and run: `docker compose --profile catalog exec catalog bash` (if you are on windows, you'll need to add winpty)
 
 From inside this container, you can also run yarn commands (migrate, install, add <package>, etc)
 

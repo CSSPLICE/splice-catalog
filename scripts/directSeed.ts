@@ -2,6 +2,7 @@ import mysql from 'mysql2/promise';
 import fs from 'fs/promises';
 import path from 'path';
 import 'dotenv/config';
+import { meilisearchService } from '../src/services/MeilisearchService.js';
 
 export const seedDatabase = async () => {
   let connection;
@@ -15,39 +16,52 @@ export const seedDatabase = async () => {
       database: process.env.DB_DATABASE || 'splice',
     });
 
-    const dataPath = path.join(process.cwd(), 'src/db/seed_data/item.json');
+    const dataPath = path.join(process.cwd(), 'data/slc.json');
+    console.log(`Reading records from: ${dataPath}`);
+    
     const rawData = await fs.readFile(dataPath, 'utf8');
-    const parsedData = JSON.parse(rawData);
+    const items = JSON.parse(rawData);
+    const itemsArray = Array.isArray(items) ? items : [items];
 
-    const items = Array.isArray(parsedData) ? parsedData : [parsedData];
+    console.log(`🧹 Clearing database and attempting to seed ${itemsArray.length} items...`);
+    await connection.execute('DELETE FROM slc_item_catalog');
 
-    console.log(`Processing ${items.length} item(s)...`);
-
-    for (const item of items) {
+    for (const item of itemsArray) {
       const dataToInsert: any = {};
-      for (const [key, value] of Object.entries(item)) {
-        if (Array.isArray(value)) {
-          dataToInsert[key] = value.join(', '); 
-        } else {
-          dataToInsert[key] = value;
-        }
-      }
+      const validColumns = [
+        'catalog_type', 'platform_name', 'iframe_url', 'persistentID', 
+        'license', 'description', 'title', 'institution', 'keywords', 
+        'features', 'programming_language', 'natural_language', 
+        'protocol', 'protocol_url', 'author'
+      ];
 
-      dataToInsert['institution'] = dataToInsert['institution'] || 'Unknown';
+      for (const col of validColumns) {
+        const value = item[col];
+        dataToInsert[col] = Array.isArray(value) ? value.join(', ') : (value || '');
+      }
 
       const columns = Object.keys(dataToInsert).map(c => `\`${c}\``).join(', ');
       const values = Object.values(dataToInsert);
       const placeholders = values.map(() => '?').join(', ');
 
+      // Use INSERT IGNORE to skip duplicates without crashing
       await connection.execute(
         `INSERT IGNORE INTO slc_item_catalog (${columns}) VALUES (${placeholders})`,
         values
       );
     }
 
-    console.log('Success! Database seeded with the item.');
+    // Fetch only the successfully inserted rows
+    const [rows]: any = await connection.execute('SELECT * FROM slc_item_catalog');
+    console.log(`✅ MySQL seeded with ${rows.length} unique records. Syncing to Meilisearch...`);
+
+    await meilisearchService.setupSettings();
+    await meilisearchService.indexCatalogItems(rows);
+
+    console.log(`🚀 SUCCESS! Search is now live with ${rows.length} items.`);
+
   } catch (error) {
-    console.error('Seeding Failed:', error);
+    console.error('❌ Seeding Failed:', error);
   } finally {
     if (connection) await connection.end();
   }
