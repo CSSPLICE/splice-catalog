@@ -38,16 +38,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const queryValue = document.querySelector('input[name="query"]').value.trim();
 
-    let filteredItems = queryValue ? currentItems : allItems;
+    let filteredItems = queryValue ? currentItems : [...allItems];
 
     if (selectedFeatures.length > 0) {
       filteredItems = filteredItems.filter((item) => {
         const itemFeatures = Array.isArray(item.features)
           ? item.features
-          : (item.features || '')
-              .split(',')
-              .map((s) => s.trim());
-
+          : (item.features || '').split(',').map((s) => s.trim());
         return selectedFeatures.some((sf) => itemFeatures.includes(sf));
       });
     }
@@ -58,22 +55,27 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
-    currentItems = filteredItems;
-    window.currentItems = filteredItems;
     return filteredItems;
   }
 
 
-  function renderTable(items, page) {
+function renderTable(items, page) {
+    const tableBody = document.querySelector('.table-group-divider');
+    const recordCountEl = document.getElementById("recordCount");
+
     tableBody.innerHTML = '';
+
+    if (!items || items.length === 0) {
+      tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No results found.</td></tr>';
+      if (recordCountEl) {
+        recordCountEl.textContent = 'Showing 0 results';
+      }
+      return;
+    }
+
     const start = (page - 1) * ITEMS_PER_PAGE;
     const end = start + ITEMS_PER_PAGE;
     const paginatedItems = items.slice(start, end);
-
-    if (paginatedItems.length === 0) {
-      tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No results found.</td></tr>';
-      return;
-    }
 
     let tableHTML = '';
     paginatedItems.forEach((item, index) => {
@@ -83,11 +85,13 @@ document.addEventListener('DOMContentLoaded', function () {
             .split(',')
             .map((s) => s.trim())
             .filter(Boolean);
+            
       const featureLinks = features
         .map((f) => `<a href="#" class="feature-link" data-feature="${f}">${f}</a>`)
         .join(', ');
 
       const rowNumber = (page - 1) * ITEMS_PER_PAGE + index + 1;
+
       const row = `
         <tr>
           <td>${rowNumber}</td>
@@ -116,16 +120,16 @@ document.addEventListener('DOMContentLoaded', function () {
       `;
       tableHTML += row;
     });
-    tableBody.innerHTML = tableHTML;
-    const recordCountEl = document.getElementById("recordCount");
 
-    const startNum = Math.min((page - 1) * ITEMS_PER_PAGE + 1, items.length);
+    tableBody.innerHTML = tableHTML;
+
+    const startNum = (page - 1) * ITEMS_PER_PAGE + 1;
     const endNum = Math.min(page * ITEMS_PER_PAGE, items.length);
 
-    recordCountEl.textContent =
-      `Showing ${startNum}–${endNum} of ${items.length} results`;
-
-  }
+    if (recordCountEl) {
+      recordCountEl.textContent = `Showing ${startNum}–${endNum} of ${items.length} results`;
+    }
+}
 
   function renderPagination(totalItems) {
     paginationContainer.innerHTML = '';
@@ -135,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const ul = document.createElement('ul');
     ul.className = 'pagination-list';
 
-    // Previous button
     if (currentPage > 1) {
       const li = document.createElement('li');
       const a = document.createElement('a');
@@ -153,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function () {
       ul.appendChild(li);
     }
 
-    // Page numbers
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, currentPage + 2);
 
@@ -218,7 +220,6 @@ document.addEventListener('DOMContentLoaded', function () {
       ul.appendChild(li);
     }
 
-    // Next button
     if (currentPage < totalPages) {
       const li = document.createElement('li');
       const a = document.createElement('a');
@@ -257,17 +258,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateResults() {
-    currentPage = 1;
+    const queryValue = document.querySelector('input[name="query"]').value.trim();
 
     const anyFeatureChecked = document.querySelectorAll('.exerciseTypeInput:checked').length > 0;
     const anyToolChecked = document.querySelectorAll('.toolInput:checked').length > 0;
-    const queryValue = document.querySelector('input[name="query"]').value.trim();
 
     if (!anyFeatureChecked && !anyToolChecked && !queryValue) {
       currentItems = [...allItems];
     }
-
-    currentPage = 1;
 
     const filtered = filterItems();
     renderTable(filtered, currentPage);
@@ -356,7 +354,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Initial render
   applyFiltersFromURL();
   const initialQuery = new URLSearchParams(window.location.search).get('query');
   if (initialQuery) {

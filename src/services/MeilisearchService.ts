@@ -38,24 +38,36 @@ export class MeilisearchService {
 
   async search(query: string) {
     try {
-      const searchResults = await this.index.search(query);
-      return searchResults.hits; // Return just the list of items
+      const searchResults = await this.index.search(query, {
+        limit: 1000
+      });
+      return searchResults.hits; 
     } catch (error) {
       console.error('Meilisearch: Error performing search:', error);
       throw error;
     }
-  }
+}
 
   async setupSettings() {
     await this.index.updateSettings({
       searchableAttributes: [
         'title',
+        'keywords',
         'description',
-        'author',
-        'tags'
+        'author'
       ],
-      filterableAttributes: ['category', 'type'],
-      sortableAttributes: ['createdAt']
+      rankingRules: [
+       'words',      // Matches the most words first
+       'typo',       // Favors fewer typos
+       'proximity',  // Favors words that are close together (Critical for "Binary Search Tree")
+       'attribute',  // Favors matches in the title over the description
+       'exactness'   // Favors exact matches
+      ],
+      typoTolerance: {
+        minWordSizeForTypos: {
+          oneTypo: 4
+        },
+      },
     });
   }
 }

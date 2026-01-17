@@ -44,24 +44,22 @@ export const seedDatabase = async () => {
       const values = Object.values(dataToInsert);
       const placeholders = values.map(() => '?').join(', ');
 
-      // Use INSERT IGNORE to skip duplicates without crashing
       await connection.execute(
         `INSERT IGNORE INTO slc_item_catalog (${columns}) VALUES (${placeholders})`,
         values
       );
     }
 
-    // Fetch only the successfully inserted rows
     const [rows]: any = await connection.execute('SELECT * FROM slc_item_catalog');
-    console.log(`✅ MySQL seeded with ${rows.length} unique records. Syncing to Meilisearch...`);
+    console.log(`MySQL seeded with ${rows.length} unique records. Syncing to Meilisearch...`);
 
     await meilisearchService.setupSettings();
     await meilisearchService.indexCatalogItems(rows);
 
-    console.log(`🚀 SUCCESS! Search is now live with ${rows.length} items.`);
+    console.log(`SUCCESS! Search is now live with ${rows.length} items.`);
 
   } catch (error) {
-    console.error('❌ Seeding Failed:', error);
+    console.error('Seeding Failed:', error);
   } finally {
     if (connection) await connection.end();
   }
