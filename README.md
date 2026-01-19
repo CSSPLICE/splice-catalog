@@ -19,8 +19,24 @@ The following scripts are available via yarn to manage the search index:
 "yarn search:seed" - Clears the DB, seeds 782 items from data/slc.json, and initializes the Search index.
 "yarn search:sync" - Pushes current MySQL database records into the Meilisearch index.
 
-## Development
+### 3: Search Alias (Synonym) System
+To bridge the gap between technical shorthand and full academic terms (e.g., "BST" vs. "Binary Search Tree"), the catalog uses a Symmetric Alias Mapping system.
 
+## How it Works
+The system uses a dedicated MySQL table (search_aliases) to store relationships. When the search index is seeded, these are pushed to Meilisearch as synonyms. This allows for:
+
+Acronym Support: Searching "BST" will return items that only contain "Binary Search Tree."
+
+Bi-directional matching: Searching the full term will also return items that use the shorthand.
+
+## Managing Aliases
+View Aliases: docker compose exec db mysql -u splice -psplice splice -e "SELECT * FROM search_aliases;
+
+Add Alias: docker compose exec db mysql -u splice -psplice splice -e "INSERT INTO search_aliases (term, synonym) VALUES ('Sorting', 'Ordering');"
+
+Sync Changes: After modifying the table, run docker compose exec catalog yarn search:seed to push changes to the search engine.
+
+## Development
 In order to get the development environment setup, you'll need to follow these steps:
 1. Build the catalog container and start: `docker compose --profile catalog up --build -V`. [Depending on your internet connection, this might take a long time.] [The -V flag is critical if dependencies (like meilisearch) have changed, as it refreshes anonymous Docker volumes.]
 2. [If this is a fresh install:] cp env.example .env

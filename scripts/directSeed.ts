@@ -56,7 +56,9 @@ export const seedDatabase = async () => {
     await meilisearchService.setupSettings();
     await meilisearchService.indexCatalogItems(rows);
 
-    console.log(`SUCCESS! Search is now live with ${rows.length} items.`);
+    await meilisearchService.syncSynonyms(connection);
+
+    console.log(`SUCCESS! Search is live with ${rows.length} items and Aliases.`);
 
   } catch (error) {
     console.error('Seeding Failed:', error);

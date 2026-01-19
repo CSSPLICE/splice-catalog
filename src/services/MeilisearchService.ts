@@ -70,6 +70,36 @@ export class MeilisearchService {
       },
     });
   }
+
+  async syncSynonyms(connection: any) {
+  try {
+    console.log('Fetching search aliases from MySQL...');
+    
+    const [rows]: any = await connection.execute('SELECT term, synonym FROM search_aliases');
+    
+    const synonymMap: Record<string, string[]> = {};
+
+    rows.forEach((row: { term: string; synonym: string }) => {
+      const term = row.term.toLowerCase();
+      const synonym = row.synonym.toLowerCase();
+
+      if (!synonymMap[term]) synonymMap[term] = [];
+      if (!synonymMap[synonym]) synonymMap[synonym] = [];
+
+      if (!synonymMap[term].includes(synonym)) synonymMap[term].push(synonym);
+      if (!synonymMap[synonym].includes(term)) synonymMap[synonym].push(term);
+    });
+
+    console.log('Uploading synonyms to Meilisearch...');
+    await this.index.updateSettings({
+      synonyms: synonymMap
+    });
+    
+    console.log(`Synonym sync complete. ${rows.length} alias pairs applied.`);
+  } catch (error) {
+    console.error('Failed to sync synonyms:', error);
+  }
+}
 }
 
 export const meilisearchService = new MeilisearchService();
