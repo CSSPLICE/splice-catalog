@@ -14,35 +14,29 @@ MEILI_MASTER_KEY=masterKey123
 MEILISEARCH_HOST=http://meilisearch:7700
 ---
 
-### 2: Search Scripts
-The following scripts are available via yarn to manage the search index:
-"yarn search:seed" - Clears the DB, seeds 782 items from data/slc.json, and initializes the Search index.
-"yarn search:sync" - Pushes current MySQL database records into the Meilisearch index.
+### 2: Automated Search Syncs
+The search engine is automatically kept in sync with the MySQL database.
 
-### 3: Search Alias (Synonym) System
-To bridge the gap between technical shorthand and full academic terms (e.g., "BST" vs. "Binary Search Tree"), the catalog uses a Symmetric Alias Mapping system.
+Automatic Indexing: TypeORM lifecycle hooks are configured on the catalog entity. Any insertion, update, or deletion in the database (via OpenDSA, CodeCheck, or UI imports) is automatically reflected in Meilisearch in real-time.
 
-## How it Works
-The system uses a dedicated MySQL table (search_aliases) to store relationships. When the search index is seeded, these are pushed to Meilisearch as synonyms. This allows for:
+Database as Source of Truth: The system indexes the live state of the database, removing any dependency on static JSON files.
 
-Acronym Support: Searching "BST" will return items that only contain "Binary Search Tree."
+### 3: Search Initialization & Aliases
+To initialize the search settings (ranking rules) and sync synonyms (e.g., "BST" <-> "Binary Search Tree")
 
-Bi-directional matching: Searching the full term will also return items that use the shorthand.
+Sync Settings & Aliases: docker compose exec catalog yarn search:seed(Note: This command now initializes index settings and pulls aliases from the search_aliases table without requiring a local JSON file.)
 
-## Managing Aliases
-View Aliases: docker compose exec db mysql -u splice -psplice splice -e "SELECT * FROM search_aliases;
+Managing Search Aliases
+View Aliases: docker compose exec db mysql -u splice -psplice splice -e "SELECT * FROM search_aliases;"
 
-Add Alias: docker compose exec db mysql -u splice -psplice splice -e "INSERT INTO search_aliases (term, synonym) VALUES ('Sorting', 'Ordering');"
-
-Sync Changes: After modifying the table, run docker compose exec catalog yarn search:seed to push changes to the search engine.
+Add Alias: docker compose exec db mysql -u splice -psplice splice -e "INSERT INTO search_aliases (term, synonym) VALUES ('LL', 'Linked List');"
 
 ## Development
 In order to get the development environment setup, you'll need to follow these steps:
-1. Build the catalog container and start: `docker compose --profile catalog up --build -V`. [Depending on your internet connection, this might take a long time.] [The -V flag is critical if dependencies (like meilisearch) have changed, as it refreshes anonymous Docker volumes.]
+1. Build and start: `docker compose --profile catalog up --build -V`. [Depending on your internet connection, this might take a long time.] [The -V flag is critical if dependencies (like meilisearch) have changed, as it refreshes anonymous Docker volumes.]
 2. [If this is a fresh install:] cp env.example .env
 3. Install the node packages: `docker compose --profile catalog run catalog yarn install`
-4. Seed Data (Massive Seed): To populate the database and search index with the full 780+ records, run: `docker compose --profile catalog exec catalog yarn search:seed`
-   
+4. Initialize Search: Run `docker compose exec catalog yarn search:seed` . [This initializes the search ranking rules and synonym mappings from the database. Data will then sync automatically as you import files (OpenDSA/CodeCheck).]
 5. Start the splice catalog application: `docker compose --profile catalog up`
 6. Running the application per step 3 will consume the current terminal. To exec into the running container, open a new terminal in the repository and run: `docker compose --profile catalog exec catalog bash` (if you are on windows, you'll need to add winpty)
 

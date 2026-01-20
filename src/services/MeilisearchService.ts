@@ -36,6 +36,10 @@ export class MeilisearchService {
     }
   }
 
+  async deleteItem(id: number) {
+    await this.index.deleteDocument(id);
+  }
+
   async search(query: string) {
     try {
       const searchResults = await this.index.search(query, {
