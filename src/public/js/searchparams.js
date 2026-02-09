@@ -1,6 +1,32 @@
 window.currentItems = [];
 
 document.addEventListener('DOMContentLoaded', function () {
+  let activeKeyword = null;
+
+  function parseKeywords(raw) {
+    if (!raw) return [];
+    if (Array.isArray(raw)) return raw.map(String).map(s => s.trim()).filter(Boolean);
+
+    const s = String(raw).trim();
+    if (!s) return [];
+
+    // handle JSON-string array: '["A","B"]'
+    if (s.startsWith('[') && s.endsWith(']')) {
+      try {
+        const arr = JSON.parse(s);
+        if (Array.isArray(arr)) {
+          return arr.map(String).map(x => x.trim()).filter(Boolean);
+        }
+      } catch {}
+    }
+
+    // comma-separated
+    return s
+      .split(/[;,]/)
+      .map(x => x.trim())
+      .filter(Boolean);
+  }
+
   let currentItems = [...allItems];
   window.currentItems = [...currentItems];
 
@@ -24,21 +50,17 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   });
+
   const ITEMS_PER_PAGE = 25;
   let currentPage = 1;
 
   function filterItems() {
-    const selectedFeatures = Array.from(
-      document.querySelectorAll('.exerciseTypeInput:checked')
-    ).map((cb) => cb.value);
-
-    const selectedTools = Array.from(
-      document.querySelectorAll('.toolInput:checked')
-    ).map((cb) => cb.value);
-
+    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
+    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
     const queryValue = document.querySelector('input[name="query"]').value.trim();
 
-    let filteredItems = queryValue ? currentItems : [...allItems];
+    // Base set: text search uses currentItems; otherwise start from allItems
+    let filteredItems = queryValue ? currentItems : allItems;
 
     if (selectedFeatures.length > 0) {
       filteredItems = filteredItems.filter((item) => {
@@ -50,16 +72,21 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (selectedTools.length > 0) {
+      filteredItems = filteredItems.filter((item) => selectedTools.includes(item.platform_name));
+    }
+
+    if (activeKeyword) {
+      const target = activeKeyword.trim().toLowerCase();
       filteredItems = filteredItems.filter((item) => {
-        return selectedTools.includes(item.platform_name);
+        const kws = parseKeywords(item.keywords).map(k => k.trim().toLowerCase());
+        return kws.includes(target); // exact keyword match
       });
     }
 
     return filteredItems;
   }
 
-
-function renderTable(items, page) {
+  function renderTable(items, page) {
     const tableBody = document.querySelector('.table-group-divider');
     const recordCountEl = document.getElementById("recordCount");
 
@@ -79,13 +106,18 @@ function renderTable(items, page) {
 
     let tableHTML = '';
     paginatedItems.forEach((item, index) => {
+      const keywords = parseKeywords(item.keywords);
+      const keywordLinks = keywords
+        .map((kw) => `<a href="#" class="keyword-link" data-keyword="${kw}" style="text-decoration: underline; color: #0000EE">${kw}</a>`)
+        .join(', ');
+
       const features = Array.isArray(item.features)
         ? item.features
         : (item.features || '')
             .split(',')
             .map((s) => s.trim())
             .filter(Boolean);
-            
+
       const featureLinks = features
         .map((f) => `<a href="#" class="feature-link" data-feature="${f}">${f}</a>`)
         .join(', ');
@@ -107,15 +139,7 @@ function renderTable(items, page) {
             </span>
           </td>
           <td><a href="${item.iframe_url}" target="_blank">${item.platform_name}</a></td>
-          <td>
-            ${(item.keywords || [])
-              .map(
-                (keyword) => `
-              <a href="#" class="keyword-link" data-keyword="${keyword}" style="text-decoration: underline; color: #0000EE">${keyword}</a>
-            `,
-              )
-              .join(', ')}
-          </td>
+          <td>${keywordLinks}</td>
         </tr>
       `;
       tableHTML += row;
@@ -129,7 +153,7 @@ function renderTable(items, page) {
     if (recordCountEl) {
       recordCountEl.textContent = `Showing ${startNum}–${endNum} of ${items.length} results`;
     }
-}
+  }
 
   function renderPagination(totalItems) {
     paginationContainer.innerHTML = '';
@@ -159,28 +183,6 @@ function renderTable(items, page) {
     let startPage = Math.max(1, currentPage - 2);
     let endPage = Math.min(totalPages, currentPage + 2);
 
-    if (startPage > 1) {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = '#';
-      a.innerText = '1';
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        currentPage = 1;
-        const filtered = filterItems();
-        renderTable(filtered, currentPage);
-        renderPagination(filtered.length);
-      });
-      li.appendChild(a);
-      ul.appendChild(li);
-      if (startPage > 2) {
-        const ellipsis = document.createElement('li');
-        ellipsis.className = 'ellipsis';
-        ellipsis.innerText = '...';
-        ul.appendChild(ellipsis);
-      }
-    }
-
     for (let i = startPage; i <= endPage; i++) {
       const li = document.createElement('li');
       const a = document.createElement('a');
@@ -190,28 +192,6 @@ function renderTable(items, page) {
       a.addEventListener('click', (e) => {
         e.preventDefault();
         currentPage = i;
-        const filtered = filterItems();
-        renderTable(filtered, currentPage);
-        renderPagination(filtered.length);
-      });
-      li.appendChild(a);
-      ul.appendChild(li);
-    }
-
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        const ellipsis = document.createElement('li');
-        ellipsis.className = 'ellipsis';
-        ellipsis.innerText = '...';
-        ul.appendChild(ellipsis);
-      }
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = '#';
-      a.innerText = totalPages;
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        currentPage = totalPages;
         const filtered = filterItems();
         renderTable(filtered, currentPage);
         renderPagination(filtered.length);
@@ -247,46 +227,44 @@ function renderTable(items, page) {
     const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
 
     const params = new URLSearchParams();
-    if (query) {
-      params.set('query', query);
-    }
+    if (query) params.set('query', query);
     selectedFeatures.forEach((f) => params.append('features', f));
     selectedTools.forEach((t) => params.append('tools', t));
+    if (activeKeyword) params.set('keyword', activeKeyword);
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
     history.pushState({ path: newUrl }, '', newUrl);
   }
 
   function updateResults() {
-    const queryValue = document.querySelector('input[name="query"]').value.trim();
-
-    const anyFeatureChecked = document.querySelectorAll('.exerciseTypeInput:checked').length > 0;
-    const anyToolChecked = document.querySelectorAll('.toolInput:checked').length > 0;
-
-    if (!anyFeatureChecked && !anyToolChecked && !queryValue) {
-      currentItems = [...allItems];
-    }
-
+    currentPage = 1;
     const filtered = filterItems();
     renderTable(filtered, currentPage);
     renderPagination(filtered.length);
     updateURL();
   }
 
-
   checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener('change', function (e) {
-      console.log('Checkbox changed!', e.target.value, e.target.checked);
+    checkbox.addEventListener('change', function () {
       updateResults();
     });
   });
 
   async function handleKeywordSearch(e) {
     e.preventDefault();
-    console.log('handleKeywordSearch called');
     const keyword = this.dataset.keyword;
-    document.querySelector('input[name="query"]').value = keyword;
-    debouncedSearch(keyword);
+
+    activeKeyword = keyword;
+
+    // Clear text query so we aren't restricting to text-search subset
+    document.querySelector('input[name="query"]').value = '';
+
+    // Reset currentItems so filtering starts from all items
+    currentItems = [...allItems];
+    window.currentItems = [...currentItems];
+
+    currentPage = 1;
+    updateResults();
   }
 
   const searchForm = document.getElementById('searchForm');
@@ -310,11 +288,8 @@ function renderTable(items, page) {
 
     try {
       const response = await fetch(`/api/items?terms=${encodeURIComponent(query)}`);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
+      if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      console.log('API Response:', data);
       currentItems = data.results;
       updateResults();
     } catch (error) {
@@ -336,50 +311,26 @@ function renderTable(items, page) {
     const query = params.get('query');
     const features = params.getAll('features');
     const tools = params.getAll('tools');
+    const kw = params.get('keyword');
+    if (kw) activeKeyword = kw;
 
-    if (query) {
-      searchInput.value = query;
-    }
+    if (query) searchInput.value = query;
 
     document.querySelectorAll('.exerciseTypeInput').forEach((cb) => {
-      if (features.includes(cb.value)) {
-        cb.checked = true;
-      }
+      if (features.includes(cb.value)) cb.checked = true;
     });
 
     document.querySelectorAll('.toolInput').forEach((cb) => {
-      if (tools.includes(cb.value)) {
-        cb.checked = true;
-      }
+      if (tools.includes(cb.value)) cb.checked = true;
     });
   }
 
   applyFiltersFromURL();
+
   const initialQuery = new URLSearchParams(window.location.search).get('query');
   if (initialQuery) {
     debouncedSearch(initialQuery);
   } else {
     updateResults();
-  }
-
-  const downloadBtn = document.getElementById("downloadResultsBtn");
-  if (downloadBtn) {
-    downloadBtn.addEventListener("click", () => {
-      const dataToDownload = window.currentItems.length ? window.currentItems : currentItems;
-
-      const blob = new Blob(
-        [JSON.stringify(dataToDownload, null, 2)],
-        { type: "application/json" }
-      );
-
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "results.json";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    });
   }
 });
