@@ -57,8 +57,8 @@ export class MeilisearchService {
       searchableAttributes: [
         'title',
         'keywords',
-        //'description',
-        //'author'
+        'description',
+        'author'
       ],
       rankingRules: [
        'words',      // Matches the most words first

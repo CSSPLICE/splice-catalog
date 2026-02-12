@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let currentItems = [...allItems];
   window.currentItems = [...currentItems];
+  let searchResults = [...allItems]; //candidate list (melisearch results)
+
 
   const form = document.getElementById('filterForm');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
@@ -59,8 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
     const queryValue = document.querySelector('input[name="query"]').value.trim();
 
-    // Base set: text search uses currentItems; otherwise start from allItems
-    let filteredItems = queryValue ? currentItems : allItems;
+    // Base set: always filter from the candidate list
+    let filteredItems = searchResults;
 
     if (selectedFeatures.length > 0) {
       filteredItems = filteredItems.filter((item) => {
@@ -253,16 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
   async function handleKeywordSearch(e) {
     e.preventDefault();
     const keyword = this.dataset.keyword;
-
-    activeKeyword = keyword;
-
-    // Clear text query so we aren't restricting to text-search subset
-    document.querySelector('input[name="query"]').value = '';
-
-    // Reset currentItems so filtering starts from all items
-    currentItems = [...allItems];
-    window.currentItems = [...currentItems];
-
+    activeKeyword = keyword; //keyword chip should be a filter on the current candidate list
     currentPage = 1;
     updateResults();
   }
@@ -281,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const debouncedSearch = debounce(async (query) => {
     if (!query) {
-      currentItems = allItems;
+      searchResults = [...allItems]; //when no search, all items are candidate
       updateResults();
       return;
     }
@@ -290,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const response = await fetch(`/api/items?terms=${encodeURIComponent(query)}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      currentItems = data.results;
+      searchResults = data.results || []; //use meilisearch candidate when search
       updateResults();
     } catch (error) {
       console.error('There has been a problem with your fetch operation:', error);
