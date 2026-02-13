@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') -%>
+<%- include('../partials/header') -%>
+
+<body>
+  <div class="container">
+    <h2>Validation Results</h2>
+    <ul>
+      <% errors.forEach(function (item) { %>
+        <li>
+          <p>Persistent ID: <%= item.persistentID %></p>
+          <p>Property: <%= item.property %></p>
+            <% for (const constraint in item.constraints) {%>
+              <p><%= constraint %> - <%= item.constraints[constraint] %></p>
+            <% } %>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+
+  <%- include('../partials/footer') -%>
+</body>
+</html>
