@@ -5,7 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function parseKeywords(raw) {
     if (!raw) return [];
-    if (Array.isArray(raw)) return raw.map(String).map(s => s.trim()).filter(Boolean);
+    if (Array.isArray(raw))
+      return raw
+        .map(String)
+        .map((s) => s.trim())
+        .filter(Boolean);
 
     const s = String(raw).trim();
     if (!s) return [];
@@ -15,7 +19,10 @@ document.addEventListener('DOMContentLoaded', function () {
       try {
         const arr = JSON.parse(s);
         if (Array.isArray(arr)) {
-          return arr.map(String).map(x => x.trim()).filter(Boolean);
+          return arr
+            .map(String)
+            .map((x) => x.trim())
+            .filter(Boolean);
         }
       } catch {}
     }
@@ -23,14 +30,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // comma-separated
     return s
       .split(/[;,]/)
-      .map(x => x.trim())
+      .map((x) => x.trim())
       .filter(Boolean);
   }
 
   let currentItems = [...allItems];
   window.currentItems = [...currentItems];
   let searchResults = [...allItems]; //candidate list (melisearch results)
-
 
   const form = document.getElementById('filterForm');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
@@ -52,22 +58,20 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   });
-  const itemsPerPageSelect = document.getElementById("itemsPerPage");
-  let ITEMS_PER_PAGE = parseInt(itemsPerPageSelect?.value || "25", 10);
+  const itemsPerPageSelect = document.getElementById('itemsPerPage');
+  let ITEMS_PER_PAGE = parseInt(itemsPerPageSelect?.value || '25', 10);
   let currentPage = 1;
 
   if (itemsPerPageSelect) {
-  itemsPerPageSelect.addEventListener("change", () => {
-    ITEMS_PER_PAGE = parseInt(itemsPerPageSelect.value, 10) || 25;
-    currentPage = 1;
+    itemsPerPageSelect.addEventListener('change', () => {
+      ITEMS_PER_PAGE = parseInt(itemsPerPageSelect.value, 10) || 25;
+      currentPage = 1;
 
-    const filtered = filterItems();
-    renderTable(filtered, currentPage);
-    renderPagination(filtered.length);
-  });
-}
-
-
+      const filtered = filterItems();
+      renderTable(filtered, currentPage);
+      renderPagination(filtered.length);
+    });
+  }
 
   function filterItems() {
     const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
@@ -93,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (activeKeyword) {
       const target = activeKeyword.trim().toLowerCase();
       filteredItems = filteredItems.filter((item) => {
-        const kws = parseKeywords(item.keywords).map(k => k.trim().toLowerCase());
+        const kws = parseKeywords(item.keywords).map((k) => k.trim().toLowerCase());
         return kws.includes(target); // exact keyword match
       });
     }
@@ -103,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function renderTable(items, page) {
     const tableBody = document.querySelector('.table-group-divider');
-    const recordCountEl = document.getElementById("recordCount");
+    const recordCountEl = document.getElementById('recordCount');
 
     tableBody.innerHTML = '';
 
@@ -123,7 +127,10 @@ document.addEventListener('DOMContentLoaded', function () {
     paginatedItems.forEach((item, index) => {
       const keywords = parseKeywords(item.keywords);
       const keywordLinks = keywords
-        .map((kw) => `<a href="#" class="keyword-link" data-keyword="${kw}" style="text-decoration: underline; color: #0000EE">${kw}</a>`)
+        .map(
+          (kw) =>
+            `<a href="#" class="keyword-link" data-keyword="${kw}" style="text-decoration: underline; color: #0000EE">${kw}</a>`,
+        )
         .join(', ');
 
       const features = Array.isArray(item.features)

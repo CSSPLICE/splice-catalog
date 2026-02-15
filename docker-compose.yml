@@ -27,6 +27,7 @@ services:
     container_name: meilisearch
     profiles:
       - catalog 
+      - production
     environment:
       - MEILI_MASTER_KEY=${MEILI_MASTER_KEY} 
     volumes:
@@ -37,9 +38,7 @@ services:
       - '127.0.0.1:7700:7700'
     networks:
       - splice
-      
     healthcheck: 
-      
       test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
       interval: 10s
       timeout: 5s

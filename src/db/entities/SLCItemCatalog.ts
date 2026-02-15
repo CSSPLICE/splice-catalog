@@ -1,7 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryColumn, Generated, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 import { IsNotEmpty, IsString, IsOptional, IsUrl, IsArray } from 'class-validator';
 import { CatalogInterface } from './CatalogInterface.js';
-import { Reachable } from "../validators.js";
+import { Reachable } from '../validators.js';
 import { meilisearchService } from '../../services/MeilisearchService.js';
 // import { ValidationResults } from './ValidationResults.js';
 

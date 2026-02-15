@@ -1,12 +1,12 @@
 import mysql from 'mysql2/promise';
-import { meilisearchService } from '../src/services/MeilisearchService.js'; 
+import { meilisearchService } from '../services/MeilisearchService.js';
 import 'dotenv/config';
 
 export const syncCatalogToMeili = async () => {
   let connection;
   try {
     console.log('Connecting directly to MySQL...');
-    
+
     connection = await mysql.createConnection({
       host: process.env.DB_HOST || 'db',
       port: Number(process.env.DB_PORT) || 3306,
@@ -29,10 +29,9 @@ export const syncCatalogToMeili = async () => {
     await meilisearchService.setupSettings();
 
     const task = await meilisearchService.indexCatalogItems(allItems);
-    
+
     console.log('Success! Initial Sync complete.');
     console.log(`Task ID: ${task.taskUid}`);
-
   } catch (error) {
     console.error('Sync Failed:', error);
   } finally {

@@ -27,13 +27,13 @@ export function setup() {
         variant: 'danger',
         guard: 'Irreversible Delete Operation',
         handler: async (request, response, context) => {
-          const { resource, h } = context
-          console.log((resource as any).model)
+          const { resource, h } = context;
+          console.log((resource as any).model);
           await AppDataSource.getRepository((resource as any).model).delete({});
-          console.log(h.resourceUrl({resourceId: resource.id()}))
+          console.log(h.resourceUrl({ resourceId: resource.id() }));
           return {
             notice: { message: 'All records deleted', type: 'success' },
-            redirectUrl: `${h.resourceUrl({resourceId: resource.id()})}?refresh=${Date.now()}`
+            redirectUrl: `${h.resourceUrl({ resourceId: resource.id() })}?refresh=${Date.now()}`,
           };
         },
       },

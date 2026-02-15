@@ -6,27 +6,15 @@
     "title": "Arithmetic-expressions query execution 3",
     "description": "Arithmetic-expressions query execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -35,27 +23,15 @@
     "title": "Arithmetic-expressions query execution 4",
     "description": "Arithmetic-expressions query execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -64,27 +40,15 @@
     "title": "Group-by-having query execution 3",
     "description": "Group-by-having query execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -93,27 +57,15 @@
     "title": "Pattern-matching query execution 2",
     "description": "Pattern-matching query execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -122,27 +74,15 @@
     "title": "Left-join query execution 4",
     "description": "Left-join query execution 4",
     "license": "MIT",
-    "author": [
-      "Rully Hendrawan"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Rully Hendrawan"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -151,27 +91,15 @@
     "title": "Inner-join query execution 4",
     "description": "Inner-join query execution 4",
     "license": "MIT",
-    "author": [
-      "Rully Hendrawan"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Rully Hendrawan"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -180,27 +108,15 @@
     "title": "Subqueries query execution 1",
     "description": "Subqueries query execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -209,27 +125,15 @@
     "title": "Aggregate-functions query execution 3",
     "description": "Aggregate-functions query execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -238,27 +142,15 @@
     "title": "Multiple-table-queries execution 4",
     "description": "Multiple-table-queries execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -267,27 +159,15 @@
     "title": "Join query execution 1",
     "description": "Join query execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -296,27 +176,15 @@
     "title": "Order-by query execution 1",
     "description": "Order-by query execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -325,27 +193,15 @@
     "title": "Subqueries query execution 2",
     "description": "Subqueries query execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -354,27 +210,15 @@
     "title": "Select-from-where query execution 1",
     "description": "Select-from-where query execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -383,27 +227,15 @@
     "title": "Inner-join query execution 2",
     "description": "Inner-join query execution 2",
     "license": "MIT",
-    "author": [
-      "Rully Hendrawan"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Rully Hendrawan"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -412,27 +244,15 @@
     "title": "Multiple-table-queries execution 2",
     "description": "Multiple-table-queries execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -441,27 +261,15 @@
     "title": "Join query execution 2",
     "description": "Join query execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -470,27 +278,15 @@
     "title": "Group-by-having query execution 1",
     "description": "Group-by-having query execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -499,27 +295,15 @@
     "title": "Order-by query execution 4",
     "description": "Order-by query execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -528,27 +312,15 @@
     "title": "Aggregate-functions query execution 2",
     "description": "Aggregate-functions query execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -557,27 +329,15 @@
     "title": "Inner-join query execution 3",
     "description": "Inner-join query execution 3",
     "license": "MIT",
-    "author": [
-      "Rully Hendrawan"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Rully Hendrawan"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -586,27 +346,15 @@
     "title": "Select-from-where query execution 2",
     "description": "Select-from-where query execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -615,27 +363,15 @@
     "title": "Arithmetic-expressions query execution 5",
     "description": "Arithmetic-expressions query execution 5",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-5&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-5"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-5"]
   },
   {
     "catalog_type": "SLCItem",
@@ -644,27 +380,15 @@
     "title": "Group-by-having query execution 4",
     "description": "Group-by-having query execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -673,27 +397,15 @@
     "title": "Pattern-matching query execution 3",
     "description": "Pattern-matching query execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -702,27 +414,15 @@
     "title": "Order-by query execution 3",
     "description": "Order-by query execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -731,27 +431,15 @@
     "title": "Aggregate-functions query execution 1",
     "description": "Aggregate-functions query execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -760,27 +448,15 @@
     "title": "Aggregate-functions query execution 4",
     "description": "Aggregate-functions query execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=aggregate-functions-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -789,27 +465,15 @@
     "title": "Select-from-where query execution 4",
     "description": "Select-from-where query execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -818,27 +482,15 @@
     "title": "Left-join query execution 2",
     "description": "Left-join query execution 2",
     "license": "MIT",
-    "author": [
-      "Rully Hendrawan"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Rully Hendrawan"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -847,27 +499,15 @@
     "title": "Select-from query execution 3",
     "description": "Select-from query execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -876,27 +516,15 @@
     "title": "Arithmetic-expressions query execution 6",
     "description": "Arithmetic-expressions query execution 6",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-6&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-6"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-6"]
   },
   {
     "catalog_type": "SLCItem",
@@ -905,27 +533,15 @@
     "title": "Order-by query execution 2",
     "description": "Order-by query execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=order-by-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -934,27 +550,15 @@
     "title": "Subqueries query execution 4",
     "description": "Subqueries query execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -963,27 +567,15 @@
     "title": "Join query execution 3",
     "description": "Join query execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -992,27 +584,15 @@
     "title": "Select-from query execution 4",
     "description": "Select-from query execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1021,27 +601,15 @@
     "title": "Group-by-having query execution 2",
     "description": "Group-by-having query execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=group-by-having-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1050,27 +618,15 @@
     "title": "Select-from-where query execution 3",
     "description": "Select-from-where query execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-where-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1079,27 +635,15 @@
     "title": "Left-join query execution 1",
     "description": "Left-join query execution 1",
     "license": "MIT",
-    "author": [
-      "Rully Hendrawan"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Rully Hendrawan"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1108,27 +652,15 @@
     "title": "Inner-join query execution 1",
     "description": "Inner-join query execution 1",
     "license": "MIT",
-    "author": [
-      "Rully Hendrawan"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Rully Hendrawan"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=inner-join-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1137,27 +669,15 @@
     "title": "Arithmetic-expressions query execution 1",
     "description": "Arithmetic-expressions query execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1166,27 +686,15 @@
     "title": "Arithmetic-expressions query execution 2",
     "description": "Arithmetic-expressions query execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=arithmetic-expressions-2"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1195,27 +703,15 @@
     "title": "Left-join query execution 3",
     "description": "Left-join query execution 3",
     "license": "MIT",
-    "author": [
-      "Rully Hendrawan"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Rully Hendrawan"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=left-join-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1224,27 +720,15 @@
     "title": "Subqueries query execution 3",
     "description": "Subqueries query execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=subqueries-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1253,27 +737,15 @@
     "title": "Pattern-matching query execution 1",
     "description": "Pattern-matching query execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1282,27 +754,15 @@
     "title": "Join query execution 4",
     "description": "Join query execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=multiple-table-queries-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1311,27 +771,15 @@
     "title": "Multiple-table-queries execution 1",
     "description": "Multiple-table-queries execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1340,27 +788,15 @@
     "title": "Select-from query execution 1",
     "description": "Select-from query execution 1",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-1&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-1"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-1"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1369,27 +805,15 @@
     "title": "Multiple-table-queries execution 3",
     "description": "Multiple-table-queries execution 3",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-3&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-3"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=join-3"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1398,27 +822,15 @@
     "title": "Pattern-matching query execution 4",
     "description": "Pattern-matching query execution 4",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-4&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-4"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=pattern-matching-4"]
   },
   {
     "catalog_type": "SLCItem",
@@ -1427,26 +839,14 @@
     "title": "Select-from query execution 2",
     "description": "Select-from query execution 2",
     "license": "MIT",
-    "author": [
-      "Kamil Akhuseyinoglu"
-    ],
-    "institution": [
-      "University of Pittsburgh"
-    ],
+    "author": ["Kamil Akhuseyinoglu"],
+    "institution": ["University of Pittsburgh"],
     "keywords": [],
     "features": [],
-    "programming_language": [
-      "SQL"
-    ],
-    "natural_language": [
-      "en"
-    ],
+    "programming_language": ["SQL"],
+    "natural_language": ["en"],
     "iframe_url": "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-2&usr=adl01&grp=adl01",
-    "protocol": [
-      "LTI 1.1"
-    ],
-    "protocol_url": [
-      "http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-2"
-    ]
+    "protocol": ["LTI 1.1"],
+    "protocol_url": ["http://adapt2.sis.pitt.edu/lti/launch?tool=dbqa&sub=select-from-2"]
   }
 ]
