@@ -22,6 +22,30 @@ services:
       retries: 5
       start_period: 30s
 
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: meilisearch
+    profiles:
+      - catalog 
+    environment:
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY} 
+    volumes:
+      - meili_data:/meili_data
+    expose:
+      - '7700'
+    ports:
+      - '127.0.0.1:7700:7700'
+    networks:
+      - splice
+      
+    healthcheck: 
+      
+      test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
   catalog:
     profiles:
       - catalog
@@ -36,6 +60,8 @@ services:
       - .env
     depends_on:
       db:
+        condition: service_healthy
+      meilisearch:
         condition: service_healthy
       # lti-validator:
         # condition: service_started
@@ -129,6 +155,7 @@ services:
 volumes:
   db:
   staticvolume:
+  meili_data:
 
 networks:
   splice:

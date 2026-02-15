@@ -1,0 +1,6934 @@
+[
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arraysum.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: arraysum.c (9.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: arraysum.c (9.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arraysum.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arraysum.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_13.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig03_13.c",
+    "description": "C++ BehaviorExample for demonstrating fig03_13.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_13.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_13.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.6&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Variable type: Strings",
+    "description": "Python BehaviorExample for demonstrating Variable type: Strings",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "operators",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.6&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.6&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_04.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_04.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_04.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_04.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_04.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.6&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Sentinel Loop Control",
+    "description": "Python BehaviorExample for demonstrating Sentinel Loop Control",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.6&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.6&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=exchange_kiosk.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: exchange_kiosk.c (3.11)",
+    "description": "C BehaviorExample for demonstrating IS12:: exchange_kiosk.c (3.11)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=exchange_kiosk.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=exchange_kiosk.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_04.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig02_04.c",
+    "description": "C++ BehaviorExample for demonstrating fig02_04.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_04.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_04.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt7.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Finding elements in a list",
+    "description": "Python BehaviorExample for demonstrating Finding elements in a list",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "search algorithms"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt7.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt7.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.13&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Single Line Loop Statement",
+    "description": "Python BehaviorExample for demonstrating Single Line Loop Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "for loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.13&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.13&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=qpa_and.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: qpa_and.c (117.5)",
+    "description": "C BehaviorExample for demonstrating IS12:: qpa_and.c (117.5)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=qpa_and.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=qpa_and.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=digcount.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: digcount.c (10.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: digcount.c (10.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=digcount.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=digcount.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=power.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: power.c (10.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: power.c (10.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=power.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=power.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_18.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_18.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_18.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_18.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_18.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_09.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig05_09.c",
+    "description": "C++ BehaviorExample for demonstrating fig05_09.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_09.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_09.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.4&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Escape Characters",
+    "description": "Python BehaviorExample for demonstrating Escape Characters",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "strings"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.4&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_08.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_08.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_08.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_08.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_08.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "For Loop Statement",
+    "description": "Python BehaviorExample for demonstrating For Loop Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "for loop",
+      "loops"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_12.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_12.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_12.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_12.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_12.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Table of Squares",
+    "description": "Python BehaviorExample for demonstrating Table of Squares",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=max2.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: max2.c (5.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: max2.c (5.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=max2.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=max2.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=wc.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: wc.c (118.6)",
+    "description": "C BehaviorExample for demonstrating IS12:: wc.c (118.6)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=wc.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=wc.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Logical Operators",
+    "description": "Python BehaviorExample for demonstrating Logical Operators",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if-else statement",
+      "logical operators"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=yearday.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: yearday.c (15.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: yearday.c (15.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=yearday.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=yearday.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printback.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: printback.c (15.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: printback.c (15.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printback.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printback.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt8.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Accessing Tuple Index",
+    "description": "Python BehaviorExample for demonstrating Accessing Tuple Index",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "tuples"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt8.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt8.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "ELIF (ELSE IF) Statement",
+    "description": "Python BehaviorExample for demonstrating ELIF (ELSE IF) Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if statement",
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=nondigits.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: nondigits.c (118.7)",
+    "description": "C BehaviorExample for demonstrating IS12:: nondigits.c (118.7)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=nondigits.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=nondigits.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=max1.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: max1.c (5.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: max1.c (5.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=max1.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=max1.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Nested Loops",
+    "description": "Python BehaviorExample for demonstrating Nested Loops",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "loops",
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_11.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_11.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_11.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_11.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_11.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_09.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_09.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_09.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_09.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_09.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_21.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_21.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_21.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_21.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_21.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_08.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig05_08.c",
+    "description": "C++ BehaviorExample for demonstrating fig05_08.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_08.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_08.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "List Basics",
+    "description": "Python BehaviorExample for demonstrating List Basics",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "list"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_16.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_16.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_16.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_16.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_16.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=calculate.py&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Simple Calculations",
+    "description": "Python BehaviorExample for demonstrating Simple Calculations",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "operators",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=calculate.py&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=calculate.py&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=longestline.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: longestline.c (12.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: longestline.c (12.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=longestline.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=longestline.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=babyweighting.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: babyweighting.c (9.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: babyweighting.c (9.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=babyweighting.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=babyweighting.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=qpa_or.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: qpa_or.c (117.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: qpa_or.c (117.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=qpa_or.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=qpa_or.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=helloworld.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: helloworld.c (1.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: helloworld.c (1.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=helloworld.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=helloworld.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_03.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig02_03.c",
+    "description": "C++ BehaviorExample for demonstrating fig02_03.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_03.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_03.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=variables.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: variables.c (3.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: variables.c (3.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=variables.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=variables.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.5&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Sum and Average Using Loops",
+    "description": "Python BehaviorExample for demonstrating Sum and Average Using Loops",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.5&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_05.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_05.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_05.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_05.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_05.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_26.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_26.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_26.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_26.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_26.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_01.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig04_01.c",
+    "description": "C++ BehaviorExample for demonstrating fig04_01.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_01.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_01.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Strings Basics",
+    "description": "Python BehaviorExample for demonstrating Strings Basics",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "strings"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=copycat.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: copycat.c (6.6)",
+    "description": "C BehaviorExample for demonstrating IS12:: copycat.c (6.6)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=copycat.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=copycat.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.10&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Simple Input 2",
+    "description": "Python BehaviorExample for demonstrating Simple Input 2",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "input"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.10&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.10&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=patternsearch.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: patternsearch.c (12.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: patternsearch.c (12.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=patternsearch.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=patternsearch.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_11.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig04_11.c",
+    "description": "C++ BehaviorExample for demonstrating fig04_11.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_11.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_11.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_07.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_07.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_07.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_07.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_07.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.6&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Addiing Lists",
+    "description": "Python BehaviorExample for demonstrating Addiing Lists",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "list"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.6&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.6&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_07.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig05_07.c",
+    "description": "C++ BehaviorExample for demonstrating fig05_07.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_07.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_07.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_14.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_14.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_14.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_14.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_14.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.5&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Identity Operators",
+    "description": "Python BehaviorExample for demonstrating Identity Operators",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "boolean expressions",
+      "operators"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.5&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=capitalyears.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: capitalyears.c (4.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: capitalyears.c (4.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=capitalyears.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=capitalyears.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.11&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Single Line IF...ELSE Statement",
+    "description": "Python BehaviorExample for demonstrating Single Line IF...ELSE Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.11&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.11&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=accumulator.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: accumulator.c (4.7)",
+    "description": "C BehaviorExample for demonstrating IS12:: accumulator.c (4.7)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=accumulator.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=accumulator.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=abcounting.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: abcounting.c (118.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: abcounting.c (118.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=abcounting.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=abcounting.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.20&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Exceptions Basics",
+    "description": "Python BehaviorExample for demonstrating Exceptions Basics",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "exceptions"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.20&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.20&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=capitaltable.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: capitaltable.c (4.9)",
+    "description": "C BehaviorExample for demonstrating IS12:: capitaltable.c (4.9)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=capitaltable.c&svc=progvis",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=capitaltable.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.9&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Simple Input",
+    "description": "Python BehaviorExample for demonstrating Simple Input",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "input"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.9&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.9&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=cal_Main.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "calculate_Main.c",
+    "description": "C++ BehaviorExample for demonstrating calculate_Main.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=cal_Main.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=cal_Main.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=betterbattle.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: betterbattle.c (15.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: betterbattle.c (15.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=betterbattle.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=betterbattle.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt10.25&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "References - Values",
+    "description": "Python BehaviorExample for demonstrating References - Values",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "value vs reference"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt10.25&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt10.25&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.14&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Accessing Dictionary Elements",
+    "description": "Python BehaviorExample for demonstrating Accessing Dictionary Elements",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "dictionary",
+      "json"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.14&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.14&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=better_copycat.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: better_copycat.c (6.5)",
+    "description": "C BehaviorExample for demonstrating IS12:: better_copycat.c (6.5)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=better_copycat.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=better_copycat.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=cal_Functions.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "calculate_Functions.c",
+    "description": "C++ BehaviorExample for demonstrating calculate_Functions.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=cal_Functions.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=cal_Functions.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.4&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Break Statement",
+    "description": "Python BehaviorExample for demonstrating Break Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "for loop",
+      "loops"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.4&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_02.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig04_02.c",
+    "description": "C++ BehaviorExample for demonstrating fig04_02.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_02.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_02.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_15.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig05_15.c",
+    "description": "C++ BehaviorExample for demonstrating fig05_15.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_15.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_15.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt3.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Conditionals basics",
+    "description": "Python BehaviorExample for demonstrating Conditionals basics",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt3.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt3.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=capital.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: capital.c (3.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: capital.c (3.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=capital.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=capital.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_13.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig02_13.c",
+    "description": "C++ BehaviorExample for demonstrating fig02_13.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_13.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_13.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printing.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: printing.c (2)",
+    "description": "C BehaviorExample for demonstrating IS12:: printing.c (2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printing.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printing.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.4&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Multiple Variable Assignment",
+    "description": "Python BehaviorExample for demonstrating Multiple Variable Assignment",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "operators",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.4&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=encrypt.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: encrypt.c (117.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: encrypt.c (117.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=encrypt.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=encrypt.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=parampass.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: parampass.c (111.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: parampass.c (111.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=parampass.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=parampass.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=palindrome.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: palindrome.c (111.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: palindrome.c (111.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=palindrome.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=palindrome.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.5&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Variable type: Numbers",
+    "description": "Python BehaviorExample for demonstrating Variable type: Numbers",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "operators",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.5&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=rate3.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: rate3.c (117.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: rate3.c (117.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=rate3.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=rate3.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printing1.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: printing1.c (2.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: printing1.c (2.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printing1.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printing1.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.7&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "While Loop Statement",
+    "description": "Python BehaviorExample for demonstrating While Loop Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "loops"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.7&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.7&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.17&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Class Definition - Bank Account",
+    "description": "Python BehaviorExample for demonstrating Class Definition - Bank Account",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "classes",
+      "objects"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.17&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.17&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_05.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig02_05.c",
+    "description": "C++ BehaviorExample for demonstrating fig02_05.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_05.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_05.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=better_kiosk.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: better_kiosk.c (3.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: better_kiosk.c (3.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=better_kiosk.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=better_kiosk.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt5.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Function - Repetitive Calling",
+    "description": "Python BehaviorExample for demonstrating Function - Repetitive Calling",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "functions"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt5.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt5.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_03.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_03.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_03.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_03.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_03.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Comparison Operators",
+    "description": "Python BehaviorExample for demonstrating Comparison Operators",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "boolean expressions",
+      "comparison operators",
+      "operators"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_06.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig04_06.c",
+    "description": "C++ BehaviorExample for demonstrating fig04_06.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_06.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_06.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_12.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_12.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_12.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_12.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_12.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=line_count.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: line_count.c (6.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: line_count.c (6.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=line_count.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=line_count.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.13&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Dictionary Basics",
+    "description": "Python BehaviorExample for demonstrating Dictionary Basics",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "dictionary"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.13&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.13&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=recfactorial.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: recfactorial.c (24.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: recfactorial.c (24.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=recfactorial.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=recfactorial.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.8&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Functions Example 2",
+    "description": "Python BehaviorExample for demonstrating Functions Example 2",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "functions",
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.8&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.8&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.21&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Exceptions 2",
+    "description": "Python BehaviorExample for demonstrating Exceptions 2",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "exceptions"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.21&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.21&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=count_char.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: count_char.c (6.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: count_char.c (6.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=count_char.c&svc=progvis",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=count_char.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=abcounting_case.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: abcounting_case.c (118.5)",
+    "description": "C BehaviorExample for demonstrating IS12:: abcounting_case.c (118.5)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=abcounting_case.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=abcounting_case.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=starchart.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: starchart.c (12.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: starchart.c (12.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=starchart.c&svc=progvis",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=starchart.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.10&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Nested IF...ELSE Statement 2",
+    "description": "Python BehaviorExample for demonstrating Nested IF...ELSE Statement 2",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.10&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.10&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=apples_kids.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: apples_kids.c (4.8)",
+    "description": "C BehaviorExample for demonstrating IS12:: apples_kids.c (4.8)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=apples_kids.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=apples_kids.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=countdown2.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: countdown2.c (4.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: countdown2.c (4.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=countdown2.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=countdown2.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_13.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_13.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_13.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_13.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_13.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "If statement",
+    "description": "Python BehaviorExample for demonstrating If statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "conditionals",
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_16.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_16.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_16.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_16.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_16.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt8.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Tuple Basics",
+    "description": "Python BehaviorExample for demonstrating Tuple Basics",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "tuples"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt8.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt8.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_04.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig05_04.c",
+    "description": "C++ BehaviorExample for demonstrating fig05_04.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_04.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_04.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_12.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig04_12.c",
+    "description": "C++ BehaviorExample for demonstrating fig04_12.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_12.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_12.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_06.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_06.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_06.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_06.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_06.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=str2int.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: str2int.c (12.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: str2int.c (12.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=str2int.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=str2int.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt10.23&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "References with Lists",
+    "description": "Python BehaviorExample for demonstrating References with Lists",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "value vs reference"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt10.23&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt10.23&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=recpower.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: recpower.c (24.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: recpower.c (24.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=recpower.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=recpower.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt9.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Dictionary Basics",
+    "description": "Python BehaviorExample for demonstrating Dictionary Basics",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "dictionaries"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt9.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt9.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.7&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Functions Example 1",
+    "description": "Python BehaviorExample for demonstrating Functions Example 1",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "functions",
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.7&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.7&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.22&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Reading from a text file",
+    "description": "Python BehaviorExample for demonstrating Reading from a text file",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "file i/o"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.22&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.22&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=av_line_for.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: av_line_for.c (118.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: av_line_for.c (118.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=av_line_for.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=av_line_for.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=char_codes.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: char_codes.c (6.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: char_codes.c (6.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=char_codes.c&svc=progvis",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=char_codes.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.8&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Nested IF...ELSE Statement",
+    "description": "Python BehaviorExample for demonstrating Nested IF...ELSE Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if statement",
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.8&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.8&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "If..Else statement",
+    "description": "Python BehaviorExample for demonstrating If..Else statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "conditionals",
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_03.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig05_03.c",
+    "description": "C++ BehaviorExample for demonstrating fig05_03.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_03.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_03.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.4&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Appending Values to List",
+    "description": "Python BehaviorExample for demonstrating Appending Values to List",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "list"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.4&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_04.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_04.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_04.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_04.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_04.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.12&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Output Formatting 2",
+    "description": "Python BehaviorExample for demonstrating Output Formatting 2",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "string formatting",
+      "strings"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.12&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.12&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=goodswap.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: goodswap.c (14.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: goodswap.c (14.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=goodswap.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=goodswap.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=qpa.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: qpa.c (117.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: qpa.c (117.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=qpa.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=qpa.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Different Ways to Print",
+    "description": "Python BehaviorExample for demonstrating Different Ways to Print",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "strings",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printing2.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: printing2.c (2.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: printing2.c (2.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printing2.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=printing2.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.8&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "5.2. The while statement",
+    "description": "Python BehaviorExample for demonstrating 5.2. The while statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "loops",
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.8&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.8&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.16&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Class Definition - Calculator",
+    "description": "Python BehaviorExample for demonstrating Class Definition - Calculator",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "classes",
+      "objects"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.16&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.16&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.18&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Classes - Inheritance",
+    "description": "Python BehaviorExample for demonstrating Classes - Inheritance",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "classes",
+      "objects"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.18&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.18&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=f2c_table.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: f2c_table.c (4.5)",
+    "description": "C BehaviorExample for demonstrating IS12:: f2c_table.c (4.5)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=f2c_table.c&svc=progvis",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=f2c_table.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=countdown1.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: countdown1.c (4.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: countdown1.c (4.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=countdown1.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=countdown1.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt5.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Functions Basics",
+    "description": "Python BehaviorExample for demonstrating Functions Basics",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt5.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt5.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Arithmatic Operations",
+    "description": "Python BehaviorExample for demonstrating Arithmatic Operations",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "operators",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_12.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig05_12.c",
+    "description": "C++ BehaviorExample for demonstrating fig05_12.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_12.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_12.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Assignment Operators",
+    "description": "Python BehaviorExample for demonstrating Assignment Operators",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "operators",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_11.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_11.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_11.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_11.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_11.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_07.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig04_07.c",
+    "description": "C++ BehaviorExample for demonstrating fig04_07.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_07.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_07.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.6&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Pass Statement",
+    "description": "Python BehaviorExample for demonstrating Pass Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "for loop",
+      "loops"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.6&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.6&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_13.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_13.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_13.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_13.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_13.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=max3.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: max3.c (5.5)",
+    "description": "C BehaviorExample for demonstrating IS12:: max3.c (5.5)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=max3.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=max3.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt2.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Variables 1",
+    "description": "Python BehaviorExample for demonstrating Variables 1",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt2.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt2.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.15&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Adding and Modifying Dictionary Elements",
+    "description": "Python BehaviorExample for demonstrating Adding and Modifying Dictionary Elements",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "dictionaries",
+      "dictionary",
+      "json"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.15&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.15&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=maxloop.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: maxloop.c (5.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: maxloop.c (5.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=maxloop.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=maxloop.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_14.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_14.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_14.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_14.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_14.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_10.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_10.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_10.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_10.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_10.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_09.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig04_09.c",
+    "description": "C++ BehaviorExample for demonstrating fig04_09.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_09.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_09.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_05.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig04_05.c ",
+    "description": "C++ BehaviorExample for demonstrating fig04_05.c ",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_05.c&svc=progvis",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig04_05.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.5&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Continue Statement",
+    "description": "Python BehaviorExample for demonstrating Continue Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "for loop",
+      "loops"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.5&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.4&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Bitwise Operators",
+    "description": "Python BehaviorExample for demonstrating Bitwise Operators",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "boolean expressions",
+      "operators"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.4&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.9&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Variable type: Dictionary",
+    "description": "Python BehaviorExample for demonstrating Variable type: Dictionary",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "dictionaries",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.9&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.9&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_14.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig05_14.c",
+    "description": "C++ BehaviorExample for demonstrating fig05_14.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_14.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_14.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt3.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Interest Capital and Interest",
+    "description": "Python BehaviorExample for demonstrating Interest Capital and Interest",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt3.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt3.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fahr_input.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: fahr_input.c (3.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: fahr_input.c (3.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fahr_input.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fahr_input.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/pcex/index.html?lang=PYTHON&set=for_loops.j_print_descendingly",
+    "platform_name": "WebEx",
+    "title": "pcex_test",
+    "description": "Java BehaviorExample for demonstrating pcex_test",
+    "license": "MIT",
+    "author": [
+      "Roya Hosseini"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Java"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/pcex/index.html?lang=PYTHON&set=for_loops.j_print_descendingly",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/pcex/index.html?lang=PYTHON&set=for_loops.j_print_descendingly"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.19&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "References Basics",
+    "description": "Python BehaviorExample for demonstrating References Basics",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "value vs reference"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.19&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.19&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_06.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig03_06.c",
+    "description": "C++ BehaviorExample for demonstrating fig03_06.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_06.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_06.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=nicer_f2c_table.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: nicer_f2c_table.c (4.6)",
+    "description": "C BehaviorExample for demonstrating IS12:: nicer_f2c_table.c (4.6)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=nicer_f2c_table.c&svc=progvis",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=nicer_f2c_table.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt8.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "String Index Search",
+    "description": "Python BehaviorExample for demonstrating String Index Search",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "search algorithms",
+      "strings"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt8.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt8.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.9&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Break Statement",
+    "description": "Python BehaviorExample for demonstrating Break Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.9&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.9&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Variable Assignment",
+    "description": "Python BehaviorExample for demonstrating Variable Assignment",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "operators",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.11&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Output Formatting",
+    "description": "Python BehaviorExample for demonstrating Output Formatting",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "string formatting",
+      "strings"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.11&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.11&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_22.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_22.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_22.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_22.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_22.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.5&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Removing list elements",
+    "description": "Python BehaviorExample for demonstrating Removing list elements",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "list"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.5&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_17.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_17.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_17.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_17.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_17.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Nested If Statements",
+    "description": "Python BehaviorExample for demonstrating Nested If Statements",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "conditionals",
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_15.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_15.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_15.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_15.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_15.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=factorial.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: factorial.c (4.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: factorial.c (4.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=factorial.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=factorial.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.7&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IF...ELSE Statement (Multiple Conditions)",
+    "description": "Python BehaviorExample for demonstrating IF...ELSE Statement (Multiple Conditions)",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if-else statement",
+      "logical operators"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.7&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.7&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=f2c_for.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: f2c_for.c (118.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: f2c_for.c (118.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=f2c_for.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=f2c_for.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.23&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Writing to a text file",
+    "description": "Python BehaviorExample for demonstrating Writing to a text file",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "file i/o"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.23&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.23&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.6&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Functions with Arguments",
+    "description": "Python BehaviorExample for demonstrating Functions with Arguments",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "functions"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.6&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.6&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt9.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Updating Dictionary Elements",
+    "description": "Python BehaviorExample for demonstrating Updating Dictionary Elements",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt9.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt9.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=insummax.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: insummax.c (111.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: insummax.c (111.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=insummax.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=insummax.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt10.24&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "References with Lists",
+    "description": "Python BehaviorExample for demonstrating References with Lists",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "value vs reference"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt10.24&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt10.24&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.10&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Continue Statement",
+    "description": "Python BehaviorExample for demonstrating Continue Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.10&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.10&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IF...ELSE Statement 2",
+    "description": "Python BehaviorExample for demonstrating IF...ELSE Statement 2",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if statement",
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt8.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Finding character in a string",
+    "description": "Python BehaviorExample for demonstrating Finding character in a string",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "strings"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt8.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt8.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_01.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig02_01.c",
+    "description": "C++ BehaviorExample for demonstrating fig02_01.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_01.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig02_01.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=calculating2.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: calculating2.c (2.4)",
+    "description": "C BehaviorExample for demonstrating IS12:: calculating2.c (2.4)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=calculating2.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=calculating2.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt3.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Maximum of 2 Numbers",
+    "description": "Python BehaviorExample for demonstrating Maximum of 2 Numbers",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt3.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt3.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_06.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_06.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_06.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_06.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_06.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.8&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Variable type: Tuples",
+    "description": "Python BehaviorExample for demonstrating Variable type: Tuples",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.8&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.8&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt5.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Variable to Integer",
+    "description": "Python BehaviorExample for demonstrating Variable to Integer",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "numeric types"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt5.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt5.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_08.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig03_08.c",
+    "description": "C++ BehaviorExample for demonstrating fig03_08.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_08.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_08.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Sub-Strings",
+    "description": "Python BehaviorExample for demonstrating Sub-Strings",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "strings"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arraymin.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: arraymin.c (9.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: arraymin.c (9.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arraymin.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arraymin.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt2.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Currency Conversion Kiosk",
+    "description": "Python BehaviorExample for demonstrating Currency Conversion Kiosk",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt2.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt2.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=strcomp.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: strcomp.c (14.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: strcomp.c (14.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=strcomp.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=strcomp.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt8.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Adding Tuples",
+    "description": "Python BehaviorExample for demonstrating Adding Tuples",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "tuples"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt8.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt8.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.5&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Functions Introduction",
+    "description": "Python BehaviorExample for demonstrating Functions Introduction",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "functions"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.5&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.24&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Exceptions 3",
+    "description": "Python BehaviorExample for demonstrating Exceptions 3",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "exceptions"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.24&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.24&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arrayio.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: arrayio.c (119.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: arrayio.c (119.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arrayio.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arrayio.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.6&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IF...ELSE Statement",
+    "description": "Python BehaviorExample for demonstrating IF...ELSE Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.6&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.6&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.4&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Calculating Interest Over Years",
+    "description": "Python BehaviorExample for demonstrating Calculating Interest Over Years",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.4&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=rate2.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: rate2.c (5.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: rate2.c (5.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=rate2.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=rate2.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_10.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_10.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_10.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_10.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_10.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.4&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Single Line If...Else Statement",
+    "description": "Python BehaviorExample for demonstrating Single Line If...Else Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "conditionals"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.4&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Accessing the List Index",
+    "description": "Python BehaviorExample for demonstrating Accessing the List Index",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "list"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_21.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_21.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_21.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_21.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_21.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=sumarfunc.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: sumarfunc.c (10.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: sumarfunc.c (10.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=sumarfunc.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=sumarfunc.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_19.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_19.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_19.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_19.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_19.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Replacing list elements",
+    "description": "Python BehaviorExample for demonstrating Replacing list elements",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "list"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt7.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_10.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig05_10.c",
+    "description": "C++ BehaviorExample for demonstrating fig05_10.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_10.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig05_10.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_20.cpp&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_20.cpp",
+    "description": "C++ BehaviorExample for demonstrating fig07_20.cpp",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_20.cpp&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_20.cpp&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "While Loop Statement",
+    "description": "Python BehaviorExample for demonstrating While Loop Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "loops",
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Countdown to Zero",
+    "description": "Python BehaviorExample for demonstrating Countdown to Zero",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Conversion Table (Fahrenheit to Celsius)",
+    "description": "Python BehaviorExample for demonstrating Conversion Table (Fahrenheit to Celsius)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "while loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.5&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IF Statement",
+    "description": "Python BehaviorExample for demonstrating IF Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if statement",
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.5&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt3.5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arrayiofor.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: arrayiofor.c (119.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: arrayiofor.c (119.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arrayiofor.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arrayiofor.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.4&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Complex IF...ELSE Statement",
+    "description": "Python BehaviorExample for demonstrating Complex IF...ELSE Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "if statement",
+      "if-else statement"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.4&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt10.4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt9.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Accessing Dictionary Elements",
+    "description": "Python BehaviorExample for demonstrating Accessing Dictionary Elements",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "dictionaries"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt9.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt9.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=battleship.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: battleship.c (15.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: battleship.c (15.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=battleship.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=battleship.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt2.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Variable Type Conversion",
+    "description": "Python BehaviorExample for demonstrating Variable Type Conversion",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "operators",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt2.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt2.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arraymax.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: arraymax.c (9.2)",
+    "description": "C BehaviorExample for demonstrating IS12:: arraymax.c (9.2)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arraymax.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=arraymax.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.3&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Adding Strings",
+    "description": "Python BehaviorExample for demonstrating Adding Strings",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "strings"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.3&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt6.3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_15.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_15.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_15.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_15.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_15.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt5.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Number Basics",
+    "description": "Python BehaviorExample for demonstrating Number Basics",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "numeric types"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt5.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt5.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_10.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig03_10.c",
+    "description": "C++ BehaviorExample for demonstrating fig03_10.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_10.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig03_10.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_28.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_28.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_28.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_28.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_28.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_24.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig07_24.c",
+    "description": "C++ BehaviorExample for demonstrating fig07_24.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_24.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig07_24.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_07.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "fig06_07.c",
+    "description": "C++ BehaviorExample for demonstrating fig06_07.c",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C++"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_07.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=fig06_07.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.7&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Variable type: Lists",
+    "description": "Python BehaviorExample for demonstrating Variable type: Lists",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "list",
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.7&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.7&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.7&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Table of Squares (For Loop)",
+    "description": "Python BehaviorExample for demonstrating Table of Squares (For Loop)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "for loop"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.7&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt4.7&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=calculating1.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: calculating1.c (2.3)",
+    "description": "C BehaviorExample for demonstrating IS12:: calculating1.c (2.3)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=calculating1.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=calculating1.c&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt7.2&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Creating list of items",
+    "description": "Python BehaviorExample for demonstrating Creating list of items",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "list"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt7.2&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pytt7.2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.6&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Arithmetic Operators",
+    "description": "Python BehaviorExample for demonstrating Arithmetic Operators",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.6&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt2.6&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.11&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Pass Statement",
+    "description": "Python BehaviorExample for demonstrating Pass Statement",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.11&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt4.11&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.1&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "Hello World",
+    "description": "Python BehaviorExample for demonstrating Hello World",
+    "license": "MIT",
+    "author": [
+      "Hardik Vasa"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [
+      "variables"
+    ],
+    "features": [],
+    "programming_language": [
+      "Python"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.1&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=pyt1.1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=av_line_while.c&svc=progvis",
+    "platform_name": "WebEx",
+    "title": "IS12:: av_line_while.c (118.1)",
+    "description": "C BehaviorExample for demonstrating IS12:: av_line_while.c (118.1)",
+    "license": "MIT",
+    "author": [
+      "Peter Brusilovsky"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "C"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=av_line_while.c&svc=progvis&sid=demo",
+    "protocol": [
+      "html"
+    ],
+    "protocol_url": [
+      "http://adapt2.sis.pitt.edu/web_ex_NV0FGdaHzy/Dissection2?act=av_line_while.c&svc=progvis"
+    ]
+  }
+]

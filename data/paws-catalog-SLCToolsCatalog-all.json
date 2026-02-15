@@ -1,0 +1,58 @@
+[
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "DBQA",
+    "url": "https://codesmell.org/dbqa",
+    "description": "Web tool that steps through SQL SELECT query evaluation, highlighting the active clause and showing intermediate results. Used to teach how queries execute; supports LMS/LTI integration.",
+    "contact_email": "hardtr@uwec.edu"
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "jsParsons",
+    "url": "https://github.com/acos-server/acos-jsparsons",
+    "description": "ACOS content package that delivers Parsons problems (code reordering puzzles). Provides shared JS components and deployment scaffolding for building and serving Parsons-style programming exercises.",
+    "contact_email": "lassi.haaranen@aalto.fi"
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "JSVEE",
+    "url": "https://github.com/Aalto-LeTech/jsvee",
+    "description": "JavaScript library for creating step-by-step program execution visualizations. Offers reusable operations and extensibility for language-specific visual execution content.",
+    "contact_email": "teemu.sirkia@aalto.fi"
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "PCEX",
+    "url": "http://adapt2.sis.pitt.edu/wiki/PCEX",
+    "description": "Interactive worked-example system for learning code construction. Breaks solutions into subgoal steps with on-demand explanations and checks, supporting self-paced study of programming patterns.",
+    "contact_email": "moh70@pitt.edu"
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "QuizJET",
+    "url": "http://adapt2.sis.pitt.edu/wiki/QuizJET",
+    "description": "Parameterized Java quiz engine that generates variants, executes reference code to compute correct answers, checks responses, and logs performance for practice and adaptive support.",
+    "contact_email": "moh70@pitt.edu"
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "QuizPET",
+    "url": "http://adapt2.sis.pitt.edu/wiki/QuizPET",
+    "description": "Parameterized Python quiz tool focused on code behavior/semantics. Generates instances, runs code to derive answers, grades responses, and records results for targeted practice.",
+    "contact_email": "moh70@pitt.edu"
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "WebEx",
+    "url": "http://adapt2.sis.pitt.edu/wiki/WebEx",
+    "description": "Annotated example viewer for programming code. Learners inspect instructor comments line-by-line, opening explanations as needed to support comprehension and example-based learning.",
+    "contact_email": "moh70@pitt.edu"
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "AnnEx",
+    "url": "https://github.com/mhassany-pitt/acos-annotated",
+    "description": "Repository of WebEx-style annotated programming examples packaged for reuse (often via ACOS). Provides curated example sets across languages for embedding into courses or adaptive platforms.",
+    "contact_email": "moh70@pitt.edu"
+  }
+]

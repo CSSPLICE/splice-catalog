@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source.js';
-import { Brackets } from 'typeorm';
+import { Brackets, FindOptionsWhere, ILike, IsNull } from 'typeorm'; 
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
-import { FindOptionsWhere, ILike, IsNull } from 'typeorm';
-import { SLCItem } from 'src/types/ItemTypes.js';
+import { SLCItem } from '../types/ItemTypes.js'; 
+import { meilisearchService } from '../services/MeilisearchService.js'; 
 
 const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_catalog | typeof dataset_catalog } = {
   items: slc_item_catalog,
@@ -15,47 +15,70 @@ const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_ca
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
-    const query = req.query.query as string;
+    const query = req.query.query as string || '';
+
     const features = req.query.features || [];
     let featureTypes: string[] = [];
     if (typeof features === 'string') {
-      featureTypes = features
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
+      featureTypes = features.split(',').map((s) => s.trim()).filter(Boolean);
     } else if (Array.isArray(features)) {
       featureTypes = features as string[];
     }
+
     const tools = req.query.tool || [];
     let toolTypes: string[] = [];
     if (typeof tools === 'string') {
-      toolTypes = tools
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
+      toolTypes = tools.split(',').map((s) => s.trim()).filter(Boolean);
     } else if (Array.isArray(tools)) {
       toolTypes = tools as string[];
     }
 
-    const queryBuilder = AppDataSource.getRepository(slc_item_catalog).createQueryBuilder('item');
+    let search_data: any[] = [];
 
-    if (query) {
-      queryBuilder.where(
-        new Brackets((qb) => {
-          qb.where('item.keywords LIKE :query', { query: `%${query}%` })
-            .orWhere('item.platform_name LIKE :query', { query: `%${query}%` })
-            .orWhere('item.title LIKE :query', { query: `%${query}%` })
-            .orWhere('item.catalog_type LIKE :query', { query: `%${query}%` });
-        }),
-      );
+    try {
+      if (query) {
+        search_data = await meilisearchService.search(query);
+      } else {
+        search_data = await AppDataSource.getRepository(slc_item_catalog).find();
+      }
+    } catch (err) {
+      console.error("Meilisearch failed, falling back to DB", err);
+      search_data = await AppDataSource.getRepository(slc_item_catalog).find();
     }
 
-    const search_data = await queryBuilder.getMany();
+    search_data = search_data.map(item => {
+      if (item.keywords && typeof item.keywords === 'string') {
+        item.keywords = item.keywords.split(',').map((s: string) => s.trim()).filter(Boolean);
+      } else if (!item.keywords) {
+        item.keywords = [];
+      }
+
+      if (item.features && typeof item.features === 'string') {
+        item.features = item.features.split(',').map((s: string) => s.trim()).filter(Boolean);
+      } else if (!item.features) {
+        item.features = [];
+      }
+      return item;
+    });
+
+    if (featureTypes.length > 0) {
+      search_data = search_data.filter(item => {
+        const itemFeatures = Array.isArray(item.features) ? item.features : (item.features || '').split(',');
+        return featureTypes.some(f => itemFeatures.map((s: string) => s.trim()).includes(f));
+      });
+    }
+
+    if (toolTypes.length > 0) {
+      search_data = search_data.filter(item => {
+        return toolTypes.includes(item.platform_name);
+      });
+    }
 
     const allFeatures = await AppDataSource.getRepository(slc_item_catalog)
       .createQueryBuilder('item')
       .select('DISTINCT item.features', 'features')
       .getRawMany();
+      
     const featureChoices = [
       ...new Set(
         allFeatures
@@ -76,7 +99,7 @@ export class SearchController {
     const toolChoices = allTools.map((t) => t.platform_name).filter(Boolean);
 
     res.render('pages/search', {
-      results: search_data,
+      results: search_data, 
       currentPage: 1,
       totalPages: 1,
       query,
@@ -88,74 +111,37 @@ export class SearchController {
     });
   }
 
-  async searchCatalogAPI(req: Request, res: Response) {
-    const catalogName = req.params.catalog;
-    const entity = catalogMap[catalogName];
+ async searchCatalogAPI(req: Request, res: Response) {
+    const query = req.query.terms as string || '';
 
-    if (!entity) {
-      return res.status(404).json({ error: 'Catalog not found' });
-    }
-
-    const repository = AppDataSource.getRepository(entity);
-    const metadata = repository.metadata;
-    const queryBuilder = repository.createQueryBuilder('item');
-    let hasWhereClause = false;
-
-    const generalTerms = req.query.terms as string;
-    if (generalTerms) {
-      const generalWhereClauses = metadata.columns
-        .filter((col) => ['varchar', 'text', 'string'].includes(col.type.toString()))
-        .map((col) => `item.${col.propertyName} LIKE :generalTerms`);
-
-      if (generalWhereClauses.length > 0) {
-        queryBuilder.where(
-          new Brackets((qb) => {
-            qb.where(generalWhereClauses.join(' OR '), { generalTerms: `%${generalTerms}%` });
-          }),
-        );
-        hasWhereClause = true;
-      }
-    }
-
-    for (const key in req.query) {
-      if (key === 'terms') {
-        continue;
-      }
-
-      const value = req.query[key];
-
-      if (typeof value === 'string') {
-        const columnName = key;
-
-        const column = metadata.findColumnWithPropertyName(columnName);
-        if (column) {
-          const paramName = `${columnName}_${Math.random().toString(36).substring(7)}`;
-          const condition = `item.${columnName} LIKE :${paramName}`;
-          const paramValue: string = `%${value}%`;
-
-          if (hasWhereClause) {
-            queryBuilder.andWhere(condition, { [paramName]: paramValue });
-          } else {
-            queryBuilder.where(condition, { [paramName]: paramValue });
-            hasWhereClause = true;
-          }
-        }
-      }
-    }
-
-    if (!hasWhereClause && !generalTerms) {
-      const results = await repository.find();
-      return res.json({ results });
-    }
+    let results: any[] = [];
 
     try {
-      const results = await queryBuilder.getMany();
+      if (query) {
+        results = await meilisearchService.search(query);
+      } else {
+        const catalogName = req.params.catalog || 'items';
+        const entity = catalogMap[catalogName] || slc_item_catalog;
+        results = await AppDataSource.getRepository(entity).find();
+      }
+
+      results = results.map(item => {
+        item.keywords = typeof item.keywords === 'string' 
+          ? item.keywords.split(',').map((s: string) => s.trim()).filter(Boolean) 
+          : (item.keywords || []);
+        item.features = typeof item.features === 'string' 
+          ? item.features.split(',').map((s: string) => s.trim()).filter(Boolean) 
+          : (item.features || []);
+        return item;
+      });
+
       return res.json({ results });
     } catch (error) {
-      console.error(error);
+      console.error("API Search Error:", error);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }
+
   async exportSearchResults(req: Request, res: Response) {
     try {
       const repo = AppDataSource.getRepository(slc_item_catalog);
