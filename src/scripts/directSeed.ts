@@ -2,7 +2,7 @@ import mysql from 'mysql2/promise';
 import fs from 'fs/promises';
 import path from 'path';
 import 'dotenv/config';
-import { meilisearchService } from '../src/services/MeilisearchService.js';
+import { meilisearchService } from '../services/MeilisearchService.js';
 
 export const seedDatabase = async () => {
   let connection;
