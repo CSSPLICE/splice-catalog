@@ -18,7 +18,7 @@ export const seedDatabase = async () => {
 
     const dataPath = path.join(process.cwd(), 'data/slc.json');
     console.log(`Reading records from: ${dataPath}`);
-    
+
     const rawData = await fs.readFile(dataPath, 'utf8');
     const items = JSON.parse(rawData);
     const itemsArray = Array.isArray(items) ? items : [items];
@@ -29,25 +29,35 @@ export const seedDatabase = async () => {
     for (const item of itemsArray) {
       const dataToInsert: any = {};
       const validColumns = [
-        'catalog_type', 'platform_name', 'iframe_url', 'persistentID', 
-        'license', 'description', 'title', 'institution', 'keywords', 
-        'features', 'programming_language', 'natural_language', 
-        'protocol', 'protocol_url', 'author'
+        'catalog_type',
+        'platform_name',
+        'iframe_url',
+        'persistentID',
+        'license',
+        'description',
+        'title',
+        'institution',
+        'keywords',
+        'features',
+        'programming_language',
+        'natural_language',
+        'protocol',
+        'protocol_url',
+        'author',
       ];
 
       for (const col of validColumns) {
         const value = item[col];
-        dataToInsert[col] = Array.isArray(value) ? value.join(', ') : (value || '');
+        dataToInsert[col] = Array.isArray(value) ? value.join(', ') : value || '';
       }
 
-      const columns = Object.keys(dataToInsert).map(c => `\`${c}\``).join(', ');
+      const columns = Object.keys(dataToInsert)
+        .map((c) => `\`${c}\``)
+        .join(', ');
       const values = Object.values(dataToInsert);
       const placeholders = values.map(() => '?').join(', ');
 
-      await connection.execute(
-        `INSERT IGNORE INTO slc_item_catalog (${columns}) VALUES (${placeholders})`,
-        values
-      );
+      await connection.execute(`INSERT IGNORE INTO slc_item_catalog (${columns}) VALUES (${placeholders})`, values);
     }
 
     const [rows]: any = await connection.execute('SELECT * FROM slc_item_catalog');
@@ -59,7 +69,6 @@ export const seedDatabase = async () => {
     await meilisearchService.syncSynonyms(connection);
 
     console.log(`SUCCESS! Search is live with ${rows.length} items and Aliases.`);
-
   } catch (error) {
     console.error('Seeding Failed:', error);
   } finally {

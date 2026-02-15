@@ -26,14 +26,13 @@ export const runSeeder = async () => {
         dataToInsert[key] = Array.isArray(value) ? value.join(', ') : value;
       }
 
-      const columns = Object.keys(dataToInsert).map(c => `\`${c}\``).join(', ');
+      const columns = Object.keys(dataToInsert)
+        .map((c) => `\`${c}\``)
+        .join(', ');
       const values = Object.values(dataToInsert);
       const placeholders = values.map(() => '?').join(', ');
 
-      await queryRunner.query(
-        `INSERT IGNORE INTO \`slc_item_catalog\` (${columns}) VALUES (${placeholders})`,
-        values
-      );
+      await queryRunner.query(`INSERT IGNORE INTO \`slc_item_catalog\` (${columns}) VALUES (${placeholders})`, values);
     }
 
     console.log(`Successfully seeded ${itemArray.length} items!`);
