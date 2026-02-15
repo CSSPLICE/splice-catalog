@@ -24,8 +24,22 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   });
-  const ITEMS_PER_PAGE = 25;
+  const itemsPerPageSelect = document.getElementById("itemsPerPage");
+  let ITEMS_PER_PAGE = parseInt(itemsPerPageSelect?.value || "25", 10);
   let currentPage = 1;
+
+  if (itemsPerPageSelect) {
+  itemsPerPageSelect.addEventListener("change", () => {
+    ITEMS_PER_PAGE = parseInt(itemsPerPageSelect.value, 10) || 25;
+    currentPage = 1;
+
+    const filtered = filterItems();
+    renderTable(filtered, currentPage);
+    renderPagination(filtered.length);
+  });
+}
+
+
 
   function filterItems() {
     const selectedFeatures = Array.from(
