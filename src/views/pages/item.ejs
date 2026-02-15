@@ -104,8 +104,13 @@ window.addEventListener('DOMContentLoaded', () => {
                       } else if (typeof item.features === 'string') {
                         featuresList = item.features.split(/\s*,\s*/).filter(Boolean);
                       }
-                    %>
-                    <%= featuresList.length ? featuresList.join(', ') : '—' %>
+                      if (featuresList.length > 0) {
+                        featuresList.forEach((feature, index) => { %>
+                          <a href="/search?features=<%= encodeURIComponent(feature) %>" style="text-decoration: underline; color: #0000EE;"><%= feature %></a><% if (index < featuresList.length - 1) { %>, <% } %>
+                        <% });
+                      } else { %>
+                        —
+                      <% } %>
                   </td>
                 </tr>
                 <tr>
@@ -115,15 +120,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 <tr>
                     <td>Keywords</td>
                     <td>
-                      <% item.keywords.forEach((keyword, index) => { %>
-                        <form style="display: none" action="/search/" method="post">
-                          <input type="submit" value="<%= keyword %>" name="query" id="query<%= keyword %>"></input>
-                        </form>
-                        <label style="text-decoration: underline; color: #0000EE" for="query<%= keyword %>">
-                          <%= keyword %>
-                        </label>
-                        <% if (index < item.keywords.length - 1) { %>, <% } %>
-                      <% }); %>
+                      <% if (item.keywords && item.keywords.length > 0) { %>
+                        <% item.keywords.forEach((keyword, index) => { %>
+                          <a href="/search?query=<%= encodeURIComponent(keyword) %>" style="text-decoration: underline; color: #0000EE;"><%= keyword %></a><% if (index < item.keywords.length - 1) { %>, <% } %>
+                        <% }); %>
+                      <% } else { %>
+                        —
+                      <% } %>
                     </td>
                   </tr>
                 <tr>
@@ -199,8 +202,9 @@ window.addEventListener('DOMContentLoaded', () => {
         <%# Only show SPLICE protocol if the item supports it %>
         <% if (item.protocol && item.protocol.includes("SPLICE")) { %>
           <h4>SPLICE Output</h4>
-          <pre id="previewMessages" class="message"></pre>
+          <%#pre id="previewMessages" class="message"></%pre> %>
         <% } %>
+        <pre id="previewMessages" class="message"></pre>
     </div>
 
     <!-- Bootstrap JS bundle -->
