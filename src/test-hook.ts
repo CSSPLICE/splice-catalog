@@ -1,5 +1,5 @@
-import { AppDataSource } from "./src/db/data-source.js";
-import { slc_item_catalog } from "./src/db/entities/SLCItemCatalog.js";
+import { AppDataSource } from "./db/data-source.js";
+import { slc_item_catalog } from "./db/entities/SLCItemCatalog.js";
 
 async function test() {
     await AppDataSource.initialize();
@@ -23,8 +23,8 @@ async function test() {
     newItem.protocol_url = ["http://test.com"];
 
     console.log("Saving item to trigger hook...");
-    await newItem.save(); 
-    
+    await newItem.save();
+
     console.log("Done. Check your docker logs for the '✨' message!");
     process.exit(0);
 }
