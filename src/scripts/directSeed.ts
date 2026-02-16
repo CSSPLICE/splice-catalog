@@ -16,7 +16,7 @@ export const seedDatabase = async () => {
       database: process.env.DB_DATABASE || 'splice',
     });
 
-    const dataPath = path.join(process.cwd(), 'data/slc.json');
+    const dataPath = path.join(process.cwd(), 'data/OpenDSASLC.json');
     console.log(`Reading records from: ${dataPath}`);
 
     const rawData = await fs.readFile(dataPath, 'utf8');

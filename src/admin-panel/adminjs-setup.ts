@@ -6,6 +6,7 @@ import { OntologyRelations } from '../db/entities/OntologyRelation.js';
 import { OntologyAliases } from '../db/entities/OntologyAlias.js';
 import { ItemClassification } from '../db/entities/ItemClassification.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
+import { SearchAlias } from '../db/entities/SearchAlias.js';
 import { AdminJS, ResourceOptions } from 'adminjs';
 import { Database, Resource } from '@adminjs/typeorm';
 import { AppDataSource } from '../db/data-source.js';
@@ -59,6 +60,7 @@ export function setup() {
       { resource: OntologyAliases },
       { resource: ItemClassification },
       { resource: ValidationResults },
+      { resource: SearchAlias },
     ],
     rootPath: '/admin',
   });

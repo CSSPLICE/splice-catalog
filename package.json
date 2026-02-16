@@ -20,8 +20,9 @@
     "migrate:revert": "yarn typeorm migration:revert",
     "seed": "tsx src/db/seeds/CatalogSeeder.ts",
     "import:ontology": "ts-node-esm src/utils/import-ontology-data.ts",
-    "search:seed": "ts-node-esm scripts/directSeed.js",
-    "search:sync": "ts-node-esm scripts/syncMeili.js"
+    "search:seed": "sh -c '[ -f dist/scripts/directSeed.js ] && node dist/scripts/directSeed.js || node --loader ts-node/esm src/scripts/directSeed.ts'",
+    "search:seedAlias": "sh -c '[ -f dist/scripts/seedAliases.js ] && node dist/scripts/seedAliases.js || node --loader ts-node/esm src/scripts/seedAliases.ts'",
+    "search:sync": "sh -c '[ -f dist/scripts/syncMeili.js ] && node dist/scripts/syncMeili.js || node --loader ts-node/esm src/scripts/syncMeili.ts'"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.1",
