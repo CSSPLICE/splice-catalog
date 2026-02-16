@@ -22,11 +22,7 @@ export const AppDataSource: DataSource = new DataSource({
   username: process.env.DB_USERNAME || 'splice',
   password: process.env.DB_PASSWORD || 'splice',
   database: process.env.DB_DATABASE || 'splice',
-  migrations: [
-    SeedInitialData1764779460569,
-    CreateSearchAliasesTable1771278405273,
-    SeedSearchAliasesData1771278447647,
-  ],
+  migrations: [SeedInitialData1764779460569, CreateSearchAliasesTable1771278405273, SeedSearchAliasesData1771278447647],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [
     slc_item_catalog,
