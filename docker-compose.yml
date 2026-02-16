@@ -23,13 +23,13 @@ services:
       start_period: 30s
 
   meilisearch:
-    image: getmeili/meilisearch:latest
+    image: getmeili/meilisearch:v1.35.0
     container_name: meilisearch
     profiles:
-      - catalog 
+      - catalog
       - production
     environment:
-      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY} 
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
     volumes:
       - meili_data:/meili_data
     expose:
@@ -38,7 +38,7 @@ services:
       - '127.0.0.1:7700:7700'
     networks:
       - splice
-    healthcheck: 
+    healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
       interval: 10s
       timeout: 5s
