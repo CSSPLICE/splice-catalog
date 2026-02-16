@@ -13,6 +13,7 @@
     "pretty": "prettier . --write",
     "gulp": "gulp",
     "typeorm": "typeorm-ts-node-esm -d src/db/data-source.ts",
+    "typeorm:prod": "node ./node_modules/typeorm/cli.js -d dist/db/data-source.js",
     "typeorm-cli": "ts-node-esm",
     "migrate:show": "yarn typeorm migration:show",
     "migrate:create": "node scripts/migration-create.js",
