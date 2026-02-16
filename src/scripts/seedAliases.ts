@@ -14,12 +14,12 @@ export const seedAliases = async () => {
       database: process.env.DB_DATABASE || 'splice',
     });
 
-  await meilisearchService.syncSynonyms(connection);
+    await meilisearchService.syncSynonyms(connection);
   } catch (error) {
     console.error('Seeding Failed:', error);
   } finally {
     if (connection) await connection.end();
   }
-}
+};
 
 seedAliases();
