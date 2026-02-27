@@ -19,8 +19,16 @@ export function setup() {
     Resource,
   });
 
-  const bulkDelete: ResourceOptions = {
+  const customOptions: ResourceOptions = {
     actions: {
+      list: {
+        before: async (request) => {
+          if (request.query && !request.query.perPage) {
+            request.query.perPage = 100;
+          }
+          return request;
+        }
+      },
       deleteAll: {
         actionType: 'resource',
         icon: 'TrashCan',
@@ -45,15 +53,15 @@ export function setup() {
     resources: [
       {
         resource: slc_item_catalog,
-        options: bulkDelete,
+        options: customOptions,
       },
       {
         resource: slc_tools_catalog,
-        options: bulkDelete,
+        options: customOptions,
       },
       {
         resource: dataset_catalog,
-        options: bulkDelete,
+        options: customOptions,
       },
       { resource: OntologyClasses },
       { resource: OntologyRelations },
