@@ -1,8 +1,0 @@
-# Meilisearch aliases
-# Supported formats:
-# - left <-> right
-# - left => right1, right2
-# - term1, term2, term3
-
-BST <-> Binary Search Tree
-ADT <-> Abstract Data Type
