@@ -12,7 +12,13 @@
           <p>Persistent ID: <%= item.persistentID %></p>
           <p>Property: <%= item.property %></p>
             <% for (const constraint in item.constraints) {%>
-              <p><%= constraint %> - <%= item.constraints[constraint] %></p>
+              <%
+                const message = item.constraints[constraint].message;
+				const color = (item.constraints[constraint].severity === 'warn') ? 'orange' : 'red';
+              %>
+              <p style="color: <%= color %>">
+                  <%= constraint %> - <%= message %>
+              </p>
             <% } %>
         </li>
       <% }); %>

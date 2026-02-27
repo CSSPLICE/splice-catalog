@@ -68,7 +68,6 @@ export class ReviewController {
         return Object.prototype.hasOwnProperty.call(obj, 'persistentID');
       }
 
-      // ... (rest of the code)
 
       if (errors.length > 0) {
         const processed_errors = errors.map((error: ValidationError) => {
@@ -76,10 +75,21 @@ export class ReviewController {
           if (error.target && typeof error.target === 'object' && hasPersistentID(error.target)) {
             persistentID = error.target.persistentID;
           }
+          const richConstraints = {};
+          if (error.constraints) {
+            Object.entries(error.constraints).forEach(([key, message]) => {
+              const context = error.contexts ? error.contexts[key] : undefined;
+              const severity = context?.severity || 'error';
+              richConstraints[key] = {
+                message: message,
+                severity: severity
+              };
+            });
+          }
           return {
             persistentID: persistentID,
             property: error.property,
-            constraints: error.constraints,
+            constraints: richConstraints,
           };
         });
         console.log('Validation Errors: ', processed_errors);
