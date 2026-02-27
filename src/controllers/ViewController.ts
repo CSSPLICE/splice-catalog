@@ -3,20 +3,12 @@ import { AppDataSource } from '../db/data-source.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import logger from '../utils/logger.js';
 import fs from 'fs';
-import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
-import { validate } from 'class-validator';
-import { ResponseUtil } from '../utils/Response.js';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
-import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO.js';
 import { ReviewController } from './ReviewController.js';
-import { ValidationManager } from '../services/ValidationManager.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
 
 const reviewController = new ReviewController();
-const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
-const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
-const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
 
 import { SearchController } from './SearchController.js';
 
@@ -96,83 +88,6 @@ export class ViewController {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
-
-  async approveAll(req: Request, res: Response) {
-    const data = req.body.data;
-    logger.info('Approve All called with data:', data);
-    const jsonArray = JSON.parse(data);
-    logger.info('Parsed JSON data:', jsonArray);
-
-    let processedCount = 0;
-    const itemsToClassify: CreateSLCItemDTO[] = [];
-
-    for (const item of jsonArray) {
-      let dto, repo;
-
-      // Check if the item has an exercise_name
-      if (!item.exercise_name || item.exercise_name.trim() === '') {
-        logger.info('Skipping item without exercise_name:', item);
-        continue; // Skip this item if it doesn't have an exercise_name
-      }
-
-      switch (item.catalog_type) {
-        case 'SLCItemCatalog': {
-          logger.info('SLCItemCatalog called with data, logger');
-          dto = new CreateSLCItemDTO();
-          Object.assign(dto, item);
-          repo = AppDataSource.getRepository(slc_item_catalog);
-          itemsToClassify.push(dto); // Add to classification list
-          break;
-        }
-
-        case 'DatasetCatalog': {
-          const dto = new CreateDatasetCatalogDTO();
-          Object.assign(dto, item);
-          const validationErrors = await validate(dto);
-          if (validationErrors.length > 0) {
-            logger.error(`Validation errors for ${item.catalog_type}:`, validationErrors);
-            continue; // Skip this item if validation fails
-          }
-          const repo = AppDataSource.getRepository(dataset_catalog);
-          const catalogItem = repo.create(dto);
-          await repo.save(catalogItem);
-          processedCount++;
-          break;
-        }
-
-        default:
-          logger.warn(`Unrecognized catalog type: ${item.catalog_type}`);
-          continue; // Skip this item
-      }
-
-      // Common validation and saving logic for the catalog types
-      if (dto && repo) {
-        const validationErrors = await validate(dto);
-        if (validationErrors.length > 0) {
-          logger.error(`Validation errors for ${item.catalog_type}:`, validationErrors);
-        } else {
-          const catalogItem = repo.create(dto);
-          await repo.save(catalogItem);
-          processedCount++;
-        }
-      }
-    }
-
-    // Proceed to store and classify items after processing all entries
-    if (itemsToClassify.length > 0) {
-      logger.info('calling storeAndClassifyItems');
-      const categoryReport = await validationManager.generateCategoryReport(itemsToClassify);
-      await validationManager.storeAndClassifyItems(categoryReport);
-    }
-
-    return ResponseUtil.sendResponse(res, `${processedCount} entries processed successfully`, 201);
-    const catalog_data = await AppDataSource.getRepository(slc_item_catalog).find();
-    res.render('pages/index', {
-      catalog: catalog_data,
-      title: 'SPLICE Catalog',
-    });
-  }
-
   profileView(req: Request, res: Response) {
     // res.render('pages/profile', { title: 'Profile', user: JSON.stringify(req.oidc.user, null, 2) });
     res.render('pages/profile', { title: 'Profile' });
