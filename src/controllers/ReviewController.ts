@@ -68,21 +68,36 @@ export class ReviewController {
         return Object.prototype.hasOwnProperty.call(obj, 'persistentID');
       }
 
-      // ... (rest of the code)
 
       if (errors.length > 0) {
-        console.log('Validation Errors: ', errors);
-        res.status(500).send(
-          errors.map((error: ValidationError) => {
-            let persistentID = 'missing id';
-            if (error.target && typeof error.target === 'object' && hasPersistentID(error.target)) {
-              persistentID = error.target.persistentID;
-            }
-            return {
-              persistentID: persistentID,
-              constraints: error.constraints,
-            };
-          }),
+        const processed_errors = errors.map((error: ValidationError) => {
+          let persistentID = 'missing id';
+          if (error.target && typeof error.target === 'object' && hasPersistentID(error.target)) {
+            persistentID = error.target.persistentID;
+          }
+          const richConstraints = {};
+          if (error.constraints) {
+            Object.entries(error.constraints).forEach(([key, message]) => {
+              const context = error.contexts ? error.contexts[key] : undefined;
+              const severity = context?.severity || 'error';
+              richConstraints[key] = {
+                message: message,
+                severity: severity
+              };
+            });
+          }
+          return {
+            persistentID: persistentID,
+            property: error.property,
+            constraints: richConstraints,
+          };
+        });
+        console.log('Validation Errors: ', processed_errors);
+        return res.status(500).render('pages/review',
+          {
+            title: "Review Dashboard",
+            errors: processed_errors,
+          }
         );
       } else {
         res.status(200).send(`successfully saved ${saves} entries`);

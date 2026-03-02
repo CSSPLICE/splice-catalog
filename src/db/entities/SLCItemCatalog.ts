@@ -30,7 +30,7 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsNotEmpty()
   @IsString()
   @IsUrl()
-  @Reachable()
+  @Reachable({ context: { severity: 'warn'} })
   iframe_url!: string;
 
   @Column()
