@@ -9,7 +9,7 @@ export class MeilisearchService {
 
   constructor() {
     this.client = new MeiliSearch({
-      host: process.env.MEILISEARCH_HOST || process.env.MEILI_HOST || 'http://meilisearch:7700',
+      host: process.env.MEILISEARCH_HOST || 'http://meilisearch:7700',
       apiKey: process.env.MEILI_MASTER_KEY,
     });
 
