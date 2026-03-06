@@ -46,6 +46,7 @@ export class MeilisearchService {
     try {
       const searchResults = await this.index.search(query, {
         limit: 1000,
+        matchingStrategy: 'all',
       });
       return searchResults.hits;
     } catch (error) {
@@ -68,6 +69,9 @@ export class MeilisearchService {
         minWordSizeForTypos: {
           oneTypo: 4,
         },
+      },
+      pagination: {
+        maxTotalHits: 1000,
       },
     });
   }
