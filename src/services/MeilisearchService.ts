@@ -1,5 +1,7 @@
 import { MeiliSearch, Index } from 'meilisearch';
 import 'dotenv/config';
+import fs from 'fs/promises';
+import path from 'path';
 
 export class MeilisearchService {
   private client: MeiliSearch;
@@ -56,11 +58,11 @@ export class MeilisearchService {
     await this.index.updateSettings({
       searchableAttributes: ['title', 'keywords', 'description', 'author'],
       rankingRules: [
-        'words', // Matches the most words first
-        'typo', // Favors fewer typos
-        'proximity', // Favors words that are close together (Critical for "Binary Search Tree")
-        'attribute', // Favors matches in the title over the description
-        'exactness', // Favors exact matches
+        'words',
+        'typo',
+        'proximity',
+        'attribute',
+        'exactness',
       ],
       typoTolerance: {
         minWordSizeForTypos: {
@@ -70,31 +72,100 @@ export class MeilisearchService {
     });
   }
 
-  async syncSynonyms(connection: any) {
+  private normalizeAlias(term: string): string {
+    return term.trim().toLowerCase();
+  }
+
+  private addSymmetricAlias(map: Record<string, string[]>, leftRaw: string, rightRaw: string) {
+    const left = this.normalizeAlias(leftRaw);
+    const right = this.normalizeAlias(rightRaw);
+    if (!left || !right || left === right) return;
+
+    if (!map[left]) map[left] = [];
+    if (!map[right]) map[right] = [];
+
+    if (!map[left].includes(right)) map[left].push(right);
+    if (!map[right].includes(left)) map[right].push(left);
+  }
+
+  private resolveAliasesPath(): string {
+    const configured = process.env.MEILI_SYNONYMS_FILE;
+    if (configured) {
+      return path.isAbsolute(configured) ? configured : path.resolve(process.cwd(), configured);
+    }
+    return path.resolve(process.cwd(), 'src/scripts/search/synonyms.txt');
+  }
+
+  private async loadSynonymsFromFile(): Promise<Record<string, string[]>> {
+    const sourcePath = this.resolveAliasesPath();
+    const fallbackDistPath = path.resolve(process.cwd(), 'dist/scripts/search/synonyms.txt');
+
+    let synonymsPath = sourcePath;
     try {
-      console.log('Fetching search aliases from MySQL...');
+      await fs.access(sourcePath);
+    } catch {
+      synonymsPath = fallbackDistPath;
+    }
 
-      const [rows]: any = await connection.execute('SELECT term, synonym FROM search_aliases');
+    try {
+      await fs.access(synonymsPath);
+    } catch {
+      throw new Error(
+        `Synonyms file not found. Checked: ${sourcePath} and ${fallbackDistPath}. ` +
+          'Set MEILI_SYNONYMS_FILE to override.',
+      );
+    }
 
-      const synonymMap: Record<string, string[]> = {};
+    const raw = await fs.readFile(synonymsPath, 'utf8');
+    const map: Record<string, string[]> = {};
+    const lines = raw
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('#'));
 
-      rows.forEach((row: { term: string; synonym: string }) => {
-        const term = row.term.toLowerCase();
-        const synonym = row.synonym.toLowerCase();
+    for (const line of lines) {
+      if (line.includes('<->')) {
+        const [left, right] = line.split('<->').map((part) => part.trim());
+        this.addSymmetricAlias(map, left, right);
+        continue;
+      }
 
-        if (!synonymMap[term]) synonymMap[term] = [];
-        if (!synonymMap[synonym]) synonymMap[synonym] = [];
+      if (line.includes('=>')) {
+        const [left, rightList] = line.split('=>').map((part) => part.trim());
+        const rights = rightList
+          .split(',')
+          .map((term) => term.trim())
+          .filter(Boolean);
+        for (const right of rights) {
+          this.addSymmetricAlias(map, left, right);
+        }
+        continue;
+      }
 
-        if (!synonymMap[term].includes(synonym)) synonymMap[term].push(synonym);
-        if (!synonymMap[synonym].includes(term)) synonymMap[synonym].push(term);
-      });
+      const group = line
+        .split(',')
+        .map((term) => term.trim())
+        .filter(Boolean);
+      for (let i = 0; i < group.length; i += 1) {
+        for (let j = i + 1; j < group.length; j += 1) {
+          this.addSymmetricAlias(map, group[i], group[j]);
+        }
+      }
+    }
+
+    return map;
+  }
+
+  async syncSynonyms() {
+    try {
+      const synonymMap = await this.loadSynonymsFromFile();
 
       console.log('Uploading synonyms to Meilisearch...');
       await this.index.updateSettings({
         synonyms: synonymMap,
       });
 
-      console.log(`Synonym sync complete. ${rows.length} alias pairs applied.`);
+      console.log(`Synonym sync complete. ${Object.keys(synonymMap).length} terms configured.`);
     } catch (error) {
       console.error('Failed to sync synonyms:', error);
     }
