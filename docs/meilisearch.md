@@ -6,7 +6,7 @@ This project uses Meilisearch for high-performance, fuzzy full-text search.
 
 In your .env file, ensure you have defined the following variables:
 MEILI_MASTER_KEY=masterKey123
-MEILISEARCH_HOST=http://meilisearch:7700
+MEILI_HOST=http://meilisearch:7700
 
 ---
 
