@@ -27,10 +27,14 @@ export class ReviewController {
         logger.info(`Processing ${slcItemCatalogs.length} SLCItemCatalog items`);
         for (const item of slcItemCatalogs) {
           const entity = itemsRepository.create(item);
+          console.log(0);
           const result = await validate(entity);
+          console.log(1);
           if (result.length === 0) {
+            console.log(2);
             saves++;
             await itemsRepository.save(entity);
+            console.log(3);
           } else {
             errors.push(...result);
           }
@@ -89,6 +93,7 @@ export class ReviewController {
       }
     } catch (error) {
       logger.error('Error during validation:', error);
+      console.log(error);
       if (!res.headersSent) {
         res.status(500).send('Error during validation');
       }
