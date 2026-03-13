@@ -21,76 +21,76 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsString()
   persistentID!: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsNotEmpty()
   @IsString()
   platform_name!: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsNotEmpty()
   @IsString()
   @IsUrl()
   @Reachable()
   iframe_url!: string;
 
-  @Column()
+  @Column({ nullable: true })
   @IsOptional()
   @IsString()
   license?: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   @IsNotEmpty()
   @IsString()
   description!: string;
 
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true })
   @IsNotEmpty()
   @IsArray()
   @IsString({ each: true })
   author!: string[];
 
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true })
   @IsNotEmpty()
   @IsArray()
   @IsString({ each: true })
   institution!: string[];
 
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true })
   @IsNotEmpty()
   @IsArray()
   @IsString({ each: true })
   keywords!: string[];
 
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true })
   @IsNotEmpty()
   @IsArray()
   @IsString({ each: true })
   features!: string[];
 
-  @Column()
+  @Column({ nullable: true })
   @IsNotEmpty()
   @IsString()
   title!: string;
 
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   programming_language?: string[];
 
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true })
   @IsNotEmpty()
   @IsArray()
   @IsString({ each: true })
   natural_language!: string[];
 
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   protocol?: string[];
 
-  @Column('simple-array')
+  @Column('simple-array', { nullable: true })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

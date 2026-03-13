@@ -9,7 +9,6 @@
   ],
   "protocol": ["LTI 1.1", "SPLICE"],
   "license": "https://github.com/OpenDSA/OpenDSA/blob/master/MIT-license.txt",
-  "description": "Intro to Software Design Week 1 battery of self-assessment questions: Micro-Worlds",
   "author": ["Molly Domino"],
   "institution": ["Virginia Tech"],
   "keywords": ["Software Design"],
