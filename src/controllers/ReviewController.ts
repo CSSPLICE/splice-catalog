@@ -20,26 +20,37 @@ export class ReviewController {
       const slcToolsCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCToolsCatalog');
       const datasetCatalogs = jsonArray.filter((item) => item.catalog_type === 'DatasetCatalog');
 
-      const errors: ValidationError[] = [];
+      const issues: ValidationError[] = [];
       let saves: number = 0;
+
       // Process SLCItemCatalogs
       if (slcItemCatalogs.length > 0) {
         logger.info(`Processing ${slcItemCatalogs.length} SLCItemCatalog items`);
+
         for (const item of slcItemCatalogs) {
           const entity = itemsRepository.create(item);
-          console.log(0);
           const result = await validate(entity);
-          console.log(1);
-          if (result.length === 0) {
-            console.log(2);
+          if (result.length > 0) {
+            issues.push(...result);
+          }
+          const hasError = result.some(
+            (validationError) => {
+              const constraints = validationError.constraints || {};
+              const contexts = validationError.contexts || {};
+              return Object.keys(constraints).some(
+                (constraintName) => {
+                  return contexts[constraintName]?.severity === 'error';
+                }
+              );
+          });
+
+          if (!hasError) {
             saves++;
             await itemsRepository.save(entity);
-            console.log(3);
-          } else {
-            errors.push(...result);
           }
         }
       }
+
       // Process SLCToolsCatalog
       if (slcToolsCatalogs.length > 0) {
         logger.info(`Processing ${slcToolsCatalogs.length} SLCToolsCatalog items`);
@@ -50,7 +61,7 @@ export class ReviewController {
             saves++;
             await toolsRepository.save(entity);
           } else {
-            errors.push(...result);
+            issues.push(...result);
           }
         }
       }
@@ -64,7 +75,7 @@ export class ReviewController {
             saves++;
             await datasetRepository.save(entity);
           } else {
-            errors.push(...result);
+            issues.push(...result);
           }
         }
       }
@@ -74,10 +85,10 @@ export class ReviewController {
 
       // ... (rest of the code)
 
-      if (errors.length > 0) {
-        console.log('Validation Errors: ', errors);
+      if (issues.length > 0) {
+        console.log('Validation Errors: ', issues);
         res.status(500).send(
-          errors.map((error: ValidationError) => {
+          issues.map((error: ValidationError) => {
             let persistentID = 'missing id';
             if (error.target && typeof error.target === 'object' && hasPersistentID(error.target)) {
               persistentID = error.target.persistentID;
