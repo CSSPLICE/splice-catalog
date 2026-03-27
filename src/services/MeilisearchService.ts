@@ -57,7 +57,7 @@ export class MeilisearchService {
 
   async setupSettings() {
     await this.index.updateSettings({
-      searchableAttributes: ['title', 'keywords', 'description', 'author'],
+      searchableAttributes: ['keywords', 'features', 'title', 'description', 'author'],
       rankingRules: [
         'words',
         'typo',
