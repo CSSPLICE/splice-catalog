@@ -9,9 +9,13 @@ export function views() {
   return gulp.src('./src/views/**/*.ejs').pipe(gulp.dest('./dist/views'));
 }
 
+export function scriptsAssets() {
+  return gulp.src('./src/scripts/**/*.txt').pipe(gulp.dest('./dist/scripts'));
+}
+
 function finish(done) {
   console.log('gulp done');
   done();
 }
 
-export default gulp.series(assets, views, finish);
+export default gulp.series(assets, views, scriptsAssets, finish);
