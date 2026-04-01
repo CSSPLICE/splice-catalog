@@ -3,6 +3,9 @@ import 'dotenv/config';
 
 export const seedAliases = async () => {
   try {
+    console.log('Applying Meilisearch search settings...');
+    await meilisearchService.setupSettings();
+
     console.log('Syncing Meilisearch synonyms from synonyms.txt...');
     await meilisearchService.syncSynonyms();
   } catch (error) {

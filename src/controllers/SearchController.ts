@@ -11,9 +11,14 @@ const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_ca
   datasets: dataset_catalog,
 };
 
+const normalizeSearchQuery = (value: unknown): string => {
+  if (typeof value !== 'string') return '';
+  return value.trim().replace(/\s+/g, ' ');
+};
+
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
-    const query = (req.query.query as string) || '';
+    const query = normalizeSearchQuery(req.query.query);
 
     const features = req.query.features || [];
     let featureTypes: string[] = [];
@@ -122,7 +127,7 @@ export class SearchController {
   }
 
   async searchCatalogAPI(req: Request, res: Response) {
-    const query = (req.query.terms as string) || '';
+    const query = normalizeSearchQuery(req.query.terms);
 
     let results: any[] = [];
 
