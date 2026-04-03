@@ -1,7 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryColumn, Generated, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 import { IsNotEmpty, IsString, IsOptional, IsUrl, IsArray } from 'class-validator';
 import { CatalogInterface } from './CatalogInterface.js';
-import { Reachable } from '../validators.js';
+// import { Reachable } from '../validators.js';
 import { meilisearchService } from '../../services/MeilisearchService.js';
 // import { ValidationResults } from './ValidationResults.js';
 
@@ -28,7 +28,7 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsNotEmpty({context: {severity: 'error'}})
   @IsString({context: {severity: 'error'}})
   @IsUrl(undefined, {context: {severity: 'error'}})
-  @Reachable({context: {severity: 'error'}})
+  @Reachable({context: {severity: 'warning'}})
   iframe_url!: string;
 
   @Column({ nullable: true })
@@ -92,7 +92,7 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsOptional({context: {severity: 'warning'}})
   @IsArray({context: {severity: 'warning'}})
   @IsString({ each: true, context: {severity: 'warning'} })
-  @Reachable({context: {severity: 'error'}})
+  @Reachable({context: {severity: 'warning'}})
   protocol_url?: string[];
 
   @AfterInsert()
