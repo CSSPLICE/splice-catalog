@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') -%>
+<%- include('../partials/header') -%>
+
+<body>
+  <div class="container">
+    <h2>Validation Results</h2>
+    <p>Successfully saved <%= saves %> entries</p>
+    <% if (errors.length > 0) { %>
+    <h3>Issues:</h3>
+    <ul>
+      <% errors.forEach(function (item) { %>
+        <li>
+          <p>Persistent ID: <%= item.persistentID %></p>
+          <p>Property: <%= item.property %></p>
+            <% for (const constraint in item.constraints) {%>
+              <%
+                const message = item.constraints[constraint].message;
+                const color = (item.constraints[constraint].severity === 'warning') ? 'orange' : 'red';
+              %>
+              <p style="color: <%= color %>">
+                  <%= constraint %> - <%= message %>
+              </p>
+            <% } %>
+        </li>
+      <% }); %>
+    </ul>
+    <% } %>
+  </div>
+
+  <%- include('../partials/footer') -%>
+</body>
+</html>
