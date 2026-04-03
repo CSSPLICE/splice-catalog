@@ -27,7 +27,7 @@ export function setup() {
             request.query.perPage = 100;
           }
           return request;
-        }
+        },
       },
       deleteAll: {
         actionType: 'resource',
