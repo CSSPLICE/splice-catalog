@@ -58,13 +58,7 @@ export class MeilisearchService {
   async setupSettings() {
     await this.index.updateSettings({
       searchableAttributes: ['keywords', 'features', 'title', 'description', 'author'],
-      rankingRules: [
-        'words',
-        'typo',
-        'proximity',
-        'attribute',
-        'exactness',
-      ],
+      rankingRules: ['words', 'typo', 'proximity', 'attribute', 'exactness'],
       typoTolerance: {
         minWordSizeForTypos: {
           oneTypo: 4,

@@ -12,11 +12,16 @@ const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_ca
 };
 
 const FILTER_FIELDS = [
-  { key: 'features', label: 'Features', itemField: 'features' },
+  { key: 'features', label: 'Features', itemField: 'features', legacyQueryKeys: [] },
   { key: 'tools', label: 'Tools', itemField: 'platform_name', legacyQueryKeys: ['tool'] },
-  { key: 'natural_language', label: 'Natural Language', itemField: 'natural_language' },
-  { key: 'programming_language', label: 'Programming Language', itemField: 'programming_language' },
-  { key: 'institution', label: 'Institution', itemField: 'institution' },
+  { key: 'natural_language', label: 'Natural Language', itemField: 'natural_language', legacyQueryKeys: [] },
+  {
+    key: 'programming_language',
+    label: 'Programming Language',
+    itemField: 'programming_language',
+    legacyQueryKeys: [],
+  },
+  { key: 'institution', label: 'Institution', itemField: 'institution', legacyQueryKeys: [] },
 ] as const;
 
 type FilterFieldConfig = (typeof FILTER_FIELDS)[number];
@@ -48,7 +53,7 @@ const normalizeStringArray = (value: unknown): string[] => {
 };
 
 const getSelectedFilterValues = (req: Request, field: FilterFieldConfig): string[] => {
-  const rawValues = [req.query[field.key], ...(field.legacyQueryKeys || []).map((key) => req.query[key])].filter(Boolean);
+  const rawValues = [req.query[field.key], ...field.legacyQueryKeys.map((key) => req.query[key])].filter(Boolean);
   return rawValues.flatMap((value) => normalizeStringArray(value));
 };
 
@@ -100,9 +105,9 @@ export class SearchController {
 
     const allCatalogItems = (await AppDataSource.getRepository(slc_item_catalog).find()).map(normalizeCatalogItem);
     const filterSections = FILTER_FIELDS.map((field) => {
-      const choices = [...new Set(allCatalogItems.flatMap((item) => getItemFilterValues(item, field)).filter(Boolean))].sort(
-        (left, right) => left.localeCompare(right),
-      );
+      const choices = [
+        ...new Set(allCatalogItems.flatMap((item) => getItemFilterValues(item, field)).filter(Boolean)),
+      ].sort((left, right) => left.localeCompare(right));
 
       if (field.key === 'features' && !choices.includes('Untagged')) {
         choices.push('Untagged');
