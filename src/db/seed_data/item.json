@@ -10,7 +10,6 @@
     ],
     "protocol": ["LTI 1.1", "SPLICE"],
     "license": "broken link here",
-    "description": "some desc",
     "author": ["Molly Domino"],
     "institution": ["Virginia Tech"],
     "keywords": ["Software Design"],

@@ -37,7 +37,7 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   license?: string;
 
   @Column('text', { nullable: true })
-  @IsNotEmpty({context: {severity: 'error'}})
+  @IsNotEmpty({context: {severity: 'warning'}})
   @IsString({context: {severity: 'warning'}})
   description!: string;
 
