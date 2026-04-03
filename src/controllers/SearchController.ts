@@ -11,36 +11,67 @@ const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_ca
   datasets: dataset_catalog,
 };
 
+const FILTER_FIELDS = [
+  { key: 'features', label: 'Features', itemField: 'features' },
+  { key: 'tools', label: 'Tools', itemField: 'platform_name', legacyQueryKeys: ['tool'] },
+  { key: 'natural_language', label: 'Natural Language', itemField: 'natural_language' },
+  { key: 'programming_language', label: 'Programming Language', itemField: 'programming_language' },
+  { key: 'institution', label: 'Institution', itemField: 'institution' },
+] as const;
+
+type FilterFieldConfig = (typeof FILTER_FIELDS)[number];
+type SelectedFilters = Record<string, string[]>;
+
 const normalizeSearchQuery = (value: unknown): string => {
   if (typeof value !== 'string') return '';
   return value.trim().replace(/\s+/g, ' ');
 };
 
+const normalizeStringArray = (value: unknown): string[] => {
+  if (!value) return [];
+
+  if (Array.isArray(value)) {
+    return value
+      .map(String)
+      .map((entry) => entry.trim())
+      .filter(Boolean);
+  }
+
+  if (typeof value === 'string') {
+    return value
+      .split(',')
+      .map((entry) => entry.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+};
+
+const getSelectedFilterValues = (req: Request, field: FilterFieldConfig): string[] => {
+  const rawValues = [req.query[field.key], ...(field.legacyQueryKeys || []).map((key) => req.query[key])].filter(Boolean);
+  return rawValues.flatMap((value) => normalizeStringArray(value));
+};
+
+const normalizeCatalogItem = (item: any) => {
+  item.keywords = normalizeStringArray(item.keywords);
+  item.features = normalizeStringArray(item.features);
+  item.author = normalizeStringArray(item.author);
+  item.institution = normalizeStringArray(item.institution);
+  item.natural_language = normalizeStringArray(item.natural_language);
+  item.programming_language = normalizeStringArray(item.programming_language);
+  return item;
+};
+
+const getItemFilterValues = (item: any, field: FilterFieldConfig): string[] => {
+  return normalizeStringArray(item[field.itemField]);
+};
+
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
     const query = normalizeSearchQuery(req.query.query);
-
-    const features = req.query.features || [];
-    let featureTypes: string[] = [];
-    if (typeof features === 'string') {
-      featureTypes = features
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
-    } else if (Array.isArray(features)) {
-      featureTypes = features as string[];
-    }
-
-    const tools = req.query.tool || [];
-    let toolTypes: string[] = [];
-    if (typeof tools === 'string') {
-      toolTypes = tools
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean);
-    } else if (Array.isArray(tools)) {
-      toolTypes = tools as string[];
-    }
+    const selectedFilters: SelectedFilters = Object.fromEntries(
+      FILTER_FIELDS.map((field) => [field.key, getSelectedFilterValues(req, field)]),
+    );
 
     let search_data: any[] = [];
 
@@ -55,74 +86,44 @@ export class SearchController {
       search_data = await AppDataSource.getRepository(slc_item_catalog).find();
     }
 
-    search_data = search_data.map((item) => {
-      if (item.keywords && typeof item.keywords === 'string') {
-        item.keywords = item.keywords
-          .split(',')
-          .map((s: string) => s.trim())
-          .filter(Boolean);
-      } else if (!item.keywords) {
-        item.keywords = [];
+    search_data = search_data.map(normalizeCatalogItem);
+
+    for (const field of FILTER_FIELDS) {
+      const selectedValues = selectedFilters[field.key];
+      if (selectedValues.length === 0) continue;
+
+      search_data = search_data.filter((item) => {
+        const itemValues = getItemFilterValues(item, field);
+        return selectedValues.some((value) => itemValues.includes(value));
+      });
+    }
+
+    const allCatalogItems = (await AppDataSource.getRepository(slc_item_catalog).find()).map(normalizeCatalogItem);
+    const filterSections = FILTER_FIELDS.map((field) => {
+      const choices = [...new Set(allCatalogItems.flatMap((item) => getItemFilterValues(item, field)).filter(Boolean))].sort(
+        (left, right) => left.localeCompare(right),
+      );
+
+      if (field.key === 'features' && !choices.includes('Untagged')) {
+        choices.push('Untagged');
       }
 
-      if (item.features && typeof item.features === 'string') {
-        item.features = item.features
-          .split(',')
-          .map((s: string) => s.trim())
-          .filter(Boolean);
-      } else if (!item.features) {
-        item.features = [];
-      }
-      return item;
+      return {
+        key: field.key,
+        label: field.label,
+        type: 'flat',
+        choices,
+      };
     });
-
-    if (featureTypes.length > 0) {
-      search_data = search_data.filter((item) => {
-        const itemFeatures = Array.isArray(item.features) ? item.features : (item.features || '').split(',');
-        return featureTypes.some((f) => itemFeatures.map((s: string) => s.trim()).includes(f));
-      });
-    }
-
-    if (toolTypes.length > 0) {
-      search_data = search_data.filter((item) => {
-        return toolTypes.includes(item.platform_name);
-      });
-    }
-
-    const allFeatures = await AppDataSource.getRepository(slc_item_catalog)
-      .createQueryBuilder('item')
-      .select('DISTINCT item.features', 'features')
-      .getRawMany();
-
-    const featureChoices = [
-      ...new Set(
-        allFeatures
-          .map((t) => t.features)
-          .flat()
-          .flatMap((featureString) => (featureString || '').split(',').map((s: string) => s.trim()))
-          .filter(Boolean),
-      ),
-    ];
-    if (!featureChoices.includes('Untagged')) {
-      featureChoices.push('Untagged');
-    }
-
-    const allTools = await AppDataSource.getRepository(slc_item_catalog)
-      .createQueryBuilder('item')
-      .select('DISTINCT item.platform_name', 'platform_name')
-      .getRawMany();
-    const toolChoices = allTools.map((t) => t.platform_name).filter(Boolean);
 
     res.render('pages/search', {
       results: search_data,
       currentPage: 1,
       totalPages: 1,
       query,
-      features: featureTypes,
+      selectedFilters,
+      filterSections,
       title: 'Search Results',
-      featureChoices,
-      tools: toolTypes,
-      toolChoices,
     });
   }
 
@@ -140,23 +141,7 @@ export class SearchController {
         results = await AppDataSource.getRepository(entity).find();
       }
 
-      results = results.map((item) => {
-        item.keywords =
-          typeof item.keywords === 'string'
-            ? item.keywords
-                .split(',')
-                .map((s: string) => s.trim())
-                .filter(Boolean)
-            : item.keywords || [];
-        item.features =
-          typeof item.features === 'string'
-            ? item.features
-                .split(',')
-                .map((s: string) => s.trim())
-                .filter(Boolean)
-            : item.features || [];
-        return item;
-      });
+      results = results.map(normalizeCatalogItem);
 
       return res.json({ results });
     } catch (error) {

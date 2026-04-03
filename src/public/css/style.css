@@ -216,6 +216,15 @@
   margin-bottom: 1rem;
 }
 
+.search-sidebar legend {
+  margin-bottom: 0.35rem;
+}
+
+.search-sidebar legend label {
+  font-size: 1.0rem;
+  font-weight: 600;
+}
+
 .search-sidebar label {
   margin-left: 0.4rem;
 }

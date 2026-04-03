@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const s = String(raw).trim();
     if (!s) return [];
 
-    // handle JSON-string array: '["A","B"]'
     if (s.startsWith('[') && s.endsWith(']')) {
       try {
         const arr = JSON.parse(s);
@@ -27,16 +26,38 @@ document.addEventListener('DOMContentLoaded', function () {
       } catch {}
     }
 
-    // comma-separated
     return s
       .split(/[;,]/)
       .map((x) => x.trim())
       .filter(Boolean);
   }
 
+  function parseFieldValues(raw) {
+    if (!raw) return [];
+    if (Array.isArray(raw))
+      return raw
+        .map(String)
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+    return String(raw)
+      .split(/[;,]/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+
+  function getSelectedFilterValues() {
+    return (window.filterSections || []).reduce((acc, section) => {
+      acc[section.key] = Array.from(document.querySelectorAll(`[data-filter-option="${section.key}"]:checked`)).map(
+        (cb) => cb.value,
+      );
+      return acc;
+    }, {});
+  }
+
   let currentItems = [...allItems];
   window.currentItems = [...currentItems];
-  let searchResults = [...allItems]; //candidate list (melisearch results)
+  let searchResults = [...allItems];
 
   const form = document.getElementById('filterForm');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
@@ -44,20 +65,24 @@ document.addEventListener('DOMContentLoaded', function () {
   const paginationContainer = document.querySelector('.pagination');
 
   tableBody.addEventListener('click', function (e) {
-    console.log('Clicked element:', e.target);
     if (e.target.classList.contains('keyword-link')) {
       handleKeywordSearch.call(e.target, e);
     }
     if (e.target.classList.contains('feature-link')) {
       e.preventDefault();
       const feature = e.target.dataset.feature;
-      const featureCheckbox = form.querySelector(`.exerciseTypeInput[value="${feature}"]`);
+      const featureCheckbox = form.querySelector(`[data-filter-option="features"][value="${feature}"]`);
+      const featuresToggle = form.querySelector('[data-filter-toggle="features"]');
+      const featuresOptions = form.querySelector('[data-filter-options="features"]');
       if (featureCheckbox) {
         featureCheckbox.checked = true;
+        if (featuresToggle) featuresToggle.checked = true;
+        if (featuresOptions) featuresOptions.style.display = '';
         updateResults();
       }
     }
   });
+
   const itemsPerPageSelect = document.getElementById('itemsPerPage');
   let ITEMS_PER_PAGE = parseInt(itemsPerPageSelect?.value || '25', 10);
   let currentPage = 1;
@@ -74,31 +99,26 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function filterItems() {
-    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
-    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
-    const queryValue = document.querySelector('input[name="query"]').value.trim();
+    const selectedFilters = getSelectedFilterValues();
 
-    // Base set: always filter from the candidate list
     let filteredItems = searchResults;
 
-    if (selectedFeatures.length > 0) {
-      filteredItems = filteredItems.filter((item) => {
-        const itemFeatures = Array.isArray(item.features)
-          ? item.features
-          : (item.features || '').split(',').map((s) => s.trim());
-        return selectedFeatures.some((sf) => itemFeatures.includes(sf));
-      });
-    }
+    (window.filterSections || []).forEach((section) => {
+      const selectedValues = selectedFilters[section.key] || [];
+      if (selectedValues.length === 0) return;
 
-    if (selectedTools.length > 0) {
-      filteredItems = filteredItems.filter((item) => selectedTools.includes(item.platform_name));
-    }
+      const itemField = section.key === 'tools' ? 'platform_name' : section.key;
+      filteredItems = filteredItems.filter((item) => {
+        const itemValues = parseFieldValues(item[itemField]);
+        return selectedValues.some((selectedValue) => itemValues.includes(selectedValue));
+      });
+    });
 
     if (activeKeyword) {
       const target = activeKeyword.trim().toLowerCase();
       filteredItems = filteredItems.filter((item) => {
         const kws = parseKeywords(item.keywords).map((k) => k.trim().toLowerCase());
-        return kws.includes(target); // exact keyword match
+        return kws.includes(target);
       });
     }
 
@@ -133,13 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         )
         .join(', ');
 
-      const features = Array.isArray(item.features)
-        ? item.features
-        : (item.features || '')
-            .split(',')
-            .map((s) => s.trim())
-            .filter(Boolean);
-
+      const features = parseFieldValues(item.features);
       const featureLinks = features
         .map((f) => `<a href="#" class="feature-link" data-feature="${f}">${f}</a>`)
         .join(', ');
@@ -173,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const endNum = Math.min(page * ITEMS_PER_PAGE, items.length);
 
     if (recordCountEl) {
-      recordCountEl.textContent = `Showing ${startNum}–${endNum} of ${items.length} results`;
+      recordCountEl.textContent = `Showing ${startNum}-${endNum} of ${items.length} results`;
     }
   }
 
@@ -189,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = '#';
-      a.innerText = '❮ Previous';
+      a.innerText = '< Previous';
       a.className = 'pagination-btn';
       a.addEventListener('click', (e) => {
         e.preventDefault();
@@ -226,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = '#';
-      a.innerText = 'Next ❯';
+      a.innerText = 'Next >';
       a.className = 'pagination-btn';
       a.addEventListener('click', (e) => {
         e.preventDefault();
@@ -245,13 +259,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateURL() {
     const searchInput = searchForm.querySelector('input[name="query"]');
     const query = searchInput.value;
-    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
-    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
+    const selectedFilters = getSelectedFilterValues();
 
     const params = new URLSearchParams();
     if (query) params.set('query', query);
-    selectedFeatures.forEach((f) => params.append('features', f));
-    selectedTools.forEach((t) => params.append('tools', t));
+    Object.entries(selectedFilters).forEach(([key, values]) => {
+      values.forEach((value) => params.append(key, value));
+    });
     if (activeKeyword) params.set('keyword', activeKeyword);
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
@@ -261,12 +275,46 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateResults() {
     currentPage = 1;
     const filtered = filterItems();
+    currentItems = [...filtered];
+    window.currentItems = [...filtered];
     renderTable(filtered, currentPage);
     renderPagination(filtered.length);
     updateURL();
   }
 
+  document.querySelectorAll('[data-filter-toggle]').forEach((toggle) => {
+    toggle.addEventListener('change', function () {
+      const key = this.dataset.filterToggle;
+      const optionsContainer = document.querySelector(`[data-filter-options="${key}"]`);
+      const optionInputs = Array.from(document.querySelectorAll(`[data-filter-option="${key}"]`));
+
+      if (this.checked) {
+        if (optionsContainer) optionsContainer.style.display = '';
+        return;
+      }
+
+      if (optionsContainer) optionsContainer.style.display = 'none';
+      optionInputs.forEach((input) => {
+        input.checked = false;
+      });
+      updateResults();
+    });
+  });
+
   checkboxes.forEach((checkbox) => {
+    if (checkbox.dataset.filterOption) {
+      checkbox.addEventListener('change', function () {
+        const key = this.dataset.filterOption;
+        const toggle = document.querySelector(`[data-filter-toggle="${key}"]`);
+        const selectedCount = document.querySelectorAll(`[data-filter-option="${key}"]:checked`).length;
+        if (toggle && selectedCount > 0) {
+          toggle.checked = true;
+        }
+        updateResults();
+      });
+      return;
+    }
+
     checkbox.addEventListener('change', function () {
       updateResults();
     });
@@ -275,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function () {
   async function handleKeywordSearch(e) {
     e.preventDefault();
     const keyword = this.dataset.keyword;
-    activeKeyword = keyword; //keyword chip should be a filter on the current candidate list
+    activeKeyword = keyword;
     currentPage = 1;
     updateResults();
   }
@@ -294,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const debouncedSearch = debounce(async (query) => {
     if (!query) {
-      searchResults = [...allItems]; //when no search, all items are candidate
+      searchResults = [...allItems];
       updateResults();
       return;
     }
@@ -303,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const response = await fetch(`/api/items?terms=${encodeURIComponent(query)}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      searchResults = data.results || []; //use meilisearch candidate when search
+      searchResults = data.results || [];
       updateResults();
     } catch (error) {
       console.error('There has been a problem with your fetch operation:', error);
@@ -322,19 +370,27 @@ document.addEventListener('DOMContentLoaded', function () {
   function applyFiltersFromURL() {
     const params = new URLSearchParams(window.location.search);
     const query = params.get('query');
-    const features = params.getAll('features');
-    const tools = params.getAll('tools');
     const kw = params.get('keyword');
     if (kw) activeKeyword = kw;
 
     if (query) searchInput.value = query;
 
-    document.querySelectorAll('.exerciseTypeInput').forEach((cb) => {
-      if (features.includes(cb.value)) cb.checked = true;
-    });
+    (window.filterSections || []).forEach((section) => {
+      const values = params.getAll(section.key);
+      const toggle = document.querySelector(`[data-filter-toggle="${section.key}"]`);
+      const optionsContainer = document.querySelector(`[data-filter-options="${section.key}"]`);
 
-    document.querySelectorAll('.toolInput').forEach((cb) => {
-      if (tools.includes(cb.value)) cb.checked = true;
+      document.querySelectorAll(`[data-filter-option="${section.key}"]`).forEach((cb) => {
+        if (values.includes(cb.value)) cb.checked = true;
+      });
+
+      if (toggle && values.length > 0) {
+        toggle.checked = true;
+      }
+
+      if (optionsContainer && values.length > 0) {
+        optionsContainer.style.display = '';
+      }
     });
   }
 
