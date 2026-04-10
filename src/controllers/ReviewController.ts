@@ -33,15 +33,12 @@ export class ReviewController {
           if (result.length > 0) {
             issues.push(...result);
           }
-          const hasError = result.some(
-            (validationError) => {
-              const constraints = validationError.constraints || {};
-              const contexts = validationError.contexts || {};
-              return Object.keys(constraints).some(
-                (constraintName) => {
-                  return contexts[constraintName]?.severity === 'error';
-                }
-              );
+          const hasError = result.some((validationError) => {
+            const constraints = validationError.constraints || {};
+            const contexts = validationError.contexts || {};
+            return Object.keys(constraints).some((constraintName) => {
+              return contexts[constraintName]?.severity === 'error';
+            });
           });
 
           if (!hasError) {
@@ -60,15 +57,12 @@ export class ReviewController {
           if (result.length > 0) {
             issues.push(...result);
           }
-          const hasError = result.some(
-            (validationError) => {
-              const constraints = validationError.constraints || {};
-              const contexts = validationError.contexts || {};
-              return Object.keys(constraints).some(
-                (constraintName) => {
-                  return contexts[constraintName]?.severity === 'error';
-                }
-              );
+          const hasError = result.some((validationError) => {
+            const constraints = validationError.constraints || {};
+            const contexts = validationError.contexts || {};
+            return Object.keys(constraints).some((constraintName) => {
+              return contexts[constraintName]?.severity === 'error';
+            });
           });
 
           if (!hasError) {
@@ -86,15 +80,12 @@ export class ReviewController {
           if (result.length > 0) {
             issues.push(...result);
           }
-          const hasError = result.some(
-            (validationError) => {
-              const constraints = validationError.constraints || {};
-              const contexts = validationError.contexts || {};
-              return Object.keys(constraints).some(
-                (constraintName) => {
-                  return contexts[constraintName]?.severity === 'error';
-                }
-              );
+          const hasError = result.some((validationError) => {
+            const constraints = validationError.constraints || {};
+            const contexts = validationError.contexts || {};
+            return Object.keys(constraints).some((constraintName) => {
+              return contexts[constraintName]?.severity === 'error';
+            });
           });
 
           if (!hasError) {
