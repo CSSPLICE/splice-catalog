@@ -1,36 +1,35 @@
-import { Entity, Column, BaseEntity, PrimaryColumn, Generated, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
+import { Entity, Column, BaseEntity, PrimaryColumn, Generated } from 'typeorm';
 import { IsNotEmpty, IsString, IsOptional, IsUrl, IsArray } from 'class-validator';
 import { CatalogInterface } from './CatalogInterface.js';
 import { Reachable } from '../validators.js';
-import { meilisearchService } from '../../services/MeilisearchService.js';
 
 @Entity()
 export class slc_item_catalog extends BaseEntity implements CatalogInterface {
-  @Column({ unique: true })
+  @Column({ type: 'int', unique: true })
   @Generated('increment')
   id!: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   catalog_type!: string;
 
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'varchar' })
   @IsNotEmpty({ context: { severity: 'error' } })
   @IsString({ context: { severity: 'warning' } })
   persistentID!: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   @IsNotEmpty({ context: { severity: 'error' } })
   @IsString({ context: { severity: 'warning' } })
   platform_name!: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   @IsNotEmpty({ context: { severity: 'error' } })
   @IsString({ context: { severity: 'error' } })
   @IsUrl(undefined, { context: { severity: 'error' } })
   @Reachable({ context: { severity: 'warning' } })
   iframe_url!: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   @IsOptional({ context: { severity: 'warning' } })
   @IsString({ context: { severity: 'warning' } })
   license?: string;
@@ -64,7 +63,7 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsString({ each: true, context: { severity: 'warning' } })
   features!: string[];
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   @IsNotEmpty({ context: { severity: 'error' } })
   @IsString({ context: { severity: 'warning' } })
   title!: string;
@@ -93,25 +92,4 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   @IsString({ each: true, context: { severity: 'warning' } })
   @Reachable({ context: { severity: 'warning' } })
   protocol_url?: string[];
-
-  @AfterInsert()
-  @AfterUpdate()
-  async syncToMeilisearch() {
-    try {
-      await meilisearchService.indexCatalogItems([this]);
-      console.log(`✨ Meilisearch: Automatically synced item ${this.id} (${this.title})`);
-    } catch (error) {
-      console.error(`Meilisearch: Auto-sync failed for item ${this.id}:`, error);
-    }
-  }
-
-  @AfterRemove()
-  async removeFromMeilisearch() {
-    try {
-      await meilisearchService.deleteItem(this.id);
-      console.log(`🗑️ Meilisearch: Automatically removed item ${this.id}`);
-    } catch (error) {
-      console.error(`Meilisearch: Auto-removal failed for item ${this.id}:`, error);
-    }
-  }
 }
