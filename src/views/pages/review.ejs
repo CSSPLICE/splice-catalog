@@ -6,28 +6,96 @@
 <body>
   <div class="container">
     <h2>Validation Results</h2>
-    <p>Successfully saved <%= saves %> entries</p>
-    <% if (errors.length > 0) { %>
-    <h3>Issues:</h3>
-    <ul>
+    <p>Parsed <span id="parsed-count"><%= parsed %></span> / <span id="total-count">0</span> entries</p>
+    <p>
+      Successfully saved <span id="saves-count"><%= saves %></span> entries
+      <span id="status-indicator" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    </p>
+    <h3 id="issues-heading"<% if (errors.length === 0) { %> style="display:none"<% } %>>Issues:</h3>
+    <ul id="issues-list">
       <% errors.forEach(function (item) { %>
         <li>
           <p>Persistent ID: <%= item.persistentID %></p>
           <p>Property: <%= item.property %></p>
-            <% for (const constraint in item.constraints) {%>
-              <%
-                const message = item.constraints[constraint].message;
-                const color = (item.constraints[constraint].severity === 'warning') ? 'orange' : 'red';
-              %>
-              <p style="color: <%= color %>">
-                  <%= constraint %> - <%= message %>
-              </p>
-            <% } %>
+          <% for (const constraint in item.constraints) { %>
+            <%
+              const message = item.constraints[constraint].message;
+              const color = (item.constraints[constraint].severity === 'warning') ? 'orange' : 'red';
+            %>
+            <p style="color: <%= color %>">
+              <%= constraint %> - <%= message %>
+            </p>
+          <% } %>
         </li>
       <% }); %>
     </ul>
-    <% } %>
   </div>
+
+  <script>
+    (function () {
+      window.__reviewState = {
+        saves: parseInt(document.getElementById('saves-count').textContent, 10) || 0,
+        processed: 0,
+        total: 0,
+      };
+
+      function appendError(item) {
+        var heading = document.getElementById('issues-heading');
+        if (heading) heading.style.display = '';
+        var list = document.getElementById('issues-list');
+        if (!list) return;
+        var li = document.createElement('li');
+        var idP = document.createElement('p');
+        idP.textContent = 'Persistent ID: ' + item.persistentID;
+        var propP = document.createElement('p');
+        propP.textContent = 'Property: ' + item.property;
+        li.appendChild(idP);
+        li.appendChild(propP);
+        for (var name in item.constraints) {
+          var c = item.constraints[name];
+          var p = document.createElement('p');
+          p.style.color = c.severity === 'warning' ? 'orange' : 'red';
+          p.textContent = name + ' - ' + c.message;
+          li.appendChild(p);
+        }
+        list.appendChild(li);
+      }
+
+      window.__reviewUpdate = function (ev) {
+        if (typeof ev.total === 'number') {
+          window.__reviewState.total = ev.total;
+          var totalEl = document.getElementById('total-count');
+          if (totalEl) totalEl.textContent = ev.total;
+        }
+        if (typeof ev.processed === 'number') window.__reviewState.processed = ev.processed;
+        if (typeof ev.parsed === 'number') {
+          window.__reviewState.parsed = ev.parsed;
+          var parsedEl = document.getElementById('parsed-count');
+          if (parsedEl) parsedEl.textContent = ev.parsed;
+        }
+        if (typeof ev.saves === 'number') {
+          window.__reviewState.saves = ev.saves;
+          var savesEl = document.getElementById('saves-count');
+          if (savesEl) savesEl.textContent = ev.saves;
+        }
+        if (ev.newErrors && ev.newErrors.length) {
+          ev.newErrors.forEach(appendError);
+        }
+      };
+
+      window.__reviewDone = function () {
+        var indicator = document.getElementById('status-indicator');
+        if (!indicator) return;
+        indicator.className = '';
+        indicator.removeAttribute('role');
+        indicator.removeAttribute('aria-hidden');
+        indicator.setAttribute('aria-label', 'Complete');
+        indicator.style.color = 'green';
+        indicator.style.fontWeight = 'bold';
+        indicator.textContent = '✓';
+      };
+    })();
+  </script>
 
   <%- include('../partials/footer') -%>
 </body>
