@@ -92,6 +92,7 @@ emitter.on('DataSourceInitialized', () => {
 emitter.on('DataSourceInitialized', () => {
   const adminRouter = setup();
   app.use('/admin', checkRole(roles.admin), adminRouter);
+  console.log('admin router registered')
 });
 
 app.use(ErrorHandler.handleErrors);

@@ -6,7 +6,8 @@ import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
 import { validate, ValidationError } from 'class-validator';
 
-type RichConstraint = { message: string; severity: string };
+type Severity = 'error' | 'warning' | 'notice';
+type RichConstraint = { message: string; severity: Severity };
 type RichError = {
   persistentID: string;
   property: string;
@@ -17,14 +18,18 @@ function hasPersistentID(obj: object): obj is { persistentID: string } {
   return Object.prototype.hasOwnProperty.call(obj, 'persistentID');
 }
 
-function hasErrorSeverity(result: ValidationError[]): boolean {
+function hasSeverity(result: ValidationError[], severity: Severity): boolean {
   return result.some((validationError) => {
     const constraints = validationError.constraints || {};
     const contexts = validationError.contexts || {};
     return Object.keys(constraints).some(
-      (constraintName) => contexts[constraintName]?.severity === 'error',
+      (constraintName) => contexts[constraintName]?.severity === severity,
     );
   });
+}
+
+function hasConstraint(result: ValidationError[], name: string): boolean {
+  return result.some((e) => !!e.constraints && name in e.constraints);
 }
 
 function richifyError(error: ValidationError): RichError {
@@ -36,7 +41,7 @@ function richifyError(error: ValidationError): RichError {
   if (error.constraints) {
     for (const [key, message] of Object.entries(error.constraints)) {
       const context = error.contexts ? error.contexts[key] : undefined;
-      richConstraints[key] = { message, severity: context?.severity || 'error' };
+      richConstraints[key] = { message, severity: (context?.severity as Severity) || 'error' };
     }
   }
   return { persistentID, property: error.property, constraints: richConstraints };
@@ -68,8 +73,8 @@ export class ReviewController {
     try {
       initialHtml = await renderTemplate(req, res, 'pages/review', {
         title: 'Review Dashboard',
-        saves: 0,
-        parsed: 0,
+        saved: 0,
+        updated: 0,
         errors: [],
       });
     } catch (error) {
@@ -117,44 +122,30 @@ export class ReviewController {
       const datasetCatalogs = jsonArray.filter((item) => item.catalog_type === 'DatasetCatalog');
 
       const total = slcItemCatalogs.length + slcToolsCatalogs.length + datasetCatalogs.length;
-      let saves = 0;
-      let parsed = 0;
+      let saved = 0;
+      let updated = 0;
       let processed = 0;
 
-      emit({ total, processed, parsed, saves });
+      emit({ total, processed, saved, updated });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const processGroup = async (repo: any, items: unknown[], label: string) => {
         if (items.length === 0) return;
         logger.info(`Processing ${items.length} ${label} items`);
-        const seenIds = new Set<string>();
         for (const item of items) {
           const entity = repo.create(item);
           const result = await validate(entity);
           const newErrors = result.map(richifyError);
-          if (!hasErrorSeverity(result)) {
-            parsed++;
-            const persistentID =
-              entity && typeof entity === 'object' && hasPersistentID(entity)
-                ? entity.persistentID
-                : undefined;
-            let duplicate = false;
-            if (persistentID) {
-              if (seenIds.has(persistentID)) {
-                duplicate = true;
-              } else {
-                const existing = await repo.findOne({ where: { persistentID } });
-                if (existing) duplicate = true;
-              }
-              seenIds.add(persistentID);
-            }
-            if (!duplicate) {
-              saves++;
-              await repo.save(entity);
+          if (!hasSeverity(result, 'error')) {
+            await repo.save(entity);
+            if (hasConstraint(result, 'duplicate')) {
+              updated++;
+            } else {
+              saved++;
             }
           }
           processed++;
-          emit({ processed, parsed, saves, total, newErrors });
+          emit({ processed, saved, updated, total, newErrors });
         }
       };
 
@@ -164,7 +155,7 @@ export class ReviewController {
 
       safeWrite('<script>window.__reviewDone()</script>\n');
       if (clientConnected) res.end();
-      logger.info(`Validation complete: ${parsed} parsed, ${saves}/${total} saved`);
+      logger.info(`Validation complete: ${processed}/${total} processed, ${saved} saved, ${updated} updated`);
     } catch (error) {
       logger.error('Error during validation:', error);
       console.log(error);

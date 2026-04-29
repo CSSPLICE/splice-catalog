@@ -4,11 +4,17 @@
 <%- include('../partials/header') -%>
 
 <body>
+  <style>
+    #issues-list { line-height: 1.1; }
+    #issues-list p { margin: 0; }
+    #issues-list li { padding-bottom: 1em; }
+  </style>
   <div class="container">
     <h2>Validation Results</h2>
-    <p>Parsed <span id="parsed-count"><%= parsed %></span> / <span id="total-count">0</span> entries</p>
     <p>
-      Successfully saved <span id="saves-count"><%= saves %></span> entries
+      processed: <span id="processed-count">0</span>/<span id="total-count">0</span>
+      &nbsp;saved: <span id="saved-count"><%= saved %></span>
+      &nbsp;updated: <span id="updated-count"><%= updated %></span>
       <span id="status-indicator" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
     </p>
     <h3 id="issues-heading"<% if (errors.length === 0) { %> style="display:none"<% } %>>Issues:</h3>
@@ -20,7 +26,8 @@
           <% for (const constraint in item.constraints) { %>
             <%
               const message = item.constraints[constraint].message;
-              const color = (item.constraints[constraint].severity === 'warning') ? 'orange' : 'red';
+              const severity = item.constraints[constraint].severity;
+              const color = severity === 'warning' ? 'orange' : severity === 'notice' ? 'grey' : 'red';
             %>
             <p style="color: <%= color %>">
               <%= constraint %> - <%= message %>
@@ -34,8 +41,9 @@
   <script>
     (function () {
       window.__reviewState = {
-        saves: parseInt(document.getElementById('saves-count').textContent, 10) || 0,
         processed: 0,
+        saved: parseInt(document.getElementById('saved-count').textContent, 10) || 0,
+        updated: parseInt(document.getElementById('updated-count').textContent, 10) || 0,
         total: 0,
       };
 
@@ -54,29 +62,34 @@
         for (var name in item.constraints) {
           var c = item.constraints[name];
           var p = document.createElement('p');
-          p.style.color = c.severity === 'warning' ? 'orange' : 'red';
+          p.style.color = c.severity === 'warning' ? 'orange' : c.severity === 'notice' ? 'grey' : 'red';
           p.textContent = name + ' - ' + c.message;
           li.appendChild(p);
         }
         list.appendChild(li);
       }
 
+      function setCount(id, value) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = value;
+      }
+
       window.__reviewUpdate = function (ev) {
         if (typeof ev.total === 'number') {
           window.__reviewState.total = ev.total;
-          var totalEl = document.getElementById('total-count');
-          if (totalEl) totalEl.textContent = ev.total;
+          setCount('total-count', ev.total);
         }
-        if (typeof ev.processed === 'number') window.__reviewState.processed = ev.processed;
-        if (typeof ev.parsed === 'number') {
-          window.__reviewState.parsed = ev.parsed;
-          var parsedEl = document.getElementById('parsed-count');
-          if (parsedEl) parsedEl.textContent = ev.parsed;
+        if (typeof ev.processed === 'number') {
+          window.__reviewState.processed = ev.processed;
+          setCount('processed-count', ev.processed);
         }
-        if (typeof ev.saves === 'number') {
-          window.__reviewState.saves = ev.saves;
-          var savesEl = document.getElementById('saves-count');
-          if (savesEl) savesEl.textContent = ev.saves;
+        if (typeof ev.saved === 'number') {
+          window.__reviewState.saved = ev.saved;
+          setCount('saved-count', ev.saved);
+        }
+        if (typeof ev.updated === 'number') {
+          window.__reviewState.updated = ev.updated;
+          setCount('updated-count', ev.updated);
         }
         if (ev.newErrors && ev.newErrors.length) {
           ev.newErrors.forEach(appendError);
