@@ -12,6 +12,7 @@ import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO.js';
 import { ReviewController } from './ReviewController.js';
 import { ValidationManager } from '../services/ValidationManager.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
+import { meilisearchService } from '../services/MeilisearchService.js';
 
 const reviewController = new ReviewController();
 const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
@@ -105,6 +106,7 @@ export class ViewController {
 
     let processedCount = 0;
     const itemsToClassify: CreateSLCItemDTO[] = [];
+    const slcItemsToIndex: slc_item_catalog[] = [];
 
     for (const item of jsonArray) {
       let dto, repo;
@@ -153,8 +155,20 @@ export class ViewController {
         } else {
           const catalogItem = repo.create(dto);
           await repo.save(catalogItem);
+          if (item.catalog_type === 'SLCItemCatalog') {
+            slcItemsToIndex.push(catalogItem);
+          }
           processedCount++;
         }
+      }
+    }
+
+    if (slcItemsToIndex.length > 0) {
+      try {
+        await meilisearchService.indexCatalogItems(slcItemsToIndex);
+        logger.info(`Indexed ${slcItemsToIndex.length} approved SLCItemCatalog items in Meilisearch`);
+      } catch (error) {
+        logger.error('Failed to batch index approved SLCItemCatalog items:', error);
       }
     }
 

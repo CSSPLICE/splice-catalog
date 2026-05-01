@@ -1,5 +1,21 @@
 import { registerDecorator, ValidationArguments, ValidationOptions } from 'class-validator';
 
+const shouldValidateReachability = (): boolean => {
+  return process.env.VALIDATE_REACHABILITY === 'true';
+};
+
+const toUrlList = (value: unknown): string[] => {
+  if (Array.isArray(value)) {
+    return value.map((item) => String(item).trim()).filter(Boolean);
+  }
+
+  if (typeof value === 'string') {
+    return [value.trim()].filter(Boolean);
+  }
+
+  return [];
+};
+
 export function Reachable(opts?: ValidationOptions) {
   return function (object: object, propertyName: string) {
     registerDecorator({
@@ -8,11 +24,24 @@ export function Reachable(opts?: ValidationOptions) {
       propertyName: propertyName,
       options: opts,
       validator: {
-        async validate(value: string) {
+        async validate(value: unknown) {
+          if (!shouldValidateReachability()) {
+            return true;
+          }
+
+          const urls = toUrlList(value);
+          if (urls.length === 0) {
+            return true;
+          }
+
           try {
-            const result = await fetch(value, { method: 'HEAD' });
-            return result.ok;
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const results = await Promise.all(
+              urls.map(async (url) => {
+                const result = await fetch(url, { method: 'HEAD' });
+                return result.ok;
+              }),
+            );
+            return results.every(Boolean);
           } catch (e) {
             return false;
           }
