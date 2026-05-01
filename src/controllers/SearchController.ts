@@ -12,6 +12,7 @@ const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_ca
 };
 
 const FILTER_FIELDS = [
+  { key: 'keywords', label: 'Keywords', itemField: 'keywords', legacyQueryKeys: [], type: 'ontology' },
   { key: 'features', label: 'Features', itemField: 'features', legacyQueryKeys: [] },
   { key: 'tools', label: 'Tools', itemField: 'platform_name', legacyQueryKeys: ['tool'] },
   { key: 'natural_language', label: 'Natural Language', itemField: 'natural_language', legacyQueryKeys: [] },
@@ -116,8 +117,8 @@ export class SearchController {
       return {
         key: field.key,
         label: field.label,
-        type: 'flat',
-        choices,
+        type: 'type' in field ? field.type : 'flat',
+        choices: 'type' in field && field.type === 'ontology' ? [] : choices,
       };
     });
 
