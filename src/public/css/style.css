@@ -216,13 +216,13 @@
   margin-bottom: 1rem;
 }
 
-.search-sidebar legend {
-  margin-bottom: 0.35rem;
-}
-
-.search-sidebar legend label {
-  font-size: 1rem;
-  font-weight: 600;
+.filter-section {
+  margin: 0 0 0.75rem;
+  padding: 0;
+  border: 1px solid #d6d9dd;
+  border-radius: 6px;
+  background-color: #fff;
+  overflow: hidden;
 }
 
 .search-sidebar label {
@@ -243,6 +243,125 @@
 
 .search-sidebar button:hover {
   background-color: #0056b3;
+}
+
+.search-sidebar .filter-section-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.35rem;
+  width: 100%;
+  margin: 0;
+  min-height: 3rem;
+  padding: 0.6rem 0.85rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #222;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: left;
+}
+
+.search-sidebar .filter-section-toggle:hover {
+  background-color: #f6f7f8;
+  color: #111;
+}
+
+.filter-section-caret {
+  flex: 0 0 1rem;
+  order: 2;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.filter-section-options {
+  padding: 0.35rem 0.85rem 0.75rem;
+  border-top: 1px solid #eceff1;
+}
+
+.ontology-filter-tree {
+  max-height: 440px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.ontology-filter-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 0.7rem;
+}
+
+.ontology-filter-tree > .ontology-filter-list {
+  padding-left: 0;
+}
+
+.ontology-filter-node {
+  margin: 0.1rem 0;
+}
+
+.ontology-filter-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.2rem;
+  min-height: 1.45rem;
+  width: 100%;
+}
+
+.search-sidebar .ontology-filter-expand {
+  flex: 0 0 1.15rem;
+  width: 1.15rem;
+  height: 1.35rem;
+  margin: 0.02rem 0 0;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #333;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.82rem;
+  line-height: 1;
+}
+
+.search-sidebar .ontology-filter-expand:hover:not(:disabled) {
+  background-color: #e2e6ea;
+  color: #111;
+}
+
+.search-sidebar .ontology-filter-expand:disabled {
+  cursor: default;
+  visibility: hidden;
+}
+
+.ontology-filter-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-left: 0;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.ontology-filter-checkbox {
+  flex: 0 0 auto;
+  margin-top: 0.05rem;
+}
+
+.ontology-filter-children {
+  margin-left: 1.05rem;
+}
+
+.ontology-filter-loading {
+  color: #6c757d;
+  font-size: 0.9rem;
 }
 
 .search-content {

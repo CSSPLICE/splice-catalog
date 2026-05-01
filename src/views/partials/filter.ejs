@@ -6,39 +6,51 @@
 
     <% sections.forEach(section => { %>
       <% const selectedValues = activeFilters[section.key] || []; %>
-      <fieldset class="filter-section" data-filter-section="<%= section.key %>">
-        <legend>
-          <label>
-            <input
-              type="checkbox"
-              class="filter-section-toggle"
-              data-filter-toggle="<%= section.key %>"
-              <%= selectedValues.length > 0 ? 'checked' : '' %>
-            />
-            <%= section.label %>
-          </label>
-        </legend>
+      <section class="filter-section" data-filter-section="<%= section.key %>">
+        <div class="filter-section-header">
+          <button
+            type="button"
+            class="filter-section-toggle"
+            data-filter-toggle="<%= section.key %>"
+            aria-expanded="<%= selectedValues.length > 0 ? 'true' : 'false' %>"
+            aria-controls="filter-options-<%= section.key %>"
+          >
+            <span class="filter-section-caret"><%= selectedValues.length > 0 ? 'v' : '>' %></span>
+            <span><%= section.label %></span>
+          </button>
+        </div>
 
         <div
+          id="filter-options-<%= section.key %>"
           class="filter-section-options"
           data-filter-options="<%= section.key %>"
           style="<%= selectedValues.length > 0 ? '' : 'display: none;' %>"
         >
-          <% section.choices.forEach(choice => { %>
-            <label>
-              <input
-                type="checkbox"
-                class="filter-option-input"
-                data-filter-option="<%= section.key %>"
-                name="<%= section.key %>"
-                value="<%= choice %>"
-                <%= selectedValues.includes(choice) ? 'checked' : '' %>
-              />
-              <%= choice %>
-            </label>
-          <% }) %>
+          <% if (section.type === 'ontology') { %>
+            <div
+              class="ontology-filter-tree"
+              data-ontology-tree="<%= section.key %>"
+              data-selected-values="<%= selectedValues.join('|') %>"
+            >
+              <div class="ontology-filter-loading">Loading...</div>
+            </div>
+          <% } else { %>
+            <% section.choices.forEach(choice => { %>
+              <label>
+                <input
+                  type="checkbox"
+                  class="filter-option-input"
+                  data-filter-option="<%= section.key %>"
+                  name="<%= section.key %>"
+                  value="<%= choice %>"
+                  <%= selectedValues.includes(choice) ? 'checked' : '' %>
+                />
+                <%= choice %>
+              </label>
+            <% }) %>
+          <% } %>
         </div>
-      </fieldset>
+      </section>
     <% }) %>
 
     <input type="hidden" name="query" value="<%= typeof query !== 'undefined' ? query : '' %>">
