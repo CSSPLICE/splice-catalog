@@ -1,9 +1,13 @@
 import { Request, Response } from 'express';
+import { EventEmitter } from 'events';
+import { randomUUID } from 'crypto';
 import logger from '../utils/logger.js';
-import { AppDataSource } from '../db/data-source.js'; // Adjust the path to your data-source file
+import { AppDataSource } from '../db/data-source.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
+import { ValidationJob } from '../db/entities/ValidationJob.js';
+import { ValidationJobConstraint } from '../db/entities/ValidationJobConstraint.js';
 import { validate, ValidationError } from 'class-validator';
 
 type Severity = 'error' | 'warning' | 'notice';
@@ -12,6 +16,12 @@ type RichError = {
   persistentID: string;
   property: string;
   constraints: Record<string, RichConstraint>;
+};
+
+type JobState = {
+  job: ValidationJob;
+  errors: RichError[];
+  emitter: EventEmitter;
 };
 
 function hasPersistentID(obj: object): obj is { persistentID: string } {
@@ -47,91 +57,73 @@ function richifyError(error: ValidationError): RichError {
   return { persistentID, property: error.property, constraints: richConstraints };
 }
 
-function renderTemplate(
-  req: Request,
-  res: Response,
-  view: string,
-  locals: object,
-): Promise<string> {
-  return new Promise((resolve, reject) => {
-    req.app.render(
-      view,
-      { ...req.app.locals, ...res.locals, ...locals },
-      (err, html) => (err ? reject(err) : resolve(html)),
-    );
-  });
-}
-
 export class ReviewController {
-  async validateAndReview(req: Request, res: Response) {
-    const jsonArray = Array.isArray(req.body) ? req.body : [req.body];
-    const itemsRepository = AppDataSource.getRepository(slc_item_catalog);
-    const toolsRepository = AppDataSource.getRepository(slc_tools_catalog);
-    const datasetRepository = AppDataSource.getRepository(dataset_catalog);
+  private jobs = new Map<string, JobState>();
 
-    let initialHtml: string;
-    try {
-      initialHtml = await renderTemplate(req, res, 'pages/review', {
-        title: 'Review Dashboard',
-        saved: 0,
-        updated: 0,
-        errors: [],
-      });
-    } catch (error) {
-      logger.error('Failed to render review template:', error);
-      if (!res.headersSent) res.status(500).send('Error during validation');
-      return;
+  startJob = (jsonArray: unknown[]): string => {
+    const uuid = randomUUID();
+    const job = new ValidationJob();
+    job.id = uuid;
+    job.submitted_at = new Date();
+    job.total = 0;
+    job.saved = 0;
+    job.updated = 0;
+    job.processed = 0;
+    job.status = 'processing';
+
+    const types = new Set(
+      jsonArray
+        .map((item) =>
+          item && typeof item === 'object'
+            ? ((item as Record<string, unknown>).catalog_type as string | undefined)
+            : undefined,
+        )
+        .filter((t): t is string => typeof t === 'string'),
+    );
+    if (types.size === 1) {
+      job.catalog_type = [...types][0] as ValidationJob['catalog_type'];
     }
 
-    res.status(200);
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('X-Accel-Buffering', 'no');
-    res.write(initialHtml);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if (typeof (res as any).flush === 'function') (res as any).flush();
+    const state: JobState = { job, errors: [], emitter: new EventEmitter() };
+    state.emitter.setMaxListeners(0);
+    this.jobs.set(uuid, state);
 
-    let clientConnected = true;
-    req.on('close', () => {
-      clientConnected = false;
-      logger.info('Client disconnected; validation continues server-side');
-    });
+    void this.runJob(uuid, jsonArray);
+    return uuid;
+  };
 
-    const safeWrite = (chunk: string) => {
-      if (!clientConnected) return;
-      try {
-        res.write(chunk);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        if (typeof (res as any).flush === 'function') (res as any).flush();
-      } catch (err) {
-        clientConnected = false;
-        logger.warn('Lost client during stream:', err);
-      }
-    };
-
-    const emit = (payload: object) => {
-      const json = JSON.stringify(payload).replace(/</g, '\\u003c');
-      safeWrite(`<script>window.__reviewUpdate(${json})</script>\n`);
-    };
+  private runJob = async (uuid: string, jsonArray: unknown[]) => {
+    const state = this.jobs.get(uuid);
+    if (!state) return;
+    const { job, emitter } = state;
 
     try {
-      logger.info('Starting metadata validation');
+      logger.info(`[review:${uuid}] starting validation`);
 
-      const slcItemCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCItem');
-      const slcToolsCatalogs = jsonArray.filter((item) => item.catalog_type === 'SLCToolsCatalog');
-      const datasetCatalogs = jsonArray.filter((item) => item.catalog_type === 'DatasetCatalog');
+      const itemsRepository = AppDataSource.getRepository(slc_item_catalog);
+      const toolsRepository = AppDataSource.getRepository(slc_tools_catalog);
+      const datasetRepository = AppDataSource.getRepository(dataset_catalog);
 
-      const total = slcItemCatalogs.length + slcToolsCatalogs.length + datasetCatalogs.length;
-      let saved = 0;
-      let updated = 0;
-      let processed = 0;
+      const slcItemCatalogs = jsonArray.filter(
+        (item): item is Record<string, unknown> =>
+          !!item && (item as Record<string, unknown>).catalog_type === 'SLCItem',
+      );
+      const slcToolsCatalogs = jsonArray.filter(
+        (item): item is Record<string, unknown> =>
+          !!item && (item as Record<string, unknown>).catalog_type === 'SLCToolsCatalog',
+      );
+      const datasetCatalogs = jsonArray.filter(
+        (item): item is Record<string, unknown> =>
+          !!item && (item as Record<string, unknown>).catalog_type === 'DatasetCatalog',
+      );
 
-      emit({ total, processed, saved, updated });
+      job.total = slcItemCatalogs.length + slcToolsCatalogs.length + datasetCatalogs.length;
+      emitter.emit('update', { type: 'init', total: job.total });
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const processGroup = async (repo: any, items: unknown[], label: string) => {
         if (items.length === 0) return;
-        logger.info(`Processing ${items.length} ${label} items`);
+        logger.info(`[review:${uuid}] processing ${items.length} ${label}`);
         for (const item of items) {
           const entity = repo.create(item);
           const result = await validate(entity);
@@ -139,13 +131,21 @@ export class ReviewController {
           if (!hasSeverity(result, 'error')) {
             await repo.save(entity);
             if (hasConstraint(result, 'duplicate')) {
-              updated++;
+              job.updated++;
             } else {
-              saved++;
+              job.saved++;
             }
           }
-          processed++;
-          emit({ processed, saved, updated, total, newErrors });
+          job.processed++;
+          if (newErrors.length) state.errors.push(...newErrors);
+          emitter.emit('update', {
+            type: 'progress',
+            processed: job.processed,
+            saved: job.saved,
+            updated: job.updated,
+            total: job.total,
+            newErrors,
+          });
         }
       };
 
@@ -153,14 +153,127 @@ export class ReviewController {
       await processGroup(toolsRepository, slcToolsCatalogs, 'SLCToolsCatalog');
       await processGroup(datasetRepository, datasetCatalogs, 'DatasetCatalog');
 
-      safeWrite('<script>window.__reviewDone()</script>\n');
-      if (clientConnected) res.end();
-      logger.info(`Validation complete: ${processed}/${total} processed, ${saved} saved, ${updated} updated`);
+      job.status = 'complete';
+      logger.info(
+        `[review:${uuid}] complete: ${job.processed}/${job.total} processed, ${job.saved} saved, ${job.updated} updated`,
+      );
     } catch (error) {
-      logger.error('Error during validation:', error);
-      console.log(error);
-      safeWrite('<script>(function(){var i=document.getElementById("status-indicator");if(i){i.className="";i.style.color="red";i.textContent="✗";i.setAttribute("aria-label","Error during validation");}})();</script>\n');
-      if (clientConnected) res.end();
+      job.status = 'failed';
+      logger.error(`[review:${uuid}] failed:`, error);
+    } finally {
+      try {
+        await this.persistJob(state);
+      } catch (persistErr) {
+        logger.error(`[review:${uuid}] failed to persist job:`, persistErr);
+      }
+      emitter.emit('terminal', { status: job.status });
+      this.jobs.delete(uuid);
     }
-  }
+  };
+
+  private persistJob = async (state: JobState) => {
+    const constraints = state.errors.map((e) => {
+      const c = new ValidationJobConstraint();
+      c.persistentID = e.persistentID;
+      c.property = e.property;
+      c.constraints = e.constraints;
+      c.job_id = state.job.id;
+      return c;
+    });
+    state.job.constraints = constraints;
+    await AppDataSource.getRepository(ValidationJob).save(state.job);
+  };
+
+  getReview = async (req: Request, res: Response) => {
+    const { uuid } = req.params;
+    const state = this.jobs.get(uuid);
+    if (state) {
+      return res.render('pages/review', {
+        title: 'Review Dashboard',
+        uuid,
+        status: state.job.status,
+        total: state.job.total,
+        processed: state.job.processed,
+        saved: state.job.saved,
+        updated: state.job.updated,
+        errors: state.errors,
+        live: true,
+      });
+    }
+
+    const persisted = await AppDataSource.getRepository(ValidationJob).findOne({
+      where: { id: uuid },
+      relations: { constraints: true },
+    });
+    if (!persisted) {
+      return res.status(404).send(`Validation job ${uuid} not found`);
+    }
+
+    const errors: RichError[] = (persisted.constraints || []).map((c) => ({
+      persistentID: c.persistentID,
+      property: c.property,
+      constraints: c.constraints,
+    }));
+
+    return res.render('pages/review', {
+      title: 'Review Dashboard',
+      uuid,
+      status: persisted.status,
+      total: persisted.total,
+      processed: persisted.processed,
+      saved: persisted.saved,
+      updated: persisted.updated,
+      errors,
+      live: false,
+    });
+  };
+
+  streamReview = (req: Request, res: Response) => {
+    const { uuid } = req.params;
+    const state = this.jobs.get(uuid);
+
+    if (!state) {
+      res.status(204).end();
+      return;
+    }
+
+    res.status(200);
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no');
+    res.flushHeaders?.();
+
+    const send = (event: string, data: unknown) => {
+      res.write(`event: ${event}\n`);
+      res.write(`data: ${JSON.stringify(data)}\n\n`);
+    };
+
+    send('snapshot', {
+      status: state.job.status,
+      total: state.job.total,
+      processed: state.job.processed,
+      saved: state.job.saved,
+      updated: state.job.updated,
+    });
+
+    const onUpdate = (payload: unknown) => send('update', payload);
+    const onTerminal = (payload: unknown) => {
+      send('terminal', payload);
+      cleanup();
+      res.end();
+    };
+
+    const cleanup = () => {
+      state.emitter.off('update', onUpdate);
+      state.emitter.off('terminal', onTerminal);
+    };
+
+    state.emitter.on('update', onUpdate);
+    state.emitter.on('terminal', onTerminal);
+
+    req.on('close', cleanup);
+  };
 }
+
+export const reviewController = new ReviewController();

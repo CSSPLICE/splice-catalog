@@ -11,11 +11,13 @@
   </style>
   <div class="container">
     <h2>Validation Results</h2>
+    <p class="text-muted" style="font-size: 0.85em;">Job: <%= uuid %></p>
     <p>
-      processed: <span id="processed-count">0</span>/<span id="total-count">0</span>
+      processed: <span id="processed-count"><%= processed %></span>/<span id="total-count"><%= total %></span>
       &nbsp;saved: <span id="saved-count"><%= saved %></span>
       &nbsp;updated: <span id="updated-count"><%= updated %></span>
-      <span id="status-indicator" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span id="status-indicator"
+        <% if (status === 'processing') { %>class="spinner-border spinner-border-sm" role="status" aria-hidden="true"<% } else if (status === 'complete') { %>style="color: green; font-weight: bold;" aria-label="Complete"<% } else { %>style="color: red; font-weight: bold;" aria-label="Failed"<% } %>><% if (status === 'complete') { %>✓<% } else if (status === 'failed') { %>✗<% } %></span>
     </p>
     <h3 id="issues-heading"<% if (errors.length === 0) { %> style="display:none"<% } %>>Issues:</h3>
     <ul id="issues-list">
@@ -38,14 +40,10 @@
     </ul>
   </div>
 
+  <% if (live) { %>
   <script>
     (function () {
-      window.__reviewState = {
-        processed: 0,
-        saved: parseInt(document.getElementById('saved-count').textContent, 10) || 0,
-        updated: parseInt(document.getElementById('updated-count').textContent, 10) || 0,
-        total: 0,
-      };
+      var uuid = <%- JSON.stringify(uuid) %>;
 
       function appendError(item) {
         var heading = document.getElementById('issues-heading');
@@ -71,44 +69,60 @@
 
       function setCount(id, value) {
         var el = document.getElementById(id);
-        if (el) el.textContent = value;
+        if (el && typeof value === 'number') el.textContent = value;
       }
 
-      window.__reviewUpdate = function (ev) {
-        if (typeof ev.total === 'number') {
-          window.__reviewState.total = ev.total;
-          setCount('total-count', ev.total);
-        }
-        if (typeof ev.processed === 'number') {
-          window.__reviewState.processed = ev.processed;
-          setCount('processed-count', ev.processed);
-        }
-        if (typeof ev.saved === 'number') {
-          window.__reviewState.saved = ev.saved;
-          setCount('saved-count', ev.saved);
-        }
-        if (typeof ev.updated === 'number') {
-          window.__reviewState.updated = ev.updated;
-          setCount('updated-count', ev.updated);
-        }
-        if (ev.newErrors && ev.newErrors.length) {
-          ev.newErrors.forEach(appendError);
-        }
-      };
-
-      window.__reviewDone = function () {
+      function applyTerminal(status) {
         var indicator = document.getElementById('status-indicator');
         if (!indicator) return;
         indicator.className = '';
         indicator.removeAttribute('role');
         indicator.removeAttribute('aria-hidden');
-        indicator.setAttribute('aria-label', 'Complete');
-        indicator.style.color = 'green';
-        indicator.style.fontWeight = 'bold';
-        indicator.textContent = '✓';
+        if (status === 'complete') {
+          indicator.style.color = 'green';
+          indicator.style.fontWeight = 'bold';
+          indicator.setAttribute('aria-label', 'Complete');
+          indicator.textContent = '✓';
+        } else {
+          indicator.style.color = 'red';
+          indicator.style.fontWeight = 'bold';
+          indicator.setAttribute('aria-label', 'Failed');
+          indicator.textContent = '✗';
+        }
+      }
+
+      var es = new EventSource('/review/' + encodeURIComponent(uuid) + '/sse');
+
+      es.addEventListener('snapshot', function (e) {
+        var d = JSON.parse(e.data);
+        setCount('total-count', d.total);
+        setCount('processed-count', d.processed);
+        setCount('saved-count', d.saved);
+        setCount('updated-count', d.updated);
+      });
+
+      es.addEventListener('update', function (e) {
+        var d = JSON.parse(e.data);
+        setCount('total-count', d.total);
+        setCount('processed-count', d.processed);
+        setCount('saved-count', d.saved);
+        setCount('updated-count', d.updated);
+        if (d.newErrors && d.newErrors.length) d.newErrors.forEach(appendError);
+      });
+
+      es.addEventListener('terminal', function (e) {
+        var d = JSON.parse(e.data);
+        applyTerminal(d.status);
+        es.close();
+      });
+
+      es.onerror = function () {
+        // Server closed (job already terminal or gone). Stop reconnect attempts.
+        es.close();
       };
     })();
   </script>
+  <% } %>
 
   <%- include('../partials/footer') -%>
 </body>
