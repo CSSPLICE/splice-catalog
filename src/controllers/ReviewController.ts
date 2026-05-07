@@ -5,18 +5,6 @@ import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
 import { validate, ValidationError } from 'class-validator';
-import { meilisearchService } from '../services/MeilisearchService.js';
-import { In } from 'typeorm';
-
-const hasBlockingValidationError = (validationErrors: ValidationError[]): boolean => {
-  return validationErrors.some((validationError) => {
-    const constraints = validationError.constraints || {};
-    const contexts = validationError.contexts || {};
-    return Object.keys(constraints).some((constraintName) => {
-      return contexts[constraintName]?.severity === 'error';
-    });
-  });
-};
 
 export class ReviewController {
   async validateAndReview(req: Request, res: Response) {
@@ -36,59 +24,28 @@ export class ReviewController {
 
       const issues: ValidationError[] = [];
       let saves: number = 0;
-      const validSlcEntities: slc_item_catalog[] = [];
-      const validToolEntities: slc_tools_catalog[] = [];
-      const validDatasetEntities: dataset_catalog[] = [];
-      const seenSlcPersistentIds = new Set<string>();
 
       // Process SLCItemCatalogs
       if (slcItemCatalogs.length > 0) {
         logger.info(`Processing ${slcItemCatalogs.length} SLCItemCatalog items`);
 
         for (const item of slcItemCatalogs) {
-          const persistentID = typeof item.persistentID === 'string' ? item.persistentID.trim() : '';
-          if (!persistentID) {
-            continue;
-          }
-          if (seenSlcPersistentIds.has(persistentID)) {
-            continue;
-          }
-
           const entity = itemsRepository.create(item);
           const result = await validate(entity);
           if (result.length > 0) {
             issues.push(...result);
           }
-          const hasError = hasBlockingValidationError(result);
+          const hasError = result.some((validationError) => {
+            const constraints = validationError.constraints || {};
+            const contexts = validationError.contexts || {};
+            return Object.keys(constraints).some((constraintName) => {
+              return contexts[constraintName]?.severity === 'error';
+            });
+          });
 
           if (!hasError) {
             saves++;
-            seenSlcPersistentIds.add(persistentID);
-            validSlcEntities.push(entity);
-          }
-        }
-
-        if (validSlcEntities.length > 0) {
-          const persistentIds = validSlcEntities.map((entity) => entity.persistentID);
-          const existingItems = await itemsRepository.find({
-            where: { persistentID: In(persistentIds) },
-            select: { persistentID: true },
-          });
-          const existingPersistentIds = new Set(existingItems.map((item) => item.persistentID));
-          const newSlcEntities = validSlcEntities.filter((entity) => !existingPersistentIds.has(entity.persistentID));
-          saves -= validSlcEntities.length - newSlcEntities.length;
-
-          if (newSlcEntities.length > 0) {
-            await itemsRepository.insert(newSlcEntities);
-          }
-
-          try {
-            if (newSlcEntities.length > 0) {
-              await meilisearchService.indexCatalogItems(newSlcEntities);
-            }
-            logger.info(`Indexed ${newSlcEntities.length} new SLCItemCatalog items in Meilisearch`);
-          } catch (error) {
-            logger.error('Failed to batch index uploaded SLCItemCatalog items:', error);
+            await itemsRepository.save(entity);
           }
         }
       }
@@ -102,37 +59,41 @@ export class ReviewController {
           if (result.length > 0) {
             issues.push(...result);
           }
-          const hasError = hasBlockingValidationError(result);
+          const hasError = result.some((validationError) => {
+            const constraints = validationError.constraints || {};
+            const contexts = validationError.contexts || {};
+            return Object.keys(constraints).some((constraintName) => {
+              return contexts[constraintName]?.severity === 'error';
+            });
+          });
 
           if (!hasError) {
             saves++;
-            validToolEntities.push(entity);
+            await toolsRepository.save(entity);
           }
-        }
-
-        if (validToolEntities.length > 0) {
-          await toolsRepository.save(validToolEntities, { chunk: 100 });
         }
       }
       // Process DatasetCatalog
       if (datasetCatalogs.length > 0) {
-        logger.info(`Processing ${datasetCatalogs.length} DatasetCatalog items`);
+        logger.info(`Processing ${datasetCatalogs.length} SLCToolsCatalog items`);
         for (const item of datasetCatalogs) {
           const entity = datasetRepository.create(item);
           const result = await validate(entity);
           if (result.length > 0) {
             issues.push(...result);
           }
-          const hasError = hasBlockingValidationError(result);
+          const hasError = result.some((validationError) => {
+            const constraints = validationError.constraints || {};
+            const contexts = validationError.contexts || {};
+            return Object.keys(constraints).some((constraintName) => {
+              return contexts[constraintName]?.severity === 'error';
+            });
+          });
 
           if (!hasError) {
             saves++;
-            validDatasetEntities.push(entity);
+            await datasetRepository.save(entity);
           }
-        }
-
-        if (validDatasetEntities.length > 0) {
-          await datasetRepository.save(validDatasetEntities, { chunk: 100 });
         }
       }
       function hasPersistentID(obj: object): obj is { persistentID: string } {
@@ -163,7 +124,7 @@ export class ReviewController {
       });
 
       if (processed_errors.length > 0) {
-        logger.warn(`Validation completed with ${processed_errors.length} issues.`);
+        console.log('Validation Errors: ', processed_errors);
       }
 
       res.status(200).render('pages/review', {
