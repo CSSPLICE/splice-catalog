@@ -5,7 +5,7 @@ export class ValidationResults extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   user!: string;
 
   @CreateDateColumn()
