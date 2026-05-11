@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../db/data-source.js';
 import { OntologyClasses } from '../db/entities/OntologyClass.js';
+import { OntologyRelations } from '../db/entities/OntologyRelation.js';
 
 export class OntologyController {
   // Fetch ontology tiles data for parents
@@ -137,18 +138,59 @@ export class OntologyController {
   async getOntologyTree(req: Request, res: Response) {
     try {
       const ontologyRepository = AppDataSource.getRepository(OntologyClasses);
-      const ontologyTree = await ontologyRepository.find({
-        relations: ['childRelations', 'childRelations.child_class'],
+      const relationRepository = AppDataSource.getRepository(OntologyRelations);
+      const excludedLabels = this.excludedLabels().map((label) => label.toLowerCase());
+
+      const classes = await ontologyRepository.find({
+        where: { is_active: true },
+      });
+      const relations = await relationRepository.find({
+        relations: ['parent_class', 'child_class'],
       });
 
-      const treeData = ontologyTree.map((classItem) => ({
-        id: classItem.id,
-        label: classItem.label.replace(/_/g, ' '),
-        children: classItem.childRelations.map((relation) => ({
-          id: relation.child_class.id,
-          label: relation.child_class.label.replace(/_/g, ' '),
-        })),
-      }));
+      const classById = new Map<number, OntologyClasses>();
+      const childIds = new Set<number>();
+      const childrenByParentId = new Map<number, OntologyClasses[]>();
+
+      classes.forEach((classItem) => {
+        if (!excludedLabels.includes(classItem.label.toLowerCase())) {
+          classById.set(classItem.id, classItem);
+        }
+      });
+
+      relations.forEach((relation) => {
+        const parent = relation.parent_class as OntologyClasses | undefined;
+        const child = relation.child_class as OntologyClasses | undefined;
+        if (!parent || !child || !classById.has(parent.id) || !classById.has(child.id)) return;
+
+        childIds.add(child.id);
+        const siblings = childrenByParentId.get(parent.id) || [];
+        if (!siblings.some((sibling) => sibling.id === child.id)) {
+          siblings.push(child);
+        }
+        childrenByParentId.set(parent.id, siblings);
+      });
+
+      const buildNode = (classItem: OntologyClasses, visited = new Set<number>()): any => {
+        const nextVisited = new Set(visited);
+        nextVisited.add(classItem.id);
+
+        const children = (childrenByParentId.get(classItem.id) || [])
+          .filter((child) => !nextVisited.has(child.id))
+          .sort((left, right) => left.label.localeCompare(right.label))
+          .map((child) => buildNode(child, nextVisited));
+
+        return {
+          id: classItem.id,
+          label: classItem.label.replace(/_/g, ' '),
+          children,
+        };
+      };
+
+      const treeData = Array.from(classById.values())
+        .filter((classItem) => !childIds.has(classItem.id))
+        .sort((left, right) => left.label.localeCompare(right.label))
+        .map((classItem) => buildNode(classItem));
 
       res.json({ tree: treeData });
     } catch (error) {

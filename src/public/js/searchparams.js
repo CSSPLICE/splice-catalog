@@ -2,6 +2,7 @@ window.currentItems = [];
 
 document.addEventListener('DOMContentLoaded', function () {
   let activeKeyword = null;
+  const ontologyDescendantsByLabel = new Map();
 
   function parseKeywords(raw) {
     if (!raw) return [];
@@ -55,6 +56,142 @@ document.addEventListener('DOMContentLoaded', function () {
     }, {});
   }
 
+  function setFilterSectionExpanded(key, isExpanded) {
+    const toggle = document.querySelector(`[data-filter-toggle="${key}"]`);
+    const optionsContainer = document.querySelector(`[data-filter-options="${key}"]`);
+    const caret = toggle?.querySelector('.filter-section-caret');
+
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    }
+    if (caret) {
+      caret.textContent = isExpanded ? 'v' : '>';
+    }
+    if (optionsContainer) {
+      optionsContainer.style.display = isExpanded ? '' : 'none';
+    }
+  }
+
+  function collectOntologyLabels(node) {
+    const labels = [node.label];
+    (node.children || []).forEach((child) => {
+      labels.push(...collectOntologyLabels(child));
+    });
+    return labels;
+  }
+
+  function indexOntologyNode(node) {
+    ontologyDescendantsByLabel.set(node.label, collectOntologyLabels(node));
+    (node.children || []).forEach(indexOntologyNode);
+  }
+
+  function getFilterMatchValues(section, selectedValues) {
+    if (section.key !== 'keywords') return selectedValues;
+
+    return [
+      ...new Set(
+        selectedValues.flatMap((selectedValue) => ontologyDescendantsByLabel.get(selectedValue) || [selectedValue]),
+      ),
+    ];
+  }
+
+  function renderOntologyNodes(nodes, selectedValues) {
+    const list = document.createElement('ul');
+    list.className = 'ontology-filter-list';
+
+    nodes.forEach((node) => {
+      const item = document.createElement('li');
+      item.className = 'ontology-filter-node';
+
+      const row = document.createElement('div');
+      row.className = 'ontology-filter-row';
+
+      const children = node.children || [];
+      const expandButton = document.createElement('button');
+      expandButton.type = 'button';
+      expandButton.className = 'ontology-filter-expand';
+      expandButton.textContent = children.length > 0 ? '>' : '';
+      expandButton.setAttribute('aria-label', children.length > 0 ? `Expand ${node.label}` : '');
+      expandButton.disabled = children.length === 0;
+      if (children.length === 0) {
+        expandButton.setAttribute('aria-hidden', 'true');
+      }
+
+      const label = document.createElement('label');
+      label.className = 'ontology-filter-label';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className = 'filter-option-input ontology-filter-checkbox';
+      checkbox.dataset.filterOption = 'keywords';
+      checkbox.name = 'keywords';
+      checkbox.value = node.label;
+      checkbox.checked = selectedValues.has(node.label);
+      checkbox.addEventListener('change', function () {
+        if (this.checked) setFilterSectionExpanded('keywords', true);
+        updateResults();
+      });
+
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode(node.label));
+      row.appendChild(expandButton);
+      row.appendChild(label);
+      item.appendChild(row);
+
+      if (children.length > 0) {
+        const childWrapper = document.createElement('div');
+        childWrapper.className = 'ontology-filter-children';
+        childWrapper.hidden = true;
+        childWrapper.appendChild(renderOntologyNodes(children, selectedValues));
+        item.appendChild(childWrapper);
+
+        expandButton.addEventListener('click', function () {
+          const isExpanded = !childWrapper.hidden;
+          childWrapper.hidden = isExpanded;
+          expandButton.textContent = isExpanded ? '>' : 'v';
+          expandButton.setAttribute('aria-label', `${isExpanded ? 'Expand' : 'Collapse'} ${node.label}`);
+        });
+      }
+
+      list.appendChild(item);
+    });
+
+    return list;
+  }
+
+  async function initOntologyFilters() {
+    const treeContainers = Array.from(document.querySelectorAll('[data-ontology-tree="keywords"]'));
+    if (treeContainers.length === 0) return;
+
+    try {
+      const response = await fetch('/ontology/tree');
+      if (!response.ok) throw new Error('Unable to load ontology tree');
+
+      const data = await response.json();
+      const tree = data.tree || [];
+      tree.forEach(indexOntologyNode);
+
+      treeContainers.forEach((container) => {
+        const selectedValues = new Set(
+          (container.dataset.selectedValues || '')
+            .split('|')
+            .map((value) => value.trim())
+            .filter(Boolean),
+        );
+
+        container.innerHTML = '';
+        container.appendChild(renderOntologyNodes(tree, selectedValues));
+      });
+
+      updateResults();
+    } catch (error) {
+      console.error('Error loading ontology tree:', error);
+      treeContainers.forEach((container) => {
+        container.innerHTML = '<div class="ontology-filter-loading">Unable to load keywords.</div>';
+      });
+    }
+  }
+
   let currentItems = [...allItems];
   window.currentItems = [...currentItems];
   let searchResults = [...allItems];
@@ -72,12 +209,9 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       const feature = e.target.dataset.feature;
       const featureCheckbox = form.querySelector(`[data-filter-option="features"][value="${feature}"]`);
-      const featuresToggle = form.querySelector('[data-filter-toggle="features"]');
-      const featuresOptions = form.querySelector('[data-filter-options="features"]');
       if (featureCheckbox) {
         featureCheckbox.checked = true;
-        if (featuresToggle) featuresToggle.checked = true;
-        if (featuresOptions) featuresOptions.style.display = '';
+        setFilterSectionExpanded('features', true);
         updateResults();
       }
     }
@@ -104,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let filteredItems = searchResults;
 
     (window.filterSections || []).forEach((section) => {
-      const selectedValues = selectedFilters[section.key] || [];
+      const selectedValues = getFilterMatchValues(section, selectedFilters[section.key] || []);
       if (selectedValues.length === 0) return;
 
       const itemField = section.key === 'tools' ? 'platform_name' : section.key;
@@ -283,21 +417,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   document.querySelectorAll('[data-filter-toggle]').forEach((toggle) => {
-    toggle.addEventListener('change', function () {
+    toggle.addEventListener('click', function () {
       const key = this.dataset.filterToggle;
-      const optionsContainer = document.querySelector(`[data-filter-options="${key}"]`);
-      const optionInputs = Array.from(document.querySelectorAll(`[data-filter-option="${key}"]`));
-
-      if (this.checked) {
-        if (optionsContainer) optionsContainer.style.display = '';
-        return;
-      }
-
-      if (optionsContainer) optionsContainer.style.display = 'none';
-      optionInputs.forEach((input) => {
-        input.checked = false;
-      });
-      updateResults();
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      setFilterSectionExpanded(key, !isExpanded);
     });
   });
 
@@ -305,10 +428,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (checkbox.dataset.filterOption) {
       checkbox.addEventListener('change', function () {
         const key = this.dataset.filterOption;
-        const toggle = document.querySelector(`[data-filter-toggle="${key}"]`);
         const selectedCount = document.querySelectorAll(`[data-filter-option="${key}"]:checked`).length;
-        if (toggle && selectedCount > 0) {
-          toggle.checked = true;
+        if (selectedCount > 0) {
+          setFilterSectionExpanded(key, true);
         }
         updateResults();
       });
@@ -377,24 +499,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
     (window.filterSections || []).forEach((section) => {
       const values = params.getAll(section.key);
-      const toggle = document.querySelector(`[data-filter-toggle="${section.key}"]`);
-      const optionsContainer = document.querySelector(`[data-filter-options="${section.key}"]`);
-
       document.querySelectorAll(`[data-filter-option="${section.key}"]`).forEach((cb) => {
         if (values.includes(cb.value)) cb.checked = true;
       });
 
-      if (toggle && values.length > 0) {
-        toggle.checked = true;
-      }
-
-      if (optionsContainer && values.length > 0) {
-        optionsContainer.style.display = '';
+      if (values.length > 0) {
+        setFilterSectionExpanded(section.key, true);
       }
     });
   }
 
   applyFiltersFromURL();
+  initOntologyFilters();
 
   const initialQuery = new URLSearchParams(window.location.search).get('query');
   if (initialQuery) {
