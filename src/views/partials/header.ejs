@@ -28,6 +28,9 @@
         </form>
 
         <div class="text-end">
+          <% if (isAdmin) { %>
+            <a href="/admin" class="btn btn-outline-light me-2">Admin</a>
+          <% } %>
           <% if (showLoginButton) { %>
             <a href="/login" class="btn btn-outline-light me-2">Login</a>
           <% } else if (user) { %>

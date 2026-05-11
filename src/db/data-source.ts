@@ -9,6 +9,8 @@ import { OntologyAliases } from './entities/OntologyAlias.js';
 import { ItemClassification } from './entities/ItemClassification.js';
 import { ValidationResults } from './entities/ValidationResults.js';
 import { SearchAlias } from './entities/SearchAlias.js';
+import { ValidationJob } from './entities/ValidationJob.js';
+import { ValidationJobConstraint } from './entities/ValidationJobConstraint.js';
 
 dotenv.config();
 
@@ -31,6 +33,8 @@ export const AppDataSource: DataSource = new DataSource({
     ItemClassification,
     ValidationResults,
     SearchAlias,
+    ValidationJob,
+    ValidationJobConstraint,
   ],
   synchronize: false,
   subscribers: [],

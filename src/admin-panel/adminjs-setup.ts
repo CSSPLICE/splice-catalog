@@ -5,13 +5,23 @@ import { OntologyClasses } from '../db/entities/OntologyClass.js';
 import { OntologyRelations } from '../db/entities/OntologyRelation.js';
 import { OntologyAliases } from '../db/entities/OntologyAlias.js';
 import { ItemClassification } from '../db/entities/ItemClassification.js';
-import { ValidationResults } from '../db/entities/ValidationResults.js';
 import { SearchAlias } from '../db/entities/SearchAlias.js';
-import { AdminJS, ResourceOptions } from 'adminjs';
+import { ValidationJob } from '../db/entities/ValidationJob.js';
+import { ValidationJobConstraint } from '../db/entities/ValidationJobConstraint.js';
+import { AdminJS, ResourceOptions, ActionRequest, ActionResponse } from 'adminjs';
 import { Database, Resource } from '@adminjs/typeorm';
 import { AppDataSource } from '../db/data-source.js';
 import AdminJSExpress from '@adminjs/express';
 const { buildRouter } = AdminJSExpress;
+
+function buildOrigin(request: ActionRequest): string {
+  const headers = (request as unknown as { headers?: Record<string, string | string[] | undefined> }).headers || {};
+  const protoHeader = headers['x-forwarded-proto'];
+  const proto = (Array.isArray(protoHeader) ? protoHeader[0] : protoHeader) || 'http';
+  const hostHeader = headers['x-forwarded-host'] || headers['host'];
+  const host = (Array.isArray(hostHeader) ? hostHeader[0] : hostHeader) || 'localhost';
+  return `${proto}://${host}`;
+}
 
 export function setup() {
   AdminJS.registerAdapter({
@@ -67,8 +77,73 @@ export function setup() {
       { resource: OntologyRelations },
       { resource: OntologyAliases },
       { resource: ItemClassification },
-      { resource: ValidationResults },
       { resource: SearchAlias },
+      {
+        resource: ValidationJob,
+        options: {
+          listProperties: [
+            'id',
+            'submitted_at',
+            'status',
+            'catalog_type',
+            'total',
+            'processed',
+            'saved',
+            'updated',
+            'url',
+          ],
+          showProperties: [
+            'id',
+            'url',
+            'submitted_at',
+            'status',
+            'catalog_type',
+            'total',
+            'processed',
+            'saved',
+            'updated',
+          ],
+          properties: {
+            url: {
+              type: 'string',
+              isVirtual: true,
+              isVisible: { list: true, show: true, edit: false, filter: false },
+            },
+          },
+          actions: {
+            new: { isAccessible: false },
+            edit: { isAccessible: false },
+            list: {
+              after: async (response: ActionResponse, request: ActionRequest) => {
+                const origin = buildOrigin(request);
+                response.records = (response.records || []).map((rec: { params: Record<string, unknown> }) => {
+                  rec.params.url = `${origin}/review/${rec.params.id}`;
+                  return rec;
+                });
+                return response;
+              },
+            },
+            show: {
+              after: async (response: ActionResponse, request: ActionRequest) => {
+                const origin = buildOrigin(request);
+                if (response.record) {
+                  response.record.params.url = `${origin}/review/${response.record.params.id}`;
+                }
+                return response;
+              },
+            },
+          },
+        },
+      },
+      {
+        resource: ValidationJobConstraint,
+        options: {
+          actions: {
+            new: { isAccessible: false },
+            edit: { isAccessible: false },
+          },
+        },
+      },
     ],
     rootPath: '/admin',
   });
