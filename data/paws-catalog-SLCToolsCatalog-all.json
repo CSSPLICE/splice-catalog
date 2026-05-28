@@ -54,5 +54,12 @@
     "url": "https://github.com/mhassany-pitt/acos-annotated",
     "description": "Repository of WebEx-style annotated programming examples packaged for reuse (often via ACOS). Provides curated example sets across languages for embedding into courses or adaptive platforms.",
     "contact_email": "moh70@pitt.edu"
+  },
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "SQL-KnoT",
+    "url": "https://adapt2.sis.pitt.edu/wiki/SQLKnoT",
+    "description": "Interactive tool for learning SQL query evaluation. Visualizes the execution of SELECT queries, highlighting active clauses and showing intermediate results.",
+    "contact_email": "moh70@pitt.edu"
   }
 ]

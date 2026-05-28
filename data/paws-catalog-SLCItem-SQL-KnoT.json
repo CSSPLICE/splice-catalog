@@ -1,0 +1,3134 @@
+[
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question3",
+    "description": "SELECT-FROM question3",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question2",
+    "description": "Sql FreeCodingProblems for demonstrating Sub-Queries question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=2&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=2&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question3",
+    "description": "Aggregate Functions question3",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "Set Operations question4",
+    "description": "Set Operations question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question3",
+    "description": "Pattern Matching question3",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question1",
+    "description": "Sql FreeCodingProblems for demonstrating Pattern Matching question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question3",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM-WHERE question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=3&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=3&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Order-By question3",
+    "description": "Sql FreeCodingProblems for demonstrating Order-By question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=3&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=3&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "Set Operations question2",
+    "description": "Set Operations question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question1",
+    "description": "Sql FreeCodingProblems for demonstrating Arithmetic Expressions question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=6&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question6",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM-WHERE question6",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=6&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=6&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question3",
+    "description": "Multiple Table question3",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "LEFT-JOIN question2",
+    "description": "LEFT-JOIN question2",
+    "license": "MIT",
+    "author": [
+      "Rully Hendrawan"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=22&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=22&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question2",
+    "description": "Sub-Queries question2",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "Order-By question3",
+    "description": "Order-By question3",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question5",
+    "description": "SELECT-FROM question5",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=5&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=8&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question8",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM-WHERE question8",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=8&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=8&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question2",
+    "description": "SELECT-FROM-WHERE question2",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question4",
+    "description": "Sub-Queries question4",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question1",
+    "description": "Arithmetic Expressions question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question2",
+    "description": "Arithmetic Expressions question2",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question4",
+    "description": "Sql FreeCodingProblems for demonstrating Aggregate Functions question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=4&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=4&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question4",
+    "description": "Sql FreeCodingProblems for demonstrating Sub-Queries question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=4&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=4&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question5",
+    "description": "Sql FreeCodingProblems for demonstrating Sub-Queries question5",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=5&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=5&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question4",
+    "description": "Multiple Table question4",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question2",
+    "description": "SELECT-FROM question2",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question5",
+    "description": "Sql FreeCodingProblems for demonstrating Multiple Table question5",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=5&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=5&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question2",
+    "description": "Sql FreeCodingProblems for demonstrating Arithmetic Expressions question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=2&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=2&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question5",
+    "description": "Sql FreeCodingProblems for demonstrating Arithmetic Expressions question5",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=5&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=5&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=8",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question8",
+    "description": "SELECT-FROM-WHERE question8",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=8&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=8&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question2",
+    "description": "Pattern Matching question2",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question2",
+    "description": "Group-By & Having question2",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question1",
+    "description": "Sql FreeCodingProblems for demonstrating Sub-Queries question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question4",
+    "description": "Aggregate Functions question4",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Order-By question2",
+    "description": "Sql FreeCodingProblems for demonstrating Order-By question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=2&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=2&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question4",
+    "description": "Sql FreeCodingProblems for demonstrating Arithmetic Expressions question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=4&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=4&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question1",
+    "description": "Sub-Queries question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question2",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM-WHERE question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=2&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=2&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question4",
+    "description": "Sql FreeCodingProblems for demonstrating Pattern Matching question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=4&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=4&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question4",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM-WHERE question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=4&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=4&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question4",
+    "description": "Arithmetic Expressions question4",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Order-By question4",
+    "description": "Sql FreeCodingProblems for demonstrating Order-By question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=4&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=4&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5",
+    "platform_name": "SQL-KnoT",
+    "title": "Set Operations question5",
+    "description": "Set Operations question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=5&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question1",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question1",
+    "description": "SELECT-FROM-WHERE question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question2",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=2&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=2&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=7&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question7",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM-WHERE question7",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=7&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=7&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question1",
+    "description": "Sql FreeCodingProblems for demonstrating Aggregate Functions question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question5",
+    "description": "Pattern Matching question5",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=5&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "Order-By question2",
+    "description": "Order-By question2",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question4",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=4&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=4&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question2",
+    "description": "Multiple Table question2",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "Join question2",
+    "description": "Join question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=21&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=21&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "LEFT-JOIN question1",
+    "description": "LEFT-JOIN question1",
+    "license": "MIT",
+    "author": [
+      "Rully Hendrawan"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=22&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=22&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question2",
+    "description": "Sql FreeCodingProblems for demonstrating Multiple Table question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=2&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=2&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=7",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question7",
+    "description": "SELECT-FROM-WHERE question7",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=7&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=7&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question1",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM-WHERE question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Order-By question1",
+    "description": "Sql FreeCodingProblems for demonstrating Order-By question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question4",
+    "description": "SELECT-FROM-WHERE question4",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question5",
+    "description": "SELECT-FROM-WHERE question5",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=5&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question5",
+    "description": "Multiple Table question5",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=5&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=9",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question9",
+    "description": "SELECT-FROM-WHERE question9",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=9&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=9&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=6",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question6",
+    "description": "SELECT-FROM-WHERE question6",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=6&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=6&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question5",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM question5",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=5&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=5&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question3",
+    "description": "Group-By & Having question3",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question4",
+    "description": "Group-By & Having question4",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Set Operations question1",
+    "description": "Sql FreeCodingProblems for demonstrating Set Operations question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question3",
+    "description": "Arithmetic Expressions question3",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question5",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM-WHERE question5",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=5&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=5&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question3",
+    "description": "Sql FreeCodingProblems for demonstrating Pattern Matching question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=3&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=3&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question4",
+    "description": "Sql FreeCodingProblems for demonstrating Group-By & Having question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=4&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=4&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question5",
+    "description": "Aggregate Functions question5",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=5&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question5",
+    "description": "Sql FreeCodingProblems for demonstrating Group-By & Having question5",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=5&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=5&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question3",
+    "description": "Sql FreeCodingProblems for demonstrating Sub-Queries question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=3&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=3&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question1",
+    "description": "Group-By & Having question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question2",
+    "description": "Aggregate Functions question2",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=2&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=2&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question1",
+    "description": "Multiple Table question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question2",
+    "description": "Sql FreeCodingProblems for demonstrating Aggregate Functions question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=2&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=2&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question3",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=3&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=3&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question4",
+    "description": "Sql FreeCodingProblems for demonstrating Multiple Table question4",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=4&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=4&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "Join question1",
+    "description": "Join question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=21&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=21&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question5",
+    "description": "Sql FreeCodingProblems for demonstrating Aggregate Functions question5",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=5&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=5&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question1",
+    "description": "Sql FreeCodingProblems for demonstrating Group-By & Having question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "Order-By question1",
+    "description": "Order-By question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "Set Operations question3",
+    "description": "Set Operations question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question5",
+    "description": "Group-By & Having question5",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=5&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question2",
+    "description": "Sql FreeCodingProblems for demonstrating Pattern Matching question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=2&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=2&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question4",
+    "description": "Pattern Matching question4",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "Set Operations question1",
+    "description": "Set Operations question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=15&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question1",
+    "description": "Aggregate Functions question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question4",
+    "description": "SELECT-FROM question4",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question3",
+    "description": "Sub-Queries question3",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=3&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question3",
+    "description": "Sql FreeCodingProblems for demonstrating Group-By & Having question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=3&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=3&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question1",
+    "description": "Sql FreeCodingProblems for demonstrating Multiple Table question1",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=1&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=1&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question3",
+    "description": "Sql FreeCodingProblems for demonstrating Arithmetic Expressions question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=3&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=3&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question5",
+    "description": "Sql FreeCodingProblems for demonstrating Pattern Matching question5",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=5&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=5&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "Pattern Matching question1",
+    "description": "Pattern Matching question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=12&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=1",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM question1",
+    "description": "SELECT-FROM question1",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=1&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=1&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=6&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-DISTINCT question6",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-DISTINCT question6",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=6&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=6&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=9&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question9",
+    "description": "Sql FreeCodingProblems for demonstrating SELECT-FROM-WHERE question9",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=9&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=9&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=6",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-DISTINCT question6",
+    "description": "SELECT-DISTINCT question6",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=6&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=9&tid=6&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=2&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Group-By & Having question2",
+    "description": "Sql FreeCodingProblems for demonstrating Group-By & Having question2",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=2&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=17&tid=2&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Multiple Table question3",
+    "description": "Sql FreeCodingProblems for demonstrating Multiple Table question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=3&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=13&tid=3&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=4",
+    "platform_name": "SQL-KnoT",
+    "title": "Order-By question4",
+    "description": "Order-By question4",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=4&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=14&tid=4&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3&lang=TR",
+    "platform_name": "SQL-KnoT",
+    "title": "Aggregate Functions question3",
+    "description": "Sql FreeCodingProblems for demonstrating Aggregate Functions question3",
+    "license": "MIT",
+    "author": [
+      "Kamil Akhuseyinoglu"
+    ],
+    "institution": [
+      "University of Pittsburgh"
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "tr"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=3&lang=TR&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=16&tid=3&lang=TR"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5",
+    "platform_name": "SQL-KnoT",
+    "title": "Sub-Queries question5",
+    "description": "Sub-Queries question5",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=5&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=18&tid=5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=5",
+    "platform_name": "SQL-KnoT",
+    "title": "Arithmetic Expressions question5",
+    "description": "Arithmetic Expressions question5",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=5&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=10&tid=5&svc=progvis"
+    ]
+  },
+  {
+    "catalog_type": "SLCItem",
+    "persistentID": "https://adapt2.sis.pitt.edu/sqlknot/index.html?&tid=3",
+    "platform_name": "SQL-KnoT",
+    "title": "SELECT-FROM-WHERE question3",
+    "description": "SELECT-FROM-WHERE question3",
+    "license": "MIT",
+    "author": [
+      "Administrator"
+    ],
+    "institution": [
+      ""
+    ],
+    "keywords": [],
+    "features": [],
+    "programming_language": [
+      "Sql"
+    ],
+    "natural_language": [
+      "en"
+    ],
+    "iframe_url": "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=3&svc=progvis&usr=adl01&grp=adl01",
+    "protocol": [
+      "PITT"
+    ],
+    "protocol_url": [
+      "https://adapt2.sis.pitt.edu/sqlknot/index.html?cid=11&tid=3&svc=progvis"
+    ]
+  }
+]
