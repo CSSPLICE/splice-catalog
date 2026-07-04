@@ -32,9 +32,7 @@ function hasSeverity(result: ValidationError[], severity: Severity): boolean {
   return result.some((validationError) => {
     const constraints = validationError.constraints || {};
     const contexts = validationError.contexts || {};
-    return Object.keys(constraints).some(
-      (constraintName) => contexts[constraintName]?.severity === severity,
-    );
+    return Object.keys(constraints).some((constraintName) => contexts[constraintName]?.severity === severity);
   });
 }
 

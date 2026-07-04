@@ -1,11 +1,4 @@
-import {
-  Entity,
-  PrimaryColumn,
-  Column,
-  CreateDateColumn,
-  OneToMany,
-  BaseEntity,
-} from 'typeorm';
+import { Entity, PrimaryColumn, Column, CreateDateColumn, OneToMany, BaseEntity } from 'typeorm';
 import { ValidationJobConstraint } from './ValidationJobConstraint.js';
 
 export type CatalogType = 'SLCItem' | 'SLCToolsCatalog' | 'DatasetCatalog';

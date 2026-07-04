@@ -21,7 +21,8 @@
     "migrate:revert": "yarn typeorm migration:revert",
     "seed": "tsx src/db/seeds/CatalogSeeder.ts",
     "import:ontology": "ts-node-esm src/utils/import-ontology-data.ts",
-    "search:sync": "sh -c '[ -f dist/scripts/syncMeili.js ] && node dist/scripts/syncMeili.js || node --loader ts-node/esm src/scripts/syncMeili.ts'"
+    "search:sync": "sh -c '[ -f dist/scripts/syncMeili.js ] && node dist/scripts/syncMeili.js || node --loader ts-node/esm src/scripts/syncMeili.ts'",
+    "search:resync": "sh -c '[ -f dist/scripts/resyncMeili.js ] && node dist/scripts/resyncMeili.js || node --loader ts-node/esm src/scripts/resyncMeili.ts'"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.1",

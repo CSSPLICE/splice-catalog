@@ -53,7 +53,7 @@
     "interface": "LTI, SPLICE protocol",
     "contact_email": "opendsa@cs.vt.edu"
   },
-    {
+  {
     "catalog_type": "SLCToolsCatalog",
     "platform_name": "DBQA",
     "url": "https://codesmell.org/dbqa",

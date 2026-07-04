@@ -42,6 +42,15 @@ export class MeilisearchService {
     await this.index.deleteDocument(id);
   }
 
+  async deleteIndex(indexName: string) {
+    try {
+      await this.client.deleteIndex(indexName);
+      console.log(`Meilisearch: Index "${indexName}" deleted`);
+    } catch (error: any) {
+      if (error.code !== 'index_not_found') throw error;
+    }
+  }
+
   async search(query: string) {
     try {
       const searchResults = await this.index.search(query, {
