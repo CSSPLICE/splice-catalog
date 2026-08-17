@@ -46,7 +46,19 @@ If you are developing the catalog, you should be checking out the staging branch
 
 ## Production
 
+To update content on the production instance, make sure the repository is updated (via Git) and run:
+
 `docker compose --profile production build`
+
+`docker compose --profile production down`
+
+`docker compose --profile production up -d`
+
+If you are updating static content, you might have to remove the staticvolume with a restart in order to see your changes.
+
+`docker compose --profile production build`
+
+`docker compose --profile production down`
 
 `docker volume rm splice-catalog_staticvolume`
 
