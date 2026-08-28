@@ -1,3 +1,7 @@
+html {
+  scrollbar-gutter: stable;
+}
+
 .hero-image {
   background-image: url('/images/splice1.jpg');
   height: 65vh;
