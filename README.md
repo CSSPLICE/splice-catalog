@@ -34,6 +34,11 @@ mysql -usplice -psplice
 use splice;
 ```
 
+## Development Credentials
+If you are working with a local copy of the catalog, the admin credentials are
+Username: admin@cssplice.org
+Password: Splice-Development-Test!1
+
 ## Clear Database
 
 If you end up needing to clear the database and start over, you can run `docker compose --profile catalog down --remove-orphans -v` to remove the volumes. You should accompny this with a `build` and an `up` to reset everything
