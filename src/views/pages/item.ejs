@@ -145,7 +145,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 </tr>
                 <tr>
                     <td>Iframe URL</td>
-                    <td><a href="<%= item.iframe_url %>" target=_blank><%= item.iframe_url %></a></td>
+                    <td><a href="<%= item.iframe_url %>" target=_blank data-usage-external-click data-item-persistent-id="<%= encodeURIComponent(item.persistentID) %>" data-link-type="iframe_url"><%= item.iframe_url %></a></td>
                 </tr>
                 <tr>
                   <td>Protocol</td>
@@ -208,6 +208,7 @@ window.addEventListener('DOMContentLoaded', () => {
     </div>
 
     <!-- Bootstrap JS bundle -->
+    <script src="/js/usageTracking.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 

@@ -1,0 +1,260 @@
+.usage-page {
+  max-width: 1120px;
+  padding-top: 0.5rem;
+  padding-bottom: 1.75rem;
+}
+
+.usage-heading {
+  margin: 0.25rem 0 1.25rem;
+}
+
+.usage-back-link {
+  display: inline-block;
+  margin-bottom: 0.55rem;
+  color: #586c7d;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.usage-back-link:hover,
+.usage-back-link:focus-visible {
+  color: #245c86;
+  text-decoration: underline;
+}
+
+.usage-heading h1 {
+  margin: 0;
+  color: #263746;
+  font-size: clamp(1.6rem, 3vw, 1.95rem);
+  font-weight: 620;
+  letter-spacing: -0.02em;
+}
+
+.usage-heading p,
+.usage-section-heading p {
+  margin: 0.3rem 0 0;
+  color: #65727e;
+}
+
+.usage-export-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.usage-export-link {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #cfd8df;
+  border-radius: 4px;
+  color: #365f7d;
+  font-size: 0.84rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.usage-export-link:hover,
+.usage-export-link:focus-visible {
+  border-color: #9fb3c2;
+  background: #f4f7f9;
+  color: #204f73;
+  text-decoration: underline;
+}
+
+.usage-export-link:focus-visible {
+  outline: 2px solid #3976a4;
+  outline-offset: 2px;
+}
+
+.usage-kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.usage-kpi,
+.usage-activity {
+  border: 1px solid #dce2e7;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.usage-kpi {
+  display: flex;
+  min-height: 145px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.05rem 1.25rem;
+  border-top: 3px solid #3976a4;
+}
+
+.usage-kpi h2 {
+  margin: 0;
+  color: #536372;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.usage-kpi-value {
+  margin: 0.5rem 0 0;
+  color: #263746;
+  font-size: 2.15rem;
+  font-weight: 680;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+}
+
+.usage-kpi-caption {
+  margin: auto 0 0;
+  padding-top: 0.35rem;
+  color: #75818b;
+  font-size: 0.9rem;
+}
+
+.usage-activity {
+  overflow: hidden;
+}
+
+.usage-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.05rem 1.25rem;
+  border-bottom: 1px solid #e2e7eb;
+}
+
+.usage-section-heading h2 {
+  margin: 0;
+  color: #263746;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.usage-section-heading p {
+  font-size: 0.9rem;
+}
+
+.usage-sort {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.15rem;
+  padding: 0.2rem;
+  border: 1px solid #dce2e7;
+  border-radius: 5px;
+  background: #f1f4f6;
+}
+
+.usage-sort a {
+  padding: 0.38rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #4b5c69;
+  font-size: 0.875rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.usage-sort a.active {
+  border-color: #c9d7e1;
+  background: #fff;
+  color: #204f73;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(31, 55, 73, 0.08);
+}
+
+.usage-sort a:not(.active):hover {
+  background: #e8edf1;
+  color: #263f52;
+}
+
+.usage-sort a:focus-visible {
+  outline: 2px solid #3976a4;
+  outline-offset: 2px;
+}
+
+.usage-table {
+  margin: 0;
+  color: #344452;
+}
+
+.usage-table th,
+.usage-table td {
+  padding: 0.72rem 1.25rem;
+  vertical-align: middle;
+}
+
+.usage-table thead th {
+  border-bottom: 1px solid #dce2e7;
+  background: #f4f7f8;
+  color: #465866;
+  font-size: 0.82rem;
+  font-weight: 650;
+  letter-spacing: 0.015em;
+}
+
+.usage-table tbody td {
+  border-bottom-color: #e9edf0;
+}
+
+.usage-table tbody tr:hover {
+  background: #f8fafb;
+}
+
+.usage-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.usage-number {
+  width: 150px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.usage-empty {
+  padding: 2rem 1rem !important;
+  color: #6b7781;
+  text-align: center;
+}
+
+.usage-privacy-note {
+  margin: 0.9rem 0 0;
+  padding: 0.7rem 0.9rem;
+  border-left: 2px solid #a9bac7;
+  background: #f6f8f9;
+  color: #687782;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .usage-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .usage-section-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1rem;
+  }
+
+  .usage-sort {
+    width: 100%;
+  }
+
+  .usage-sort a {
+    flex: 1;
+    text-align: center;
+  }
+
+  .usage-table {
+    min-width: 540px;
+  }
+
+  .usage-number {
+    width: auto;
+  }
+}

@@ -8,6 +8,8 @@ import viewRoutes from './routes/view.js';
 import reviewRoutes from './routes/review.js';
 import ontologyRoutes from './routes/ontology.js';
 import apiRoutes from './routes/api.js';
+import usageRoutes from './routes/usage.js';
+import usageDashboardRoutes from './routes/usageDashboard.js';
 import { ErrorHandler } from './utils/ErrorHandler.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -83,6 +85,8 @@ app.use('/', reviewRoutes);
 app.use('/approve', reviewRoutes);
 app.use('/ontology', ontologyRoutes);
 app.use('/api', apiRoutes);
+app.use('/usage', usageRoutes);
+app.use('/admin', usageDashboardRoutes);
 
 emitter.on('DataSourceInitialized', () => {
   console.log('DataSourceInitialized');

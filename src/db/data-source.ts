@@ -9,9 +9,11 @@ import { OntologyAliases } from './entities/OntologyAlias.js';
 import { ItemClassification } from './entities/ItemClassification.js';
 import { ValidationResults } from './entities/ValidationResults.js';
 import { SearchAlias } from './entities/SearchAlias.js';
+import { UsageEvent } from './entities/UsageEvent.js';
 import { SeedInitialData1764779460569 } from './migrations/1764779460569-SeedInitialData.js';
 import { CreateSearchAliasesTable1771278405273 } from './migrations/1771278405273-CreateSearchAliasesTable.js';
 import { SeedSearchAliasesData1771278447647 } from './migrations/1771278447647-SeedSearchAliasesData.js';
+import { CreateUsageEventsTable1791251377107 } from './migrations/1791251377107-CreateUsageEventsTable.js';
 
 dotenv.config();
 
@@ -22,7 +24,12 @@ export const AppDataSource: DataSource = new DataSource({
   username: process.env.DB_USERNAME || 'splice',
   password: process.env.DB_PASSWORD || 'splice',
   database: process.env.DB_DATABASE || 'splice',
-  migrations: [SeedInitialData1764779460569, CreateSearchAliasesTable1771278405273, SeedSearchAliasesData1771278447647],
+  migrations: [
+    SeedInitialData1764779460569,
+    CreateSearchAliasesTable1771278405273,
+    SeedSearchAliasesData1771278447647,
+    CreateUsageEventsTable1791251377107,
+  ],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [
     slc_item_catalog,
@@ -34,6 +41,7 @@ export const AppDataSource: DataSource = new DataSource({
     ItemClassification,
     ValidationResults,
     SearchAlias,
+    UsageEvent,
   ],
   synchronize: false,
   subscribers: [],

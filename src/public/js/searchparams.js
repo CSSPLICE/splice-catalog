@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function () {
               ${(item.description || '').split(' ').slice(0, 20).join(' ')}...
             </span>
           </td>
-          <td><a href="${item.iframe_url}" target="_blank">${item.platform_name}</a></td>
+          <td><a href="${item.iframe_url}" target="_blank" data-usage-external-click data-item-persistent-id="${encodeURIComponent(item.persistentID)}" data-link-type="iframe_url">${item.platform_name}</a></td>
           <td>${keywordLinks}</td>
         </tr>
       `;

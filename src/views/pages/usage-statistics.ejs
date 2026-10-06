@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') -%>
+<link rel="stylesheet" href="/css/usage-statistics.css">
+<%- include('../partials/header') -%>
+<body>
+  <main class="usage-page container">
+    <div class="usage-heading">
+      <a class="usage-back-link" href="/admin"><span aria-hidden="true">←</span> Admin panel</a>
+      <h1>Usage Statistics</h1>
+      <p>Understand how catalog entries are being viewed and which resources users follow.</p>
+  <div class="usage-export-actions">
+    <a class="usage-export-link" href="/admin/usage-statistics/export">Download JSON</a>
+    <a class="usage-export-link" href="/admin/usage-statistics/export.csv">Download CSV</a>
+  </div>
+    </div>
+
+    <section class="usage-kpis" aria-label="Overall catalog activity">
+      <article class="usage-kpi">
+        <h2>SLC Entry Views</h2>
+        <p class="usage-kpi-value"><%= overallStatistics.totalViews.toLocaleString() %></p>
+        <p class="usage-kpi-caption">Catalog detail page opens</p>
+      </article>
+      <article class="usage-kpi">
+        <h2>External Resource Clicks</h2>
+        <p class="usage-kpi-value"><%= overallStatistics.totalExternalClicks.toLocaleString() %></p>
+        <p class="usage-kpi-caption">Intentional outgoing resource clicks</p>
+      </article>
+    </section>
+
+    <section class="usage-activity" aria-labelledby="activity-heading">
+      <div class="usage-section-heading">
+        <div>
+          <h2 id="activity-heading">Catalog Activity</h2>
+          <p>Activity recorded for each Smart Learning Content entry.</p>
+        </div>
+        <nav class="usage-sort" aria-label="Sort catalog activity">
+          <a href="/admin/usage-statistics?sort=views"
+             class="<%= sortBy === 'views' ? 'active' : '' %>"
+             <%= sortBy === 'views' ? 'aria-current="true"' : '' %>>Most viewed</a>
+          <a href="/admin/usage-statistics?sort=externalClicks"
+             class="<%= sortBy === 'externalClicks' ? 'active' : '' %>"
+             <%= sortBy === 'externalClicks' ? 'aria-current="true"' : '' %>>Most clicked</a>
+        </nav>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table usage-table">
+          <thead>
+            <tr>
+              <th scope="col">Smart Learning Content</th>
+              <th scope="col" class="usage-number">Views</th>
+              <th scope="col" class="usage-number">External Clicks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (itemStatistics.length === 0) { %>
+              <tr>
+                <td class="usage-empty" colspan="3">No usage activity has been recorded yet.</td>
+              </tr>
+            <% } else { %>
+              <% itemStatistics.forEach((item) => { %>
+                <tr>
+                  <td><%= item.itemTitle %></td>
+                  <td class="usage-number"><%= item.views.toLocaleString() %></td>
+                  <td class="usage-number"><%= item.externalClicks.toLocaleString() %></td>
+                </tr>
+              <% }); %>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="usage-privacy-note">
+      This page shows aggregate catalog activity. Entry views count detail-page opens, while external resource clicks count intentional outgoing link selections. No user-identifying information is collected by this usage feature.
+    </p>
+  </main>
+</body>
+<%- include('../partials/footer') -%>
+</html>
