@@ -18,6 +18,8 @@ router.post('/upload', checkRole(roles.contributor), upload.single('file'), view
 router.get('/upload', checkRole(roles.contributor), viewController.uploadView);
 
 router.get('/instructions', viewController.instructionsView);
+router.get('/toolcatalog/item/:id', (req, res) => viewController.toolItemView(req, res));
+router.get('/datasetcatalog/item/:id', (req, res) => viewController.datasetItemView(req, res));
 router.get('/catalog', viewController.catalogView);
 router.get('/datasetcatalog', viewController.datasetCatalogView);
 router.get('/toolcatalog', viewController.toolView);

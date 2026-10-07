@@ -8,47 +8,196 @@
     <div class="usage-heading">
       <a class="usage-back-link" href="/admin"><span aria-hidden="true">←</span> Admin panel</a>
       <h1>Usage Statistics</h1>
-      <p>Understand how catalog entries are being viewed and which resources users follow.</p>
-  <div class="usage-export-actions">
-    <a class="usage-export-link" href="/admin/usage-statistics/export">Download JSON</a>
-    <a class="usage-export-link" href="/admin/usage-statistics/export.csv">Download CSV</a>
-  </div>
+      <p>Track catalog entry views and outgoing resource clicks across all catalog types.</p>
     </div>
 
-    <section class="usage-kpis" aria-label="Overall catalog activity">
+    <section class="usage-period" aria-label="Usage statistics filters">
+      <h2>Filters</h2>
+      <form method="GET" action="/admin/usage-statistics" class="usage-period-form">
+        <fieldset class="usage-filter-group usage-filter-group--period">
+          <legend>Time Period</legend>
+          <label><span>From</span><input type="date" name="from" value="<%= from %>"></label>
+          <label><span>To</span><input type="date" name="to" value="<%= to %>"></label>
+        </fieldset>
+        <fieldset class="usage-filter-group usage-filter-group--catalog">
+          <legend>Catalog Type</legend>
+          <select id="usageCatalogType" name="catalogType" aria-label="Catalog Type">
+            <option value="ALL" <%= selectedCatalogType === 'ALL' ? 'selected' : '' %>>All Catalogs</option>
+            <option value="SLC_ITEM" <%= selectedCatalogType === 'SLC_ITEM' ? 'selected' : '' %>>SLC Items</option>
+            <option value="TOOL" <%= selectedCatalogType === 'TOOL' ? 'selected' : '' %>>Tools</option>
+            <option value="DATASET" <%= selectedCatalogType === 'DATASET' ? 'selected' : '' %>>Datasets</option>
+          </select>
+        </fieldset>
+        <input type="hidden" name="sort" value="<%= filterSort %>">
+        <div class="usage-period-actions">
+          <button type="submit" class="usage-apply-button">Apply</button>
+          <a class="usage-clear-link" href="/admin/usage-statistics">Reset</a>
+        </div>
+      </form>
+      <% if (validationMessage) { %>
+        <p class="usage-validation-message" role="alert"><%= validationMessage %></p>
+      <% } %>
+      <% if (rangeLabel) { %>
+        <p class="usage-period-label"><%= rangeLabel %></p>
+      <% } %>
+    </section>
+
+    <section class="usage-kpis" aria-label="Catalog usage totals">
       <article class="usage-kpi">
-        <h2>SLC Entry Views</h2>
+        <h2>Catalog Entry Views</h2>
         <p class="usage-kpi-value"><%= overallStatistics.totalViews.toLocaleString() %></p>
         <p class="usage-kpi-caption">Catalog detail page opens</p>
       </article>
       <article class="usage-kpi">
         <h2>External Resource Clicks</h2>
         <p class="usage-kpi-value"><%= overallStatistics.totalExternalClicks.toLocaleString() %></p>
-        <p class="usage-kpi-caption">Intentional outgoing resource clicks</p>
+        <p class="usage-kpi-caption">Intentional outgoing resource selections</p>
+      </article>
+      <article class="usage-kpi">
+        <h2>Unique Catalog Entries</h2>
+        <p class="usage-kpi-value"><%= uniqueCatalogEntries.toLocaleString() %></p>
+        <p class="usage-kpi-caption">Entries with recorded activity</p>
+      </article>
+    </section>
+
+    <%
+      const activityRows = activityOverTime || [];
+      const chartWidth = 760;
+      const chartHeight = 250;
+      const chartLeft = 48;
+      const chartRight = 14;
+      const chartTop = 18;
+      const chartBottom = 42;
+      const plotWidth = chartWidth - chartLeft - chartRight;
+      const plotHeight = chartHeight - chartTop - chartBottom;
+      const chartMax = Math.max(1, ...activityRows.map((row) => Math.max(row.views, row.externalClicks)));
+      const xForIndex = (index) => activityRows.length <= 1
+        ? chartLeft + plotWidth / 2
+        : chartLeft + (index * plotWidth) / (activityRows.length - 1);
+      const yForValue = (value) => chartTop + plotHeight - (value / chartMax) * plotHeight;
+      const viewsPoints = activityRows.map((row, index) => `${xForIndex(index)},${yForValue(row.views)}`).join(' ');
+      const clicksPoints = activityRows.map((row, index) => `${xForIndex(index)},${yForValue(row.externalClicks)}`).join(' ');
+      const dateLabelIndexes = activityRows.length <= 3
+        ? activityRows.map((_, index) => index)
+        : [...new Set([0, Math.floor((activityRows.length - 1) / 2), activityRows.length - 1])];
+      const catalogRows = catalogTypeActivity || [];
+      const catalogActivityTotal = catalogRows.reduce((sum, row) => sum + row.count, 0);
+      const donutRadius = 47;
+      const donutCircumference = 2 * Math.PI * donutRadius;
+      let donutOffset = 0;
+      const catalogTypeClasses = { SLC_ITEM: 'slc-item', TOOL: 'tool', DATASET: 'dataset' };
+    %>
+
+    <section class="usage-chart-grid" aria-label="Usage activity visualizations">
+      <article class="usage-panel">
+        <div class="usage-panel-heading">
+          <h2>Activity Over Time</h2>
+          <div class="usage-chart-legend" aria-label="Chart legend">
+            <span><i class="usage-legend-swatch usage-legend-swatch--views"></i>Views</span>
+            <span><i class="usage-legend-swatch usage-legend-swatch--clicks"></i>External Clicks</span>
+          </div>
+        </div>
+        <% if (!hasAnalytics || activityRows.length === 0) { %>
+          <p class="usage-chart-empty">No activity recorded for this period.</p>
+        <% } else { %>
+          <% if (activityRows.length === 1) { %>
+            <p class="usage-chart-single-day">One day of activity recorded</p>
+          <% } %>
+          <div class="usage-chart-scroll">
+            <svg class="usage-time-chart" viewBox="0 0 <%= chartWidth %> <%= chartHeight %>" role="img" aria-label="Daily catalog views and external clicks">
+              <line class="usage-chart-gridline" x1="<%= chartLeft %>" y1="<%= chartTop %>" x2="<%= chartWidth - chartRight %>" y2="<%= chartTop %>"></line>
+              <line class="usage-chart-gridline" x1="<%= chartLeft %>" y1="<%= chartTop + plotHeight %>" x2="<%= chartWidth - chartRight %>" y2="<%= chartTop + plotHeight %>"></line>
+              <text class="usage-chart-axis-label" x="<%= chartLeft - 8 %>" y="<%= chartTop + 4 %>" text-anchor="end"><%= chartMax %></text>
+              <text class="usage-chart-axis-label" x="<%= chartLeft - 8 %>" y="<%= chartTop + plotHeight + 4 %>" text-anchor="end">0</text>
+              <% if (activityRows.length > 1) { %>
+                <polyline class="usage-chart-line usage-chart-line--views" points="<%= viewsPoints %>"></polyline>
+                <polyline class="usage-chart-line usage-chart-line--clicks" points="<%= clicksPoints %>"></polyline>
+              <% } %>
+              <% activityRows.forEach((row, index) => { %>
+                <circle class="usage-chart-point usage-chart-point--views <%= activityRows.length === 1 ? 'usage-chart-point--single' : '' %>" cx="<%= xForIndex(index) %>" cy="<%= yForValue(row.views) %>" r="<%= activityRows.length === 1 ? 6 : 4 %>">
+                  <title>Views on <%= row.date %>: <%= row.views %></title>
+                </circle>
+                <circle class="usage-chart-point usage-chart-point--clicks <%= activityRows.length === 1 ? 'usage-chart-point--single' : '' %>" cx="<%= xForIndex(index) %>" cy="<%= yForValue(row.externalClicks) %>" r="<%= activityRows.length === 1 ? 6 : 4 %>">
+                  <title>External clicks on <%= row.date %>: <%= row.externalClicks %></title>
+                </circle>
+                <% if (activityRows.length === 1) { %>
+                  <text class="usage-chart-point-label usage-chart-point-label--views" x="<%= xForIndex(index) + 11 %>" y="<%= yForValue(row.views) + 4 %>"><%= row.views %></text>
+                  <text class="usage-chart-point-label usage-chart-point-label--clicks" x="<%= xForIndex(index) + 11 %>" y="<%= yForValue(row.externalClicks) + 4 %>"><%= row.externalClicks %></text>
+                <% } %>
+              <% }); %>
+              <% dateLabelIndexes.forEach((index) => { %>
+                <text class="usage-chart-date-label" x="<%= xForIndex(index) %>" y="<%= chartHeight - 12 %>" text-anchor="middle"><%= activityRows[index].date %></text>
+              <% }); %>
+            </svg>
+          </div>
+        <% } %>
+      </article>
+
+      <article class="usage-panel">
+        <div class="usage-panel-heading">
+          <h2>Catalog Views by Type</h2>
+        </div>
+        <% if (catalogActivityTotal === 0) { %>
+          <p class="usage-chart-empty">No catalog views recorded.</p>
+        <% } else { %>
+          <div class="usage-donut-layout">
+            <svg class="usage-donut" viewBox="0 0 120 120" role="img" aria-label="<%= catalogActivityTotal.toLocaleString() %> total catalog views by type">
+              <circle class="usage-donut-track" cx="60" cy="60" r="<%= donutRadius %>"></circle>
+              <% catalogRows.forEach((row) => { %>
+                <% if (row.count > 0) { %>
+                  <% const segmentLength = (row.count / catalogActivityTotal) * donutCircumference; %>
+                  <circle class="usage-donut-segment usage-donut-segment--<%= catalogTypeClasses[row.catalogType] %>"
+                    cx="60" cy="60" r="<%= donutRadius %>" transform="rotate(-90 60 60)"
+                    stroke-dasharray="<%= segmentLength %> <%= donutCircumference - segmentLength %>"
+                    stroke-dashoffset="-<%= donutOffset %>"></circle>
+                  <% donutOffset += segmentLength; %>
+                <% } %>
+              <% }); %>
+              <text class="usage-donut-total" x="60" y="57" text-anchor="middle"><%= catalogActivityTotal.toLocaleString() %></text>
+              <text class="usage-donut-caption" x="60" y="71" text-anchor="middle">Total Views</text>
+            </svg>
+            <ul class="usage-donut-legend">
+              <% catalogRows.forEach((row) => { %>
+                <% const typeClass = catalogTypeClasses[row.catalogType]; %>
+                <% const percentage = (row.count / catalogActivityTotal) * 100; %>
+                <li>
+                  <span class="usage-donut-key usage-donut-key--<%= typeClass %>"></span>
+                  <span><%= row.label %></span>
+                  <strong><%= row.count.toLocaleString() %></strong>
+                  <small><%= percentage.toFixed(0) %>%</small>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
+        <% } %>
       </article>
     </section>
 
     <section class="usage-activity" aria-labelledby="activity-heading">
       <div class="usage-section-heading">
         <div>
-          <h2 id="activity-heading">Catalog Activity</h2>
-          <p>Activity recorded for each Smart Learning Content entry.</p>
+          <h2 id="activity-heading">Catalog Entry Statistics</h2>
+          <p>Activity recorded for catalog entries across SPLICE.</p>
         </div>
-        <nav class="usage-sort" aria-label="Sort catalog activity">
-          <a href="/admin/usage-statistics?sort=views"
-             class="<%= sortBy === 'views' ? 'active' : '' %>"
-             <%= sortBy === 'views' ? 'aria-current="true"' : '' %>>Most viewed</a>
-          <a href="/admin/usage-statistics?sort=externalClicks"
-             class="<%= sortBy === 'externalClicks' ? 'active' : '' %>"
-             <%= sortBy === 'externalClicks' ? 'aria-current="true"' : '' %>>Most clicked</a>
-        </nav>
+      </div>
+
+      <div class="usage-table-tools">
+        <div class="usage-search-form">
+          <label class="visually-hidden" for="catalogEntrySearch">Search catalog entries</label>
+          <input id="catalogEntrySearch" type="search" placeholder="Search by title or URL..." autocomplete="off">
+        </div>
+        <div class="usage-export-actions">
+          <a class="usage-export-link" href="/admin/usage-statistics/export<%= exportQuery ? '?' + exportQuery : '' %>">Download JSON</a>
+          <a class="usage-export-link" href="/admin/usage-statistics/export.csv<%= exportQuery ? '?' + exportQuery : '' %>">Download CSV</a>
+        </div>
       </div>
 
       <div class="table-responsive">
         <table class="table usage-table">
           <thead>
             <tr>
-              <th scope="col">Smart Learning Content</th>
+              <th scope="col">Type</th>
+              <th scope="col">Catalog Entry</th>
               <th scope="col" class="usage-number">Views</th>
               <th scope="col" class="usage-number">External Clicks</th>
             </tr>
@@ -56,16 +205,28 @@
           <tbody>
             <% if (itemStatistics.length === 0) { %>
               <tr>
-                <td class="usage-empty" colspan="3">No usage activity has been recorded yet.</td>
+                <td class="usage-empty" colspan="4">No usage activity has been recorded for these filters.</td>
               </tr>
             <% } else { %>
               <% itemStatistics.forEach((item) => { %>
-                <tr>
-                  <td><%= item.itemTitle %></td>
+                <% const typeLabel = item.catalogType === 'SLC_ITEM' ? 'SLC Item' : item.catalogType === 'TOOL' ? 'Tool' : item.catalogType === 'DATASET' ? 'Dataset' : 'Unknown'; %>
+                <% const typeClass = item.catalogType === 'SLC_ITEM' ? 'slc-item' : item.catalogType === 'TOOL' ? 'tool' : item.catalogType === 'DATASET' ? 'dataset' : 'unknown'; %>
+                <tr data-searchable-row data-search-text="<%= [item.itemTitle, item.catalogPath || '', item.itemPersistentID].join(' ') %>">
+                  <td><span class="catalog-type-badge catalog-type-badge--<%= typeClass %>"><%= typeLabel %></span></td>
+                  <td>
+                    <% if (item.catalogPath) { %>
+                      <a class="usage-item-link" href="<%= item.catalogPath %>"><%= item.itemTitle %></a>
+                    <% } else { %>
+                      <%= item.itemTitle %>
+                    <% } %>
+                  </td>
                   <td class="usage-number"><%= item.views.toLocaleString() %></td>
                   <td class="usage-number"><%= item.externalClicks.toLocaleString() %></td>
                 </tr>
               <% }); %>
+              <tr data-search-empty hidden>
+                <td class="usage-empty" colspan="4" role="status" aria-live="polite">No catalog entries match your search.</td>
+              </tr>
             <% } %>
           </tbody>
         </table>
@@ -73,9 +234,10 @@
     </section>
 
     <p class="usage-privacy-note">
-      This page shows aggregate catalog activity. Entry views count detail-page opens, while external resource clicks count intentional outgoing link selections. No user-identifying information is collected by this usage feature.
+      Entry views count internal catalog detail-page opens. External clicks count intentional outgoing resource selections. Statistics are aggregate and this feature does not collect user-identifying data.
     </p>
   </main>
+  <script src="/js/usageDashboard.js"></script>
 </body>
 <%- include('../partials/footer') -%>
 </html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') -%>
+<%- include('../partials/header') -%>
+<body>
+  <main class="container my-4">
+    <a href="/datasetcatalog/">← Dataset Catalog</a>
+    <h1 class="mt-3"><%= datasetTitle %></h1>
+    <table class="table table-striped mt-3">
+      <tbody>
+        <% const fields = [
+          ['Dataset Name', dataset.dataset_name],
+          ['Platform', dataset.platform],
+          ['Publisher', dataset.publisher],
+          ['Description', dataset.description],
+          ['Resource Type', dataset.resource_url_type],
+          ['Data Formats', dataset.data_formats],
+          ['Data Type', dataset.data_type],
+          ['Keywords', dataset.keywords],
+          ['Creator', dataset.creator],
+          ['Availability', dataset.availability],
+          ['Rights', dataset.rights],
+          ['Programming Language', dataset.programming_language],
+          ['Collection Start Date', dataset.data_collection_start_date],
+          ['Collection End Date', dataset.data_collection_end_date],
+          ['Publication Year', dataset.publication_year],
+          ['Number of Semesters', dataset.number_of_semesters],
+          ['Data Protection', dataset.data_protection],
+          ['Measurement Type', dataset.measurement_type],
+          ['Population', dataset.population],
+          ['Sample Size', dataset.sample_size],
+          ['Country', dataset.country],
+          ['Educational Institution', dataset.educational_institution],
+          ['Data Standard', dataset.data_standard],
+          ['Learning Environment', dataset.learning_environment],
+          ['Aggregation', dataset.aggregation],
+          ['Aggregation Level', dataset.aggregation_level],
+          ['Related Publication', dataset.related_publication],
+          ['Research Question', dataset.research_question],
+          ['Future Work', dataset.future_work],
+          ['Fairness Score', dataset.fairness_score],
+        ]; %>
+        <% fields.forEach(([label, value]) => { if (value !== undefined && value !== null && value !== '') { %>
+          <tr>
+            <th scope="row"><%= label %></th>
+            <td><%= Array.isArray(value) ? value.join(', ') : typeof value === 'object' ? JSON.stringify(value) : value %></td>
+          </tr>
+        <% } }); %>
+        <% if (dataset.resource_url) { %>
+          <tr><th scope="row">Resource</th><td><a href="<%= dataset.resource_url %>" target="_blank" rel="noopener" data-usage-external-click data-catalog-type="DATASET" data-item-identifier="<%= dataset.id %>" data-link-type="resource_url">Open Dataset</a></td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </main>
+<script src="/js/usageTracking.js"></script>
+</body>
+<%- include('../partials/footer') -%>
+</html>

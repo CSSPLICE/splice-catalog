@@ -17,6 +17,12 @@ export class UsageEvent extends BaseEntity {
   @Column({ nullable: true })
   linkType?: string;
 
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  catalogType!: string | null;
+  
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  catalogPath!: string | null;
+
   @CreateDateColumn()
   createdAt!: Date;
 }

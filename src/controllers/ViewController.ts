@@ -12,11 +12,13 @@ import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO.js';
 import { ReviewController } from './ReviewController.js';
 import { ValidationManager } from '../services/ValidationManager.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
+import { UsageStatisticsService } from '../services/UsageStatisticsService.js';
 
 const reviewController = new ReviewController();
 const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
 const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
 const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
+const usageStatisticsService = new UsageStatisticsService();
 
 import { SearchController } from './SearchController.js';
 
@@ -67,6 +69,42 @@ export class ViewController {
     });
   }
 
+  async toolItemView(req: Request, res: Response) {
+    if (!/^\d+$/.test(req.params.id)) {
+      return res.status(400).send('Invalid tool ID');
+    }
+
+    const id = Number(req.params.id);
+    if (!Number.isSafeInteger(id)) {
+      return res.status(400).send('Invalid tool ID');
+    }
+
+    try {
+      const tool = await AppDataSource.getRepository(slc_tools_catalog).findOneBy({ id });
+      if (!tool) return res.status(404).send('Tool not found');
+
+      try {
+        await usageStatisticsService.recordEvent({
+          catalogType: 'TOOL',
+          catalogPath: `/toolcatalog/item/${tool.id}`,
+          itemPersistentID: String(tool.id),
+          itemTitle: tool.platform_name,
+          eventType: 'ITEM_VIEW',
+        });
+      } catch (error) {
+        logger.error('Failed to record tool ITEM_VIEW usage event:', error);
+      }
+
+      return res.render('pages/tool-item', {
+        tool,
+        title: tool.platform_name,
+      });
+    } catch (error) {
+      logger.error('Failed to fetch tool catalog item:', error);
+      return res.status(500).send('Internal Server Error');
+    }
+  }
+
   async datasetCatalogView(req: Request, res: Response) {
     try {
       const datasetCatalog_data = await AppDataSource.getRepository(dataset_catalog).find();
@@ -77,6 +115,44 @@ export class ViewController {
     } catch (error) {
       logger.error('Failed to fetch dataset catalog data:', error);
       res.status(500).send('Internal Server Error');
+    }
+  }
+
+  async datasetItemView(req: Request, res: Response) {
+    if (!/^\d+$/.test(req.params.id)) {
+      return res.status(400).send('Invalid dataset ID');
+    }
+
+    const id = Number(req.params.id);
+    if (!Number.isSafeInteger(id)) {
+      return res.status(400).send('Invalid dataset ID');
+    }
+
+    try {
+      const dataset = await AppDataSource.getRepository(dataset_catalog).findOneBy({ id });
+      if (!dataset) return res.status(404).send('Dataset not found');
+
+      const datasetTitle = dataset.title?.trim() || dataset.dataset_name?.trim() || 'Dataset';
+      try {
+        await usageStatisticsService.recordEvent({
+          catalogType: 'DATASET',
+          catalogPath: `/datasetcatalog/item/${dataset.id}`,
+          itemPersistentID: String(dataset.id),
+          itemTitle: datasetTitle,
+          eventType: 'ITEM_VIEW',
+        });
+      } catch (error) {
+        logger.error('Failed to record dataset ITEM_VIEW usage event:', error);
+      }
+
+      return res.render('pages/dataset-item', {
+        dataset,
+        datasetTitle,
+        title: datasetTitle,
+      });
+    } catch (error) {
+      logger.error('Failed to fetch dataset catalog item:', error);
+      return res.status(500).send('Internal Server Error');
     }
   }
 

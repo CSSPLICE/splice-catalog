@@ -4,13 +4,14 @@ document.addEventListener('click', (event) => {
   const anchor = event.target.closest('a[data-usage-external-click]');
   if (!anchor) return;
 
-  const encodedPersistentID = anchor.dataset.itemPersistentId;
+  const encodedIdentifier = anchor.dataset.itemIdentifier || anchor.dataset.itemPersistentId;
+  const catalogType = anchor.dataset.catalogType || 'SLC_ITEM';
   const linkType = anchor.dataset.linkType;
-  if (!encodedPersistentID || linkType !== 'iframe_url') return;
+  if (!encodedIdentifier) return;
 
-  let itemPersistentID;
+  let itemIdentifier;
   try {
-    itemPersistentID = decodeURIComponent(encodedPersistentID);
+    itemIdentifier = decodeURIComponent(encodedIdentifier);
   } catch {
     return;
   }
@@ -18,7 +19,7 @@ document.addEventListener('click', (event) => {
   fetch('/usage/external-click', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ itemPersistentID, linkType }),
+    body: JSON.stringify({ catalogType, itemIdentifier, linkType }),
     keepalive: true,
   }).catch(() => {});
 });

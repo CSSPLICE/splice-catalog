@@ -14,6 +14,7 @@ import { SeedInitialData1764779460569 } from './migrations/1764779460569-SeedIni
 import { CreateSearchAliasesTable1771278405273 } from './migrations/1771278405273-CreateSearchAliasesTable.js';
 import { SeedSearchAliasesData1771278447647 } from './migrations/1771278447647-SeedSearchAliasesData.js';
 import { CreateUsageEventsTable1791251377107 } from './migrations/1791251377107-CreateUsageEventsTable.js';
+import { AddUsageEventCatalogPath1791309088000 } from './migrations/1791309088000-AddUsageEventCatalogPath.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ export const AppDataSource: DataSource = new DataSource({
     CreateSearchAliasesTable1771278405273,
     SeedSearchAliasesData1771278447647,
     CreateUsageEventsTable1791251377107,
+    AddUsageEventCatalogPath1791309088000,
   ],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [

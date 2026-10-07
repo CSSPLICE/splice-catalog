@@ -60,13 +60,14 @@
             </thead>
             <tbody>
                 <% datasets.forEach(function(dataset) { %>
+                <% const datasetDisplayTitle = (dataset.title && dataset.title.trim()) || dataset.dataset_name || 'Dataset'; %>
                 <tr>
-                    <td><%= dataset.title %></td>
+                    <td><a href="/datasetcatalog/item/<%= dataset.id %>"><%= datasetDisplayTitle %></a></td>
                     <td><%= dataset.publisher %></td>
                     <td><span class="short-description" data-description="<%= dataset.description || '' %>" style="cursor: pointer;">
                             <%- truncateWords(dataset.description, 20) %>
                         </span></td>
-                    <td><a href="<%= dataset.resource_url %>" target="_blank">Link</a></td>
+                    <td><% if (dataset.resource_url) { %><a href="<%= dataset.resource_url %>" target="_blank" rel="noopener" data-usage-external-click data-catalog-type="DATASET" data-item-identifier="<%= dataset.id %>" data-link-type="resource_url">Open Dataset</a><% } %></td>
                     <td><%= dataset.data_collection_end_date %></td>
                     <td><%= dataset.data_standard %></td>
                 </tr>
@@ -92,6 +93,7 @@ Education." In Proceedings of the ACM Conference on Global Computing Education V
     </div>
 
     <!-- Bootstrap JS bundle -->
+    <script src="/js/usageTracking.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {

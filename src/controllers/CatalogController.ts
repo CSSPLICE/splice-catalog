@@ -107,6 +107,8 @@ export class CatalogController {
           itemPersistentID: item.persistentID,
           itemTitle: item.title,
           eventType: 'ITEM_VIEW',
+          catalogType: 'SLC_ITEM',
+          catalogPath: `/catalog/item/${item.id}`,
         });
       } catch (error) {
         console.error('Failed to record ITEM_VIEW usage event:', error);
