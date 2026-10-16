@@ -10,11 +10,13 @@ import { ItemClassification } from './entities/ItemClassification.js';
 import { ValidationResults } from './entities/ValidationResults.js';
 import { SearchAlias } from './entities/SearchAlias.js';
 import { UsageEvent } from './entities/UsageEvent.js';
+import { HistoricalUsage } from './entities/HistoricalUsage.js';
 import { SeedInitialData1764779460569 } from './migrations/1764779460569-SeedInitialData.js';
 import { CreateSearchAliasesTable1771278405273 } from './migrations/1771278405273-CreateSearchAliasesTable.js';
 import { SeedSearchAliasesData1771278447647 } from './migrations/1771278447647-SeedSearchAliasesData.js';
 import { CreateUsageEventsTable1791251377107 } from './migrations/1791251377107-CreateUsageEventsTable.js';
 import { AddUsageEventCatalogPath1791309088000 } from './migrations/1791309088000-AddUsageEventCatalogPath.js';
+import { CreateHistoricalUsageTable1791914000000 } from './migrations/1791914000000-CreateHistoricalUsageTable.js';
 
 dotenv.config();
 
@@ -31,6 +33,7 @@ export const AppDataSource: DataSource = new DataSource({
     SeedSearchAliasesData1771278447647,
     CreateUsageEventsTable1791251377107,
     AddUsageEventCatalogPath1791309088000,
+    CreateHistoricalUsageTable1791914000000,
   ],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [
@@ -44,6 +47,7 @@ export const AppDataSource: DataSource = new DataSource({
     ValidationResults,
     SearchAlias,
     UsageEvent,
+    HistoricalUsage,
   ],
   synchronize: false,
   subscribers: [],

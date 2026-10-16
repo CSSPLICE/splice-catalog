@@ -214,11 +214,17 @@
                 <tr data-searchable-row data-search-text="<%= [item.itemTitle, item.catalogPath || '', item.itemPersistentID].join(' ') %>">
                   <td><span class="catalog-type-badge catalog-type-badge--<%= typeClass %>"><%= typeLabel %></span></td>
                   <td>
+                    <span class="usage-item-title">
                     <% if (item.catalogPath) { %>
                       <a class="usage-item-link" href="<%= item.catalogPath %>"><%= item.itemTitle %></a>
                     <% } else { %>
                       <%= item.itemTitle %>
                     <% } %>
+                    <% if (item.lifecycleStatus) { %>
+                      <% const lifecycleLabel = item.lifecycleStatus.charAt(0) + item.lifecycleStatus.slice(1).toLowerCase(); %>
+                      <span class="usage-lifecycle-badge usage-lifecycle-badge--<%= item.lifecycleStatus.toLowerCase() %>" aria-label="Catalog entry status: <%= lifecycleLabel %>"><%= lifecycleLabel %></span>
+                    <% } %>
+                    </span>
                   </td>
                   <td class="usage-number"><%= item.views.toLocaleString() %></td>
                   <td class="usage-number"><%= item.externalClicks.toLocaleString() %></td>
@@ -232,10 +238,6 @@
         </table>
       </div>
     </section>
-
-    <p class="usage-privacy-note">
-      Entry views count internal catalog detail-page opens. External clicks count intentional outgoing resource selections. Statistics are aggregate and this feature does not collect user-identifying data.
-    </p>
   </main>
   <script src="/js/usageDashboard.js"></script>
 </body>

@@ -1,5 +1,7 @@
 import { AppDataSource } from '../db/data-source.js';
+import { HistoricalUsage } from '../db/entities/HistoricalUsage.js';
 import { UsageEvent } from '../db/entities/UsageEvent.js';
+import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import { SelectQueryBuilder } from 'typeorm';
 
 export interface UsageDateRange {
@@ -31,6 +33,8 @@ export type UsageStatisticsSortBy = 'views' | 'externalClicks';
 
 export interface OverallUsageStatistics {
   totalViews: number;
+  liveViews: number;
+  historicalViews: number;
   totalExternalClicks: number;
 }
 
@@ -40,7 +44,10 @@ export interface PerItemUsageStatistics {
   itemPersistentID: string;
   itemTitle: string;
   views: number;
+  liveViews: number;
+  historicalViews: number;
   externalClicks: number;
+  lifecycleStatus?: 'RENAMED' | 'DELETED' | 'RECREATED';
 }
 
 export interface DailyUsageActivity {
@@ -61,6 +68,7 @@ const catalogTypeLabels: Record<UsageCatalogType, string> = {
   TOOL: 'Tools',
   DATASET: 'Datasets',
 };
+const historicalUsageSource = 'nginx_historical';
 
 function localDateKey(date: Date): string {
   const year = date.getFullYear();
@@ -116,8 +124,23 @@ export class UsageStatisticsService {
       });
     const result = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawOne();
 
+    const liveViews = Number(result?.totalViews ?? 0);
+    let historicalViews = 0;
+    if (!dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
+      const historicalResult = await AppDataSource.getRepository(HistoricalUsage)
+        .createQueryBuilder('historicalUsage')
+        .select('COALESCE(SUM(historicalUsage.viewCount), 0)', 'historicalViews')
+        .where('historicalUsage.source = :historicalSource', { historicalSource: historicalUsageSource })
+        .andWhere('historicalUsage.catalogType = :historicalCatalogType', { historicalCatalogType: 'SLC_ITEM' })
+        .andWhere('historicalUsage.itemPersistentID IS NOT NULL')
+        .getRawOne();
+      historicalViews = Number(historicalResult?.historicalViews ?? 0);
+    }
+
     return {
-      totalViews: Number(result?.totalViews ?? 0),
+      totalViews: liveViews + historicalViews,
+      liveViews,
+      historicalViews,
       totalExternalClicks: Number(result?.totalExternalClicks ?? 0),
     };
   }
@@ -231,6 +254,18 @@ export class UsageStatisticsService {
       if (counts.has(result.catalogType)) counts.set(result.catalogType, Number(result.count ?? 0));
     }
 
+    if (!dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
+      const historicalResult = await AppDataSource.getRepository(HistoricalUsage)
+        .createQueryBuilder('historicalUsage')
+        .select('COALESCE(SUM(historicalUsage.viewCount), 0)', 'count')
+        .where('historicalUsage.source = :historicalSource', { historicalSource: historicalUsageSource })
+        .andWhere('historicalUsage.catalogType = :historicalCatalogType', { historicalCatalogType: 'SLC_ITEM' })
+        .andWhere('historicalUsage.itemPersistentID IS NOT NULL')
+        .getRawOne();
+      const slcCount = counts.get('SLC_ITEM') ?? 0;
+      counts.set('SLC_ITEM', slcCount + Number(historicalResult?.count ?? 0));
+    }
+
     return supportedCatalogTypes.map((type) => ({
       catalogType: type,
       label: catalogTypeLabels[type],
@@ -299,13 +334,137 @@ export class UsageStatisticsService {
 
     const results = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawMany();
 
-    return results.map((result) => ({
-      catalogType: result.catalogType ?? null,
-      catalogPath: result.catalogPath ?? null,
-      itemPersistentID: result.itemPersistentID,
-      itemTitle: result.itemTitle,
-      views: Number(result.views ?? 0),
-      externalClicks: Number(result.externalClicks ?? 0),
-    }));
+    const statisticsByIdentity = new Map<string, PerItemUsageStatistics>();
+    const identityKey = (catalogType: string | null, itemPersistentID: string) =>
+      JSON.stringify([catalogType, itemPersistentID]);
+
+    for (const result of results) {
+      const catalogType = result.catalogType ?? null;
+      const liveViews = Number(result.views ?? 0);
+      const item: PerItemUsageStatistics = {
+        catalogType,
+        catalogPath: result.catalogPath ?? null,
+        itemPersistentID: result.itemPersistentID,
+        itemTitle: result.itemTitle,
+        views: liveViews,
+        liveViews,
+        historicalViews: 0,
+        externalClicks: Number(result.externalClicks ?? 0),
+      };
+      statisticsByIdentity.set(identityKey(catalogType, item.itemPersistentID), item);
+    }
+
+    if (!dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
+      const historicalRows = await AppDataSource.getRepository(HistoricalUsage)
+        .createQueryBuilder('historicalUsage')
+        .where('historicalUsage.source = :historicalSource', { historicalSource: historicalUsageSource })
+        .andWhere('historicalUsage.catalogType = :historicalCatalogType', { historicalCatalogType: 'SLC_ITEM' })
+        .andWhere('historicalUsage.itemPersistentID IS NOT NULL')
+        .getMany();
+
+      for (const historicalRow of historicalRows) {
+        const itemPersistentID = historicalRow.itemPersistentID;
+        if (!itemPersistentID) continue;
+        const key = identityKey('SLC_ITEM', itemPersistentID);
+        const existing = statisticsByIdentity.get(key);
+        if (existing) {
+          existing.historicalViews += historicalRow.viewCount;
+          existing.views += historicalRow.viewCount;
+          if (!existing.catalogPath) existing.catalogPath = historicalRow.catalogPath;
+          if (!existing.itemTitle) existing.itemTitle = historicalRow.itemTitle ?? itemPersistentID;
+        } else {
+          statisticsByIdentity.set(key, {
+            catalogType: 'SLC_ITEM',
+            catalogPath: historicalRow.catalogPath,
+            itemPersistentID,
+            itemTitle: historicalRow.itemTitle ?? itemPersistentID,
+            views: historicalRow.viewCount,
+            liveViews: 0,
+            historicalViews: historicalRow.viewCount,
+            externalClicks: 0,
+          });
+        }
+      }
+    }
+
+    return [...statisticsByIdentity.values()].sort((left, right) => {
+      const countDifference = right[sortColumn] - left[sortColumn];
+      if (countDifference !== 0) return countDifference;
+      const typeDifference = (left.catalogType ?? '').localeCompare(right.catalogType ?? '');
+      return typeDifference || left.itemPersistentID.localeCompare(right.itemPersistentID);
+    });
+  }
+
+  async addLifecycleStatuses(items: PerItemUsageStatistics[]): Promise<PerItemUsageStatistics[]> {
+    const slcItems = items.filter((item) => item.catalogType === 'SLC_ITEM');
+    if (slcItems.length > 0) {
+      const [currentCatalogItems, eventSnapshots, historicalSnapshots] = await Promise.all([
+        AppDataSource.getRepository(slc_item_catalog).find({
+          select: ['id', 'persistentID', 'title'],
+        }),
+        AppDataSource.getRepository(UsageEvent)
+          .createQueryBuilder('usageEvent')
+          .select('usageEvent.itemPersistentID', 'itemPersistentID')
+          .addSelect(
+            "MAX(CASE WHEN currentItem.id IS NOT NULL AND BINARY usageEvent.itemTitle <> BINARY currentItem.title THEN 1 ELSE 0 END)",
+            'hasDifferentTitle',
+          )
+          .addSelect(
+            "MAX(CASE WHEN currentItem.id IS NOT NULL AND usageEvent.catalogPath REGEXP '^/catalog/item/[0-9]+$' AND CAST(SUBSTRING_INDEX(usageEvent.catalogPath, '/', -1) AS UNSIGNED) <> currentItem.id THEN 1 ELSE 0 END)",
+            'hasDifferentCatalogID',
+          )
+          .leftJoin(slc_item_catalog, 'currentItem', 'currentItem.persistentID = usageEvent.itemPersistentID')
+          .where('usageEvent.catalogType = :slcCatalogType', { slcCatalogType: 'SLC_ITEM' })
+          .groupBy('usageEvent.itemPersistentID')
+          .getRawMany(),
+        AppDataSource.getRepository(HistoricalUsage).find({
+          select: ['itemPersistentID', 'itemTitle', 'catalogPath'],
+          where: { source: historicalUsageSource, catalogType: 'SLC_ITEM' },
+        }),
+      ]);
+
+      const currentByPersistentID = new Map(currentCatalogItems.map((item) => [item.persistentID, item]));
+      const snapshotsByPersistentID = new Map<string, { hasDifferentTitle: boolean; hasDifferentCatalogID: boolean }>();
+      for (const snapshot of eventSnapshots) {
+        snapshotsByPersistentID.set(snapshot.itemPersistentID, {
+          hasDifferentTitle: Number(snapshot.hasDifferentTitle) > 0,
+          hasDifferentCatalogID: Number(snapshot.hasDifferentCatalogID) > 0,
+        });
+      }
+
+      for (const historicalSnapshot of historicalSnapshots) {
+        if (!historicalSnapshot.itemPersistentID) continue;
+        const currentItem = currentByPersistentID.get(historicalSnapshot.itemPersistentID);
+        if (!currentItem) continue;
+        const state = snapshotsByPersistentID.get(historicalSnapshot.itemPersistentID) ?? {
+          hasDifferentTitle: false,
+          hasDifferentCatalogID: false,
+        };
+        if (historicalSnapshot.itemTitle && historicalSnapshot.itemTitle !== currentItem.title) {
+          state.hasDifferentTitle = true;
+        }
+        const pathID = historicalSnapshot.catalogPath?.match(/^\/catalog\/item\/(\d+)$/)?.[1];
+        if (pathID && Number(pathID) !== currentItem.id) state.hasDifferentCatalogID = true;
+        snapshotsByPersistentID.set(historicalSnapshot.itemPersistentID, state);
+      }
+
+      for (const item of slcItems) {
+        const currentItem = currentByPersistentID.get(item.itemPersistentID);
+        if (!currentItem) {
+          item.lifecycleStatus = 'DELETED';
+          item.catalogPath = null;
+          continue;
+        }
+
+        const snapshots = snapshotsByPersistentID.get(item.itemPersistentID);
+        if (snapshots?.hasDifferentCatalogID) {
+          item.lifecycleStatus = 'RECREATED';
+          item.catalogPath = `/catalog/item/${currentItem.id}`;
+        } else if (snapshots?.hasDifferentTitle) {
+          item.lifecycleStatus = 'RENAMED';
+        }
+      }
+    }
+    return items;
   }
 }

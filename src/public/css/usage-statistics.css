@@ -603,6 +603,42 @@
   text-decoration-color: currentColor;
 }
 
+.usage-item-title {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.usage-lifecycle-badge {
+  display: inline-block;
+  padding: 0.14rem 0.42rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 650;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.usage-lifecycle-badge--renamed {
+  border-color: #b9d0e0;
+  background: #eaf2f7;
+  color: #294f68;
+}
+
+.usage-lifecycle-badge--recreated {
+  border-color: #b8d5c0;
+  background: #eaf4ec;
+  color: #315b3b;
+}
+
+.usage-lifecycle-badge--deleted {
+  border-color: #e0bcbc;
+  background: #f8ecec;
+  color: #793737;
+}
+
 .usage-number {
   width: 150px;
   text-align: right;

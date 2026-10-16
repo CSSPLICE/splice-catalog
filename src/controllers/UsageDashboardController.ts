@@ -82,6 +82,10 @@ function exportFilename(extension: 'json' | 'csv', generatedAt: Date, from: stri
   return `splice-usage-statistics-${period}.${extension}`;
 }
 
+function includesHistoricalUsage(dateRange: UsageDateRange | undefined, catalogType: UsageCatalogType | undefined): boolean {
+  return !dateRange && (!catalogType || catalogType === 'SLC_ITEM');
+}
+
 function parseCatalogType(value: unknown): UsageCatalogType | undefined {
   if (value === 'SLC_ITEM' || value === 'TOOL' || value === 'DATASET') return value;
   return undefined;
@@ -112,7 +116,12 @@ export class UsageDashboardController {
     const searchQuery = typeof req.query.q === 'string' ? req.query.q.trim() : '';
 
     try {
-      let overallStatistics: OverallUsageStatistics = { totalViews: 0, totalExternalClicks: 0 };
+      let overallStatistics: OverallUsageStatistics = {
+        totalViews: 0,
+        liveViews: 0,
+        historicalViews: 0,
+        totalExternalClicks: 0,
+      };
       let allItemStatistics: PerItemUsageStatistics[] = [];
       let activityOverTime: DailyUsageActivity[] = [];
       let catalogTypeActivity: CatalogTypeActivity[] = [
@@ -130,6 +139,7 @@ export class UsageDashboardController {
             usageStatisticsService.getDailyActivity(parsedRange.dateRange, catalogType),
             usageStatisticsService.getCatalogTypeViewActivity(parsedRange.dateRange, catalogType),
           ]);
+        allItemStatistics = await usageStatisticsService.addLifecycleStatuses(allItemStatistics);
       }
 
       const itemStatistics = searchQuery
@@ -172,6 +182,7 @@ export class UsageDashboardController {
 
     try {
       const generatedAt = new Date();
+      const historicalUsageIncluded = includesHistoricalUsage(parsedRange.dateRange, catalogType);
       const [overallStatistics, itemStatistics, events] = await Promise.all([
         usageStatisticsService.getOverallStatistics(parsedRange.dateRange, catalogType),
         usageStatisticsService.getPerItemStatistics('views', parsedRange.dateRange, catalogType),
@@ -186,6 +197,11 @@ export class UsageDashboardController {
         },
         filters: {
           catalogType: catalogType ?? 'ALL',
+        },
+        historicalUsage: {
+          included: historicalUsageIncluded,
+          source: 'nginx_historical',
+          note: 'Historical aggregate views are included only for all-time reporting.',
         },
         summary: overallStatistics,
         items: itemStatistics,
@@ -220,8 +236,9 @@ export class UsageDashboardController {
 
     try {
       const generatedAt = new Date();
+      const historicalUsageIncluded = includesHistoricalUsage(parsedRange.dateRange, catalogType);
       const itemStatistics = await usageStatisticsService.getPerItemStatistics('views', parsedRange.dateRange, catalogType);
-      const escapeCsvField = (value: string | number | null): string => {
+      const escapeCsvField = (value: string | number | boolean | null): string => {
         const field = String(value ?? '');
         return /[",\r\n]/.test(field) ? `"${field.replace(/"/g, '""')}"` : field;
       };
@@ -230,9 +247,13 @@ export class UsageDashboardController {
           'fromDate',
           'toDate',
           'catalogType',
+          'historicalUsageIncluded',
+          'historicalUsageSource',
           'catalogPath',
           'itemPersistentID',
           'itemTitle',
+          'historicalViews',
+          'liveViews',
           'views',
           'externalClicks',
         ].join(','),
@@ -241,9 +262,13 @@ export class UsageDashboardController {
             parsedRange.from,
             parsedRange.to,
             item.catalogType,
+            historicalUsageIncluded,
+            historicalUsageIncluded ? 'nginx_historical' : '',
             item.catalogPath,
             item.itemPersistentID,
             item.itemTitle,
+            item.historicalViews,
+            item.liveViews,
             item.views,
             item.externalClicks,
           ]
