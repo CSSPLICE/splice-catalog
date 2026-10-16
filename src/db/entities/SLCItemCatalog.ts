@@ -1,9 +1,8 @@
 import { Entity, Column, BaseEntity, PrimaryColumn, Generated, AfterInsert, AfterUpdate, AfterRemove } from 'typeorm';
 import { IsNotEmpty, IsString, IsOptional, IsUrl, IsArray } from 'class-validator';
 import { CatalogInterface } from './CatalogInterface.js';
-import { Reachable } from '../validators.js';
+import { Reachable, Duplicate } from '../validators.js';
 import { meilisearchService } from '../../services/MeilisearchService.js';
-// import { ValidationResults } from './ValidationResults.js';
 
 @Entity()
 export class slc_item_catalog extends BaseEntity implements CatalogInterface {
@@ -12,89 +11,88 @@ export class slc_item_catalog extends BaseEntity implements CatalogInterface {
   id!: number;
 
   @Column()
-  @IsNotEmpty()
-  @IsString()
   catalog_type!: string;
 
   @PrimaryColumn()
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ context: { severity: 'error' } })
+  @IsString({ context: { severity: 'warning' } })
+  @Duplicate({ context: { severity: 'notice' } })
   persistentID!: string;
 
-  @Column()
-  @IsNotEmpty()
-  @IsString()
+  @Column({ nullable: true })
+  @IsNotEmpty({ context: { severity: 'error' } })
+  @IsString({ context: { severity: 'warning' } })
   platform_name!: string;
 
-  @Column()
-  @IsNotEmpty()
-  @IsString()
-  @IsUrl()
-  @Reachable()
+  @Column({ nullable: true })
+  @IsNotEmpty({ context: { severity: 'error' } })
+  @IsString({ context: { severity: 'error' } })
+  @IsUrl(undefined, { context: { severity: 'error' } })
+  @Reachable({ context: { severity: 'warning' } })
   iframe_url!: string;
 
-  @Column()
-  @IsOptional()
-  @IsString()
+  @Column({ nullable: true })
+  @IsOptional({ context: { severity: 'warning' } })
+  @IsString({ context: { severity: 'warning' } })
   license?: string;
 
-  @Column('text')
-  @IsNotEmpty()
-  @IsString()
+  @Column('text', { nullable: true })
+  @IsNotEmpty({ context: { severity: 'warning' } })
+  @IsString({ context: { severity: 'warning' } })
   description!: string;
 
-  @Column('simple-array')
-  @IsNotEmpty()
-  @IsArray()
-  @IsString({ each: true })
+  @Column('simple-array', { nullable: true })
+  @IsNotEmpty({ context: { severity: 'error' } })
+  @IsArray({ context: { severity: 'warning' } })
+  @IsString({ each: true, context: { severity: 'warning' } })
   author!: string[];
 
-  @Column('simple-array')
-  @IsNotEmpty()
-  @IsArray()
-  @IsString({ each: true })
+  @Column('simple-array', { nullable: true })
+  @IsNotEmpty({ context: { severity: 'error' } })
+  @IsArray({ context: { severity: 'warning' } })
+  @IsString({ each: true, context: { severity: 'warning' } })
   institution!: string[];
 
-  @Column('simple-array')
-  @IsNotEmpty()
-  @IsArray()
-  @IsString({ each: true })
+  @Column('simple-array', { nullable: true })
+  @IsNotEmpty({ context: { severity: 'error' } })
+  @IsArray({ context: { severity: 'warning' } })
+  @IsString({ each: true, context: { severity: 'warning' } })
   keywords!: string[];
 
-  @Column('simple-array')
-  @IsNotEmpty()
-  @IsArray()
-  @IsString({ each: true })
+  @Column('simple-array', { nullable: true })
+  @IsNotEmpty({ context: { severity: 'error' } })
+  @IsArray({ context: { severity: 'warning' } })
+  @IsString({ each: true, context: { severity: 'warning' } })
   features!: string[];
 
-  @Column()
-  @IsNotEmpty()
-  @IsString()
+  @Column({ nullable: true })
+  @IsNotEmpty({ context: { severity: 'error' } })
+  @IsString({ context: { severity: 'warning' } })
   title!: string;
 
-  @Column('simple-array')
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
+  @Column('simple-array', { nullable: true })
+  @IsOptional({ context: { severity: 'warning' } })
+  @IsArray({ context: { severity: 'warning' } })
+  @IsString({ each: true, context: { severity: 'warning' } })
   programming_language?: string[];
 
-  @Column('simple-array')
-  @IsNotEmpty()
-  @IsArray()
-  @IsString({ each: true })
+  @Column('simple-array', { nullable: true })
+  @IsNotEmpty({ context: { severity: 'error' } })
+  @IsArray({ context: { severity: 'warning' } })
+  @IsString({ each: true, context: { severity: 'warning' } })
   natural_language!: string[];
 
-  @Column('simple-array')
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
+  @Column('simple-array', { nullable: true })
+  @IsOptional({ context: { severity: 'warning' } })
+  @IsArray({ context: { severity: 'warning' } })
+  @IsString({ each: true, context: { severity: 'warning' } })
   protocol?: string[];
 
-  @Column('simple-array')
-  @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
-  @Reachable()
+  @Column('simple-array', { nullable: true })
+  @IsOptional({ context: { severity: 'warning' } })
+  @IsArray({ context: { severity: 'warning' } })
+  @IsString({ each: true, context: { severity: 'warning' } })
+  @Reachable({ each: true, context: { severity: 'warning' } })
   protocol_url?: string[];
 
   @AfterInsert()

@@ -9274,7 +9274,7 @@
     "author": ["Nabanita Maji", "Cliff Shaffer"],
     "institution": ["Virginia Tech"],
     "keywords": ["Satisfiability Problem"],
-    "features": ["Presentation Exercise"],
+    "features": ["Proficiency Exercise"],
     "title": "3-Satisfiability Proficency Exercise",
     "programming_language": ["N/A"],
     "natural_language": ["en"]
@@ -12294,7 +12294,7 @@
     "author": ["Cory Sanin", "David Furcy", "Tom Naps"],
     "institution": ["UW-Oshkosh"],
     "keywords": ["Parameter Passing"],
-    "features": ["Tracing Visualization"],
+    "features": ["Code Tracing Presentation"],
     "title": "Parameter Passing by Macro Visualization",
     "programming_language": ["N/A"],
     "natural_language": ["en"]

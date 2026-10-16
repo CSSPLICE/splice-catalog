@@ -2,6 +2,7 @@ window.currentItems = [];
 
 document.addEventListener('DOMContentLoaded', function () {
   let activeKeyword = null;
+  const ontologyDescendantsByLabel = new Map();
 
   function parseKeywords(raw) {
     if (!raw) return [];
@@ -14,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const s = String(raw).trim();
     if (!s) return [];
 
-    // handle JSON-string array: '["A","B"]'
     if (s.startsWith('[') && s.endsWith(']')) {
       try {
         const arr = JSON.parse(s);
@@ -27,16 +27,174 @@ document.addEventListener('DOMContentLoaded', function () {
       } catch {}
     }
 
-    // comma-separated
     return s
       .split(/[;,]/)
       .map((x) => x.trim())
       .filter(Boolean);
   }
 
+  function parseFieldValues(raw) {
+    if (!raw) return [];
+    if (Array.isArray(raw))
+      return raw
+        .map(String)
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+    return String(raw)
+      .split(/[;,]/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+
+  function getSelectedFilterValues() {
+    return (window.filterSections || []).reduce((acc, section) => {
+      acc[section.key] = Array.from(document.querySelectorAll(`[data-filter-option="${section.key}"]:checked`)).map(
+        (cb) => cb.value,
+      );
+      return acc;
+    }, {});
+  }
+
+  function setFilterSectionExpanded(key, isExpanded) {
+    const toggle = document.querySelector(`[data-filter-toggle="${key}"]`);
+    const optionsContainer = document.querySelector(`[data-filter-options="${key}"]`);
+    const caret = toggle?.querySelector('.filter-section-caret');
+
+    if (toggle) {
+      toggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    }
+    if (caret) {
+      caret.textContent = isExpanded ? 'v' : '>';
+    }
+    if (optionsContainer) {
+      optionsContainer.style.display = isExpanded ? '' : 'none';
+    }
+  }
+
+  function collectOntologyLabels(node) {
+    const labels = [node.label];
+    (node.children || []).forEach((child) => {
+      labels.push(...collectOntologyLabels(child));
+    });
+    return labels;
+  }
+
+  function indexOntologyNode(node) {
+    ontologyDescendantsByLabel.set(node.label, collectOntologyLabels(node));
+    (node.children || []).forEach(indexOntologyNode);
+  }
+
+  function getFilterMatchValues(section, selectedValues) {
+    if (section.key !== 'keywords') return selectedValues;
+
+    return [
+      ...new Set(
+        selectedValues.flatMap((selectedValue) => ontologyDescendantsByLabel.get(selectedValue) || [selectedValue]),
+      ),
+    ];
+  }
+
+  function renderOntologyNodes(nodes, selectedValues) {
+    const list = document.createElement('ul');
+    list.className = 'ontology-filter-list';
+
+    nodes.forEach((node) => {
+      const item = document.createElement('li');
+      item.className = 'ontology-filter-node';
+
+      const row = document.createElement('div');
+      row.className = 'ontology-filter-row';
+
+      const children = node.children || [];
+      const expandButton = document.createElement('button');
+      expandButton.type = 'button';
+      expandButton.className = 'ontology-filter-expand';
+      expandButton.textContent = children.length > 0 ? '>' : '';
+      expandButton.setAttribute('aria-label', children.length > 0 ? `Expand ${node.label}` : '');
+      expandButton.disabled = children.length === 0;
+      if (children.length === 0) {
+        expandButton.setAttribute('aria-hidden', 'true');
+      }
+
+      const label = document.createElement('label');
+      label.className = 'ontology-filter-label';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.className = 'filter-option-input ontology-filter-checkbox';
+      checkbox.dataset.filterOption = 'keywords';
+      checkbox.name = 'keywords';
+      checkbox.value = node.label;
+      checkbox.checked = selectedValues.has(node.label);
+      checkbox.addEventListener('change', function () {
+        if (this.checked) setFilterSectionExpanded('keywords', true);
+        updateResults();
+      });
+
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode(node.label));
+      row.appendChild(expandButton);
+      row.appendChild(label);
+      item.appendChild(row);
+
+      if (children.length > 0) {
+        const childWrapper = document.createElement('div');
+        childWrapper.className = 'ontology-filter-children';
+        childWrapper.hidden = true;
+        childWrapper.appendChild(renderOntologyNodes(children, selectedValues));
+        item.appendChild(childWrapper);
+
+        expandButton.addEventListener('click', function () {
+          const isExpanded = !childWrapper.hidden;
+          childWrapper.hidden = isExpanded;
+          expandButton.textContent = isExpanded ? '>' : 'v';
+          expandButton.setAttribute('aria-label', `${isExpanded ? 'Expand' : 'Collapse'} ${node.label}`);
+        });
+      }
+
+      list.appendChild(item);
+    });
+
+    return list;
+  }
+
+  async function initOntologyFilters() {
+    const treeContainers = Array.from(document.querySelectorAll('[data-ontology-tree="keywords"]'));
+    if (treeContainers.length === 0) return;
+
+    try {
+      const response = await fetch('/ontology/tree');
+      if (!response.ok) throw new Error('Unable to load ontology tree');
+
+      const data = await response.json();
+      const tree = data.tree || [];
+      tree.forEach(indexOntologyNode);
+
+      treeContainers.forEach((container) => {
+        const selectedValues = new Set(
+          (container.dataset.selectedValues || '')
+            .split('|')
+            .map((value) => value.trim())
+            .filter(Boolean),
+        );
+
+        container.innerHTML = '';
+        container.appendChild(renderOntologyNodes(tree, selectedValues));
+      });
+
+      updateResults();
+    } catch (error) {
+      console.error('Error loading ontology tree:', error);
+      treeContainers.forEach((container) => {
+        container.innerHTML = '<div class="ontology-filter-loading">Unable to load keywords.</div>';
+      });
+    }
+  }
+
   let currentItems = [...allItems];
   window.currentItems = [...currentItems];
-  let searchResults = [...allItems]; //candidate list (melisearch results)
+  let searchResults = [...allItems];
 
   const form = document.getElementById('filterForm');
   const checkboxes = form.querySelectorAll('input[type="checkbox"]');
@@ -44,20 +202,21 @@ document.addEventListener('DOMContentLoaded', function () {
   const paginationContainer = document.querySelector('.pagination');
 
   tableBody.addEventListener('click', function (e) {
-    console.log('Clicked element:', e.target);
     if (e.target.classList.contains('keyword-link')) {
       handleKeywordSearch.call(e.target, e);
     }
     if (e.target.classList.contains('feature-link')) {
       e.preventDefault();
       const feature = e.target.dataset.feature;
-      const featureCheckbox = form.querySelector(`.exerciseTypeInput[value="${feature}"]`);
+      const featureCheckbox = form.querySelector(`[data-filter-option="features"][value="${feature}"]`);
       if (featureCheckbox) {
         featureCheckbox.checked = true;
+        setFilterSectionExpanded('features', true);
         updateResults();
       }
     }
   });
+
   const itemsPerPageSelect = document.getElementById('itemsPerPage');
   let ITEMS_PER_PAGE = parseInt(itemsPerPageSelect?.value || '25', 10);
   let currentPage = 1;
@@ -74,31 +233,26 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function filterItems() {
-    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
-    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
-    const queryValue = document.querySelector('input[name="query"]').value.trim();
+    const selectedFilters = getSelectedFilterValues();
 
-    // Base set: always filter from the candidate list
     let filteredItems = searchResults;
 
-    if (selectedFeatures.length > 0) {
-      filteredItems = filteredItems.filter((item) => {
-        const itemFeatures = Array.isArray(item.features)
-          ? item.features
-          : (item.features || '').split(',').map((s) => s.trim());
-        return selectedFeatures.some((sf) => itemFeatures.includes(sf));
-      });
-    }
+    (window.filterSections || []).forEach((section) => {
+      const selectedValues = getFilterMatchValues(section, selectedFilters[section.key] || []);
+      if (selectedValues.length === 0) return;
 
-    if (selectedTools.length > 0) {
-      filteredItems = filteredItems.filter((item) => selectedTools.includes(item.platform_name));
-    }
+      const itemField = section.key === 'tools' ? 'platform_name' : section.key;
+      filteredItems = filteredItems.filter((item) => {
+        const itemValues = parseFieldValues(item[itemField]);
+        return selectedValues.some((selectedValue) => itemValues.includes(selectedValue));
+      });
+    });
 
     if (activeKeyword) {
       const target = activeKeyword.trim().toLowerCase();
       filteredItems = filteredItems.filter((item) => {
         const kws = parseKeywords(item.keywords).map((k) => k.trim().toLowerCase());
-        return kws.includes(target); // exact keyword match
+        return kws.includes(target);
       });
     }
 
@@ -133,13 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
         )
         .join(', ');
 
-      const features = Array.isArray(item.features)
-        ? item.features
-        : (item.features || '')
-            .split(',')
-            .map((s) => s.trim())
-            .filter(Boolean);
-
+      const features = parseFieldValues(item.features);
       const featureLinks = features
         .map((f) => `<a href="#" class="feature-link" data-feature="${f}">${f}</a>`)
         .join(', ');
@@ -173,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const endNum = Math.min(page * ITEMS_PER_PAGE, items.length);
 
     if (recordCountEl) {
-      recordCountEl.textContent = `Showing ${startNum}–${endNum} of ${items.length} results`;
+      recordCountEl.textContent = `Showing ${startNum}-${endNum} of ${items.length} results`;
     }
   }
 
@@ -189,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = '#';
-      a.innerText = '❮ Previous';
+      a.innerText = '< Previous';
       a.className = 'pagination-btn';
       a.addEventListener('click', (e) => {
         e.preventDefault();
@@ -226,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = '#';
-      a.innerText = 'Next ❯';
+      a.innerText = 'Next >';
       a.className = 'pagination-btn';
       a.addEventListener('click', (e) => {
         e.preventDefault();
@@ -245,13 +393,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateURL() {
     const searchInput = searchForm.querySelector('input[name="query"]');
     const query = searchInput.value;
-    const selectedFeatures = Array.from(document.querySelectorAll('.exerciseTypeInput:checked')).map((cb) => cb.value);
-    const selectedTools = Array.from(document.querySelectorAll('.toolInput:checked')).map((cb) => cb.value);
+    const selectedFilters = getSelectedFilterValues();
 
     const params = new URLSearchParams();
     if (query) params.set('query', query);
-    selectedFeatures.forEach((f) => params.append('features', f));
-    selectedTools.forEach((t) => params.append('tools', t));
+    Object.entries(selectedFilters).forEach(([key, values]) => {
+      values.forEach((value) => params.append(key, value));
+    });
     if (activeKeyword) params.set('keyword', activeKeyword);
 
     const newUrl = `${window.location.pathname}?${params.toString()}`;
@@ -261,12 +409,34 @@ document.addEventListener('DOMContentLoaded', function () {
   function updateResults() {
     currentPage = 1;
     const filtered = filterItems();
+    currentItems = [...filtered];
+    window.currentItems = [...filtered];
     renderTable(filtered, currentPage);
     renderPagination(filtered.length);
     updateURL();
   }
 
+  document.querySelectorAll('[data-filter-toggle]').forEach((toggle) => {
+    toggle.addEventListener('click', function () {
+      const key = this.dataset.filterToggle;
+      const isExpanded = this.getAttribute('aria-expanded') === 'true';
+      setFilterSectionExpanded(key, !isExpanded);
+    });
+  });
+
   checkboxes.forEach((checkbox) => {
+    if (checkbox.dataset.filterOption) {
+      checkbox.addEventListener('change', function () {
+        const key = this.dataset.filterOption;
+        const selectedCount = document.querySelectorAll(`[data-filter-option="${key}"]:checked`).length;
+        if (selectedCount > 0) {
+          setFilterSectionExpanded(key, true);
+        }
+        updateResults();
+      });
+      return;
+    }
+
     checkbox.addEventListener('change', function () {
       updateResults();
     });
@@ -275,7 +445,7 @@ document.addEventListener('DOMContentLoaded', function () {
   async function handleKeywordSearch(e) {
     e.preventDefault();
     const keyword = this.dataset.keyword;
-    activeKeyword = keyword; //keyword chip should be a filter on the current candidate list
+    activeKeyword = keyword;
     currentPage = 1;
     updateResults();
   }
@@ -294,7 +464,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const debouncedSearch = debounce(async (query) => {
     if (!query) {
-      searchResults = [...allItems]; //when no search, all items are candidate
+      searchResults = [...allItems];
       updateResults();
       return;
     }
@@ -303,7 +473,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const response = await fetch(`/api/items?terms=${encodeURIComponent(query)}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      searchResults = data.results || []; //use meilisearch candidate when search
+      searchResults = data.results || [];
       updateResults();
     } catch (error) {
       console.error('There has been a problem with your fetch operation:', error);
@@ -322,23 +492,25 @@ document.addEventListener('DOMContentLoaded', function () {
   function applyFiltersFromURL() {
     const params = new URLSearchParams(window.location.search);
     const query = params.get('query');
-    const features = params.getAll('features');
-    const tools = params.getAll('tools');
     const kw = params.get('keyword');
     if (kw) activeKeyword = kw;
 
     if (query) searchInput.value = query;
 
-    document.querySelectorAll('.exerciseTypeInput').forEach((cb) => {
-      if (features.includes(cb.value)) cb.checked = true;
-    });
+    (window.filterSections || []).forEach((section) => {
+      const values = params.getAll(section.key);
+      document.querySelectorAll(`[data-filter-option="${section.key}"]`).forEach((cb) => {
+        if (values.includes(cb.value)) cb.checked = true;
+      });
 
-    document.querySelectorAll('.toolInput').forEach((cb) => {
-      if (tools.includes(cb.value)) cb.checked = true;
+      if (values.length > 0) {
+        setFilterSectionExpanded(section.key, true);
+      }
     });
   }
 
   applyFiltersFromURL();
+  initOntologyFilters();
 
   const initialQuery = new URLSearchParams(window.location.search).get('query');
   if (initialQuery) {

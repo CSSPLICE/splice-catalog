@@ -74,6 +74,8 @@ app.use(auth(oidc_config));
 app.use((req, res, next) => {
   res.locals.user = req.oidc && req.oidc.user ? req.oidc.user : null;
   res.locals.showLoginButton = req.path.startsWith('/instructions') && !req.oidc?.user;
+  const rolesClaim = req.oidc?.user?.['https://roles'] as string[] | undefined;
+  res.locals.isAdmin = rolesClaim?.includes(roles.admin) ?? false;
   next();
 });
 
@@ -94,6 +96,7 @@ emitter.on('DataSourceInitialized', () => {
 emitter.on('DataSourceInitialized', () => {
   const adminRouter = setup();
   app.use('/admin', checkRole(roles.admin), adminRouter);
+  console.log('admin router registered');
 });
 
 app.use(ErrorHandler.handleErrors);

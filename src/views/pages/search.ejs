@@ -9,13 +9,6 @@
 
       <%- include('../partials/filter') -%>
 
-      <%
-        const q = (typeof query === 'string') ? query : '';
-        const selectedFeatures = Array.isArray(features)
-          ? features
-          : (features ? [features] : []);
-      %>
-
       <main class="search-content">
 
         <div style="margin-bottom: 1rem;">
@@ -26,7 +19,7 @@
 
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div id="recordCount" class="fw-semibold text-muted">
-            Showing 0–0 of 0 results
+            Showing 0-0 of 0 results
           </div>
 
           <div>
@@ -48,6 +41,7 @@
 
     <script>
       window.allItems = <%- JSON.stringify(results || []) %>;
+      window.filterSections = <%- JSON.stringify(filterSections || []) %>;
     </script>
 
     <script src="/js/searchparams.js"></script>
