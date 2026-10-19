@@ -4,6 +4,10 @@ import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
 import { meilisearchService } from '../services/MeilisearchService.js';
+import { SearchStatisticsService } from '../services/SearchStatisticsService.js';
+import { parseSearchQuery } from '../utils/searchQuery.js';
+
+const searchStatisticsService = new SearchStatisticsService();
 
 const catalogMap: { [key: string]: typeof slc_item_catalog | typeof slc_tools_catalog | typeof dataset_catalog } = {
   items: slc_item_catalog,
@@ -27,11 +31,6 @@ const FILTER_FIELDS = [
 
 type FilterFieldConfig = (typeof FILTER_FIELDS)[number];
 type SelectedFilters = Record<string, string[]>;
-
-const normalizeSearchQuery = (value: unknown): string => {
-  if (typeof value !== 'string') return '';
-  return value.trim().replace(/\s+/g, ' ');
-};
 
 const normalizeStringArray = (value: unknown): string[] => {
   if (!value) return [];
@@ -74,7 +73,8 @@ const getItemFilterValues = (item: any, field: FilterFieldConfig): string[] => {
 
 export class SearchController {
   async searchCatalog(req: Request, res: Response) {
-    const query = normalizeSearchQuery(req.query.query);
+    const { query, error: queryError } = parseSearchQuery(req.query.query);
+    if (queryError) return res.status(400).send(queryError);
     const selectedFilters: SelectedFilters = Object.fromEntries(
       FILTER_FIELDS.map((field) => [field.key, getSelectedFilterValues(req, field)]),
     );
@@ -133,25 +133,45 @@ export class SearchController {
     });
   }
 
-  async searchCatalogAPI(req: Request, res: Response) {
-    const query = normalizeSearchQuery(req.query.terms);
+  searchCatalogAPI(req: Request, res: Response) {
+    return this.searchJson(req, res, true);
+  }
 
-    let results: any[] = [];
+  searchCatalogResults(req: Request, res: Response) {
+    return this.searchJson(req, res, false);
+  }
 
+  private async searchJson(req: Request, res: Response, publicApi: boolean) {
+    const { query, error } = parseSearchQuery(req.query.terms);
+    if (error) return res.status(400).json({ error });
+    const catalogName = publicApi ? req.params.catalog : 'items';
+    if (!Object.hasOwn(catalogMap, catalogName)) return res.status(404).json({ error: 'Unknown catalog' });
+    // Only SLC items are indexed. Do not silently return SLC hits for tool/dataset searches.
+    if (query && catalogName !== 'items') {
+      return res.status(400).json({ error: 'Full-text search is currently supported only for the items catalog.' });
+    }
     try {
-      if (query) {
-        results = await meilisearchService.search(query);
-      } else {
-        const catalogName = req.params.catalog || 'items';
-        const entity = catalogMap[catalogName] || slc_item_catalog;
-        results = await AppDataSource.getRepository(entity).find();
+      const results = (
+        query
+          ? await meilisearchService.search(query)
+          : await AppDataSource.getRepository(catalogMap[catalogName]).find()
+      ).map(normalizeCatalogItem);
+      if (publicApi && query) {
+        try {
+          await searchStatisticsService.recordSearch({
+            source: 'API',
+            query,
+            catalogType: 'SLC_ITEM',
+            resultCount: results.length,
+          });
+        } catch {
+          // A completed search remains successful if analytics storage is unavailable.
+          console.error('Failed to record public API search analytics');
+        }
       }
-
-      results = results.map(normalizeCatalogItem);
-
       return res.json({ results });
-    } catch (error) {
-      console.error('API Search Error:', error);
+    } catch {
+      console.error('Search retrieval failed');
       return res.status(500).json({ error: 'Internal Server Error' });
     }
   }

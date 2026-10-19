@@ -29,13 +29,13 @@ function applyDateRange(
   return query;
 }
 
-export type UsageStatisticsSortBy = 'views' | 'externalClicks';
+export type UsageStatisticsSortBy = 'entryClicks' | 'externalClicks';
 
 export interface OverallUsageStatistics {
-  totalViews: number;
-  liveViews: number;
-  historicalViews: number;
+  totalEntryClicks: number;
   totalExternalClicks: number;
+  legacyItemViews: number;
+  historicalPageRequests: number;
 }
 
 export interface PerItemUsageStatistics {
@@ -43,17 +43,18 @@ export interface PerItemUsageStatistics {
   catalogPath: string | null;
   itemPersistentID: string;
   itemTitle: string;
-  views: number;
-  liveViews: number;
-  historicalViews: number;
+  entryClicks: number;
   externalClicks: number;
+  legacyItemViews: number;
+  historicalPageRequests: number;
   lifecycleStatus?: 'RENAMED' | 'DELETED' | 'RECREATED';
 }
 
 export interface DailyUsageActivity {
   date: string;
-  views: number;
+  entryClicks: number;
   externalClicks: number;
+  legacyItemViews: number;
 }
 
 export interface CatalogTypeActivity {
@@ -71,24 +72,20 @@ const catalogTypeLabels: Record<UsageCatalogType, string> = {
 const historicalUsageSource = 'nginx_historical';
 
 function localDateKey(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
 export class UsageStatisticsService {
   async recordEvent(eventData: {
     itemPersistentID: string;
     itemTitle: string;
-    eventType: string;
+    eventType: 'ENTRY_CLICK' | 'EXTERNAL_CLICK';
     linkType?: string;
     catalogType?: string | null;
     catalogPath?: string | null;
   }): Promise<UsageEvent> {
     const repository = AppDataSource.getRepository(UsageEvent);
-    const event = repository.create(eventData);
-    return repository.save(event);
+    return repository.save(repository.create(eventData));
   }
 
   async countEventsByType(eventType: string): Promise<number> {
@@ -100,8 +97,26 @@ export class UsageStatisticsService {
       .createQueryBuilder('usageEvent')
       .orderBy('usageEvent.createdAt', 'DESC')
       .addOrderBy('usageEvent.id', 'DESC');
-
     return applyDateRange(query, 'usageEvent', dateRange, catalogType).getMany();
+  }
+
+  private historicalQuery() {
+    return AppDataSource.getRepository(HistoricalUsage)
+      .createQueryBuilder('historicalUsage')
+      .where('historicalUsage.source = :historicalSource', { historicalSource: historicalUsageSource })
+      .andWhere('historicalUsage.catalogType = :historicalCatalogType', { historicalCatalogType: 'SLC_ITEM' })
+      .andWhere('historicalUsage.itemPersistentID IS NOT NULL');
+  }
+
+  async getHistoricalUsageSummary(): Promise<{ rowCount: number; totalRequests: number }> {
+    const result = await AppDataSource.getRepository(HistoricalUsage)
+      .createQueryBuilder('historicalUsage')
+      .select('COUNT(*)', 'rowCount')
+      .addSelect('COALESCE(SUM(historicalUsage.viewCount), 0)', 'totalRequests')
+      .where('historicalUsage.source = :source', { source: historicalUsageSource })
+      .andWhere('historicalUsage.catalogType = :catalogType', { catalogType: 'SLC_ITEM' })
+      .getRawOne();
+    return { rowCount: Number(result?.rowCount ?? 0), totalRequests: Number(result?.totalRequests ?? 0) };
   }
 
   async getOverallStatistics(
@@ -110,107 +125,74 @@ export class UsageStatisticsService {
   ): Promise<OverallUsageStatistics> {
     const query = AppDataSource.getRepository(UsageEvent)
       .createQueryBuilder('usageEvent')
-      .select(
-        'SUM(CASE WHEN usageEvent.eventType = :itemViewEventType THEN 1 ELSE 0 END)',
-        'totalViews',
-      )
-      .addSelect(
-        'SUM(CASE WHEN usageEvent.eventType = :externalClickEventType THEN 1 ELSE 0 END)',
-        'totalExternalClicks',
-      )
-      .setParameters({
-        itemViewEventType: 'ITEM_VIEW',
-        externalClickEventType: 'EXTERNAL_CLICK',
-      });
+      .select("SUM(CASE WHEN usageEvent.eventType = 'ENTRY_CLICK' THEN 1 ELSE 0 END)", 'totalEntryClicks')
+      .addSelect("SUM(CASE WHEN usageEvent.eventType = 'EXTERNAL_CLICK' THEN 1 ELSE 0 END)", 'totalExternalClicks')
+      .addSelect("SUM(CASE WHEN usageEvent.eventType = 'ITEM_VIEW' THEN 1 ELSE 0 END)", 'legacyItemViews');
     const result = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawOne();
-
-    const liveViews = Number(result?.totalViews ?? 0);
-    let historicalViews = 0;
+    let historicalPageRequests = 0;
     if (!dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
-      const historicalResult = await AppDataSource.getRepository(HistoricalUsage)
-        .createQueryBuilder('historicalUsage')
-        .select('COALESCE(SUM(historicalUsage.viewCount), 0)', 'historicalViews')
-        .where('historicalUsage.source = :historicalSource', { historicalSource: historicalUsageSource })
-        .andWhere('historicalUsage.catalogType = :historicalCatalogType', { historicalCatalogType: 'SLC_ITEM' })
-        .andWhere('historicalUsage.itemPersistentID IS NOT NULL')
+      const historical = await this.historicalQuery()
+        .select('COALESCE(SUM(historicalUsage.viewCount), 0)', 'count')
         .getRawOne();
-      historicalViews = Number(historicalResult?.historicalViews ?? 0);
+      historicalPageRequests = Number(historical?.count ?? 0);
     }
-
     return {
-      totalViews: liveViews + historicalViews,
-      liveViews,
-      historicalViews,
+      totalEntryClicks: Number(result?.totalEntryClicks ?? 0),
       totalExternalClicks: Number(result?.totalExternalClicks ?? 0),
+      legacyItemViews: Number(result?.legacyItemViews ?? 0),
+      historicalPageRequests,
     };
   }
 
-  async getUniqueCatalogEntryCount(
-    dateRange?: UsageDateRange,
-    catalogType?: UsageCatalogType,
-  ): Promise<number> {
+  async getUniqueCatalogEntryCount(dateRange?: UsageDateRange, catalogType?: UsageCatalogType): Promise<number> {
     const query = AppDataSource.getRepository(UsageEvent)
       .createQueryBuilder('usageEvent')
-      .select('COUNT(DISTINCT usageEvent.catalogType, usageEvent.itemPersistentID)', 'uniqueCatalogEntries');
+      .select('COUNT(DISTINCT usageEvent.catalogType, usageEvent.itemPersistentID)', 'uniqueCatalogEntries')
+      .where('usageEvent.eventType IN (:...types)', { types: ['ENTRY_CLICK', 'EXTERNAL_CLICK'] });
     const result = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawOne();
     return Number(result?.uniqueCatalogEntries ?? 0);
   }
 
-  async getDailyActivity(
-    dateRange?: UsageDateRange,
-    catalogType?: UsageCatalogType,
-  ): Promise<DailyUsageActivity[]> {
+  async getDailyActivity(dateRange?: UsageDateRange, catalogType?: UsageCatalogType): Promise<DailyUsageActivity[]> {
     const query = AppDataSource.getRepository(UsageEvent)
       .createQueryBuilder('usageEvent')
       .select('DATE(usageEvent.createdAt)', 'date')
-      .addSelect(
-        'SUM(CASE WHEN usageEvent.eventType = :itemViewEventType THEN 1 ELSE 0 END)',
-        'views',
-      )
-      .addSelect(
-        'SUM(CASE WHEN usageEvent.eventType = :externalClickEventType THEN 1 ELSE 0 END)',
-        'externalClicks',
-      )
-      .setParameters({
-        itemViewEventType: 'ITEM_VIEW',
-        externalClickEventType: 'EXTERNAL_CLICK',
-      })
-      .andWhere('usageEvent.eventType IN (:...activityEventTypes)', {
-        activityEventTypes: ['ITEM_VIEW', 'EXTERNAL_CLICK'],
-      })
+      .addSelect("SUM(CASE WHEN usageEvent.eventType = 'ENTRY_CLICK' THEN 1 ELSE 0 END)", 'entryClicks')
+      .addSelect("SUM(CASE WHEN usageEvent.eventType = 'EXTERNAL_CLICK' THEN 1 ELSE 0 END)", 'externalClicks')
+      .addSelect("SUM(CASE WHEN usageEvent.eventType = 'ITEM_VIEW' THEN 1 ELSE 0 END)", 'legacyItemViews')
+      .where('usageEvent.eventType IN (:...types)', { types: ['ENTRY_CLICK', 'EXTERNAL_CLICK', 'ITEM_VIEW'] })
       .groupBy('DATE(usageEvent.createdAt)')
       .orderBy('DATE(usageEvent.createdAt)', 'ASC');
     const results = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawMany();
-    const dailyCounts = new Map<string, DailyUsageActivity>();
-
-    for (const result of results) {
-      const date = result.date instanceof Date ? localDateKey(result.date) : String(result.date).slice(0, 10);
-      dailyCounts.set(date, {
+    const days = new Map<string, DailyUsageActivity>();
+    for (const row of results) {
+      const date = row.date instanceof Date ? localDateKey(row.date) : String(row.date).slice(0, 10);
+      days.set(date, {
         date,
-        views: Number(result.views ?? 0),
-        externalClicks: Number(result.externalClicks ?? 0),
+        entryClicks: Number(row.entryClicks ?? 0),
+        externalClicks: Number(row.externalClicks ?? 0),
+        legacyItemViews: Number(row.legacyItemViews ?? 0),
       });
     }
-
     if (dateRange?.from && dateRange.toExclusive) {
-      const cursor = new Date(dateRange.from);
-      const maxFilledDays = 366;
-      const selectedDayCount = Math.round((dateRange.toExclusive.getTime() - dateRange.from.getTime()) / 86400000);
-      if (selectedDayCount > 0 && selectedDayCount <= maxFilledDays) {
-        const filledDays: DailyUsageActivity[] = [];
-        while (cursor < dateRange.toExclusive) {
+      const count = Math.round((dateRange.toExclusive.getTime() - dateRange.from.getTime()) / 86400000);
+      if (count > 0 && count <= 366) {
+        const filled: DailyUsageActivity[] = [];
+        for (
+          const cursor = new Date(dateRange.from);
+          cursor < dateRange.toExclusive;
+          cursor.setDate(cursor.getDate() + 1)
+        ) {
           const date = localDateKey(cursor);
-          filledDays.push(dailyCounts.get(date) ?? { date, views: 0, externalClicks: 0 });
-          cursor.setDate(cursor.getDate() + 1);
+          filled.push(days.get(date) ?? { date, entryClicks: 0, externalClicks: 0, legacyItemViews: 0 });
         }
-        return filledDays;
+        return filled;
       }
     }
-
-    return [...dailyCounts.values()];
+    return [...days.values()];
   }
 
-  async getCatalogTypeActivity(
+  async getCatalogTypeEntryActivity(
     dateRange?: UsageDateRange,
     catalogType?: UsageCatalogType,
   ): Promise<CatalogTypeActivity[]> {
@@ -218,181 +200,85 @@ export class UsageStatisticsService {
       .createQueryBuilder('usageEvent')
       .select('usageEvent.catalogType', 'catalogType')
       .addSelect('COUNT(*)', 'count')
-      .where('usageEvent.catalogType IN (:...supportedCatalogTypes)', { supportedCatalogTypes })
+      .where("usageEvent.eventType = 'ENTRY_CLICK'")
+      .andWhere('usageEvent.catalogType IN (:...types)', { types: supportedCatalogTypes })
       .groupBy('usageEvent.catalogType');
     const results = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawMany();
-    const counts = new Map<UsageCatalogType, number>(
-      supportedCatalogTypes.map((type) => [type, 0]),
-    );
-
-    for (const result of results) {
-      if (counts.has(result.catalogType)) counts.set(result.catalogType, Number(result.count ?? 0));
-    }
-
     return supportedCatalogTypes.map((type) => ({
       catalogType: type,
       label: catalogTypeLabels[type],
-      count: counts.get(type) ?? 0,
-    }));
-  }
-
-  async getCatalogTypeViewActivity(
-    dateRange?: UsageDateRange,
-    catalogType?: UsageCatalogType,
-  ): Promise<CatalogTypeActivity[]> {
-    const query = AppDataSource.getRepository(UsageEvent)
-      .createQueryBuilder('usageEvent')
-      .select('usageEvent.catalogType', 'catalogType')
-      .addSelect('COUNT(*)', 'count')
-      .where('usageEvent.eventType = :catalogViewEventType', { catalogViewEventType: 'ITEM_VIEW' })
-      .andWhere('usageEvent.catalogType IN (:...supportedCatalogTypes)', { supportedCatalogTypes })
-      .groupBy('usageEvent.catalogType');
-    const results = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawMany();
-    const counts = new Map<UsageCatalogType, number>(supportedCatalogTypes.map((type) => [type, 0]));
-
-    for (const result of results) {
-      if (counts.has(result.catalogType)) counts.set(result.catalogType, Number(result.count ?? 0));
-    }
-
-    if (!dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
-      const historicalResult = await AppDataSource.getRepository(HistoricalUsage)
-        .createQueryBuilder('historicalUsage')
-        .select('COALESCE(SUM(historicalUsage.viewCount), 0)', 'count')
-        .where('historicalUsage.source = :historicalSource', { historicalSource: historicalUsageSource })
-        .andWhere('historicalUsage.catalogType = :historicalCatalogType', { historicalCatalogType: 'SLC_ITEM' })
-        .andWhere('historicalUsage.itemPersistentID IS NOT NULL')
-        .getRawOne();
-      const slcCount = counts.get('SLC_ITEM') ?? 0;
-      counts.set('SLC_ITEM', slcCount + Number(historicalResult?.count ?? 0));
-    }
-
-    return supportedCatalogTypes.map((type) => ({
-      catalogType: type,
-      label: catalogTypeLabels[type],
-      count: counts.get(type) ?? 0,
+      count: Number(results.find((row) => row.catalogType === type)?.count ?? 0),
     }));
   }
 
   async getPerItemStatistics(
-    sortBy: UsageStatisticsSortBy = 'views',
+    sortBy: UsageStatisticsSortBy = 'entryClicks',
     dateRange?: UsageDateRange,
     catalogType?: UsageCatalogType,
   ): Promise<PerItemUsageStatistics[]> {
-    const sortColumn = sortBy === 'views' ? 'views' : 'externalClicks';
-
     const query = AppDataSource.getRepository(UsageEvent)
       .createQueryBuilder('usageEvent')
       .select('usageEvent.itemPersistentID', 'itemPersistentID')
-      .addSelect('usageEvent.catalogType', 'catalogType')
-      .addSelect(
-        (subQueryBuilder) => {
-          const titleQuery = subQueryBuilder
-            .select('latestUsageEvent.itemTitle')
-            .from(UsageEvent, 'latestUsageEvent')
-            .where('latestUsageEvent.itemPersistentID = usageEvent.itemPersistentID')
-            .andWhere('latestUsageEvent.catalogType <=> usageEvent.catalogType');
-          applyDateRange(titleQuery, 'latestUsageEvent', dateRange, catalogType);
-          return titleQuery
-            .orderBy('latestUsageEvent.createdAt', 'DESC')
-            .addOrderBy('latestUsageEvent.id', 'DESC')
-            .limit(1);
-        },
-        'itemTitle',
-      )
-      .addSelect(
-        (subQueryBuilder) => {
-          const pathQuery = subQueryBuilder
-            .select('latestUsageEvent.catalogPath')
-            .from(UsageEvent, 'latestUsageEvent')
-            .where('latestUsageEvent.itemPersistentID = usageEvent.itemPersistentID')
-            .andWhere('latestUsageEvent.catalogType <=> usageEvent.catalogType');
-          applyDateRange(pathQuery, 'latestUsageEvent', dateRange, catalogType);
-          return pathQuery
-            .orderBy('latestUsageEvent.createdAt', 'DESC')
-            .addOrderBy('latestUsageEvent.id', 'DESC')
-            .limit(1);
-        },
-        'catalogPath',
-      )
-      .addSelect(
-        'SUM(CASE WHEN usageEvent.eventType = :itemViewEventType THEN 1 ELSE 0 END)',
-        'views',
-      )
-      .addSelect(
-        'SUM(CASE WHEN usageEvent.eventType = :externalClickEventType THEN 1 ELSE 0 END)',
-        'externalClicks',
-      )
-      .setParameters({
-        itemViewEventType: 'ITEM_VIEW',
-        externalClickEventType: 'EXTERNAL_CLICK',
-      })
-      .groupBy('usageEvent.catalogType')
-      .addGroupBy('usageEvent.itemPersistentID')
-      .orderBy(sortColumn, 'DESC')
-      .addOrderBy('usageEvent.catalogType', 'ASC')
-      .addOrderBy('usageEvent.itemPersistentID', 'ASC');
-
-    const results = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawMany();
-
-    const statisticsByIdentity = new Map<string, PerItemUsageStatistics>();
-    const identityKey = (catalogType: string | null, itemPersistentID: string) =>
-      JSON.stringify([catalogType, itemPersistentID]);
-
-    for (const result of results) {
-      const catalogType = result.catalogType ?? null;
-      const liveViews = Number(result.views ?? 0);
-      const item: PerItemUsageStatistics = {
-        catalogType,
-        catalogPath: result.catalogPath ?? null,
-        itemPersistentID: result.itemPersistentID,
-        itemTitle: result.itemTitle,
-        views: liveViews,
-        liveViews,
-        historicalViews: 0,
-        externalClicks: Number(result.externalClicks ?? 0),
-      };
-      statisticsByIdentity.set(identityKey(catalogType, item.itemPersistentID), item);
+      .addSelect('usageEvent.catalogType', 'catalogType');
+    for (const field of ['itemTitle', 'catalogPath']) {
+      query.addSelect((sub) => {
+        const latest = sub
+          .select(`latestUsageEvent.${field}`)
+          .from(UsageEvent, 'latestUsageEvent')
+          .where('latestUsageEvent.itemPersistentID = usageEvent.itemPersistentID')
+          .andWhere('latestUsageEvent.catalogType <=> usageEvent.catalogType');
+        applyDateRange(latest, 'latestUsageEvent', dateRange, catalogType);
+        return latest.orderBy('latestUsageEvent.createdAt', 'DESC').addOrderBy('latestUsageEvent.id', 'DESC').limit(1);
+      }, field);
     }
-
+    query
+      .addSelect("SUM(CASE WHEN usageEvent.eventType = 'ENTRY_CLICK' THEN 1 ELSE 0 END)", 'entryClicks')
+      .addSelect("SUM(CASE WHEN usageEvent.eventType = 'EXTERNAL_CLICK' THEN 1 ELSE 0 END)", 'externalClicks')
+      .addSelect("SUM(CASE WHEN usageEvent.eventType = 'ITEM_VIEW' THEN 1 ELSE 0 END)", 'legacyItemViews')
+      .where('usageEvent.eventType IN (:...types)', { types: ['ENTRY_CLICK', 'EXTERNAL_CLICK', 'ITEM_VIEW'] })
+      .groupBy('usageEvent.catalogType')
+      .addGroupBy('usageEvent.itemPersistentID');
+    const results = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawMany();
+    const items = new Map<string, PerItemUsageStatistics>();
+    const key = (type: string | null, id: string) => JSON.stringify([type, id]);
+    for (const row of results) {
+      const item = {
+        catalogType: row.catalogType ?? null,
+        catalogPath: row.catalogPath ?? null,
+        itemPersistentID: row.itemPersistentID,
+        itemTitle: row.itemTitle,
+        entryClicks: Number(row.entryClicks ?? 0),
+        externalClicks: Number(row.externalClicks ?? 0),
+        legacyItemViews: Number(row.legacyItemViews ?? 0),
+        historicalPageRequests: 0,
+      };
+      items.set(key(item.catalogType, item.itemPersistentID), item);
+    }
     if (!dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
-      const historicalRows = await AppDataSource.getRepository(HistoricalUsage)
-        .createQueryBuilder('historicalUsage')
-        .where('historicalUsage.source = :historicalSource', { historicalSource: historicalUsageSource })
-        .andWhere('historicalUsage.catalogType = :historicalCatalogType', { historicalCatalogType: 'SLC_ITEM' })
-        .andWhere('historicalUsage.itemPersistentID IS NOT NULL')
-        .getMany();
-
-      for (const historicalRow of historicalRows) {
-        const itemPersistentID = historicalRow.itemPersistentID;
-        if (!itemPersistentID) continue;
-        const key = identityKey('SLC_ITEM', itemPersistentID);
-        const existing = statisticsByIdentity.get(key);
-        if (existing) {
-          existing.historicalViews += historicalRow.viewCount;
-          existing.views += historicalRow.viewCount;
-          if (!existing.catalogPath) existing.catalogPath = historicalRow.catalogPath;
-          if (!existing.itemTitle) existing.itemTitle = historicalRow.itemTitle ?? itemPersistentID;
-        } else {
-          statisticsByIdentity.set(key, {
-            catalogType: 'SLC_ITEM',
-            catalogPath: historicalRow.catalogPath,
-            itemPersistentID,
-            itemTitle: historicalRow.itemTitle ?? itemPersistentID,
-            views: historicalRow.viewCount,
-            liveViews: 0,
-            historicalViews: historicalRow.viewCount,
-            externalClicks: 0,
-          });
-        }
+      for (const row of await this.historicalQuery().getMany()) {
+        if (!row.itemPersistentID) continue;
+        const identity = key('SLC_ITEM', row.itemPersistentID);
+        const item = items.get(identity) ?? {
+          catalogType: 'SLC_ITEM',
+          catalogPath: row.catalogPath,
+          itemPersistentID: row.itemPersistentID,
+          itemTitle: row.itemTitle ?? row.itemPersistentID,
+          entryClicks: 0,
+          externalClicks: 0,
+          legacyItemViews: 0,
+          historicalPageRequests: 0,
+        };
+        item.historicalPageRequests += row.viewCount;
+        if (!item.catalogPath) item.catalogPath = row.catalogPath;
+        items.set(identity, item);
       }
     }
-
-    return [...statisticsByIdentity.values()].sort((left, right) => {
-      const countDifference = right[sortColumn] - left[sortColumn];
-      if (countDifference !== 0) return countDifference;
-      const typeDifference = (left.catalogType ?? '').localeCompare(right.catalogType ?? '');
-      return typeDifference || left.itemPersistentID.localeCompare(right.itemPersistentID);
-    });
+    return [...items.values()].sort(
+      (left, right) =>
+        right[sortBy] - left[sortBy] ||
+        (left.catalogType ?? '').localeCompare(right.catalogType ?? '') ||
+        left.itemPersistentID.localeCompare(right.itemPersistentID),
+    );
   }
 
   async addLifecycleStatuses(items: PerItemUsageStatistics[]): Promise<PerItemUsageStatistics[]> {
@@ -406,7 +292,7 @@ export class UsageStatisticsService {
           .createQueryBuilder('usageEvent')
           .select('usageEvent.itemPersistentID', 'itemPersistentID')
           .addSelect(
-            "MAX(CASE WHEN currentItem.id IS NOT NULL AND BINARY usageEvent.itemTitle <> BINARY currentItem.title THEN 1 ELSE 0 END)",
+            'MAX(CASE WHEN currentItem.id IS NOT NULL AND BINARY usageEvent.itemTitle <> BINARY currentItem.title THEN 1 ELSE 0 END)',
             'hasDifferentTitle',
           )
           .addSelect(

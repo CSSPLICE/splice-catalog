@@ -12,12 +12,10 @@ import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO.js';
 import { reviewController } from './ReviewController.js';
 import { ValidationManager } from '../services/ValidationManager.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
-import { UsageStatisticsService } from '../services/UsageStatisticsService.js';
 
 const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
 const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
 const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
-const usageStatisticsService = new UsageStatisticsService();
 
 import { SearchController } from './SearchController.js';
 
@@ -82,18 +80,6 @@ export class ViewController {
       const tool = await AppDataSource.getRepository(slc_tools_catalog).findOneBy({ id });
       if (!tool) return res.status(404).send('Tool not found');
 
-      try {
-        await usageStatisticsService.recordEvent({
-          catalogType: 'TOOL',
-          catalogPath: `/toolcatalog/item/${tool.id}`,
-          itemPersistentID: String(tool.id),
-          itemTitle: tool.platform_name,
-          eventType: 'ITEM_VIEW',
-        });
-      } catch (error) {
-        logger.error('Failed to record tool ITEM_VIEW usage event:', error);
-      }
-
       return res.render('pages/tool-item', {
         tool,
         title: tool.platform_name,
@@ -132,17 +118,6 @@ export class ViewController {
       if (!dataset) return res.status(404).send('Dataset not found');
 
       const datasetTitle = dataset.title?.trim() || dataset.dataset_name?.trim() || 'Dataset';
-      try {
-        await usageStatisticsService.recordEvent({
-          catalogType: 'DATASET',
-          catalogPath: `/datasetcatalog/item/${dataset.id}`,
-          itemPersistentID: String(dataset.id),
-          itemTitle: datasetTitle,
-          eventType: 'ITEM_VIEW',
-        });
-      } catch (error) {
-        logger.error('Failed to record dataset ITEM_VIEW usage event:', error);
-      }
 
       return res.render('pages/dataset-item', {
         dataset,

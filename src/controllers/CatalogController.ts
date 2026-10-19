@@ -5,9 +5,6 @@ import { AppDataSource } from '../db/data-source.js';
 import { ResponseUtil } from '../utils/Response.js';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
-import { UsageStatisticsService } from '../services/UsageStatisticsService.js';
-
-const usageStatisticsService = new UsageStatisticsService();
 
 const normalizeSearchQuery = (value: unknown): string => {
   if (typeof value !== 'string') return '';
@@ -105,18 +102,6 @@ export class CatalogController {
           item: null,
           title: 'Item Not Found',
         });
-      }
-
-      try {
-        await usageStatisticsService.recordEvent({
-          itemPersistentID: item.persistentID,
-          itemTitle: item.title,
-          eventType: 'ITEM_VIEW',
-          catalogType: 'SLC_ITEM',
-          catalogPath: `/catalog/item/${item.id}`,
-        });
-      } catch (error) {
-        console.error('Failed to record ITEM_VIEW usage event:', error);
       }
 
       return res.render('pages/item', {

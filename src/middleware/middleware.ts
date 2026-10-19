@@ -18,6 +18,7 @@ export function checkRole(role: roles): (req: Request, res: Response, next: Next
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.oidc.isAuthenticated()) {
       res.status(401).send('Login Required');
+      return;
     }
     const rolesClaim = req.oidc?.user?.['https://roles'] as string[] | undefined;
     if (rolesClaim?.includes(role)) {

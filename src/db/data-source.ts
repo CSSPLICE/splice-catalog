@@ -9,14 +9,11 @@ import { OntologyAliases } from './entities/OntologyAlias.js';
 import { ItemClassification } from './entities/ItemClassification.js';
 import { ValidationResults } from './entities/ValidationResults.js';
 import { SearchAlias } from './entities/SearchAlias.js';
+import { ValidationJob } from './entities/ValidationJob.js';
+import { ValidationJobConstraint } from './entities/ValidationJobConstraint.js';
 import { UsageEvent } from './entities/UsageEvent.js';
 import { HistoricalUsage } from './entities/HistoricalUsage.js';
-import { SeedInitialData1764779460569 } from './migrations/1764779460569-SeedInitialData.js';
-import { CreateSearchAliasesTable1771278405273 } from './migrations/1771278405273-CreateSearchAliasesTable.js';
-import { SeedSearchAliasesData1771278447647 } from './migrations/1771278447647-SeedSearchAliasesData.js';
-import { CreateUsageEventsTable1791251377107 } from './migrations/1791251377107-CreateUsageEventsTable.js';
-import { AddUsageEventCatalogPath1791309088000 } from './migrations/1791309088000-AddUsageEventCatalogPath.js';
-import { CreateHistoricalUsageTable1791914000000 } from './migrations/1791914000000-CreateHistoricalUsageTable.js';
+import { SearchEvent } from './entities/SearchEvent.js';
 
 dotenv.config();
 
@@ -28,12 +25,9 @@ export const AppDataSource: DataSource = new DataSource({
   password: process.env.DB_PASSWORD || 'splice',
   database: process.env.DB_DATABASE || 'splice',
   migrations: [
-    SeedInitialData1764779460569,
-    CreateSearchAliasesTable1771278405273,
-    SeedSearchAliasesData1771278447647,
-    CreateUsageEventsTable1791251377107,
-    AddUsageEventCatalogPath1791309088000,
-    CreateHistoricalUsageTable1791914000000,
+    process.env.NODE_ENV === 'development'
+      ? 'src/db/migrations/*.ts'
+      : 'dist/db/migrations/*.js',
   ],
   logging: process.env.ORM_LOGGING === 'true',
   entities: [
@@ -46,8 +40,11 @@ export const AppDataSource: DataSource = new DataSource({
     ItemClassification,
     ValidationResults,
     SearchAlias,
+    ValidationJob,
+    ValidationJobConstraint,
     UsageEvent,
     HistoricalUsage,
+    SearchEvent,
   ],
   synchronize: false,
   subscribers: [],

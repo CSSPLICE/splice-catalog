@@ -1,22 +1,21 @@
 import { Request, Response } from 'express';
 import {
-  CatalogTypeActivity,
-  DailyUsageActivity,
   UsageDateRange,
   UsageCatalogType,
-  OverallUsageStatistics,
   PerItemUsageStatistics,
   UsageStatisticsService,
-  UsageStatisticsSortBy,
 } from '../services/UsageStatisticsService.js';
+import { SearchStatisticsService } from '../services/SearchStatisticsService.js';
 
 const usageStatisticsService = new UsageStatisticsService();
+const searchStatisticsService = new SearchStatisticsService();
 
 interface ParsedDateRange {
   from: string;
   to: string;
   dateRange?: UsageDateRange;
   error?: string;
+  period: 'all' | '7d' | '30d' | 'custom';
 }
 
 function parseCalendarDate(value: unknown, label: string): { value: string; date?: Date; error?: string } {
@@ -35,19 +34,41 @@ function parseCalendarDate(value: unknown, label: string): { value: string; date
   return { value, date };
 }
 
-function parseDateRange(req: Request): ParsedDateRange {
-  const fromResult = parseCalendarDate(req.query.from, 'From date');
-  const toResult = parseCalendarDate(req.query.to, 'To date');
+function parseDateRange(req: Request, preserveResolvedPreset = false): ParsedDateRange {
+  const requestedPeriod = req.query.period;
+  const period =
+    requestedPeriod === 'all' || requestedPeriod === '7d' || requestedPeriod === '30d' || requestedPeriod === 'custom'
+      ? requestedPeriod
+      : req.query.from || req.query.to
+        ? 'custom'
+        : 'all';
+  let fromValue = req.query.from;
+  let toValue = req.query.to;
+  if (period === 'all') {
+    fromValue = '';
+    toValue = '';
+  }
+  if ((period === '7d' || period === '30d') && !(preserveResolvedPreset && req.query.from && req.query.to)) {
+    const today = new Date();
+    const start = new Date(today);
+    start.setDate(start.getDate() - (period === '7d' ? 6 : 29));
+    fromValue = calendarKey(start);
+    toValue = calendarKey(today);
+  }
+  const fromResult = parseCalendarDate(fromValue, 'From date');
+  const toResult = parseCalendarDate(toValue, 'To date');
   const from = fromResult.value;
   const to = toResult.value;
 
   if (fromResult.error || toResult.error) {
-    return { from, to, error: fromResult.error ?? toResult.error };
+    return { from, to, period, error: fromResult.error ?? toResult.error };
   }
   if (from && to && from > to) {
-    return { from, to, error: 'From date must be on or before To date.' };
+    return { from, to, period, error: 'From date must be on or before To date.' };
   }
 
+  if (period === 'custom' && !from && !to)
+    return { from, to, period, error: 'Choose at least one date for a custom range.' };
   const dateRange: UsageDateRange = {};
   if (fromResult.date) dateRange.from = fromResult.date;
   if (toResult.date) {
@@ -58,8 +79,13 @@ function parseDateRange(req: Request): ParsedDateRange {
   return {
     from,
     to,
+    period,
     dateRange: dateRange.from || dateRange.toExclusive ? dateRange : undefined,
   };
+}
+
+function calendarKey(date: Date): string {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
 function formatDate(value: string): string {
@@ -82,10 +108,6 @@ function exportFilename(extension: 'json' | 'csv', generatedAt: Date, from: stri
   return `splice-usage-statistics-${period}.${extension}`;
 }
 
-function includesHistoricalUsage(dateRange: UsageDateRange | undefined, catalogType: UsageCatalogType | undefined): boolean {
-  return !dateRange && (!catalogType || catalogType === 'SLC_ITEM');
-}
-
 function parseCatalogType(value: unknown): UsageCatalogType | undefined {
   if (value === 'SLC_ITEM' || value === 'TOOL' || value === 'DATASET') return value;
   return undefined;
@@ -95,196 +117,243 @@ function buildDashboardQuery(
   from: string,
   to: string,
   catalogType: 'ALL' | UsageCatalogType,
-  sort?: UsageStatisticsSortBy,
-  query?: string,
+  period: ParsedDateRange['period'],
 ): string {
   const params = new URLSearchParams();
+  params.set('period', period);
   if (from) params.set('from', from);
   if (to) params.set('to', to);
   if (catalogType !== 'ALL') params.set('catalogType', catalogType);
-  if (query) params.set('q', query);
-  if (sort) params.set('sort', sort);
   return params.toString();
+}
+
+function liveEntries(items: PerItemUsageStatistics[]) {
+  return items
+    .filter((item) => item.entryClicks > 0 || item.externalClicks > 0)
+    .map((item) => ({
+      catalogType: item.catalogType,
+      catalogPath: item.catalogPath,
+      itemPersistentID: item.itemPersistentID,
+      itemTitle: item.itemTitle,
+      entryClicks: item.entryClicks,
+      externalClicks: item.externalClicks,
+    }));
+}
+
+function emptySnapshot(parsed: ParsedDateRange, catalogType?: UsageCatalogType) {
+  return {
+    generatedAt: new Date().toISOString(),
+    filters: {
+      period: parsed.period,
+      from: parsed.from || null,
+      to: parsed.to || null,
+      catalogType: catalogType ?? 'ALL',
+      frequentTermLimit: 100,
+    },
+    summary: {
+      totalEntryClicks: 0,
+      totalExternalClicks: 0,
+      uniqueCatalogEntries: 0,
+      webSearches: 0,
+      publicApiSearches: 0,
+    },
+    activityOverTime: [] as Array<{
+      date: string;
+      entryClicks: number;
+      externalClicks: number;
+      publicApiSearches: number;
+    }>,
+    entryClicksByCatalogType: [
+      { catalogType: 'SLC_ITEM', label: 'SLC Items', count: 0 },
+      { catalogType: 'TOOL', label: 'Tools', count: 0 },
+      { catalogType: 'DATASET', label: 'Datasets', count: 0 },
+    ],
+    catalogEntryStatistics: [] as ReturnType<typeof liveEntries>,
+    frequentSearchTerms: [] as Awaited<ReturnType<SearchStatisticsService['getFrequentTerms']>>,
+    historicalNginx: {
+      source: 'nginx_historical',
+      catalogType: 'SLC_ITEM',
+      period: 'all-time',
+      rowCount: 0,
+      totalRequests: 0,
+      imported: false,
+      note: 'Separate historical Nginx page-request aggregates; not confirmed human activity. All-time SLC scope is independent of live dashboard filters and is never added to click or search totals.',
+    },
+  };
+}
+
+// One shared projection feeds the page and both export formats. Legacy event data is never projected.
+async function loadDashboardSnapshot(parsed: ParsedDateRange, catalogType?: UsageCatalogType) {
+  const snapshot = emptySnapshot(parsed, catalogType);
+  const historicalRequest = usageStatisticsService.getHistoricalUsageSummary();
+  if (parsed.error) {
+    const historical = await historicalRequest;
+    snapshot.historicalNginx = { ...snapshot.historicalNginx, ...historical, imported: historical.rowCount > 0 };
+    return snapshot;
+  }
+  const range = parsed.dateRange;
+  const [overall, items, unique, clicks, catalogActivity, searches, terms, dailyApi, historical] = await Promise.all([
+    usageStatisticsService.getOverallStatistics(range, catalogType),
+    usageStatisticsService.getPerItemStatistics('entryClicks', range, catalogType),
+    usageStatisticsService.getUniqueCatalogEntryCount(range, catalogType),
+    usageStatisticsService.getDailyActivity(range, catalogType),
+    usageStatisticsService.getCatalogTypeEntryActivity(range, catalogType),
+    searchStatisticsService.getSummary(range, catalogType),
+    searchStatisticsService.getFrequentTerms(range, catalogType),
+    searchStatisticsService.getDailyPublicApiSearches(range, catalogType),
+    historicalRequest,
+  ]);
+  snapshot.summary = {
+    totalEntryClicks: overall.totalEntryClicks,
+    totalExternalClicks: overall.totalExternalClicks,
+    uniqueCatalogEntries: unique,
+    webSearches: searches.webSearches,
+    publicApiSearches: searches.publicApiSearches,
+  };
+  const days = new Map<string, (typeof snapshot.activityOverTime)[number]>();
+  for (const row of clicks)
+    days.set(row.date, {
+      date: row.date,
+      entryClicks: row.entryClicks,
+      externalClicks: row.externalClicks,
+      publicApiSearches: 0,
+    });
+  for (const row of dailyApi) {
+    const day = days.get(row.date) ?? { date: row.date, entryClicks: 0, externalClicks: 0, publicApiSearches: 0 };
+    day.publicApiSearches = row.publicApiSearches;
+    days.set(row.date, day);
+  }
+  snapshot.activityOverTime = [...days.values()]
+    .filter((row) => range || row.entryClicks > 0 || row.externalClicks > 0 || row.publicApiSearches > 0)
+    .sort((left, right) => left.date.localeCompare(right.date));
+  snapshot.entryClicksByCatalogType = snapshot.entryClicksByCatalogType.map((row) => ({
+    ...row,
+    count: catalogActivity.find((activity) => activity.catalogType === row.catalogType)?.count ?? 0,
+  }));
+  snapshot.catalogEntryStatistics = liveEntries(await usageStatisticsService.addLifecycleStatuses(items));
+  snapshot.frequentSearchTerms = terms.map((term) => ({
+    query: term.query,
+    webSearches: term.webSearches,
+    publicApiSearches: term.publicApiSearches,
+    totalSearches: term.totalSearches,
+  }));
+  snapshot.historicalNginx = { ...snapshot.historicalNginx, ...historical, imported: historical.rowCount > 0 };
+  return snapshot;
+}
+
+type DashboardSnapshot = Awaited<ReturnType<typeof loadDashboardSnapshot>>;
+
+function csvField(value: unknown): string {
+  const text = String(value ?? '');
+  const safe =
+    typeof value === 'string' && (/^[\s\p{Cc}]*[=+\-@]/u.test(value) || /^[\t\r\n]/.test(value)) ? `'${text}` : text;
+  return /[",\r\n]/.test(safe) ? `"${safe.replace(/"/g, '""')}"` : safe;
+}
+
+function snapshotCsv(snapshot: DashboardSnapshot): string {
+  const table = (headers: string[], rows: object[]) => [
+    headers,
+    ...rows.map((row) => headers.map((header) => (row as Record<string, unknown>)[header])),
+  ];
+  const blocks: unknown[][][] = [
+    [
+      ['Summary'],
+      ['generatedAt', snapshot.generatedAt],
+      ...Object.entries(snapshot.filters).map(([key, value]) => [`filters.${key}`, value]),
+      ['metric', 'value'],
+      ...Object.entries(snapshot.summary),
+    ],
+    [
+      ['Activity Over Time'],
+      ...table(['date', 'entryClicks', 'externalClicks', 'publicApiSearches'], snapshot.activityOverTime),
+    ],
+    [['Entry Clicks by Catalog Type'], ...table(['catalogType', 'label', 'count'], snapshot.entryClicksByCatalogType)],
+    [
+      ['Catalog Entry Statistics'],
+      ...table(
+        ['catalogType', 'catalogPath', 'itemPersistentID', 'itemTitle', 'entryClicks', 'externalClicks'],
+        snapshot.catalogEntryStatistics,
+      ),
+    ],
+    [
+      ['Frequent Search Terms'],
+      ...table(['query', 'webSearches', 'publicApiSearches', 'totalSearches'], snapshot.frequentSearchTerms),
+    ],
+    [
+      ['Historical Nginx Page Requests'],
+      ...table(
+        ['source', 'catalogType', 'period', 'rowCount', 'totalRequests', 'imported', 'note'],
+        [snapshot.historicalNginx],
+      ),
+    ],
+  ];
+  return blocks.map((rows) => rows.map((row) => row.map(csvField).join(',')).join('\r\n')).join('\r\n\r\n');
 }
 
 export class UsageDashboardController {
   async show(req: Request, res: Response): Promise<Response | void> {
-    const sortBy: UsageStatisticsSortBy = req.query.sort === 'externalClicks' ? 'externalClicks' : 'views';
-    const parsedRange = parseDateRange(req);
+    const parsed = parseDateRange(req);
     const catalogType = parseCatalogType(req.query.catalogType);
     const selectedCatalogType = catalogType ?? 'ALL';
-    const searchQuery = typeof req.query.q === 'string' ? req.query.q.trim() : '';
-
     try {
-      let overallStatistics: OverallUsageStatistics = {
-        totalViews: 0,
-        liveViews: 0,
-        historicalViews: 0,
-        totalExternalClicks: 0,
-      };
-      let allItemStatistics: PerItemUsageStatistics[] = [];
-      let activityOverTime: DailyUsageActivity[] = [];
-      let catalogTypeActivity: CatalogTypeActivity[] = [
-        { catalogType: 'SLC_ITEM', label: 'SLC Items', count: 0 },
-        { catalogType: 'TOOL', label: 'Tools', count: 0 },
-        { catalogType: 'DATASET', label: 'Datasets', count: 0 },
-      ];
-      let uniqueCatalogEntries = 0;
-
-      if (!parsedRange.error) {
-        [overallStatistics, allItemStatistics, uniqueCatalogEntries, activityOverTime, catalogTypeActivity] = await Promise.all([
-            usageStatisticsService.getOverallStatistics(parsedRange.dateRange, catalogType),
-            usageStatisticsService.getPerItemStatistics(sortBy, parsedRange.dateRange, catalogType),
-            usageStatisticsService.getUniqueCatalogEntryCount(parsedRange.dateRange, catalogType),
-            usageStatisticsService.getDailyActivity(parsedRange.dateRange, catalogType),
-            usageStatisticsService.getCatalogTypeViewActivity(parsedRange.dateRange, catalogType),
-          ]);
-        allItemStatistics = await usageStatisticsService.addLifecycleStatuses(allItemStatistics);
-      }
-
-      const itemStatistics = searchQuery
-        ? allItemStatistics.filter((item) =>
-            [item.itemTitle, item.catalogPath ?? '', item.itemPersistentID]
-              .some((value) => value.toLowerCase().includes(searchQuery.toLowerCase())),
-          )
-        : allItemStatistics;
-
+      const snapshot = await loadDashboardSnapshot(parsed, catalogType);
       return res.render('pages/usage-statistics', {
         title: 'Usage Statistics',
-        overallStatistics,
-        uniqueCatalogEntries,
-        activityOverTime,
-        catalogTypeActivity,
-        hasAnalytics: overallStatistics.totalViews + overallStatistics.totalExternalClicks > 0,
-        itemStatistics,
-        sortBy,
+        overallStatistics: snapshot.summary,
+        uniqueCatalogEntries: snapshot.summary.uniqueCatalogEntries,
+        activityOverTime: snapshot.activityOverTime,
+        catalogTypeActivity: snapshot.entryClicksByCatalogType,
+        itemStatistics: [...snapshot.catalogEntryStatistics].sort(
+          (left, right) =>
+            right.entryClicks - left.entryClicks ||
+            right.externalClicks - left.externalClicks ||
+            left.itemTitle.localeCompare(right.itemTitle),
+        ),
+        searchTerms: [...snapshot.frequentSearchTerms].sort(
+          (left, right) => right.totalSearches - left.totalSearches || left.query.localeCompare(right.query),
+        ),
+        historicalUsage: snapshot.historicalNginx,
         selectedCatalogType,
-        from: parsedRange.from,
-        to: parsedRange.to,
-        searchQuery,
-        exportQuery: buildDashboardQuery(parsedRange.from, parsedRange.to, selectedCatalogType),
-        sortViewsQuery: buildDashboardQuery(parsedRange.from, parsedRange.to, selectedCatalogType, 'views', searchQuery),
-        sortClicksQuery: buildDashboardQuery(parsedRange.from, parsedRange.to, selectedCatalogType, 'externalClicks', searchQuery),
-        filterSort: sortBy,
-        validationMessage: parsedRange.error,
-        rangeLabel: parsedRange.error ? '' : periodLabel(parsedRange.from, parsedRange.to),
+        period: parsed.period,
+        today: calendarKey(new Date()),
+        activeTab: req.query.tab === 'terms' ? 'terms' : 'entries',
+        catalogContextLabel: catalogType
+          ? `Across ${catalogType === 'SLC_ITEM' ? 'SLC items' : catalogType === 'TOOL' ? 'tools' : 'datasets'}`
+          : 'Across all catalogs',
+        from: parsed.from,
+        to: parsed.to,
+        searchQuery: typeof req.query.q === 'string' ? req.query.q.trim() : '',
+        exportQuery: buildDashboardQuery(parsed.from, parsed.to, selectedCatalogType, parsed.period),
+        validationMessage: parsed.error,
+        rangeLabel: parsed.error ? '' : periodLabel(parsed.from, parsed.to),
       });
-    } catch (error) {
-      console.error('Failed to load usage statistics:', error);
+    } catch {
+      console.error('Failed to load usage statistics');
       return res.status(500).send('Unable to load usage statistics');
     }
   }
 
-  async export(req: Request, res: Response): Promise<Response> {
-    const parsedRange = parseDateRange(req);
-    const catalogType = parseCatalogType(req.query.catalogType);
-    if (parsedRange.error) return res.status(400).send(parsedRange.error);
-
-    try {
-      const generatedAt = new Date();
-      const historicalUsageIncluded = includesHistoricalUsage(parsedRange.dateRange, catalogType);
-      const [overallStatistics, itemStatistics, events] = await Promise.all([
-        usageStatisticsService.getOverallStatistics(parsedRange.dateRange, catalogType),
-        usageStatisticsService.getPerItemStatistics('views', parsedRange.dateRange, catalogType),
-        usageStatisticsService.getUsageEvents(parsedRange.dateRange, catalogType),
-      ]);
-
-      const payload = {
-        generatedAt: generatedAt.toISOString(),
-        period: {
-          from: parsedRange.from || null,
-          to: parsedRange.to || null,
-        },
-        filters: {
-          catalogType: catalogType ?? 'ALL',
-        },
-        historicalUsage: {
-          included: historicalUsageIncluded,
-          source: 'nginx_historical',
-          note: 'Historical aggregate views are included only for all-time reporting.',
-        },
-        summary: overallStatistics,
-        items: itemStatistics,
-        events: events.map((event) => ({
-          id: event.id,
-          itemPersistentID: event.itemPersistentID,
-          itemTitle: event.itemTitle,
-          eventType: event.eventType,
-          linkType: event.linkType ?? null,
-          catalogType: event.catalogType ?? null,
-          catalogPath: event.catalogPath ?? null,
-          createdAt: event.createdAt,
-        })),
-      };
-
-      res.setHeader('Content-Type', 'application/json');
-      res.setHeader(
-        'Content-Disposition',
-        `attachment; filename="${exportFilename('json', generatedAt, parsedRange.from, parsedRange.to)}"`,
-      );
-      return res.send(JSON.stringify(payload, null, 2));
-    } catch (error) {
-      console.error('Failed to export usage statistics:', error);
-      return res.status(500).send('Unable to export usage statistics');
-    }
+  export(req: Request, res: Response): Promise<Response> {
+    return this.exportSnapshot(req, res, 'json');
   }
 
-  async exportCsv(req: Request, res: Response): Promise<Response> {
-    const parsedRange = parseDateRange(req);
-    const catalogType = parseCatalogType(req.query.catalogType);
-    if (parsedRange.error) return res.status(400).send(parsedRange.error);
+  exportCsv(req: Request, res: Response): Promise<Response> {
+    return this.exportSnapshot(req, res, 'csv');
+  }
 
+  private async exportSnapshot(req: Request, res: Response, format: 'json' | 'csv'): Promise<Response> {
+    const parsed = parseDateRange(req, true);
+    if (parsed.error) return res.status(400).send(parsed.error);
     try {
-      const generatedAt = new Date();
-      const historicalUsageIncluded = includesHistoricalUsage(parsedRange.dateRange, catalogType);
-      const itemStatistics = await usageStatisticsService.getPerItemStatistics('views', parsedRange.dateRange, catalogType);
-      const escapeCsvField = (value: string | number | boolean | null): string => {
-        const field = String(value ?? '');
-        return /[",\r\n]/.test(field) ? `"${field.replace(/"/g, '""')}"` : field;
-      };
-      const rows = [
-        [
-          'fromDate',
-          'toDate',
-          'catalogType',
-          'historicalUsageIncluded',
-          'historicalUsageSource',
-          'catalogPath',
-          'itemPersistentID',
-          'itemTitle',
-          'historicalViews',
-          'liveViews',
-          'views',
-          'externalClicks',
-        ].join(','),
-        ...itemStatistics.map((item) =>
-          [
-            parsedRange.from,
-            parsedRange.to,
-            item.catalogType,
-            historicalUsageIncluded,
-            historicalUsageIncluded ? 'nginx_historical' : '',
-            item.catalogPath,
-            item.itemPersistentID,
-            item.itemTitle,
-            item.historicalViews,
-            item.liveViews,
-            item.views,
-            item.externalClicks,
-          ]
-            .map(escapeCsvField)
-            .join(','),
-        ),
-      ];
-
-      res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+      const snapshot = await loadDashboardSnapshot(parsed, parseCatalogType(req.query.catalogType));
+      res.setHeader('Content-Type', format === 'json' ? 'application/json' : 'text/csv; charset=utf-8');
       res.setHeader(
         'Content-Disposition',
-        `attachment; filename="${exportFilename('csv', generatedAt, parsedRange.from, parsedRange.to)}"`,
+        `attachment; filename="${exportFilename(format, new Date(snapshot.generatedAt), parsed.from, parsed.to)}"`,
       );
-      return res.send(rows.join('\r\n'));
-    } catch (error) {
-      console.error('Failed to export usage statistics CSV:', error);
+      return res.send(format === 'json' ? JSON.stringify(snapshot, null, 2) : snapshotCsv(snapshot));
+    } catch {
+      console.error('Failed to export usage statistics');
       return res.status(500).send('Unable to export usage statistics');
     }
   }

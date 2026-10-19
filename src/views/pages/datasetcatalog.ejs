@@ -62,7 +62,7 @@
                 <% datasets.forEach(function(dataset) { %>
                 <% const datasetDisplayTitle = (dataset.title && dataset.title.trim()) || dataset.dataset_name || 'Dataset'; %>
                 <tr>
-                    <td><a href="/datasetcatalog/item/<%= dataset.id %>"><%= datasetDisplayTitle %></a></td>
+                    <td><a href="/datasetcatalog/item/<%= dataset.id %>" data-usage-entry-click data-catalog-type="DATASET" data-item-identifier="<%= dataset.id %>"><%= datasetDisplayTitle %></a></td>
                     <td><%= dataset.publisher %></td>
                     <td><span class="short-description" data-description="<%= dataset.description || '' %>" style="cursor: pointer;">
                             <%- truncateWords(dataset.description, 20) %>
@@ -93,7 +93,6 @@ Education." In Proceedings of the ACM Conference on Global Computing Education V
     </div>
 
     <!-- Bootstrap JS bundle -->
-    <script src="/js/usageTracking.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {

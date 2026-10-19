@@ -34,11 +34,11 @@
                 <td><%= index + 1 %></td> 
                 <td scope="row">
                     <% if (isSearchPage) { %>
-                <a href="/catalog/item/<%= encodeURIComponent(SLCItem.id) %>" style="text-decoration: underline; color: #0000EE;">
+                <a href="/catalog/item/<%= encodeURIComponent(SLCItem.id) %>" data-usage-entry-click data-catalog-type="SLC_ITEM" data-item-identifier="<%= encodeURIComponent(SLCItem.persistentID) %>" style="text-decoration: underline; color: #0000EE;">
                          <%= SLCItem.title %>
                  </a>
                 <% } else { %>
-                 <a href="/catalog/item/<%= encodeURIComponent(SLCItem.id) %>" style="text-decoration: underline; color: #0000EE;">
+                 <a href="/catalog/item/<%= encodeURIComponent(SLCItem.id) %>" data-usage-entry-click data-catalog-type="SLC_ITEM" data-item-identifier="<%= encodeURIComponent(SLCItem.persistentID) %>" style="text-decoration: underline; color: #0000EE;">
                  <%= SLCItem.title %>
                 </a>
                 <% } %>

@@ -6,6 +6,7 @@ const DEFAULT_REPORT_PATH = 'historical-usage-analysis.json';
 const DEFAULT_IMPORT_PATH = 'historical-usage-import.json';
 const HISTORICAL_SOURCE = 'nginx_historical';
 const TOP_USER_AGENT_LIMIT = 20;
+const TOP_CLIENT_LIMIT = 20;
 const TOP_ITEM_LIMIT = 20;
 const SAMPLE_ID_LIMIT = 10;
 
@@ -142,6 +143,124 @@ function percentage(numerator: number, denominator: number): number {
   return denominator === 0 ? 0 : Number(((numerator / denominator) * 100).toFixed(2));
 }
 
+const clientVolumeThresholds = [100, 250, 500, 750, 1000];
+const clientRequestThresholds = [50, 100, 250, 500, 1000];
+
+function analyzeClientVolume(requests: CatalogRequest[]) {
+  const clients = new Map<string, { requests: number; catalogIds: Set<number> }>();
+  for (const request of requests) {
+    const clientKey = JSON.stringify([request.client, request.userAgent]);
+    const client = clients.get(clientKey) ?? { requests: 0, catalogIds: new Set<number>() };
+    client.requests += 1;
+    client.catalogIds.add(request.catalogId);
+    clients.set(clientKey, client);
+  }
+
+  const clientRows = [...clients.values()].map((client) => ({
+    requests: client.requests,
+    uniqueCatalogEntries: client.catalogIds.size,
+    catalogIds: client.catalogIds,
+  }));
+  const sortedUniqueCounts = clientRows.map(({ uniqueCatalogEntries }) => uniqueCatalogEntries).sort((a, b) => a - b);
+  const nearestRank = (percentile: number): number => sortedUniqueCounts.length === 0
+    ? 0
+    : sortedUniqueCounts[Math.ceil(percentile * sortedUniqueCounts.length) - 1];
+  const median = sortedUniqueCounts.length === 0
+    ? 0
+    : sortedUniqueCounts.length % 2 === 0
+      ? (sortedUniqueCounts[sortedUniqueCounts.length / 2 - 1] + sortedUniqueCounts[sortedUniqueCounts.length / 2]) / 2
+      : sortedUniqueCounts[Math.floor(sortedUniqueCounts.length / 2)];
+
+  const thresholdSummaries = clientVolumeThresholds.map((minimumUniqueCatalogEntries) => {
+    const thresholdClients = clientRows.filter(({ uniqueCatalogEntries }) => uniqueCatalogEntries >= minimumUniqueCatalogEntries);
+    const touchedCatalogIds = new Set<number>();
+    let requestsByClients = 0;
+    for (const client of thresholdClients) {
+      requestsByClients += client.requests;
+      for (const id of client.catalogIds) touchedCatalogIds.add(id);
+    }
+    return {
+      minimumUniqueCatalogEntries,
+      clients: thresholdClients.length,
+      requests: requestsByClients,
+      uniqueCatalogIdsTouched: touchedCatalogIds.size,
+      percentageOfPostBotFilterRequests: percentage(requestsByClients, requests.length),
+      requestsRemainingIfExcluded: requests.length - requestsByClients,
+    };
+  });
+
+  const topClients = [...clientRows]
+    .sort((left, right) => right.uniqueCatalogEntries - left.uniqueCatalogEntries || right.requests - left.requests)
+    .slice(0, TOP_CLIENT_LIMIT)
+    .map((client, index) => ({
+      clientLabel: `Client ${index + 1}`,
+      uniqueCatalogEntries: client.uniqueCatalogEntries,
+      requests: client.requests,
+    }));
+
+  const sortedRequestCounts = clientRows.map(({ requests: requestCount }) => requestCount).sort((a, b) => a - b);
+  const nearestRequestRank = (percentile: number): number => sortedRequestCounts.length === 0
+    ? 0
+    : sortedRequestCounts[Math.ceil(percentile * sortedRequestCounts.length) - 1];
+  const medianRequests = sortedRequestCounts.length === 0
+    ? 0
+    : sortedRequestCounts.length % 2 === 0
+      ? (sortedRequestCounts[sortedRequestCounts.length / 2 - 1] + sortedRequestCounts[sortedRequestCounts.length / 2]) / 2
+      : sortedRequestCounts[Math.floor(sortedRequestCounts.length / 2)];
+
+  const requestThresholdSummaries = clientRequestThresholds.map((minimumRequests) => {
+    const thresholdClients = clientRows.filter(({ requests: requestCount }) => requestCount >= minimumRequests);
+    const touchedCatalogIds = new Set<number>();
+    const requestsByClients = thresholdClients.reduce((sum, client) => sum + client.requests, 0);
+    for (const client of thresholdClients) {
+      for (const id of client.catalogIds) touchedCatalogIds.add(id);
+    }
+    return {
+      minimumRequests,
+      clients: thresholdClients.length,
+      requests: requestsByClients,
+      percentageOfPostBotFilterRequests: percentage(requestsByClients, requests.length),
+      requestsRemainingIfExcluded: requests.length - requestsByClients,
+      uniqueCatalogIdsTouched: touchedCatalogIds.size,
+    };
+  });
+
+  const topClientsByRequests = [...clientRows]
+    .sort((left, right) => right.requests - left.requests || right.uniqueCatalogEntries - left.uniqueCatalogEntries)
+    .slice(0, TOP_CLIENT_LIMIT)
+    .map((client, index) => ({
+      clientLabel: `Client ${index + 1}`,
+      requests: client.requests,
+      uniqueCatalogEntries: client.uniqueCatalogEntries,
+    }));
+
+  return {
+    postBotFilterRequests: requests.length,
+    clientDefinition: 'IP address + User-Agent; the combination is used only in memory and raw values are omitted from this section.',
+    totalClients: clientRows.length,
+    uniqueCatalogEntriesPerClient: {
+      percentileMethod: 'Median is the midpoint of the two central values when client count is even; P90/P95/P99 use nearest rank (ceil(p*n), 1-indexed).',
+      median,
+      p90: nearestRank(0.90),
+      p95: nearestRank(0.95),
+      p99: nearestRank(0.99),
+      maximum: sortedUniqueCounts.length ? sortedUniqueCounts[sortedUniqueCounts.length - 1] : 0,
+    },
+    thresholds: thresholdSummaries,
+    top20Clients: topClients,
+    totalRequestCountAnalysis: {
+      percentileMethod: 'Median is the midpoint of the two central values when client count is even; P90/P95/P99 use nearest rank (ceil(p*n), 1-indexed).',
+      median: medianRequests,
+      p90: nearestRequestRank(0.90),
+      p95: nearestRequestRank(0.95),
+      p99: nearestRequestRank(0.99),
+      maximum: sortedRequestCounts.length ? sortedRequestCounts[sortedRequestCounts.length - 1] : 0,
+      thresholds: requestThresholdSummaries,
+      top20Clients: topClientsByRequests,
+    },
+  };
+}
+
 function analyzePopulation(requests: CatalogRequest[], productionItems: Map<number, ProductionItem>) {
   const ids = new Set(requests.map(({ catalogId }) => catalogId));
   const matchedRequests = requests.filter(({ catalogId }) => productionItems.has(catalogId));
@@ -258,10 +377,13 @@ async function main(): Promise<void> {
   const botRequests = allRequests.filter(({ botFamily }) => botFamily !== null);
   const unfiltered = analyzePopulation(allRequests, productionItems);
   const filtered = analyzePopulation(likelyHumanRequests, productionItems);
+  const clientVolume = analyzeClientVolume(likelyHumanRequests);
 
   const botFamilyCounts = countBy(botRequests.map(({ botFamily }) => botFamily!));
+  const userAgentCounts = countBy(allRequests.map(({ userAgent }) => userAgent));
+  const userAgentLabels = new Map(userAgentCounts.map(({ value }, index) => [value, `User-Agent ${index + 1}`]));
   const detectedBotUserAgents = countBy(botRequests.map(({ userAgent }) => userAgent));
-  const topUserAgents = countBy(allRequests.map(({ userAgent }) => userAgent)).slice(0, TOP_USER_AGENT_LIMIT);
+  const topUserAgents = userAgentCounts.slice(0, TOP_USER_AGENT_LIMIT);
   const matchedViewsById = new Map<number, number>();
   for (const request of likelyHumanRequests) {
     if (productionItems.has(request.catalogId)) {
@@ -309,9 +431,10 @@ async function main(): Promise<void> {
       likelyHumanRequestsRemaining: likelyHumanRequests.length,
       percentageRemovedAsBots: percentage(botRequests.length, allRequests.length),
       byDetectedBotFamily: botFamilyCounts.map(({ value, count }) => ({ family: value, requests: count })),
-      detectedBotUserAgents: detectedBotUserAgents.map(({ value, count }) => ({ userAgent: value, requests: count })),
-      topUserAgents: topUserAgents.map(({ value, count }) => ({ userAgent: value, requests: count })),
+      detectedBotUserAgents: detectedBotUserAgents.map(({ value, count }) => ({ userAgentLabel: userAgentLabels.get(value), requests: count })),
+      topUserAgents: topUserAgents.map(({ value, count }) => ({ userAgentLabel: userAgentLabels.get(value), requests: count })),
     },
+    clientVolumeAnalysis: clientVolume,
     productionMatching: {
       unfiltered: {
         matchedProductionIds: unfiltered.matchedProductionIds,
@@ -348,8 +471,35 @@ async function main(): Promise<void> {
   console.log(`Unique clients: ${unfiltered.uniqueClients}`);
   console.log(`Known bot/scanner requests removed: ${botRequests.length} (${report.botFiltering.percentageRemovedAsBots}%)`);
   console.log(`Likely-human requests remaining: ${likelyHumanRequests.length}`);
+  console.log(`Post-bot-filter clients (IP + User-Agent): ${clientVolume.totalClients}`);
+  console.log('Unique catalog entries per client:');
+  console.log(`  Median ${clientVolume.uniqueCatalogEntriesPerClient.median}; P90 ${clientVolume.uniqueCatalogEntriesPerClient.p90}; P95 ${clientVolume.uniqueCatalogEntriesPerClient.p95}; P99 ${clientVolume.uniqueCatalogEntriesPerClient.p99}; max ${clientVolume.uniqueCatalogEntriesPerClient.maximum}`);
+  console.log('Client-volume thresholds (post-bot-filter population):');
+  console.log('Threshold | Clients | Requests | Unique IDs touched | % requests | Requests remaining');
+  for (const summary of clientVolume.thresholds) {
+    console.log(
+      `>= ${String(summary.minimumUniqueCatalogEntries).padEnd(4)} | ${String(summary.clients).padStart(7)} | ${String(summary.requests).padStart(8)} | ${String(summary.uniqueCatalogIdsTouched).padStart(18)} | ${String(summary.percentageOfPostBotFilterRequests).padStart(10)}% | ${String(summary.requestsRemainingIfExcluded).padStart(18)}`,
+    );
+  }
+  console.log('Top 20 clients by unique catalog entries (anonymized):');
+  for (const client of clientVolume.top20Clients) {
+    console.log(`  ${client.clientLabel}: ${client.uniqueCatalogEntries} unique entries; ${client.requests} requests`);
+  }
+  console.log('Total requests per client:');
+  console.log(`  Median ${clientVolume.totalRequestCountAnalysis.median}; P90 ${clientVolume.totalRequestCountAnalysis.p90}; P95 ${clientVolume.totalRequestCountAnalysis.p95}; P99 ${clientVolume.totalRequestCountAnalysis.p99}; max ${clientVolume.totalRequestCountAnalysis.maximum}`);
+  console.log('Client request-count thresholds (post-bot-filter population):');
+  console.log('Threshold | Clients | Requests | % requests | Requests remaining | Unique IDs touched');
+  for (const summary of clientVolume.totalRequestCountAnalysis.thresholds) {
+    console.log(
+      `>= ${String(summary.minimumRequests).padEnd(4)} | ${String(summary.clients).padStart(7)} | ${String(summary.requests).padStart(8)} | ${String(summary.percentageOfPostBotFilterRequests).padStart(10)}% | ${String(summary.requestsRemainingIfExcluded).padStart(18)} | ${String(summary.uniqueCatalogIdsTouched).padStart(18)}`,
+    );
+  }
+  console.log('Top 20 clients by total requests (anonymized):');
+  for (const client of clientVolume.totalRequestCountAnalysis.top20Clients) {
+    console.log(`  ${client.clientLabel}: ${client.requests} requests; ${client.uniqueCatalogEntries} unique entries`);
+  }
   console.log(`Bot-family breakdown: ${botFamilyCounts.map(({ value, count }) => `${value}=${count}`).join('; ') || 'none'}`);
-  console.log(`Top User-Agents: ${topUserAgents.map(({ value, count }) => `${value} (${count})`).join('; ') || 'none'}`);
+  console.log(`Top User-Agents (anonymized): ${topUserAgents.map(({ value, count }) => `${userAgentLabels.get(value)} (${count})`).join('; ') || 'none'}`);
   console.log('Production matching (unfiltered):');
   console.log(`  IDs: ${unfiltered.matchedProductionIds} matched, ${unfiltered.unmatchedIds} unmatched (${unfiltered.idMatchPercentage}% matched)`);
   console.log(`  Requests: ${unfiltered.matchedRequests} matched, ${unfiltered.unmatchedRequests} unmatched (${unfiltered.requestMatchPercentage}% matched)`);

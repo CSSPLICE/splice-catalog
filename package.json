@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
+    "test:usage": "tsc --project tsconfig.json --noEmit && TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm --test tests/usage-analytics.test.mjs tests/usage-browser.test.mjs tests/usage-dashboard.test.mjs",
     "dev": "nodemon",
     "start": "node dist/index.js",
     "lint": "eslint src/**/*.ts",
