@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { DataSource } from 'typeorm';
 import { AppDataSource } from '../db/data-source.js';
 import { HistoricalUsage } from '../db/entities/HistoricalUsage.js';
 
@@ -29,10 +31,13 @@ interface ImportFile {
   version: number;
   generatedAt: string;
   source: string;
-  filterPolicy: { description: string; knownBotIndicators: string[] };
+  filterPolicy: { description: string; knownBotIndicators: string[]; highVolumeClient: { minimumUniqueCatalogEntries: number; identity: string; order: string; excludeAllRequests: boolean } };
   summary: {
     successfulCatalogRequests: number;
     filteredBotRequests: number;
+    postBotRequests: number;
+    filteredHighVolumeClients: number;
+    filteredHighVolumeRequests: number;
     includedRequests: number;
     uniqueIncludedItems: number;
     totalIncludedViews: number;
@@ -51,13 +56,13 @@ interface ExistingHistoricalRow {
   source: string;
 }
 
-interface ValidatedRow extends ExistingHistoricalRow {}
+type ValidatedRow = ExistingHistoricalRow;
 
 function isPositiveUnsignedInteger(value: unknown): value is number {
   return Number.isSafeInteger(value) && Number(value) > 0 && Number(value) <= MAX_UNSIGNED_INT;
 }
 
-async function loadImportFile(path: string): Promise<ImportFile> {
+export async function loadImportFile(path: string): Promise<ImportFile> {
   let contents: string;
   try {
     contents = await readFile(path, 'utf8');
@@ -89,10 +94,15 @@ async function loadImportFile(path: string): Promise<ImportFile> {
   ) {
     throw new Error('Import file filterPolicy is missing a description or knownBotIndicators list');
   }
+  const volumePolicy = (data.filterPolicy as Record<string, unknown>).highVolumeClient as Record<string, unknown> | undefined;
+  if (!volumePolicy || volumePolicy.minimumUniqueCatalogEntries !== 63 || volumePolicy.identity !== 'IP address + User-Agent'
+    || volumePolicy.order !== 'after known-bot filtering' || volumePolicy.excludeAllRequests !== true) {
+    throw new Error('Import must declare the approved 63-distinct-entry cutoff per IP address + User-Agent after known-bot filtering');
+  }
   if (typeof data.summary !== 'object' || data.summary === null) throw new Error('Import file summary must be an object');
   const summary = data.summary as Record<string, unknown>;
   const summaryFields = [
-    'successfulCatalogRequests', 'filteredBotRequests', 'includedRequests',
+    'successfulCatalogRequests', 'filteredBotRequests', 'postBotRequests', 'filteredHighVolumeClients', 'filteredHighVolumeRequests', 'includedRequests',
     'uniqueIncludedItems', 'totalIncludedViews', 'productionApiItemCount',
   ];
   for (const field of summaryFields) {
@@ -104,6 +114,7 @@ async function loadImportFile(path: string): Promise<ImportFile> {
 
   const items: ImportItem[] = [];
   const seenIds = new Set<number>();
+  const seenPersistentIds = new Set<string>();
   let totalViews = 0;
   for (const [index, rawItem] of data.items.entries()) {
     if (typeof rawItem !== 'object' || rawItem === null) throw new Error(`Import item ${index} must be an object`);
@@ -119,6 +130,8 @@ async function loadImportFile(path: string): Promise<ImportFile> {
       throw new Error(`Import item ${index} catalogPath cannot be reconstructed from legacyId ${item.legacyId}`);
     }
     if (seenIds.has(item.legacyId)) throw new Error(`Import file contains duplicate legacyId ${item.legacyId}`);
+    if (seenPersistentIds.has(item.persistentID)) throw new Error(`Import file contains a duplicate persistentID at item ${index}`);
+    seenPersistentIds.add(item.persistentID);
     seenIds.add(item.legacyId);
     totalViews += item.viewCount;
     if (!Number.isSafeInteger(totalViews)) throw new Error('Import file total viewCount exceeds the safe integer range');
@@ -132,12 +145,15 @@ async function loadImportFile(path: string): Promise<ImportFile> {
     });
   }
 
+  if (items.length === 0) throw new Error('Import must contain at least one historical item');
   if (Number(summary.uniqueIncludedItems) !== items.length) throw new Error('Import summary uniqueIncludedItems does not match items.length');
   if (Number(summary.includedRequests) !== totalViews || Number(summary.totalIncludedViews) !== totalViews) {
     throw new Error('Import summary included request/view totals do not match the item view counts');
   }
-  if (Number(summary.filteredBotRequests) > Number(summary.successfulCatalogRequests)) {
-    throw new Error('Import summary filteredBotRequests exceeds successfulCatalogRequests');
+  if (Number(summary.successfulCatalogRequests) - Number(summary.filteredBotRequests) !== Number(summary.postBotRequests)
+    || Number(summary.postBotRequests) - Number(summary.filteredHighVolumeRequests) !== totalViews
+    || Number(summary.filteredHighVolumeClients) > Number(summary.filteredHighVolumeRequests)) {
+    throw new Error('Import summary filtering totals do not reconcile with included requests');
   }
 
   return {
@@ -189,7 +205,7 @@ async function fetchProductionCatalog(): Promise<Map<number, ProductionItem>> {
   return catalog;
 }
 
-function validateAgainstProduction(importFile: ImportFile, productionCatalog: Map<number, ProductionItem>) {
+export function validateAgainstProduction(importFile: ImportFile, productionCatalog: Map<number, ProductionItem>) {
   const rows: ValidatedRow[] = [];
   const missingIds: number[] = [];
   const identityMismatches: Array<{ legacyId: number; importPersistentID: string; productionPersistentID: string }> = [];
@@ -233,7 +249,7 @@ function validateAgainstProduction(importFile: ImportFile, productionCatalog: Ma
   return { rows, missingIds, identityMismatches, titleChanges };
 }
 
-function compareWithExisting(rows: ValidatedRow[], existing: ExistingHistoricalRow[]) {
+export function compareWithExisting(rows: ValidatedRow[], existing: ExistingHistoricalRow[]) {
   const existingById = new Map(existing.map((row) => [row.legacyCatalogId, row]));
   let rowsWouldInsert = 0;
   let rowsWouldUpdate = 0;
@@ -262,6 +278,8 @@ function compareWithExisting(rows: ValidatedRow[], existing: ExistingHistoricalR
     rowsWouldInsert,
     rowsWouldUpdate,
     unchangedRows,
+    extraExistingRows: existing.filter((row) => !importIds.has(row.legacyCatalogId)).length,
+    existingIdentityMismatches: rows.filter((row) => existingById.has(row.legacyCatalogId) && existingById.get(row.legacyCatalogId)!.itemPersistentID !== row.itemPersistentID).length,
     totalHistoricalViewsAfterImport: priorTotal - replacedTotal + importTotal,
   };
 }
@@ -272,7 +290,6 @@ function printSummary(
   validation: ReturnType<typeof validateAgainstProduction>,
   comparison: ReturnType<typeof compareWithExisting>,
   dryRun: boolean,
-  allowIdentityMismatch: boolean,
 ): void {
   console.log(dryRun ? 'Historical usage seed preview (dry run)' : 'Historical usage seed');
   console.log(`Source: ${importFile.source}`);
@@ -286,46 +303,86 @@ function printSummary(
   console.log(`Rows that would insert: ${comparison.rowsWouldInsert}`);
   console.log(`Rows that would update: ${comparison.rowsWouldUpdate}`);
   console.log(`Unchanged rows: ${comparison.unchangedRows}`);
+  console.log(`Existing rows absent from import: ${comparison.extraExistingRows}`);
+  console.log(`Existing-row identity mismatches: ${comparison.existingIdentityMismatches}`);
   console.log(`Total historical views after import: ${comparison.totalHistoricalViewsAfterImport}`);
-  console.log(`Validation status: ${validation.missingIds.length || (validation.identityMismatches.length && !allowIdentityMismatch) ? 'FAIL' : 'PASS'}`);
+  console.log(`Validation status: ${validation.missingIds.length || validation.identityMismatches.length || comparison.extraExistingRows || comparison.existingIdentityMismatches ? 'FAIL' : 'PASS'}`);
 }
 
-async function main(): Promise<void> {
-  const args = process.argv.slice(2);
-  const dryRun = args.includes('--dry-run');
-  const allowIdentityMismatch = args.includes('--allow-identity-mismatch');
-  const fileArguments = args.filter((argument) => !argument.startsWith('--'));
-  if (fileArguments.length !== 1) {
-    throw new Error('Usage: yarn usage:seed-history <historical-usage-import.json> [--dry-run] [--allow-identity-mismatch]');
+export interface SeedOptions {
+  filePath: string;
+  dryRun: boolean;
+  confirmTarget?: string;
+  approveProduction: boolean;
+}
+
+export function parseSeedOptions(args: string[]): SeedOptions {
+  const options: SeedOptions = { filePath: '', dryRun: false, approveProduction: false };
+  for (const argument of args) {
+    if (argument === '--dry-run') options.dryRun = true;
+    else if (argument === '--approve-production') options.approveProduction = true;
+    else if (argument.startsWith('--confirm-target=')) options.confirmTarget = argument.slice('--confirm-target='.length);
+    else if (argument.startsWith('--')) throw new Error(`Unsupported option: ${argument}`);
+    else if (options.filePath) throw new Error('Exactly one import file is required');
+    else options.filePath = argument;
   }
+  if (!options.filePath) throw new Error('Usage: usage:seed-history <import.json> [--dry-run] [--confirm-target=HOST:PORT/DATABASE] [--approve-production]');
+  return options;
+}
 
-  const importFile = await loadImportFile(resolve(fileArguments[0]));
-  const productionCatalog = await fetchProductionCatalog();
+export function assertSeedTarget(
+  target: { host?: string; port?: number; database?: string; replication?: unknown; synchronize?: boolean; migrationsRun?: boolean },
+  options: SeedOptions,
+  environment: string | undefined,
+): string {
+  if (!target.host || !target.database || target.replication) throw new Error('A single explicit MySQL host and database are required');
+  if (target.synchronize || target.migrationsRun) throw new Error('Historical imports must not synchronize schema or execute migrations');
+  const name = `${target.host}:${target.port ?? 3306}/${target.database}`;
+  if (options.confirmTarget !== undefined && options.confirmTarget !== name) throw new Error('Confirmed target does not match the configured database');
+  if (!options.dryRun) {
+    if (options.confirmTarget !== name) throw new Error(`Writes require --confirm-target=${name} after reviewing a dry run`);
+    if (environment !== 'development' && environment !== 'production') throw new Error('Set NODE_ENV explicitly to development or production');
+    const localHost = ['db', 'localhost', '127.0.0.1', '::1'].includes(target.host);
+    if ((environment === 'production' || !localHost) && !options.approveProduction) {
+      throw new Error('Production or non-local writes require explicit approval and --approve-production');
+    }
+  }
+  return name;
+}
+
+function assertExistingRowsSafe(comparison: ReturnType<typeof compareWithExisting>): void {
+  if (comparison.extraExistingRows || comparison.existingIdentityMismatches) {
+    throw new Error('Existing historical rows are incompatible with this import; no writes. Back up the scoped dataset and arrange a separately approved transactional replacement; an upsert cannot remove stale rows');
+  }
+}
+
+// Exposed for isolated transaction tests; CLI uses the configured MySQL target.
+export async function seedHistoricalUsage(
+  importFile: ImportFile,
+  productionCatalog: Map<number, ProductionItem>,
+  dryRun: boolean,
+  dataSource: DataSource = AppDataSource,
+): Promise<void> {
   const validation = validateAgainstProduction(importFile, productionCatalog);
-  const validationFailed = validation.missingIds.length > 0
-    || (validation.identityMismatches.length > 0 && !allowIdentityMismatch);
-
-  await AppDataSource.initialize();
-  let queryRunner: ReturnType<typeof AppDataSource.createQueryRunner> | undefined;
+  if (validation.missingIds.length || validation.identityMismatches.length) {
+    printSummary(importFile, productionCatalog, validation, compareWithExisting(validation.rows, []), dryRun);
+    throw new Error('Production identity validation failed before database initialization; no writes');
+  }
+  if (dataSource.options.synchronize || dataSource.options.migrationsRun) throw new Error('Automatic schema changes are not permitted');
+  await dataSource.initialize();
+  let queryRunner: ReturnType<DataSource['createQueryRunner']> | undefined;
   try {
     if (dryRun) {
-      const existing = await AppDataSource.getRepository(HistoricalUsage).find({
+      const existing = await dataSource.getRepository(HistoricalUsage).find({
         where: { source: importFile.source, catalogType: EXPECTED_CATALOG_TYPE },
       });
       const comparison = compareWithExisting(validation.rows, existing);
-      printSummary(importFile, productionCatalog, validation, comparison, true, allowIdentityMismatch);
-      if (validationFailed) throw new Error('Validation failed; dry run performed no writes');
+      printSummary(importFile, productionCatalog, validation, comparison, true);
+      assertExistingRowsSafe(comparison);
       console.log('Dry run complete; no historical records were written.');
       return;
     }
-
-    if (validationFailed) {
-      const comparison = compareWithExisting(validation.rows, []);
-      printSummary(importFile, productionCatalog, validation, comparison, false, allowIdentityMismatch);
-      throw new Error('Validation failed; no historical records were written');
-    }
-
-    queryRunner = AppDataSource.createQueryRunner();
+    queryRunner = dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
     const repository = queryRunner.manager.getRepository(HistoricalUsage);
@@ -333,8 +390,9 @@ async function main(): Promise<void> {
       where: { source: importFile.source, catalogType: EXPECTED_CATALOG_TYPE },
     });
     const comparison = compareWithExisting(validation.rows, existing);
-    printSummary(importFile, productionCatalog, validation, comparison, false, allowIdentityMismatch);
-    if (validation.rows.length > 0) {
+    printSummary(importFile, productionCatalog, validation, comparison, false);
+    assertExistingRowsSafe(comparison);
+    if (comparison.rowsWouldInsert || comparison.rowsWouldUpdate) {
       await repository.upsert(validation.rows, ['source', 'catalogType', 'legacyCatalogId']);
     }
     await queryRunner.commitTransaction();
@@ -344,11 +402,25 @@ async function main(): Promise<void> {
     throw error;
   } finally {
     if (queryRunner && queryRunner.isReleased === false) await queryRunner.release();
-    await AppDataSource.destroy();
+    await dataSource.destroy();
   }
 }
 
-main().catch((error: unknown) => {
-  console.error(`Historical usage import failed: ${error instanceof Error ? error.message : String(error)}`);
-  process.exitCode = 1;
-});
+async function main(): Promise<void> {
+  const options = parseSeedOptions(process.argv.slice(2));
+  if (AppDataSource.options.type !== 'mysql') throw new Error('Historical imports require MySQL');
+  const target = assertSeedTarget(AppDataSource.options, options, process.env.NODE_ENV);
+  console.log(`Target: ${target}; NODE_ENV=${process.env.NODE_ENV ?? 'unset'}; mode=${options.dryRun ? 'dry-run' : 'write'}`);
+  // Avoid SQL parameter logging, including for local previews.
+  const dataSource = new DataSource({ ...AppDataSource.options, logging: false });
+  const importFile = await loadImportFile(resolve(options.filePath));
+  const productionCatalog = await fetchProductionCatalog();
+  await seedHistoricalUsage(importFile, productionCatalog, options.dryRun, dataSource);
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  main().catch((error: unknown) => {
+    console.error(`Historical usage import failed: ${error instanceof Error ? error.message : String(error)}`);
+    process.exitCode = 1;
+  });
+}

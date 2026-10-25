@@ -170,38 +170,23 @@ function emptySnapshot(parsed: ParsedDateRange, catalogType?: UsageCatalogType) 
     ],
     catalogEntryStatistics: [] as ReturnType<typeof liveEntries>,
     frequentSearchTerms: [] as Awaited<ReturnType<SearchStatisticsService['getFrequentTerms']>>,
-    historicalNginx: {
-      source: 'nginx_historical',
-      catalogType: 'SLC_ITEM',
-      period: 'all-time',
-      rowCount: 0,
-      totalRequests: 0,
-      imported: false,
-      note: 'Separate historical Nginx page-request aggregates; not confirmed human activity. All-time SLC scope is independent of live dashboard filters and is never added to click or search totals.',
-    },
   };
 }
 
 // One shared projection feeds the page and both export formats. Legacy event data is never projected.
 async function loadDashboardSnapshot(parsed: ParsedDateRange, catalogType?: UsageCatalogType) {
   const snapshot = emptySnapshot(parsed, catalogType);
-  const historicalRequest = usageStatisticsService.getHistoricalUsageSummary();
-  if (parsed.error) {
-    const historical = await historicalRequest;
-    snapshot.historicalNginx = { ...snapshot.historicalNginx, ...historical, imported: historical.rowCount > 0 };
-    return snapshot;
-  }
+  if (parsed.error) return snapshot;
   const range = parsed.dateRange;
-  const [overall, items, unique, clicks, catalogActivity, searches, terms, dailyApi, historical] = await Promise.all([
-    usageStatisticsService.getOverallStatistics(range, catalogType),
-    usageStatisticsService.getPerItemStatistics('entryClicks', range, catalogType),
+  const [overall, items, unique, clicks, catalogActivity, searches, terms, dailyApi] = await Promise.all([
+    usageStatisticsService.getOverallStatistics(range, catalogType, false),
+    usageStatisticsService.getPerItemStatistics('entryClicks', range, catalogType, false),
     usageStatisticsService.getUniqueCatalogEntryCount(range, catalogType),
     usageStatisticsService.getDailyActivity(range, catalogType),
     usageStatisticsService.getCatalogTypeEntryActivity(range, catalogType),
     searchStatisticsService.getSummary(range, catalogType),
     searchStatisticsService.getFrequentTerms(range, catalogType),
     searchStatisticsService.getDailyPublicApiSearches(range, catalogType),
-    historicalRequest,
   ]);
   snapshot.summary = {
     totalEntryClicks: overall.totalEntryClicks,
@@ -230,14 +215,13 @@ async function loadDashboardSnapshot(parsed: ParsedDateRange, catalogType?: Usag
     ...row,
     count: catalogActivity.find((activity) => activity.catalogType === row.catalogType)?.count ?? 0,
   }));
-  snapshot.catalogEntryStatistics = liveEntries(await usageStatisticsService.addLifecycleStatuses(items));
+  snapshot.catalogEntryStatistics = liveEntries(await usageStatisticsService.addLifecycleStatuses(items, false));
   snapshot.frequentSearchTerms = terms.map((term) => ({
     query: term.query,
     webSearches: term.webSearches,
     publicApiSearches: term.publicApiSearches,
     totalSearches: term.totalSearches,
   }));
-  snapshot.historicalNginx = { ...snapshot.historicalNginx, ...historical, imported: historical.rowCount > 0 };
   return snapshot;
 }
 
@@ -279,13 +263,6 @@ function snapshotCsv(snapshot: DashboardSnapshot): string {
       ['Frequent Search Terms'],
       ...table(['query', 'webSearches', 'publicApiSearches', 'totalSearches'], snapshot.frequentSearchTerms),
     ],
-    [
-      ['Historical Nginx Page Requests'],
-      ...table(
-        ['source', 'catalogType', 'period', 'rowCount', 'totalRequests', 'imported', 'note'],
-        [snapshot.historicalNginx],
-      ),
-    ],
   ];
   return blocks.map((rows) => rows.map((row) => row.map(csvField).join(',')).join('\r\n')).join('\r\n\r\n');
 }
@@ -312,7 +289,6 @@ export class UsageDashboardController {
         searchTerms: [...snapshot.frequentSearchTerms].sort(
           (left, right) => right.totalSearches - left.totalSearches || left.query.localeCompare(right.query),
         ),
-        historicalUsage: snapshot.historicalNginx,
         selectedCatalogType,
         period: parsed.period,
         today: calendarKey(new Date()),
@@ -341,11 +317,35 @@ export class UsageDashboardController {
     return this.exportSnapshot(req, res, 'csv');
   }
 
+  // Separate all-time research report; never part of the live dashboard or its exports.
+  async exportHistorical(req: Request, res: Response, format: 'json' | 'csv' = 'json'): Promise<Response> {
+    try {
+      const summary = await usageStatisticsService.getHistoricalUsageSummary();
+      const historical = {
+        source: 'nginx_historical',
+        catalogType: 'SLC_ITEM',
+        period: 'all-time',
+        ...summary,
+        imported: summary.rowCount > 0,
+        note: 'Historical HTTP page-request aggregates, not intentional entry clicks or confirmed human activity. Independent of live filters.',
+      };
+      res.setHeader('Cache-Control', 'no-store');
+      res.setHeader('Content-Type', format === 'json' ? 'application/json' : 'text/csv; charset=utf-8');
+      res.setHeader('Content-Disposition', `attachment; filename="splice-historical-usage.${format}"`);
+      const csv = [Object.keys(historical), Object.values(historical)].map((row) => row.map(csvField).join(',')).join('\r\n');
+      return res.send(format === 'json' ? JSON.stringify(historical, null, 2) : csv);
+    } catch {
+      console.error('Failed to export historical usage statistics');
+      return res.status(500).send('Unable to export historical usage statistics');
+    }
+  }
+
   private async exportSnapshot(req: Request, res: Response, format: 'json' | 'csv'): Promise<Response> {
     const parsed = parseDateRange(req, true);
     if (parsed.error) return res.status(400).send(parsed.error);
     try {
       const snapshot = await loadDashboardSnapshot(parsed, parseCatalogType(req.query.catalogType));
+      res.setHeader('Cache-Control', 'no-store');
       res.setHeader('Content-Type', format === 'json' ? 'application/json' : 'text/csv; charset=utf-8');
       res.setHeader(
         'Content-Disposition',

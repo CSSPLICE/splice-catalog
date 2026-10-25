@@ -122,6 +122,7 @@ export class UsageStatisticsService {
   async getOverallStatistics(
     dateRange?: UsageDateRange,
     catalogType?: UsageCatalogType,
+    includeHistorical = true,
   ): Promise<OverallUsageStatistics> {
     const query = AppDataSource.getRepository(UsageEvent)
       .createQueryBuilder('usageEvent')
@@ -130,7 +131,7 @@ export class UsageStatisticsService {
       .addSelect("SUM(CASE WHEN usageEvent.eventType = 'ITEM_VIEW' THEN 1 ELSE 0 END)", 'legacyItemViews');
     const result = await applyDateRange(query, 'usageEvent', dateRange, catalogType).getRawOne();
     let historicalPageRequests = 0;
-    if (!dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
+    if (includeHistorical && !dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
       const historical = await this.historicalQuery()
         .select('COALESCE(SUM(historicalUsage.viewCount), 0)', 'count')
         .getRawOne();
@@ -215,6 +216,7 @@ export class UsageStatisticsService {
     sortBy: UsageStatisticsSortBy = 'entryClicks',
     dateRange?: UsageDateRange,
     catalogType?: UsageCatalogType,
+    includeHistorical = true,
   ): Promise<PerItemUsageStatistics[]> {
     const query = AppDataSource.getRepository(UsageEvent)
       .createQueryBuilder('usageEvent')
@@ -254,7 +256,7 @@ export class UsageStatisticsService {
       };
       items.set(key(item.catalogType, item.itemPersistentID), item);
     }
-    if (!dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
+    if (includeHistorical && !dateRange && (!catalogType || catalogType === 'SLC_ITEM')) {
       for (const row of await this.historicalQuery().getMany()) {
         if (!row.itemPersistentID) continue;
         const identity = key('SLC_ITEM', row.itemPersistentID);
@@ -281,7 +283,7 @@ export class UsageStatisticsService {
     );
   }
 
-  async addLifecycleStatuses(items: PerItemUsageStatistics[]): Promise<PerItemUsageStatistics[]> {
+  async addLifecycleStatuses(items: PerItemUsageStatistics[], includeHistorical = true): Promise<PerItemUsageStatistics[]> {
     const slcItems = items.filter((item) => item.catalogType === 'SLC_ITEM');
     if (slcItems.length > 0) {
       const [currentCatalogItems, eventSnapshots, historicalSnapshots] = await Promise.all([
@@ -303,10 +305,10 @@ export class UsageStatisticsService {
           .where('usageEvent.catalogType = :slcCatalogType', { slcCatalogType: 'SLC_ITEM' })
           .groupBy('usageEvent.itemPersistentID')
           .getRawMany(),
-        AppDataSource.getRepository(HistoricalUsage).find({
+        includeHistorical ? AppDataSource.getRepository(HistoricalUsage).find({
           select: ['itemPersistentID', 'itemTitle', 'catalogPath'],
           where: { source: historicalUsageSource, catalogType: 'SLC_ITEM' },
-        }),
+        }) : Promise.resolve([]),
       ]);
 
       const currentByPersistentID = new Map(currentCatalogItems.map((item) => [item.persistentID, item]));

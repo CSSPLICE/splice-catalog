@@ -1,5 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const PRODUCTION_API_URL = 'https://splice.cs.vt.edu/api/items';
 const DEFAULT_REPORT_PATH = 'historical-usage-analysis.json';
@@ -143,8 +144,34 @@ function percentage(numerator: number, denominator: number): number {
   return denominator === 0 ? 0 : Number(((numerator / denominator) * 100).toFixed(2));
 }
 
-const clientVolumeThresholds = [100, 250, 500, 750, 1000];
+const clientVolumeThresholds = [63, 100, 250, 500, 750, 1000];
 const clientRequestThresholds = [50, 100, 250, 500, 1000];
+
+export const HIGH_VOLUME_UNIQUE_ENTRY_CUTOFF = 63;
+
+// Call only after explicit known-bot filtering. Client identities never leave memory.
+export function filterHighVolumeClients<T extends Pick<CatalogRequest, 'client' | 'userAgent' | 'catalogId'>>(requests: T[]) {
+  const clients = new Map<string, Set<number>>();
+  const identity = (request: T) => JSON.stringify([request.client, request.userAgent]);
+  for (const request of requests) {
+    const key = identity(request);
+    const ids = clients.get(key) ?? new Set<number>();
+    ids.add(request.catalogId);
+    clients.set(key, ids);
+  }
+  const excludedClients = new Set([...clients].filter(([, ids]) => ids.size >= HIGH_VOLUME_UNIQUE_ENTRY_CUTOFF).map(([key]) => key));
+  const includedRequests = requests.filter((request) => !excludedClients.has(identity(request)));
+  return {
+    includedRequests,
+    summary: {
+      minimumUniqueCatalogEntries: HIGH_VOLUME_UNIQUE_ENTRY_CUTOFF,
+      excludedClientIdentities: excludedClients.size,
+      requestsRemoved: requests.length - includedRequests.length,
+      requestsRemaining: includedRequests.length,
+      retainedClientsWith62UniqueEntries: [...clients.values()].filter((ids) => ids.size === 62).length,
+    },
+  };
+}
 
 function analyzeClientVolume(requests: CatalogRequest[]) {
   const clients = new Map<string, { requests: number; catalogIds: Set<number> }>();
@@ -292,7 +319,7 @@ function countBy<T>(values: T[]): Array<{ value: T; count: number }> {
     .sort((a, b) => b.count - a.count || String(a.value).localeCompare(String(b.value)));
 }
 
-function buildDailyStats(requests: CatalogRequest[], productionItems: Map<number, ProductionItem>) {
+function buildDailyStats(requests: CatalogRequest[], productionItems: Map<number, ProductionItem>, includedRequests: Set<CatalogRequest>) {
   const byDay = new Map<string, CatalogRequest[]>();
   for (const request of requests) {
     const dayRequests = byDay.get(request.date) ?? [];
@@ -309,6 +336,8 @@ function buildDailyStats(requests: CatalogRequest[], productionItems: Map<number
       successfulCatalogRequests: dayRequests.length,
       knownBotScannerRequests: dayRequests.length - likelyHuman.length,
       likelyHumanRequests: likelyHuman.length,
+      highVolumeRequestsRemoved: likelyHuman.filter((request) => !includedRequests.has(request)).length,
+      includedRequests: dayRequests.filter((request) => includedRequests.has(request)).length,
       matchedProductionRequests: matched.length,
       likelyHumanMatchedProductionRequests: filteredMatched.length,
     };
@@ -376,7 +405,15 @@ async function main(): Promise<void> {
   const likelyHumanRequests = allRequests.filter(({ botFamily }) => botFamily === null);
   const botRequests = allRequests.filter(({ botFamily }) => botFamily !== null);
   const unfiltered = analyzePopulation(allRequests, productionItems);
-  const filtered = analyzePopulation(likelyHumanRequests, productionItems);
+  const highVolume = filterHighVolumeClients(likelyHumanRequests);
+  const includedRequests = highVolume.includedRequests;
+  const filtered = analyzePopulation(includedRequests, productionItems);
+  if (filtered.unmatchedIds > 0) throw new Error(`Final requests contain ${filtered.unmatchedIds} catalog IDs absent from production; no artifacts written`);
+  const filterPolicy = {
+    description: 'Includes successful HTTP 200 GET requests to numeric SLC item routes. First remove explicitly recognized bots, crawlers, and scanners; then group remaining requests by IP address + User-Agent and exclude ALL requests from identities with 63 or more distinct catalog item IDs. Identities with 62 distinct entries remain included. These are historical HTTP page requests, not intentional entry clicks or confirmed human activity.',
+    knownBotIndicators: botIndicators.flatMap(({ indicators }) => indicators),
+    highVolumeClient: { minimumUniqueCatalogEntries: HIGH_VOLUME_UNIQUE_ENTRY_CUTOFF, identity: 'IP address + User-Agent', order: 'after known-bot filtering', excludeAllRequests: true },
+  };
   const clientVolume = analyzeClientVolume(likelyHumanRequests);
 
   const botFamilyCounts = countBy(botRequests.map(({ botFamily }) => botFamily!));
@@ -385,20 +422,21 @@ async function main(): Promise<void> {
   const detectedBotUserAgents = countBy(botRequests.map(({ userAgent }) => userAgent));
   const topUserAgents = userAgentCounts.slice(0, TOP_USER_AGENT_LIMIT);
   const matchedViewsById = new Map<number, number>();
-  for (const request of likelyHumanRequests) {
+  for (const request of includedRequests) {
     if (productionItems.has(request.catalogId)) {
       matchedViewsById.set(request.catalogId, (matchedViewsById.get(request.catalogId) ?? 0) + 1);
     }
   }
-  const topMatchedItemsAfterBotFiltering = [...matchedViewsById.entries()]
+  const topMatchedItemsAfterFiltering = [...matchedViewsById.entries()]
     .map(([id, requests]) => ({ ...productionItems.get(id)!, requests }))
     .sort((a, b) => b.requests - a.requests || a.id - b.id)
     .slice(0, TOP_ITEM_LIMIT);
-  const dailyCounts = buildDailyStats(allRequests, productionItems);
+  const dailyCounts = buildDailyStats(allRequests, productionItems, new Set(includedRequests));
   const aug28Requests = allRequests.filter(({ date }) => date.endsWith('-08-28'));
   const aug28LikelyHuman = aug28Requests.filter(({ botFamily }) => botFamily === null);
   const aug28 = {
     date: 'August 28 (UTC)',
+    includedRequests: includedRequests.filter(({ date }) => date.endsWith('-08-28')).length,
     successfulCatalogRequests: aug28Requests.length,
     knownBotScannerRequests: aug28Requests.length - aug28LikelyHuman.length,
     likelyHumanRequests: aug28LikelyHuman.length,
@@ -410,6 +448,9 @@ async function main(): Promise<void> {
   const report = {
     generatedAt: new Date().toISOString(),
     sourceLog: logPath,
+    filterPolicy,
+    highVolumeFiltering: highVolume.summary,
+    finalHistoricalRequests: includedRequests.length,
     productionCatalog: {
       source: PRODUCTION_API_URL,
       itemCount: productionItems.size,
@@ -446,7 +487,7 @@ async function main(): Promise<void> {
         sampleMatchedIds: unfiltered.sampleMatchedIds,
         sampleUnmatchedIds: unfiltered.sampleUnmatchedIds,
       },
-      filteredLikelyHuman: {
+      afterAllFilters: {
         matchedProductionIds: filtered.matchedProductionIds,
         unmatchedIds: filtered.unmatchedIds,
         matchedRequests: filtered.matchedRequests,
@@ -457,10 +498,10 @@ async function main(): Promise<void> {
         sampleUnmatchedIds: filtered.sampleUnmatchedIds,
       },
     },
-    topMatchedItemsAfterBotFiltering,
+    topMatchedItemsAfterFiltering,
     dailyCounts,
     aug28,
-    privacy: 'Raw client/IP addresses are not included in this report.',
+    privacy: 'Raw IP addresses, User-Agent identities, and per-client identifiers are never persisted; client identities are used only in memory.',
   };
 
   console.log('Historical nginx usage analysis');
@@ -471,6 +512,7 @@ async function main(): Promise<void> {
   console.log(`Unique clients: ${unfiltered.uniqueClients}`);
   console.log(`Known bot/scanner requests removed: ${botRequests.length} (${report.botFiltering.percentageRemovedAsBots}%)`);
   console.log(`Likely-human requests remaining: ${likelyHumanRequests.length}`);
+  console.log(`High-volume identities excluded: ${highVolume.summary.excludedClientIdentities}; requests removed: ${highVolume.summary.requestsRemoved}; final historical requests: ${includedRequests.length}`);
   console.log(`Post-bot-filter clients (IP + User-Agent): ${clientVolume.totalClients}`);
   console.log('Unique catalog entries per client:');
   console.log(`  Median ${clientVolume.uniqueCatalogEntriesPerClient.median}; P90 ${clientVolume.uniqueCatalogEntriesPerClient.p90}; P95 ${clientVolume.uniqueCatalogEntriesPerClient.p95}; P99 ${clientVolume.uniqueCatalogEntriesPerClient.p99}; max ${clientVolume.uniqueCatalogEntriesPerClient.maximum}`);
@@ -503,13 +545,13 @@ async function main(): Promise<void> {
   console.log('Production matching (unfiltered):');
   console.log(`  IDs: ${unfiltered.matchedProductionIds} matched, ${unfiltered.unmatchedIds} unmatched (${unfiltered.idMatchPercentage}% matched)`);
   console.log(`  Requests: ${unfiltered.matchedRequests} matched, ${unfiltered.unmatchedRequests} unmatched (${unfiltered.requestMatchPercentage}% matched)`);
-  console.log('Production matching (likely human):');
+  console.log('Production matching (after all filters):');
   console.log(`  IDs: ${filtered.matchedProductionIds} matched, ${filtered.unmatchedIds} unmatched (${filtered.idMatchPercentage}% matched)`);
   console.log(`  Requests: ${filtered.matchedRequests} matched, ${filtered.unmatchedRequests} unmatched (${filtered.requestMatchPercentage}% matched)`);
   console.log(`Sample matched IDs: ${unfiltered.sampleMatchedIds.map(({ id, title, platform_name }) => `${id} — ${title} (${platform_name})`).join('; ') || 'none'}`);
   console.log(`Sample unmatched IDs: ${unfiltered.sampleUnmatchedIds.join(', ') || 'none'}`);
-  console.log('Top 20 matched production items after bot filtering:');
-  for (const item of topMatchedItemsAfterBotFiltering) console.log(`  ${item.requests} — ${item.id} — ${item.title} (${item.platform_name})`);
+  console.log('Top 20 matched production items after all filters:');
+  for (const item of topMatchedItemsAfterFiltering) console.log(`  ${item.requests} — ${item.id} — ${item.title} (${item.platform_name})`);
   console.log(`Per-day successful catalog requests: ${dailyCounts.map(({ date, successfulCatalogRequests, knownBotScannerRequests, likelyHumanRequests }) => `${date}: ${successfulCatalogRequests} total, ${knownBotScannerRequests} bots, ${likelyHumanRequests} likely human`).join('; ') || 'none'}`);
   console.log(`August 28: ${aug28.successfulCatalogRequests} successful requests, ${aug28.knownBotScannerRequests} known bots (${aug28.botRequestPercentage}%), ${aug28.likelyHumanRequests} likely human, ${aug28.likelyHumanMatchedProductionRequests} likely-human requests matched to production`);
 
@@ -521,7 +563,7 @@ async function main(): Promise<void> {
 
   if (writeImport) {
     const importedViewsById = new Map<number, number>();
-    for (const request of likelyHumanRequests) {
+    for (const request of includedRequests) {
       if (productionItems.has(request.catalogId)) {
         importedViewsById.set(request.catalogId, (importedViewsById.get(request.catalogId) ?? 0) + 1);
       }
@@ -540,17 +582,18 @@ async function main(): Promise<void> {
         };
       });
     const importViews = importItems.reduce((sum, item) => sum + item.viewCount, 0);
+    if (importViews !== includedRequests.length) throw new Error('Item-level viewCount sum does not equal the final historical request count');
     const importFile = {
       version: 1,
       generatedAt: new Date().toISOString(),
       source: HISTORICAL_SOURCE,
-      filterPolicy: {
-        description: 'Includes successful HTTP 200 GET requests to numeric SLC item routes after excluding requests whose User-Agent contains an explicitly recognized bot, crawler, or scanner indicator.',
-        knownBotIndicators: botIndicators.flatMap(({ indicators }) => indicators),
-      },
+      filterPolicy,
       summary: {
         successfulCatalogRequests: allRequests.length,
         filteredBotRequests: botRequests.length,
+        postBotRequests: likelyHumanRequests.length,
+        filteredHighVolumeClients: highVolume.summary.excludedClientIdentities,
+        filteredHighVolumeRequests: highVolume.summary.requestsRemoved,
         includedRequests: importViews,
         uniqueIncludedItems: importItems.length,
         totalIncludedViews: importViews,
@@ -565,7 +608,9 @@ async function main(): Promise<void> {
   }
 }
 
-main().catch((error: unknown) => {
-  console.error(`Historical nginx analysis failed: ${error instanceof Error ? error.message : String(error)}`);
-  process.exitCode = 1;
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
+  main().catch((error: unknown) => {
+    console.error(`Historical nginx analysis failed: ${error instanceof Error ? error.message : String(error)}`);
+    process.exitCode = 1;
+  });
+}

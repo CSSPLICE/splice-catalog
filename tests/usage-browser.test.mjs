@@ -277,6 +277,8 @@ test(
       });
     } finally {
       await browser?.close();
+      // Chrome helpers can retain inherited pipes after the browser process exits.
+      for (const stream of browser?.process()?.stdio ?? []) stream?.destroy();
       await new Promise((done) => server.close(done));
       AppDataSource.getRepository = originalRepository;
       meilisearchService.search = originalSearch;

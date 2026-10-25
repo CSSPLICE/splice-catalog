@@ -29,7 +29,8 @@ export const AppDataSource: DataSource = new DataSource({
       ? 'src/db/migrations/*.ts'
       : 'dist/db/migrations/*.js',
   ],
-  logging: process.env.ORM_LOGGING === 'true',
+  // SQL parameters can contain submitted search terms; keep them out of production logs.
+  logging: process.env.NODE_ENV !== 'production' && process.env.ORM_LOGGING === 'true',
   entities: [
     slc_item_catalog,
     slc_tools_catalog,

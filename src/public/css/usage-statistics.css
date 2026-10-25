@@ -624,62 +624,6 @@ body.usage-dashboard-body {
   color: #56697b;
   padding: 0 3px;
 }
-.usage-page .usage-historical {
-  margin-top: 16px;
-}
-.usage-page .usage-historical summary {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 17px 20px;
-  cursor: pointer;
-  list-style: none;
-}
-.usage-page .usage-historical summary::-webkit-details-marker {
-  display: none;
-}
-.usage-page .usage-history-chevron {
-  color: #56697b;
-  font-size: 23px;
-  line-height: 1;
-  transition: transform 0.12s;
-}
-.usage-page .usage-historical[open] .usage-history-chevron {
-  transform: rotate(90deg);
-}
-.usage-page .usage-history-heading {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.usage-page .usage-history-heading strong {
-  color: #56697b;
-  font-size: 14px;
-  font-weight: 600;
-}
-.usage-page .usage-history-heading small {
-  color: #56697b;
-  font-size: 12px;
-}
-.usage-page .usage-history-total {
-  margin-left: auto;
-  color: #56697b;
-  font-size: 21px;
-  font-weight: 550;
-  font-variant-numeric: tabular-nums;
-}
-.usage-page .usage-history-content {
-  padding: 0 20px 12px 43px;
-  color: #56697b;
-  font-size: 12px;
-  line-height: 1.65;
-}
-.usage-page .usage-history-content p {
-  margin: 0 0 9px;
-}
-.usage-page .usage-history-status {
-  color: #56697b;
-}
 .usage-page .usage-sr-only {
   position: absolute;
   width: 1px;
@@ -843,25 +787,6 @@ body.usage-dashboard-body {
   .usage-page .usage-terms-note {
     margin: 0 14px 12px;
   }
-  .usage-page .usage-historical summary {
-    padding: 15px 14px;
-    gap: 9px;
-  }
-  .usage-page .usage-history-heading strong {
-    font-size: 14px;
-
-    font-weight: 600;
-  }
-  .usage-page .usage-history-heading small {
-    font-size: 12px;
-  }
-  .usage-page .usage-history-total {
-    font-size: 18px;
-  }
-  .usage-page .usage-history-content {
-    padding-left: 36px;
-    font-size: 11px;
-  }
 }
 @media (max-width: 360px) {
   .usage-page .usage-kpis {
@@ -880,9 +805,6 @@ body.usage-dashboard-body {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .usage-page .usage-history-chevron {
-    transition: none;
-  }
 }
 
 @media (max-width: 640px) {

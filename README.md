@@ -51,6 +51,8 @@ If you are developing the catalog, you should be checking out the staging branch
 
 ## Production
 
+For Usage Statistics migration checks, tracking acceptance tests, export contracts, and approval-gated historical imports, see [the deployment runbook](docs/usage-statistics-deployment.md). Production startup does not automatically run migrations. Confirm the server workflow with Alex before executing deployment commands.
+
 To update content on the production instance, make sure the repository is updated (via Git) and run:
 
 `docker compose --profile production build`

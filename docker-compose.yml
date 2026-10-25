@@ -111,7 +111,7 @@ services:
     networks:
       - splice
     healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:3000').then(r => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1))"]
       interval: 1m30s
       timeout: 10s
       retries: 3

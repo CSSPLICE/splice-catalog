@@ -146,13 +146,6 @@
       </div>
     </section>
 
-    <details class="usage-historical usage-panel">
-      <summary><span class="usage-history-chevron" aria-hidden="true">›</span><span class="usage-history-heading"><strong>Historical Nginx Page Requests</strong><small>Separate aggregates · all-time SLC reporting only</small></span><span class="usage-history-total"><%= historicalUsage.totalRequests.toLocaleString() %></span></summary>
-      <div class="usage-history-content">
-        <% if (!historicalUsage.rowCount) { %><p class="usage-history-status">No historical import is present. No Nginx SLC aggregate rows have been imported.</p><% } else { %><p><%= historicalUsage.totalRequests.toLocaleString() %> page requests across <%= historicalUsage.rowCount.toLocaleString() %> imported SLC aggregate rows.</p><% } %>
-        <p>These are aggregate HTTP page requests from historical Nginx access logs. Known bot and scanner User-Agents were filtered during import; remaining requests are not confirmed human activity or intentional catalog selections. Daily event timestamps are unavailable.</p><p>This separate all-time SLC total is independent of dashboard filters and is never added to entry-click totals.</p>
-      </div>
-    </details>
   </main>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

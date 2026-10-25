@@ -319,6 +319,11 @@ test('real query builders keep legacy and historical counts out of entry totals 
     assert.equal(rows[0].entryClicks, 2);
     assert.equal(rows[0].legacyItemViews, 11);
     assert.equal(rows[0].historicalPageRequests, 50);
+    statements.length = 0;
+    assert.equal((await service.getOverallStatistics(undefined, undefined, false)).historicalPageRequests, 0);
+    assert.equal((await service.getPerItemStatistics('entryClicks', undefined, undefined, false))[0].historicalPageRequests, 0);
+    await service.addLifecycleStatuses(rows, false);
+    assert.ok(statements.every(([sql]) => !sql.includes('historical_usage')), 'Live dashboard queries must not depend on historical storage');
     const range = { from: new Date('2026-10-01T00:00:00Z'), toExclusive: new Date('2026-10-02T00:00:00Z') };
     const scoped = await service.getOverallStatistics(range, 'TOOL');
     assert.equal(scoped.historicalPageRequests, 0);
@@ -366,7 +371,8 @@ test('dashboard, JSON and CSV share the same distinct metrics and frequent terms
   ];
   try {
     stub(usage, 'getOverallStatistics', summary);
-    stub(usage, 'getHistoricalUsageSummary', { rowCount: 1, totalRequests: 50 });
+    originals.set([usage, 'getHistoricalUsageSummary'], usage.getHistoricalUsageSummary);
+    usage.getHistoricalUsageSummary = async () => { throw new Error('Live dashboard must not query historical aggregates'); };
     stub(usage, 'getPerItemStatistics', items);
     stub(usage, 'getUniqueCatalogEntryCount', 1);
     stub(usage, 'getDailyActivity', [{ date: '2026-10-01', entryClicks: 2, externalClicks: 3, legacyItemViews: 11 }]);
@@ -401,11 +407,11 @@ test('dashboard, JSON and CSV share the same distinct metrics and frequent terms
     assert.deepEqual(payload.activityOverTime, [
       { date: '2026-10-01', entryClicks: 2, externalClicks: 3, publicApiSearches: 5 },
     ]);
-    assert.equal(payload.historicalNginx.totalRequests, 50);
-    assert.equal(csv.body.split('\r\n\r\n').length, 6);
+    assert.equal('historicalNginx' in payload, false);
+    assert.equal(csv.body.split('\r\n\r\n').length, 5);
     for (const [metric, value] of Object.entries(payload.summary)) assert.ok(csv.body.includes(`${metric},${value}`));
     for (const text of [json.body, csv.body])
-      assert.doesNotMatch(text, /ITEM_VIEW|legacyItemViews|historicalPageRequests|lifecycleStatus/);
+      assert.doesNotMatch(text, /ITEM_VIEW|legacyItemViews|historicalPageRequests|historicalNginx|Historical Nginx|lifecycleStatus/);
     assert.match(csv.body, /Frequent Search Terms/);
     assert.match(csv.body, /'=formula/);
     assert.match(csv.body, /""graphs""/);
@@ -420,11 +426,11 @@ test('dashboard, JSON and CSV share the same distinct metrics and frequent terms
       'External Resource Clicks',
       'Web Searches',
       'Public API Searches',
-      'Historical Nginx Page Requests',
     ])
       assert.ok(html.includes(label));
     assert.ok(html.includes('&lt;trees&gt;'));
     assert.ok(!html.includes('Legacy ITEM_VIEW'));
+    assert.doesNotMatch(html, /Historical Nginx|usage-historical|23,202/);
     assert.ok(!html.includes('usage-lifecycle-badge'));
   } finally {
     for (const [[owner, name], original] of originals) owner[name] = original;

@@ -264,7 +264,7 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
       assert.ok(!html.includes('ITEM_VIEW'));
       assert.ok(!html.includes('lifecycle-badge'));
       assert.ok(!html.includes('Design preview'));
-      assert.ok(html.includes('1,234'));
+      assert.doesNotMatch(html, /Historical Nginx|usage-historical|1,234/);
       assert.ok(html.includes('href="/admin"'));
       assert.match(
         await readFile('src/public/css/usage-statistics.css', 'utf8'),
@@ -282,6 +282,7 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
       const response = await fetch(`${endpoint}/export${params}`);
       assert.equal(response.status, 200);
       assert.match(response.headers.get('content-disposition'), /attachment/);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
       const data = await response.json();
       assert.deepEqual(Object.keys(data), [
         'generatedAt',
@@ -291,7 +292,6 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
         'entryClicksByCatalogType',
         'catalogEntryStatistics',
         'frequentSearchTerms',
-        'historicalNginx',
       ]);
       assert.equal(data.catalogEntryStatistics.length, 16);
       assert.equal(data.frequentSearchTerms.length, 15);
@@ -330,7 +330,6 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
           'Entry Clicks by Catalog Type',
           'Catalog Entry Statistics',
           'Frequent Search Terms',
-          'Historical Nginx Page Requests',
         ],
       );
       const summary = new Map(blocks.get('Summary'));
@@ -348,16 +347,37 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
       sameRows('Entry Clicks by Catalog Type', data.entryClicksByCatalogType);
       sameRows('Catalog Entry Statistics', data.catalogEntryStatistics);
       sameRows('Frequent Search Terms', data.frequentSearchTerms);
-      sameRows('Historical Nginx Page Requests', [data.historicalNginx]);
+      assert.equal('historicalNginx' in data, false);
       assert.ok(csv.includes('"\'=SUM(1,2)"'));
       assert.ok(csv.includes('""fixture""'));
       for (const text of [JSON.stringify(data), csv])
-        assert.doesNotMatch(text, /ITEM_VIEW|legacyItemViews|historicalPageRequests|lifecycleStatus/);
+        assert.doesNotMatch(text, /ITEM_VIEW|legacyItemViews|historicalPageRequests|historicalNginx|Historical Nginx|lifecycleStatus/);
       assert.equal((await fetch(`${endpoint}/export.csv?from=2026-10-04&to=2026-10-01`)).status, 400);
       for (const path of ['', '/export', '/export.csv']) {
         assert.equal((await fetch(endpoint + path, { headers: { 'x-fixture-role': 'anonymous' } })).status, 401);
         assert.equal((await fetch(endpoint + path, { headers: { 'x-fixture-role': 'contributor' } })).status, 403);
       }
+    });
+    await t.test('separate historical reports are admin-only and JSON/CSV agree', async () => {
+      const report = `${endpoint}/historical/export`;
+      const result = await fetch(report + '?catalogType=TOOL&from=invalid');
+      assert.equal(result.headers.get('cache-control'), 'no-store');
+      const json = await result.json();
+      assert.equal(json.rowCount, 4);
+      assert.equal(json.totalRequests, 1234);
+      assert.equal(json.period, 'all-time');
+      assert.match(json.note, /not intentional entry clicks/);
+      const csv = await (await fetch(report + '.csv')).text();
+      const [headers, values] = csv.trim().split('\r\n').map((line) => line.split(','));
+      assert.equal(values[headers.indexOf('totalRequests')], String(json.totalRequests));
+      assert.equal(values[headers.indexOf('rowCount')], String(json.rowCount));
+      for (const suffix of ['', '.csv']) {
+        assert.equal((await fetch(report + suffix, { headers: { 'x-fixture-role': 'anonymous' } })).status, 401);
+        assert.equal((await fetch(report + suffix, { headers: { 'x-fixture-role': 'contributor' } })).status, 403);
+      }
+      empty = true;
+      assert.equal((await (await fetch(report)).json()).imported, false);
+      empty = false;
     });
     await t.test('date presets use inclusive calendar days and custom ranges remain valid', async () => {
       const html = await (await fetch(`${endpoint}?period=7d`)).text();
@@ -583,14 +603,10 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
         await page.reload({ waitUntil: 'networkidle0' });
         assert.equal(await page.$eval('#usagePeriod', (input) => input.value), 'custom');
       });
-      await t.test('historical panel is collapsed, independent and expandable', async () => {
-        assert.equal(await page.$eval('.usage-historical', (node) => node.open), false);
-        await page.click('.usage-historical summary');
-        assert.equal(await page.$eval('.usage-historical', (node) => node.open), true);
-        assert.match(
-          await page.$eval('.usage-history-content', (node) => node.textContent),
-          /not confirmed human activity/,
-        );
+      await t.test('historical footer and controls are absent while live cards remain', async () => {
+        assert.equal(await page.$('.usage-historical'), null);
+        assert.equal(await page.$$eval('.usage-kpi', (nodes) => nodes.length), 5);
+        assert.doesNotMatch(await page.content(), /Historical Nginx|usage-history-content/);
       });
       await t.test('tablet and mobile have no document clipping and retain usable tables', async () => {
         for (const width of [900, 390, 320]) {
@@ -738,7 +754,7 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
         assert.equal(await page.$('.usage-chart-empty'), null);
         apiOnly = false;
       });
-      await t.test('empty data has real zeros, safe percentages and an absent-import explanation', async () => {
+      await t.test('empty data has real zeros and safe percentages without a historical footer', async () => {
         empty = true;
         await page.setViewport({ width: 1500, height: 1100 });
         await open();
@@ -754,16 +770,14 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
             (value) => value === '0%',
           ),
         );
-        await page.click('.usage-historical summary');
-        assert.match(
-          await page.$eval('.usage-history-content', (node) => node.textContent),
-          /No historical import is present/,
-        );
+        assert.equal(await page.$('.usage-historical'), null);
         assert.equal((await page.content()).includes('NaN'), false);
       });
     } else await t.test('Chrome interactions', { skip: 'Set CHROME_BIN to enable browser verification' }, () => {});
   } finally {
     await browser?.close();
+    // Chrome helpers can retain inherited pipes after the browser process exits.
+    for (const stream of browser?.process()?.stdio ?? []) stream?.destroy();
     server.closeAllConnections();
     await new Promise((done) => server.close(done));
     for (const [owner, name, original] of originals) owner[name] = original;
