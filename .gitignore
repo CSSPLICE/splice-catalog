@@ -146,3 +146,4 @@ env.student
 
 # Local generated historical analysis (never publish)
 /historical-usage-analysis.json
+/historical-usage-import.json
