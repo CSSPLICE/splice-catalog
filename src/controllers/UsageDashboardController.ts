@@ -292,7 +292,7 @@ export class UsageDashboardController {
         selectedCatalogType,
         period: parsed.period,
         today: calendarKey(new Date()),
-        activeTab: req.query.tab === 'terms' ? 'terms' : 'entries',
+        activeTab: req.query.tab === 'historical' ? 'historical' : req.query.tab === 'terms' ? 'terms' : 'entries',
         catalogContextLabel: catalogType
           ? `Across ${catalogType === 'SLC_ITEM' ? 'SLC items' : catalogType === 'TOOL' ? 'tools' : 'datasets'}`
           : 'Across all catalogs',
@@ -317,10 +317,31 @@ export class UsageDashboardController {
     return this.exportSnapshot(req, res, 'csv');
   }
 
-  // Separate all-time research report; never part of the live dashboard or its exports.
+  async historicalPage(req: Request, res: Response): Promise<Response> {
+    res.setHeader('Cache-Control', 'no-store');
+    const search = req.query.q === undefined ? '' : req.query.q;
+    const page = req.query.page === undefined ? '1' : req.query.page;
+    if (typeof search !== 'string' || search.length > 200 || typeof page !== 'string'
+      || !/^[1-9]\d*$/.test(page) || !Number.isSafeInteger(Number(page)) || Number(page) > 1000000) {
+      return res.status(400).json({ error: 'Use a positive page number and a search of at most 200 characters.' });
+    }
+    try {
+      const result = await usageStatisticsService.getHistoricalUsagePage(search.trim(), Number(page));
+      return res.json({ source: 'nginx_historical', catalogType: 'SLC_ITEM', period: 'all-time', ...result });
+    } catch {
+      console.error('Failed to load historical usage statistics');
+      return res.status(500).json({ error: 'Unable to load historical usage statistics.' });
+    }
+  }
+
+  // Separate all-time report; never included in live metrics or live exports.
   async exportHistorical(req: Request, res: Response, format: 'json' | 'csv' = 'json'): Promise<Response> {
     try {
-      const summary = await usageStatisticsService.getHistoricalUsageSummary();
+      const entries = await usageStatisticsService.getHistoricalUsageEntries();
+      const summary = {
+        rowCount: entries.length,
+        totalRequests: entries.reduce((total, entry) => total + entry.historicalPageRequests, 0),
+      };
       const historical = {
         source: 'nginx_historical',
         catalogType: 'SLC_ITEM',
@@ -332,8 +353,12 @@ export class UsageDashboardController {
       res.setHeader('Cache-Control', 'no-store');
       res.setHeader('Content-Type', format === 'json' ? 'application/json' : 'text/csv; charset=utf-8');
       res.setHeader('Content-Disposition', `attachment; filename="splice-historical-usage.${format}"`);
-      const csv = [Object.keys(historical), Object.values(historical)].map((row) => row.map(csvField).join(',')).join('\r\n');
-      return res.send(format === 'json' ? JSON.stringify(historical, null, 2) : csv);
+      const headers = ['catalogType', 'itemPersistentID', 'itemTitle', 'historicalPageRequests', 'catalogPath'] as const;
+      const csv = [
+        [Object.keys(historical), Object.values(historical)],
+        [['Historical Nginx Data'], [...headers], ...entries.map((entry) => headers.map((key) => entry[key]))],
+      ].map((block) => block.map((row) => row.map(csvField).join(',')).join('\r\n')).join('\r\n\r\n');
+      return res.send(format === 'json' ? JSON.stringify({ ...historical, entries }, null, 2) : csv);
     } catch {
       console.error('Failed to export historical usage statistics');
       return res.status(500).send('Unable to export historical usage statistics');

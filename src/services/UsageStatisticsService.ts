@@ -50,6 +50,14 @@ export interface PerItemUsageStatistics {
   lifecycleStatus?: 'RENAMED' | 'DELETED' | 'RECREATED';
 }
 
+export interface HistoricalUsageEntry {
+  catalogType: string;
+  itemPersistentID: string | null;
+  itemTitle: string;
+  historicalPageRequests: number;
+  catalogPath: string | null;
+}
+
 export interface DailyUsageActivity {
   date: string;
   entryClicks: number;
@@ -70,6 +78,7 @@ const catalogTypeLabels: Record<UsageCatalogType, string> = {
   DATASET: 'Datasets',
 };
 const historicalUsageSource = 'nginx_historical';
+const historicalPageSize = 6;
 
 function localDateKey(date: Date): string {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
@@ -108,15 +117,71 @@ export class UsageStatisticsService {
       .andWhere('historicalUsage.itemPersistentID IS NOT NULL');
   }
 
-  async getHistoricalUsageSummary(): Promise<{ rowCount: number; totalRequests: number }> {
-    const result = await AppDataSource.getRepository(HistoricalUsage)
+  private historicalReportQuery(search = '') {
+    const query = AppDataSource.getRepository(HistoricalUsage)
       .createQueryBuilder('historicalUsage')
+      .where('historicalUsage.source = :source', { source: historicalUsageSource })
+      .andWhere('historicalUsage.catalogType = :catalogType', { catalogType: 'SLC_ITEM' });
+    if (search) {
+      // LOCATE treats wildcard characters literally and keeps user input parameterized.
+      query.andWhere(
+        `(LOCATE(:historicalSearch, COALESCE(historicalUsage.itemTitle, '')) > 0 OR LOCATE(:historicalCatalogSearch, REPLACE(historicalUsage.catalogType, '_', ' ')) > 0)`,
+        { historicalSearch: search, historicalCatalogSearch: search.replace(/_/g, ' ') },
+      );
+    }
+    return query;
+  }
+
+  async getHistoricalUsageSummary(): Promise<{ rowCount: number; totalRequests: number }> {
+    const result = await this.historicalReportQuery()
       .select('COUNT(*)', 'rowCount')
       .addSelect('COALESCE(SUM(historicalUsage.viewCount), 0)', 'totalRequests')
-      .where('historicalUsage.source = :source', { source: historicalUsageSource })
-      .andWhere('historicalUsage.catalogType = :catalogType', { catalogType: 'SLC_ITEM' })
       .getRawOne();
     return { rowCount: Number(result?.rowCount ?? 0), totalRequests: Number(result?.totalRequests ?? 0) };
+  }
+
+  async getHistoricalUsageEntries(search = '', page?: number): Promise<HistoricalUsageEntry[]> {
+    const query = this.historicalReportQuery(search)
+      .leftJoin(slc_item_catalog, 'currentItem', 'BINARY currentItem.persistentID = BINARY historicalUsage.itemPersistentID')
+      .select('historicalUsage.catalogType', 'catalogType')
+      .addSelect('historicalUsage.itemPersistentID', 'itemPersistentID')
+      .addSelect('historicalUsage.itemTitle', 'itemTitle')
+      .addSelect('historicalUsage.viewCount', 'historicalPageRequests')
+      .addSelect('currentItem.id', 'currentId')
+      .addSelect('currentItem.persistentID', 'currentPersistentID')
+      .orderBy('historicalUsage.viewCount', 'DESC')
+      .addOrderBy('historicalUsage.itemTitle', 'ASC')
+      .addOrderBy('historicalUsage.id', 'ASC');
+    if (page !== undefined) query.offset((page - 1) * historicalPageSize).limit(historicalPageSize);
+    const rows = await query.getRawMany();
+    return rows.map((row) => {
+      const currentId = Number(row.currentId);
+      const matched = typeof row.itemPersistentID === 'string' && row.itemPersistentID.length > 0
+        && row.currentPersistentID === row.itemPersistentID && Number.isSafeInteger(currentId) && currentId > 0;
+      return {
+        catalogType: String(row.catalogType),
+        itemPersistentID: row.itemPersistentID ?? null,
+        itemTitle: row.itemTitle || 'Untitled entry',
+        historicalPageRequests: Number(row.historicalPageRequests),
+        // Resolve the current local ID from the persistent identity, never the imported numeric ID/path.
+        catalogPath: matched ? `/catalog/item/${currentId}` : null,
+      };
+    });
+  }
+
+  async getHistoricalUsagePage(search = '', requestedPage = 1) {
+    const summary = await this.getHistoricalUsageSummary();
+    const matchingCount = search ? await this.historicalReportQuery(search).getCount() : summary.rowCount;
+    const totalPages = Math.max(1, Math.ceil(matchingCount / historicalPageSize));
+    const page = Math.min(requestedPage, totalPages);
+    return {
+      ...summary,
+      matchingCount,
+      page,
+      pageSize: historicalPageSize,
+      totalPages,
+      rows: await this.getHistoricalUsageEntries(search, page),
+    };
   }
 
   async getOverallStatistics(

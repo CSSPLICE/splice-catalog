@@ -28,6 +28,8 @@ docker compose --profile production ps
 3. Smoke test
 As an admin, open /admin/usage-statistics. Test entry/external clicks, deliberate WEB searches, nonempty GET /api/items?terms=trees, filters, and JSON/CSV exports. Plain GET /api/items must not count as a search.
 
+The Historical Nginx Data tab loads six entries per request from the admin-only /admin/usage-statistics/historical endpoint (page and q parameters). Its database totals and rows are all-time SLC aggregates, independent of live date/catalog filters. Catalog links require an exact persistent-ID match to a current catalog entry. The separate /admin/usage-statistics/historical/export and .csv exports include the full historical entry list and summary, independent of table search/pagination. Live JSON/CSV contracts and KPI totals are unchanged.
+
 4. Historical import (optional; separate approval)
 Obtain the private approved historical-usage-import.json, not the older tracked copy. Approved contents: 3,729 entries / 23,202 requests, cutoff ≥63 distinct entries per client identity. Expected SHA-256:
 dac88df66f3009387186cab767bd487425e65fcc2005025ddb72d8cac1651d20

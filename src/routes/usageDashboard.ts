@@ -5,6 +5,7 @@ import { checkRole, roles } from '../middleware/middleware.js';
 const router = express.Router();
 const usageDashboardController = new UsageDashboardController();
 
+router.get('/usage-statistics/historical', checkRole(roles.admin), (req, res) => usageDashboardController.historicalPage(req, res));
 router.get('/usage-statistics/historical/export', checkRole(roles.admin), (req, res) => usageDashboardController.exportHistorical(req, res));
 router.get('/usage-statistics/historical/export.csv', checkRole(roles.admin), (req, res) => usageDashboardController.exportHistorical(req, res, 'csv'));
 

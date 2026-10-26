@@ -409,6 +409,7 @@ body.usage-dashboard-body {
 }
 .usage-page .usage-tabs {
   display: flex;
+  overflow-x: auto;
   gap: 25px;
   padding: 0 20px;
   border-bottom: 1px solid #d6e0e8;

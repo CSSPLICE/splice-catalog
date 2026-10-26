@@ -430,7 +430,8 @@ test('dashboard, JSON and CSV share the same distinct metrics and frequent terms
       assert.ok(html.includes(label));
     assert.ok(html.includes('&lt;trees&gt;'));
     assert.ok(!html.includes('Legacy ITEM_VIEW'));
-    assert.doesNotMatch(html, /Historical Nginx|usage-historical|23,202/);
+    assert.match(html, /Historical Nginx Data/);
+    assert.doesNotMatch(html, /class="usage-historical"|23,202/);
     assert.ok(!html.includes('usage-lifecycle-badge'));
   } finally {
     for (const [[owner, name], original] of originals) owner[name] = original;

@@ -119,6 +119,7 @@
       <div class="usage-tabs" role="tablist" aria-label="Statistics tables">
         <button type="button" role="tab" id="usage-tab-entries" aria-controls="usage-panel-entries" aria-selected="<%= activeTab === 'entries' %>" tabindex="<%= activeTab === 'entries' ? 0 : -1 %>" data-tab="entries">Catalog Entry Statistics <span data-tab-count="entries"><%= itemStatistics.length.toLocaleString() %></span></button>
         <button type="button" role="tab" id="usage-tab-terms" aria-controls="usage-panel-terms" aria-selected="<%= activeTab === 'terms' %>" tabindex="<%= activeTab === 'terms' ? 0 : -1 %>" data-tab="terms">Frequent Search Terms <span data-tab-count="terms"><%= searchTerms.length.toLocaleString() %></span></button>
+        <button type="button" role="tab" id="usage-tab-historical" aria-controls="usage-panel-historical" aria-selected="<%= activeTab === 'historical' %>" tabindex="<%= activeTab === 'historical' ? 0 : -1 %>" data-tab="historical">Historical Nginx Data <span data-tab-count="historical">—</span></button>
       </div>
       <% const exportBase = '/admin/usage-statistics/export' + (exportQuery ? '?' + exportQuery : ''); const csvBase = '/admin/usage-statistics/export.csv' + (exportQuery ? '?' + exportQuery : ''); %>
       <div role="tabpanel" id="usage-panel-entries" aria-labelledby="usage-tab-entries" tabindex="0" data-statistics-table="entries" <%= activeTab !== 'entries' ? 'hidden' : '' %>>
@@ -143,6 +144,17 @@
           <tr data-table-empty <%= searchTerms.length ? 'hidden' : '' %>><td colspan="4" class="usage-empty">No submitted search terms recorded for these filters.</td></tr>
         </tbody></table></div>
         <div class="usage-table-footer"><p data-table-summary aria-live="polite"><%= searchTerms.length.toLocaleString() %> search terms</p><nav class="usage-pagination" aria-label="Search term pages" data-table-pagination></nav></div>
+      </div>
+      <div role="tabpanel" id="usage-panel-historical" aria-labelledby="usage-tab-historical" tabindex="0" data-statistics-table="historical" <%= activeTab !== 'historical' ? 'hidden' : '' %>>
+        <div class="usage-table-toolbar"><label class="usage-search"><span class="usage-sr-only">Search historical entries</span><input type="search" id="historicalEntrySearch" placeholder="Search by title or catalog type…" maxlength="200" autocomplete="off" data-table-search></label>
+          <div class="usage-export-actions"><a href="/admin/usage-statistics/historical/export" title="Download all historical entries as JSON">Download JSON</a><a href="/admin/usage-statistics/historical/export.csv" title="Download all historical entries as CSV">Download CSV</a></div>
+        </div>
+        <p class="usage-terms-note" data-historical-totals aria-live="polite">Historical totals load when this tab is opened.</p>
+        <p class="usage-terms-note">All-time SLC page-request aggregates, not confirmed human clicks. Date and catalog filters above apply only to live statistics.</p>
+        <div class="usage-table-scroll"><table class="usage-table"><caption class="usage-sr-only">All-time historical Nginx page requests by catalog entry</caption><thead><tr><th scope="col">Type</th><th scope="col">Catalog Entry</th><th scope="col" class="usage-number">Historical Page Requests</th></tr></thead><tbody data-historical-rows>
+          <tr data-table-empty><td colspan="3" class="usage-empty">Open this tab to load historical entries.</td></tr>
+        </tbody></table></div>
+        <div class="usage-table-footer"><p data-table-summary aria-live="polite"></p><nav class="usage-pagination" aria-label="Historical entry pages" data-table-pagination></nav></div>
       </div>
     </section>
 

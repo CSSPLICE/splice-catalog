@@ -6,6 +6,7 @@ import { readFile, mkdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 import express from 'express';
+import { SelectQueryBuilder } from 'typeorm';
 import puppeteer from 'puppeteer';
 import { AppDataSource } from '../src/db/data-source.ts';
 import { HistoricalUsage } from '../src/db/entities/HistoricalUsage.ts';
@@ -32,6 +33,14 @@ const terms = Array.from({ length: 15 }, (_, index) => ({
   totalSearches: 45 - index * 2,
 }));
 const legacyOnly = { ...items[0], itemTitle: 'Legacy-only entry must stay out', entryClicks: 0, externalClicks: 0 };
+
+const historicalEntries = [400, 300, 200, 100, 70, 50, 30, 20, 15, 14, 12, 10, 8, 5].map((count, index) => ({
+  catalogType: 'SLC_ITEM',
+  itemPersistentID: `history:${index + 1}`,
+  itemTitle: index === 1 ? '<img src=x onerror="window.historicalXss=true">' : index === 2 ? '=SUM(1,2)' : `Historical entry ${String(index + 1).padStart(2, '0')}`,
+  historicalPageRequests: count,
+  catalogPath: index === 0 ? '/catalog/item/7007' : null,
+}));
 
 function csvBlocks(text) {
   const rows = [];
@@ -124,12 +133,62 @@ test('historical status distinguishes an absent import using aggregate rows only
   }
 });
 
+test('historical queries bound pages and validate current persistent identities without trusting imported IDs', async () => {
+  await AppDataSource.buildMetadatas();
+  const prototype = SelectQueryBuilder.prototype;
+  const original = { one: prototype.getRawOne, many: prototype.getRawMany, count: prototype.getCount };
+  const statements = [];
+  const raw = [
+    { itemPersistentID: 'production:7', currentPersistentID: 'production:7', currentId: '7007' },
+    { itemPersistentID: 'production:8', currentPersistentID: 'different:8', currentId: 8 },
+    { itemPersistentID: null, currentPersistentID: null, currentId: 9 },
+    { itemPersistentID: 'CaseSensitive', currentPersistentID: 'casesensitive', currentId: 10 },
+    { itemPersistentID: 'production:11', currentPersistentID: 'production:11', currentId: 'javascript:bad' },
+  ].map((row) => ({ ...row, catalogType: 'SLC_ITEM', itemTitle: 'Imported title', historicalPageRequests: '40', legacyCatalogId: 7, catalogPath: '/catalog/item/7' }));
+  try {
+    prototype.getRawOne = async function () {
+      statements.push(this.getQueryAndParameters());
+      return { rowCount: '3729', totalRequests: '23202' };
+    };
+    prototype.getRawMany = async function () { statements.push(this.getQueryAndParameters()); return raw; };
+    prototype.getCount = async function () { statements.push(this.getQueryAndParameters()); return 13; };
+    const service = new UsageStatisticsService();
+    const search = "literal%_' OR 1=1";
+    const rows = await service.getHistoricalUsageEntries(search, 2);
+    assert.equal(rows[0].catalogPath, '/catalog/item/7007');
+    assert.ok(rows.slice(1).every((row) => row.catalogPath === null));
+    assert.equal(rows[0].historicalPageRequests, 40);
+    const [sql, parameters] = statements.at(-1);
+    assert.match(sql, /LIMIT 6 OFFSET 6/);
+    assert.match(sql, /BINARY .*persistentID.* = BINARY .*itemPersistentID/);
+    assert.match(sql, /LOCATE\(/);
+    assert.ok(parameters.includes(search));
+    assert.ok(!sql.includes(search));
+    assert.doesNotMatch(sql, /createdAt|usage_events|search_events/);
+    const page = await service.getHistoricalUsagePage(search, 999999);
+    assert.equal(page.page, 3);
+    assert.equal(page.pageSize, 6);
+    assert.equal(page.matchingCount, 13);
+    assert.equal(page.rowCount, 3729);
+    assert.equal(page.totalRequests, 23202);
+    assert.match(statements.at(-1)[0], /LIMIT 6 OFFSET 12/);
+    await service.getHistoricalUsageEntries();
+    assert.doesNotMatch(statements.at(-1)[0], /LIMIT|OFFSET|LOCATE/);
+    assert.ok(statements.every(([, params]) => params.includes('nginx_historical') && params.includes('SLC_ITEM')));
+    assert.equal(AppDataSource.isInitialized, false);
+  } finally {
+    prototype.getRawOne = original.one; prototype.getRawMany = original.many; prototype.getCount = original.count;
+  }
+});
+
 test('dashboard rendering, unified exports, filters and responsive interactions', { timeout: 120000 }, async (t) => {
   const originals = [],
     calls = [],
     analyticsHits = [];
   let empty = false;
   let apiOnly = false;
+  let historicalEmpty = false, historicalFailure = false;
+  const historicalCalls = [];
   const usage = UsageStatisticsService.prototype,
     search = SearchStatisticsService.prototype;
   const totals = {
@@ -150,9 +209,19 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
   stub(
     usage,
     'getHistoricalUsageSummary',
-    async () => (empty ? { rowCount: 0, totalRequests: 0 } : { rowCount: 4, totalRequests: 1234 }),
+    async () => (historicalEmpty ? { rowCount: 0, totalRequests: 0 } : { rowCount: 14, totalRequests: 1234 }),
     originals,
   );
+  stub(usage, 'getHistoricalUsageEntries', async () => structuredClone(historicalEmpty ? [] : historicalEntries), originals);
+  stub(usage, 'getHistoricalUsagePage', async (query, requestedPage) => {
+    historicalCalls.push({ query, requestedPage });
+    if (historicalFailure) throw new Error('Simulated historical outage');
+    const all = historicalEmpty ? [] : historicalEntries;
+    const matching = all.filter((row) => `${row.itemTitle} ${row.catalogType} ${row.catalogType.replace(/_/g, ' ')}`.toLowerCase().includes(query.toLowerCase()));
+    const totalPages = Math.max(1, Math.ceil(matching.length / 6));
+    const page = Math.min(requestedPage, totalPages);
+    return { rowCount: all.length, totalRequests: all.reduce((sum, row) => sum + row.historicalPageRequests, 0), matchingCount: matching.length, page, pageSize: 6, totalPages, rows: structuredClone(matching.slice((page - 1) * 6, page * 6)) };
+  }, originals);
   stub(usage, 'getPerItemStatistics', async () => structuredClone(empty ? [] : [...items, legacyOnly]), originals);
   stub(usage, 'getUniqueCatalogEntryCount', async () => (empty ? 0 : items.length), originals);
   stub(
@@ -264,7 +333,9 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
       assert.ok(!html.includes('ITEM_VIEW'));
       assert.ok(!html.includes('lifecycle-badge'));
       assert.ok(!html.includes('Design preview'));
-      assert.doesNotMatch(html, /Historical Nginx|usage-historical|1,234/);
+      assert.match(html, /Historical Nginx Data/);
+      assert.doesNotMatch(html, /class="usage-historical"|1,234|Historical entry 01/);
+      assert.equal(historicalCalls.length, 0);
       assert.ok(html.includes('href="/admin"'));
       assert.match(
         await readFile('src/public/css/usage-statistics.css', 'utf8'),
@@ -311,7 +382,7 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
         data.activityOverTime.reduce((sum, row) => sum + row.externalClicks, 0),
         data.summary.totalExternalClicks,
       );
-      for (const tab of ['entries', 'terms']) {
+      for (const tab of ['entries', 'terms', 'historical']) {
         const other = await (
           await fetch(`${endpoint}/export${params}&tab=${tab}&dataset=${tab}&q=unmatched&sort=externalClicks`)
         ).json();
@@ -363,11 +434,15 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
       const result = await fetch(report + '?catalogType=TOOL&from=invalid');
       assert.equal(result.headers.get('cache-control'), 'no-store');
       const json = await result.json();
-      assert.equal(json.rowCount, 4);
+      assert.equal(json.rowCount, 14);
+      assert.deepEqual(json.entries, historicalEntries);
       assert.equal(json.totalRequests, 1234);
       assert.equal(json.period, 'all-time');
       assert.match(json.note, /not intentional entry clicks/);
-      const csv = await (await fetch(report + '.csv')).text();
+      const csv = await (await fetch(report + '.csv?q=unmatched&page=999&from=invalid')).text();
+      const [entryHeaders, ...entryRows] = csvBlocks(csv).get('Historical Nginx Data');
+      assert.deepEqual(entryRows, json.entries.map((row) => entryHeaders.map((key) => csvValue(row[key]))));
+      assert.ok(csv.includes("\"'=SUM(1,2)\""));
       const [headers, values] = csv.trim().split('\r\n').map((line) => line.split(','));
       assert.equal(values[headers.indexOf('totalRequests')], String(json.totalRequests));
       assert.equal(values[headers.indexOf('rowCount')], String(json.rowCount));
@@ -375,9 +450,39 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
         assert.equal((await fetch(report + suffix, { headers: { 'x-fixture-role': 'anonymous' } })).status, 401);
         assert.equal((await fetch(report + suffix, { headers: { 'x-fixture-role': 'contributor' } })).status, 403);
       }
-      empty = true;
+      historicalEmpty = true;
       assert.equal((await (await fetch(report)).json()).imported, false);
-      empty = false;
+      historicalEmpty = false;
+    });
+    await t.test('historical endpoint is admin-only, bounded, searchable and independent of live filters', async () => {
+      const path = `${endpoint}/historical`;
+      for (const [role, status] of [['anonymous', 401], ['contributor', 403]])
+        assert.equal((await fetch(path, { headers: { 'x-fixture-role': role } })).status, status);
+      for (const query of ['page=0', 'page=-1', 'page=1.5', 'page=1000001', 'page[]=1', 'q[]=test', `q=${'x'.repeat(201)}`])
+        assert.equal((await fetch(`${path}?${query}`)).status, 400);
+      const response = await fetch(`${path}?page=2&from=invalid&to=invalid&catalogType=TOOL&pageSize=9999`);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      const data = await response.json();
+      assert.equal(data.period, 'all-time');
+      assert.equal(data.page, 2);
+      assert.equal(data.rows.length, 6);
+      assert.equal(data.totalRequests, 1234);
+      assert.equal(data.rowCount, 14);
+      assert.equal((await (await fetch(`${path}?q=SLC%20Item`)).json()).matchingCount, 14);
+      const filtered = await (await fetch(`${path}?q=entry%2014&page=999`)).json();
+      assert.equal(filtered.matchingCount, 1);
+      assert.equal(filtered.rows[0].itemTitle, 'Historical entry 14');
+      assert.equal(filtered.page, 1);
+      assert.equal(filtered.totalRequests, 1234);
+      assert.equal(filtered.rowCount, 14);
+      const none = await (await fetch(`${path}?q=unmatched`)).json();
+      assert.equal(none.rows.length, 0);
+      assert.equal(none.matchingCount, 0);
+      assert.equal(none.totalRequests, 1234);
+      historicalFailure = true;
+      assert.equal((await fetch(path)).status, 500);
+      assert.equal((await fetch(endpoint + '/export')).status, 200);
+      historicalFailure = false;
     });
     await t.test('date presets use inclusive calendar days and custom ranges remain valid', async () => {
       const html = await (await fetch(`${endpoint}?period=7d`)).text();
@@ -603,10 +708,60 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
         await page.reload({ waitUntil: 'networkidle0' });
         assert.equal(await page.$eval('#usagePeriod', (input) => input.value), 'custom');
       });
-      await t.test('historical footer and controls are absent while live cards remain', async () => {
+      await t.test('historical footer stays absent while three tabs and five live cards remain', async () => {
         assert.equal(await page.$('.usage-historical'), null);
         assert.equal(await page.$$eval('.usage-kpi', (nodes) => nodes.length), 5);
-        assert.doesNotMatch(await page.content(), /Historical Nginx|usage-history-content/);
+        assert.doesNotMatch(await page.content(), /usage-history-content/);
+        assert.equal(await page.$$eval('[role=tab]', (nodes) => nodes.length), 3);
+      });
+      await t.test('historical tab loads only one page and preserves live cards, charts and exports', async () => {
+        await page.setViewport({ width: 1500, height: 1100 });
+        await open();
+        const callsBefore = historicalCalls.length;
+        const live = await page.$$eval('.usage-kpi-value', (nodes) => nodes.map((node) => node.textContent));
+        assert.equal(await page.$$eval('[data-historical-rows] [data-table-row]', (nodes) => nodes.length), 0);
+        await page.click('[data-tab="historical"]');
+        await page.waitForFunction(() => document.querySelector('[data-historical-totals]').textContent.includes('1,234'));
+        assert.equal(historicalCalls.length, callsBefore + 1);
+        assert.equal(await page.$$eval('#usage-panel-historical [data-table-row]', (nodes) => nodes.length), 6);
+        assert.match(await page.$eval('[data-historical-totals]', (node) => node.textContent), /1,234.*14 imported entries/);
+        assert.equal(await page.$eval('#usage-panel-historical a.usage-item-link', (node) => node.getAttribute('href')), '/catalog/item/7007');
+        assert.equal(await page.$('#usage-panel-historical img'), null);
+        if (process.env.USAGE_SCREENSHOTS === '1') await page.screenshot({ path: resolve('node_modules/.cache/usage-dashboard/historical.png'), fullPage: true });
+        assert.equal(await page.evaluate(() => window.historicalXss), undefined);
+        assert.match(await page.$eval('#usage-panel-historical', (node) => node.textContent), /not confirmed human clicks/);
+        await page.click('#usage-panel-historical [aria-label="Next page"]');
+        await page.waitForFunction(() => document.querySelector('#usage-panel-historical [data-table-summary]').textContent.includes('7–12'));
+        await page.type('#historicalEntrySearch', 'entry 14');
+        await page.waitForFunction(() => document.querySelector('#usage-panel-historical [data-table-summary]').textContent.includes('1–1 of 1'));
+        assert.equal(await page.$$eval('#usage-panel-historical [data-table-row]', (nodes) => nodes.length), 1);
+        assert.match(await page.$eval('[data-historical-totals]', (node) => node.textContent), /1,234.*14 imported entries/);
+        await page.click('[data-tab="terms"]');
+        const beforeReturn = historicalCalls.length;
+        await page.click('[data-tab="historical"]');
+        assert.equal(await page.$eval('#historicalEntrySearch', (node) => node.value), 'entry 14');
+        assert.equal(historicalCalls.length, beforeReturn);
+        assert.deepEqual(await page.$$eval('.usage-kpi-value', (nodes) => nodes.map((node) => node.textContent)), live);
+        assert.equal(await page.$$eval('.usage-charts > article', (nodes) => nodes.length), 2);
+        const links = await page.$$eval('#usage-panel-historical .usage-export-actions a', (nodes) => nodes.map((node) => node.getAttribute('href')));
+        assert.deepEqual(links, ['/admin/usage-statistics/historical/export', '/admin/usage-statistics/historical/export.csv']);
+        await page.goto(`${endpoint}?tab=historical&from=2026-10-01&to=2026-10-04&catalogType=TOOL`, { waitUntil: 'networkidle0' });
+        await page.waitForFunction(() => document.querySelector('[data-historical-totals]').textContent.includes('1,234'));
+        assert.equal(await page.$eval('#usage-panel-historical', (node) => node.hidden), false);
+        assert.deepEqual(historicalCalls.at(-1), { query: '', requestedPage: 1 });
+      });
+      await t.test('historical tab handles unavailable and empty data without altering live metrics', async () => {
+        historicalFailure = true;
+        await open();
+        await page.click('[data-tab="historical"]');
+        await page.waitForFunction(() => document.querySelector('#usage-panel-historical [data-table-summary]').textContent.includes('unavailable'));
+        historicalFailure = false;
+        historicalEmpty = true;
+        await page.click('[data-tab="historical"]');
+        await page.waitForFunction(() => document.querySelector('[data-historical-totals]').textContent.includes('0 page requests'));
+        assert.match(await page.$eval('#usage-panel-historical [data-table-empty]', (node) => node.textContent), /No historical data has been imported/);
+        assert.equal(await page.$$eval('.usage-kpi', (nodes) => nodes.length), 5);
+        historicalEmpty = false;
       });
       await t.test('tablet and mobile have no document clipping and retain usable tables', async () => {
         for (const width of [900, 390, 320]) {
@@ -625,6 +780,10 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
             await page.screenshot({ path: resolve('node_modules/.cache/usage-dashboard/mobile.png'), fullPage: true });
           await page.click('[data-tab="terms"]');
           assert.equal(await page.$eval('#usage-panel-terms', (node) => node.hidden), false);
+          await page.click('[data-tab="historical"]');
+          await page.waitForFunction(() => document.querySelector('[data-historical-totals]').textContent.includes('1,234'));
+          assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+          if (width === 390 && process.env.USAGE_SCREENSHOTS === '1') await page.screenshot({ path: resolve('node_modules/.cache/usage-dashboard/historical-mobile.png'), fullPage: true });
         }
         assert.deepEqual(errors, []);
         assert.deepEqual(analyticsHits, []);
@@ -730,7 +889,10 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
           await page.keyboard.press('Enter');
           // Native navigation can detach the fetch response from DevTools; assert server receipt.
           for (let attempt = 0; attempt < 100 && headerSearches.length === before; attempt++) await delay(50);
-          await page.waitForNetworkIdle();
+          await page.waitForFunction(
+            (expectedPath) => location.pathname === expectedPath && new URL(location.href).searchParams.get('query') === 'binary   tree',
+            {}, path === '/catalog' ? '/catalog' : '/search/',
+          );
           assert.equal(
             headerSearches.length,
             before + 1,
