@@ -6,10 +6,15 @@ import { ResponseUtil } from '../utils/Response.js';
 import { CreateSLCItemDTO } from '../dtos/SLCItemDTO.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 
+const normalizeSearchQuery = (value: unknown): string => {
+  if (typeof value !== 'string') return '';
+  return value.trim().replace(/\s+/g, ' ');
+};
+
 export class CatalogController {
   async searchCatalog(req: Request, res: Response): Promise<Response> {
     try {
-      const query = (req.query.q as string) || '';
+      const query = normalizeSearchQuery(req.query.q);
       const searchResults = await meilisearchService.search(query);
       return ResponseUtil.sendResponse(res, searchResults, 200);
     } catch (error) {

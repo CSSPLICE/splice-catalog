@@ -13,6 +13,7 @@
     "pretty": "prettier . --write",
     "gulp": "gulp",
     "typeorm": "typeorm-ts-node-esm -d src/db/data-source.ts",
+    "typeorm:prod": "node ./node_modules/typeorm/cli.js -d dist/db/data-source.js",
     "typeorm-cli": "ts-node-esm",
     "migrate:show": "yarn typeorm migration:show",
     "migrate:create": "node scripts/migration-create.js",
@@ -20,9 +21,8 @@
     "migrate:revert": "yarn typeorm migration:revert",
     "seed": "tsx src/db/seeds/CatalogSeeder.ts",
     "import:ontology": "ts-node-esm src/utils/import-ontology-data.ts",
-    "search:seed": "sh -c '[ -f dist/scripts/directSeed.js ] && node dist/scripts/directSeed.js || node --loader ts-node/esm src/scripts/directSeed.ts'",
-    "search:seedAlias": "sh -c '[ -f dist/scripts/seedAliases.js ] && node dist/scripts/seedAliases.js || node --loader ts-node/esm src/scripts/seedAliases.ts'",
-    "search:sync": "sh -c '[ -f dist/scripts/syncMeili.js ] && node dist/scripts/syncMeili.js || node --loader ts-node/esm src/scripts/syncMeili.ts'"
+    "search:sync": "sh -c '[ -f dist/scripts/syncMeili.js ] && node dist/scripts/syncMeili.js || node --loader ts-node/esm src/scripts/syncMeili.ts'",
+    "search:resync": "sh -c '[ -f dist/scripts/resyncMeili.js ] && node dist/scripts/resyncMeili.js || node --loader ts-node/esm src/scripts/resyncMeili.ts'"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.1",
@@ -32,7 +32,7 @@
     "@types/express": "^4.17.21",
     "@types/multer": "^1.4.12",
     "adminjs": "^7.8.17",
-    "axios": "^1.7.9",
+    "axios": "^1.16.0",
     "bunyan": "^1.8.15",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
@@ -49,7 +49,7 @@
     "jsonwebtoken": "^9.0.2",
     "lemmatizer": "^0.0.1",
     "meilisearch": "^0.54.0",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^2.1.1",
     "mysql2": "^3.12.0",
     "natural": "^8.0.1",
     "pg": "^8.13.1",

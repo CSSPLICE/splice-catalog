@@ -9,11 +9,10 @@ import { ResponseUtil } from '../utils/Response.js';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
 import { dataset_catalog } from '../db/entities/DatasetCatalog.js';
 import { CreateDatasetCatalogDTO } from '../dtos/DatasetCatalogDTO.js';
-import { ReviewController } from './ReviewController.js';
+import { reviewController } from './ReviewController.js';
 import { ValidationManager } from '../services/ValidationManager.js';
 import { ValidationResults } from '../db/entities/ValidationResults.js';
 
-const reviewController = new ReviewController();
 const validationResultsRepository = AppDataSource.getRepository(ValidationResults);
 const catalogRepository = AppDataSource.getRepository(slc_item_catalog);
 const validationManager = new ValidationManager(validationResultsRepository, catalogRepository);
@@ -88,9 +87,11 @@ export class ViewController {
     try {
       const absolutePath = req.file.path;
       const jsonString = fs.readFileSync(absolutePath, 'utf-8');
-      req.body = JSON.parse(jsonString);
+      const parsed = JSON.parse(jsonString);
+      const jsonArray = Array.isArray(parsed) ? parsed : [parsed];
 
-      await reviewController.validateAndReview(req, res);
+      const uuid = reviewController.startJob(jsonArray);
+      res.redirect(303, `/review/${uuid}`);
     } catch (error) {
       logger.error('Error processing upload:', error);
       res.status(500).json({ error: 'Internal Server Error' });
