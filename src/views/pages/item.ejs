@@ -145,7 +145,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 </tr>
                 <tr>
                     <td>Iframe URL</td>
-                    <td><a href="<%= item.iframe_url %>" target=_blank><%= item.iframe_url %></a></td>
+                    <td><a href="<%= item.iframe_url %>" target=_blank data-usage-external-click data-item-persistent-id="<%= encodeURIComponent(item.persistentID) %>" data-link-type="iframe_url"><%= item.iframe_url %></a></td>
                 </tr>
                 <tr>
                   <td>Protocol</td>

@@ -140,3 +140,10 @@ env.student
 # IDE configs
 **/.vscode
 **/.idea
+
+# Local research backups and authenticated verification exports
+/backups/
+
+# Local generated historical analysis (never publish)
+/historical-usage-analysis.json
+/historical-usage-import.json

@@ -11,6 +11,9 @@ import { ValidationResults } from './entities/ValidationResults.js';
 import { SearchAlias } from './entities/SearchAlias.js';
 import { ValidationJob } from './entities/ValidationJob.js';
 import { ValidationJobConstraint } from './entities/ValidationJobConstraint.js';
+import { UsageEvent } from './entities/UsageEvent.js';
+import { HistoricalUsage } from './entities/HistoricalUsage.js';
+import { SearchEvent } from './entities/SearchEvent.js';
 
 dotenv.config();
 
@@ -21,8 +24,13 @@ export const AppDataSource: DataSource = new DataSource({
   username: process.env.DB_USERNAME || 'splice',
   password: process.env.DB_PASSWORD || 'splice',
   database: process.env.DB_DATABASE || 'splice',
-  migrations: [process.env.NODE_ENV === 'development' ? 'src/db/migrations/*.ts' : 'dist/db/migrations/*.js'],
-  logging: process.env.ORM_LOGGING === 'true',
+  migrations: [
+    process.env.NODE_ENV === 'development'
+      ? 'src/db/migrations/*.ts'
+      : 'dist/db/migrations/*.js',
+  ],
+  // SQL parameters can contain submitted search terms; keep them out of production logs.
+  logging: process.env.NODE_ENV !== 'production' && process.env.ORM_LOGGING === 'true',
   entities: [
     slc_item_catalog,
     slc_tools_catalog,
@@ -35,6 +43,9 @@ export const AppDataSource: DataSource = new DataSource({
     SearchAlias,
     ValidationJob,
     ValidationJobConstraint,
+    UsageEvent,
+    HistoricalUsage,
+    SearchEvent,
   ],
   synchronize: false,
   subscribers: [],

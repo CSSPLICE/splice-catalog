@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
+    "test:usage": "tsc --project tsconfig.json --noEmit && TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm --test tests/historical-usage.test.mjs tests/historical-seed.test.mjs tests/usage-analytics.test.mjs tests/usage-browser.test.mjs tests/usage-dashboard.test.mjs",
     "dev": "nodemon",
     "start": "node dist/index.js",
     "lint": "eslint src/**/*.ts",
@@ -21,8 +22,12 @@
     "migrate:revert": "yarn typeorm migration:revert",
     "seed": "tsx src/db/seeds/CatalogSeeder.ts",
     "import:ontology": "ts-node-esm src/utils/import-ontology-data.ts",
+    "search:seed": "sh -c '[ -f dist/scripts/directSeed.js ] && node dist/scripts/directSeed.js || node --loader ts-node/esm src/scripts/directSeed.ts'",
+    "search:seedAlias": "sh -c '[ -f dist/scripts/seedAliases.js ] && node dist/scripts/seedAliases.js || node --loader ts-node/esm src/scripts/seedAliases.ts'",
     "search:sync": "sh -c '[ -f dist/scripts/syncMeili.js ] && node dist/scripts/syncMeili.js || node --loader ts-node/esm src/scripts/syncMeili.ts'",
-    "search:resync": "sh -c '[ -f dist/scripts/resyncMeili.js ] && node dist/scripts/resyncMeili.js || node --loader ts-node/esm src/scripts/resyncMeili.ts'"
+    "usage:seed-history": "TS_NODE_EXPERIMENTAL_RESOLVER=true node --loader ts-node/esm src/scripts/seedHistoricalUsage.ts",
+    "usage:analyze-nginx": "TS_NODE_EXPERIMENTAL_RESOLVER=true node --loader ts-node/esm src/scripts/analyzeHistoricalNginxUsage.ts",
+    "usage:seed-history:prod": "node dist/scripts/seedHistoricalUsage.js"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.1",
