@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <tr>
           <td>${rowNumber}</td>
           <td scope="row">
-            <a href="/catalog/item/${encodeURIComponent(item.id)}" style="text-decoration: underline; color: #0000EE;">
+            <a href="/catalog/item/${encodeURIComponent(item.id)}" data-usage-entry-click data-catalog-type="SLC_ITEM" data-item-identifier="${encodeURIComponent(item.persistentID)}" style="text-decoration: underline; color: #0000EE;">
               ${item.title}
             </a>
           </td>
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function () {
               ${(item.description || '').split(' ').slice(0, 20).join(' ')}...
             </span>
           </td>
-          <td><a href="${item.iframe_url}" target="_blank">${item.platform_name}</a></td>
+          <td><a href="${item.iframe_url}" target="_blank" data-usage-external-click data-item-persistent-id="${encodeURIComponent(item.persistentID)}" data-link-type="iframe_url">${item.platform_name}</a></td>
           <td>${keywordLinks}</td>
         </tr>
       `;
@@ -470,7 +470,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     try {
-      const response = await fetch(`/api/items?terms=${encodeURIComponent(query)}`);
+      const response = await fetch(`/search/results?terms=${encodeURIComponent(query)}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       searchResults = data.results || [];
