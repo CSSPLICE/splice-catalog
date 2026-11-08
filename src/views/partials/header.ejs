@@ -1,3 +1,6 @@
+<% if (typeof liveUsageSession !== 'undefined' && liveUsageSession) { %>
+<meta name="splice-usage-token" content="<%= liveUsageSession.csrf %>" data-expires-at="<%= liveUsageSession.expiresAt %>">
+<% } %>
 <script src="/js/usageTracking.js" defer></script>
 <header class="p-3 bg-dark text-white mb-4">
     <div class="container">

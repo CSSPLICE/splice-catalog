@@ -15,7 +15,10 @@ import { dataset_catalog } from '../src/db/entities/DatasetCatalog.ts';
 import { SearchController } from '../src/controllers/SearchController.ts';
 import { CatalogController } from '../src/controllers/CatalogController.ts';
 import { meilisearchService } from '../src/services/MeilisearchService.ts';
-import usageRoutes from '../src/routes/usage.ts';
+import { createUsageRouter } from '../src/routes/usage.ts';
+import { LiveUsageBotProtection } from '../src/services/LiveUsageBotProtection.ts';
+import { browserUsageSession } from '../src/middleware/liveUsageProtection.ts';
+import { optionalMysql } from './helpers/live-usage-mysql.mjs';
 import searchRoutes from '../src/routes/search.ts';
 import apiRoutes from '../src/routes/api.ts';
 
@@ -32,9 +35,13 @@ test(
   'trusted browser activations, search intent and failed analytics preserve navigation',
   {
     skip: !existsSync(executablePath) ? 'Set CHROME_BIN to a local Chrome executable for browser tests' : false,
-    timeout: 60000,
+    timeout: 120000,
   },
   async (t) => {
+    let clockOffset = 0;
+    const protection = new LiveUsageBotProtection({ mode: 'enforce' }, () => Date.now() + clockOffset);
+    const mysql = await optionalMysql();
+    const posts = [];
     const events = [],
       searches = [],
       retrievals = [],
@@ -71,6 +78,7 @@ test(
         return {
           create: (value) => value,
           save: async (value) => {
+            if (mysql) await mysql.save(entity, value);
             (entity === UsageEvent ? events : searches).push(value);
             return value;
           },
@@ -98,7 +106,16 @@ test(
       Object.assign(res.locals, { user: null, isAdmin: false, showLoginButton: false });
       next();
     });
-    app.use('/usage', (req, res, next) => (failAnalytics ? res.status(503).end() : next()), usageRoutes);
+    app.use(
+      '/usage',
+      (req, res, next) => {
+        if (req.method === 'POST' && req.path !== '/session')
+          posts.push({ path: req.path, token: req.get('x-usage-token'), cookie: req.get('cookie') });
+        return failAnalytics ? res.status(503).end() : next();
+      },
+      createUsageRouter(protection),
+    );
+    app.use(browserUsageSession(protection));
     app.use('/search/results', (req, res, next) => {
       retrievals.push(req.query.terms);
       next();
@@ -127,12 +144,20 @@ test(
     const base = `http://127.0.0.1:${server.address().port}`;
     let browser;
     try {
-      browser = await puppeteer.launch({ executablePath, headless: true });
+      const browserUA =
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36';
+      // A launch-level override also applies to popups; page-only overrides do not.
+      browser = await puppeteer.launch({ executablePath, headless: true, args: [`--user-agent=${browserUA}`] });
       const page = await browser.newPage();
+      // Exercise normal browser policy in headless test infrastructure. Known
+      // HeadlessChrome rejection is tested separately in the detector suite.
+      const normalUA = browserUA;
+      await page.setUserAgent(normalUA);
       await page.setRequestInterception(true);
       page.on('request', (request) => (request.url().startsWith(base) ? request.continue() : request.abort()));
       page.on('pageerror', (error) => errors.push(error.message));
       async function open(path) {
+        await page.bringToFront();
         await page.goto(`${base}${path}`, { waitUntil: 'networkidle0' });
       }
       async function closePopups() {
@@ -251,6 +276,54 @@ test(
         await delay(400);
         assert.equal(searches.length, 3);
       });
+      await t.test('multiple tabs, rapid navigation and actual authenticated POST delivery', async () => {
+        await open('/catalog');
+        const other = await browser.newPage();
+        await other.setUserAgent(normalUA);
+        await other.setRequestInterception(true);
+        other.on('request', (request) => (request.url().startsWith(base) ? request.continue() : request.abort()));
+        await other.goto(`${base}/catalog`, { waitUntil: 'networkidle0' });
+        const before = events.length;
+        await other.bringToFront();
+        await other.click('a[data-usage-entry-click]', { button: 'middle' });
+        await page.bringToFront();
+        await page.click('a[data-usage-entry-click]', { button: 'middle' });
+        await eventually(() => events.length === before + 2);
+        assert.ok(
+          posts
+            .filter((request) => request.path === '/entry-click')
+            .every((request) => request.token && request.cookie?.includes('splice_usage=')),
+        );
+        await closePopups();
+      });
+      await t.test('expired server session recovers and navigation remains available', async () => {
+        await open('/catalog');
+        clockOffset += protection.options.sessionTtlMs + 1;
+        const before = events.length;
+        const popup = new Promise((done) => page.once('popup', done));
+        await page.click('a[data-usage-external-click]');
+        const resource = await popup;
+        await resource.waitForNetworkIdle();
+        assert.equal(resource.url(), `${base}/resource`);
+        try {
+          await eventually(() => events.length === before + 1);
+        } catch (error) {
+          error.message += `; expiration decisions: ${JSON.stringify(protection.snapshot().decisions)}`;
+          throw error;
+        }
+        await closePopups();
+        await open('/catalog');
+        const next = events.length;
+        await Promise.all([page.waitForNavigation(), page.click('a[data-usage-entry-click]')]);
+        await eventually(() => events.length === next + 1);
+      });
+      await t.test(
+        'real MySQL browser counters match delivered events',
+        { skip: !mysql ? 'Docker/MySQL unavailable; browser persistence uses repository doubles' : false },
+        async () => {
+          assert.deepEqual(await mysql.counts(), { usage: events.length, searches: searches.length });
+        },
+      );
       await t.test('failed analytics never prevent detail or resource navigation', async () => {
         failAnalytics = true;
         await open('/catalog');
@@ -277,11 +350,13 @@ test(
       });
     } finally {
       await browser?.close();
+      server.closeAllConnections();
       // Chrome helpers can retain inherited pipes after the browser process exits.
       for (const stream of browser?.process()?.stdio ?? []) stream?.destroy();
       await new Promise((done) => server.close(done));
       AppDataSource.getRepository = originalRepository;
       meilisearchService.search = originalSearch;
+      await mysql?.close();
     }
   },
 );

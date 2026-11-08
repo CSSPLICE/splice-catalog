@@ -12,6 +12,9 @@ import { HistoricalUsage } from '../src/db/entities/HistoricalUsage.ts';
 import { slc_item_catalog } from '../src/db/entities/SLCItemCatalog.ts';
 import { slc_tools_catalog } from '../src/db/entities/SLCToolsCatalog.ts';
 import { dataset_catalog } from '../src/db/entities/DatasetCatalog.ts';
+import { LiveUsageBotProtection } from '../src/services/LiveUsageBotProtection.ts';
+const regressionProtection = new LiveUsageBotProtection({ mode: 'off' });
+
 import { UsageController } from '../src/controllers/UsageController.ts';
 import { SearchController } from '../src/controllers/SearchController.ts';
 import { CatalogController } from '../src/controllers/CatalogController.ts';
@@ -110,7 +113,7 @@ for (const [catalogType, itemIdentifier, expected] of [
 ]) {
   test(`entry click resolves canonical ${catalogType} metadata exactly once`, async () => {
     const res = response();
-    await new UsageController().recordEntryClick(
+    await new UsageController(regressionProtection).recordEntryClick(
       { body: { catalogType, itemIdentifier, itemTitle: 'spoof', catalogPath: '/spoof' } },
       res,
     );
@@ -130,7 +133,7 @@ for (const [catalogType, itemIdentifier, linkType] of [
 ]) {
   test(`external click preserves ${linkType}`, async () => {
     const res = response();
-    await new UsageController().recordExternalClick({ body: { catalogType, itemIdentifier, linkType } }, res);
+    await new UsageController(regressionProtection).recordExternalClick({ body: { catalogType, itemIdentifier, linkType } }, res);
     assert.equal(res.statusCode, 201);
     assert.equal(events.length, 1);
     assert.equal(events[0].eventType, 'EXTERNAL_CLICK');
@@ -138,7 +141,7 @@ for (const [catalogType, itemIdentifier, linkType] of [
   });
 }
 test('invalid/unknown identities and mismatched links create no events', async () => {
-  const controller = new UsageController();
+  const controller = new UsageController(regressionProtection);
   for (const body of [
     {},
     { catalogType: 'toString', itemIdentifier: '8' },
@@ -178,7 +181,7 @@ test('normalization is minimal and invalid/overlong inputs are rejected', () => 
 test('WEB ingestion fixes source, ignores identifiers and records deliberate repetitions', async () => {
   for (let i = 0; i < 2; i++) {
     const res = response();
-    await new UsageController().recordWebSearch(
+    await new UsageController(regressionProtection).recordWebSearch(
       { body: { query: '  binary   tree ', source: 'API', userId: 'do-not-store', resultCount: 999 } },
       res,
     );
@@ -188,20 +191,20 @@ test('WEB ingestion fixes source, ignores identifiers and records deliberate rep
   assert.deepEqual(searches[0], { source: 'WEB', query: 'binary tree', catalogType: 'SLC_ITEM', resultCount: null });
   for (const query of ['', '  ', [], 'x'.repeat(501)]) {
     const res = response();
-    await new UsageController().recordWebSearch({ body: { query } }, res);
+    await new UsageController(regressionProtection).recordWebSearch({ body: { query } }, res);
     assert.equal(res.statusCode, 400);
   }
   assert.equal(searches.length, 2);
 });
 test('internal retrieval never records API analytics, even with forged source flags', async () => {
   const res = response();
-  await new SearchController().searchCatalogResults({ query: { terms: 'trees', source: 'API' }, params: {} }, res);
+  await new SearchController(regressionProtection).searchCatalogResults({ query: { terms: 'trees', source: 'API' }, params: {} }, res);
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.results.length, 1);
   assert.equal(searches.length, 0);
 });
 test('public API records completed searches including zero results', async () => {
-  const controller = new SearchController();
+  const controller = new SearchController(regressionProtection);
   for (const results of [[item], []]) {
     hits = results;
     const res = response();
@@ -214,7 +217,7 @@ test('public API records completed searches including zero results', async () =>
   assert.equal(searches[0].query, 'tree');
 });
 test('empty, failed, malformed and unsupported API searches create no successful-search events', async () => {
-  const controller = new SearchController();
+  const controller = new SearchController(regressionProtection);
   for (const terms of [undefined, ' ', [], 'x'.repeat(501)]) {
     const res = response();
     await controller.searchCatalogAPI({ query: { terms }, params: { catalog: 'items' } }, res);
@@ -233,7 +236,7 @@ test('empty, failed, malformed and unsupported API searches create no successful
 test('analytics storage failure does not fail a completed API search', async () => {
   storageFailure = true;
   const res = response();
-  await new SearchController().searchCatalogAPI({ query: { terms: 'tree' }, params: { catalog: 'items' } }, res);
+  await new SearchController(regressionProtection).searchCatalogAPI({ query: { terms: 'tree' }, params: { catalog: 'items' } }, res);
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.results.length, 1);
 });

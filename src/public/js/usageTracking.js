@@ -2,14 +2,78 @@
   if (window.spliceUsageTrackingInitialized) return;
   window.spliceUsageTrackingInitialized = true;
 
+  const meta = document.querySelector('meta[name="splice-usage-token"]');
+  let credential = meta ? { csrf: meta.content, expiresAt: Number(meta.dataset.expiresAt) } : null;
+  let renewal;
+  let renewalTimer;
+  function scheduleRenewal() {
+    clearTimeout(renewalTimer);
+    if (credential)
+      renewalTimer = setTimeout(
+        () => {
+          try {
+            renew().catch(() => {});
+          } catch {
+            /* Tracking must survive unavailable fetch. */
+          }
+        },
+        Math.max(100, credential.expiresAt - Date.now() + 20),
+      );
+  }
+  function renew() {
+    if (renewal) return renewal;
+    renewal = fetch('/usage/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: '{}',
+      credentials: 'same-origin',
+      keepalive: true,
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error('Tracking session unavailable');
+        return response.json();
+      })
+      .then((value) => {
+        credential = value;
+        scheduleRenewal();
+        return value;
+      })
+      .finally(() => {
+        renewal = null;
+      });
+    return renewal;
+  }
+  scheduleRenewal();
+  for (const name of ['pageshow', 'focus'])
+    window.addEventListener(name, () => {
+      if (credential && credential.expiresAt <= Date.now()) {
+        try {
+          renew().catch(() => {});
+        } catch {
+          /* Browsing remains available. */
+        }
+      }
+    });
+
   function send(path, data) {
     try {
-      fetch(path, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-        keepalive: true,
-      }).catch(() => {});
+      // A new identifier per deliberate activation; retries retain that identifier.
+      const eventId = Array.from(crypto.getRandomValues(new Uint8Array(16)), (byte) =>
+        byte.toString(16).padStart(2, '0'),
+      ).join('');
+      function post(retry) {
+        return fetch(path, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', ...(credential ? { 'X-Usage-Token': credential.csrf } : {}) },
+          credentials: 'same-origin',
+          body: JSON.stringify({ ...data, eventId }),
+          keepalive: true,
+        }).then((response) => {
+          if (response.status === 401 && retry) return renew().then(() => post(false));
+        });
+      }
+      // HTML normally supplies credentials synchronously. Off mode needs none.
+      post(true).catch(() => {});
     } catch {
       // Navigation must also survive synchronous failures (for example, unavailable fetch).
     }

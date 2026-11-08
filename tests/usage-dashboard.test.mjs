@@ -898,7 +898,9 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
             before + 1,
             `${path}: received ${JSON.stringify(analyticsHits)}, at ${page.url()}`,
           );
-          assert.deepEqual(headerSearches.at(-1), { query: 'binary tree' });
+          const eventId = headerSearches.at(-1).eventId;
+          assert.match(eventId, /^[a-f0-9]{32}$/);
+          assert.deepEqual(headerSearches.at(-1), { query: 'binary tree', eventId });
           const url = new URL(page.url());
           assert.equal(url.pathname, path === '/catalog' ? '/catalog' : '/search/');
           assert.equal(url.searchParams.get('query'), 'binary   tree');
