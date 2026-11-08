@@ -31,7 +31,11 @@
     "usage:seed-history:prod": "node dist/scripts/seedHistoricalUsage.js",
     "usage:policy": "TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm src/scripts/liveUsagePolicy.ts",
     "test:phase2": "tsc --project tsconfig.json --noEmit && TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm --test tests/phase2-evaluator.test.mjs tests/phase2-mysql.test.mjs",
-    "simulate:live-usage": "TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm tests/local-bot-simulations/phase2.mjs"
+    "simulate:live-usage": "TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm tests/local-bot-simulations/phase2.mjs",
+    "test:phase3b": "tsc --project tsconfig.json --noEmit && DOTENV_CONFIG_PATH=/dev/null LIVE_USAGE_MODE=off LIVE_USAGE_PROVISIONAL_ENABLED=false LIVE_USAGE_TEST_MYSQL=disabled TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm --test tests/phase3b-behavior.test.mjs tests/live-usage-protection.test.mjs tests/phase2-evaluator.test.mjs",
+    "measure:phase3b": "DOTENV_CONFIG_PATH=/dev/null LIVE_USAGE_MODE=off LIVE_USAGE_PROVISIONAL_ENABLED=false LIVE_USAGE_TEST_MYSQL=disabled TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --expose-gc --loader ts-node/esm tests/phase3b-measure.mjs",
+    "test:phase3c": "tsc --project tsconfig.json --noEmit && DOTENV_CONFIG_PATH=/dev/null LIVE_USAGE_MODE=off LIVE_USAGE_PROVISIONAL_ENABLED=false LIVE_USAGE_TEST_MYSQL=disabled TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm --test tests/phase3c-campaign.test.mjs tests/phase3b-behavior.test.mjs tests/live-usage-protection.test.mjs tests/phase2-evaluator.test.mjs",
+    "measure:phase3c": "DOTENV_CONFIG_PATH=/dev/null LIVE_USAGE_MODE=off LIVE_USAGE_PROVISIONAL_ENABLED=false LIVE_USAGE_TEST_MYSQL=disabled TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --expose-gc --loader ts-node/esm tests/phase3c-measure.mjs"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.1",
