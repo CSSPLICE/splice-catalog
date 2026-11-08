@@ -1,4 +1,5 @@
 import cors from 'cors';
+import { startProvisionalWorker } from './services/ProvisionalUsageService.js';
 import { browserUsageSession, usageJson, usagePayloadErrors } from './middleware/liveUsageProtection.js';
 import helmet from 'helmet';
 import express, { Express } from 'express';
@@ -30,6 +31,7 @@ const emitter = new EventEmitter();
       });
       console.log('Database connection initialized successfully!');
     }
+    startProvisionalWorker();
   } catch (error) {
     console.error('Error initializing database connection:', error);
     process.exit(1); // Exit the process if the database fails to initialize

@@ -113,7 +113,7 @@ test(
           posts.push({ path: req.path, token: req.get('x-usage-token'), cookie: req.get('cookie') });
         return failAnalytics ? res.status(503).end() : next();
       },
-      createUsageRouter(protection),
+      createUsageRouter(protection, null),
     );
     app.use(browserUsageSession(protection));
     app.use('/search/results', (req, res, next) => {
@@ -142,6 +142,8 @@ test(
       const listener = app.listen(0, '127.0.0.1', () => resolveServer(listener));
     });
     const base = `http://127.0.0.1:${server.address().port}`;
+    const originalOrigin = process.env.LIVE_USAGE_ORIGIN;
+    process.env.LIVE_USAGE_ORIGIN = base;
     let browser;
     try {
       const browserUA =
@@ -357,6 +359,7 @@ test(
       AppDataSource.getRepository = originalRepository;
       meilisearchService.search = originalSearch;
       await mysql?.close();
+    if (originalOrigin === undefined) delete process.env.LIVE_USAGE_ORIGIN; else process.env.LIVE_USAGE_ORIGIN = originalOrigin;
     }
   },
 );

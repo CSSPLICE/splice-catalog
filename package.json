@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc --project ./tsconfig.json",
     "test:usage": "tsc --project tsconfig.json --noEmit && TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm --test tests/historical-usage.test.mjs tests/historical-seed.test.mjs tests/usage-analytics.test.mjs tests/usage-browser.test.mjs tests/usage-dashboard.test.mjs",
-    "test:live-usage": "tsc --project tsconfig.json --noEmit && TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm --test tests/live-usage-protection.test.mjs tests/live-usage-integration.test.mjs tests/usage-browser.test.mjs",
+    "test:live-usage": "tsc --project tsconfig.json --noEmit && TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm --test tests/live-usage-protection.test.mjs tests/live-usage-integration.test.mjs tests/usage-browser.test.mjs tests/phase2-evaluator.test.mjs tests/phase2-mysql.test.mjs",
     "dev": "nodemon",
     "start": "node dist/index.js",
     "lint": "eslint src/**/*.ts",
@@ -28,7 +28,10 @@
     "search:sync": "sh -c '[ -f dist/scripts/syncMeili.js ] && node dist/scripts/syncMeili.js || node --loader ts-node/esm src/scripts/syncMeili.ts'",
     "usage:seed-history": "TS_NODE_EXPERIMENTAL_RESOLVER=true node --loader ts-node/esm src/scripts/seedHistoricalUsage.ts",
     "usage:analyze-nginx": "TS_NODE_EXPERIMENTAL_RESOLVER=true node --loader ts-node/esm src/scripts/analyzeHistoricalNginxUsage.ts",
-    "usage:seed-history:prod": "node dist/scripts/seedHistoricalUsage.js"
+    "usage:seed-history:prod": "node dist/scripts/seedHistoricalUsage.js",
+    "usage:policy": "TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm src/scripts/liveUsagePolicy.ts",
+    "test:phase2": "tsc --project tsconfig.json --noEmit && TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm --test tests/phase2-evaluator.test.mjs tests/phase2-mysql.test.mjs",
+    "simulate:live-usage": "TS_NODE_EXPERIMENTAL_RESOLVER=true TS_NODE_TRANSPILE_ONLY=true node --loader ts-node/esm tests/local-bot-simulations/phase2.mjs"
   },
   "dependencies": {
     "@adminjs/express": "^6.1.1",

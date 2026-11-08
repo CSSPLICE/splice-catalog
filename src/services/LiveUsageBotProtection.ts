@@ -38,6 +38,7 @@ export interface BrowserSignal {
 }
 interface Session {
   csrf: string;
+  createdAt: number;
   expiresAt: number;
   ua: string;
   events: Array<{ at: number; identity: string; kind: string }>;
@@ -167,6 +168,7 @@ export class LiveUsageBotProtection {
     const id = randomBytes(32).toString('hex');
     const session: Session = {
       csrf: randomBytes(32).toString('hex'),
+      createdAt: this.now(),
       expiresAt: this.now() + this.options.sessionTtlMs,
       ua: this.hash(userAgent),
       events: [],
@@ -174,6 +176,17 @@ export class LiveUsageBotProtection {
     };
     this.sessions.set(id, session);
     return { id, csrf: session.csrf, expiresAt: session.expiresAt };
+  }
+
+  // Exposes server context only after credential validation, never browser claims.
+  sessionContext(sessionId: string | undefined, csrf: string | undefined) {
+    const session = sessionId ? this.sessions.get(sessionId) : undefined;
+    if (!session || session.expiresAt <= this.now() || csrf !== session.csrf) return null;
+    return { sessionId: sessionId!, startedAt: session.createdAt };
+  }
+
+  releaseReplayReservation(sessionId: string, eventId: string): void {
+    this.sessions.get(sessionId)?.replay.delete(eventId);
   }
 
   private knownBot(ua: string, api = false): boolean {
@@ -199,11 +212,12 @@ export class LiveUsageBotProtection {
   classifyBrowser(input: BrowserSignal): Decision {
     if (this.options.mode === 'off') return this.finish('ACCEPT', 'MODE_OFF');
     // Retain the distinction between expired and unknown credentials before cleanup.
+    // Browser requests never mutate the API IP budget. Invalid/replayed traffic
+    // cannot poison shared-network users; bounded session/ledger state controls load.
     const session = input.sessionId ? this.sessions.get(input.sessionId) : undefined;
     this.maintenance();
     if (!input.sameOrigin) return this.finish('REJECT', 'ORIGIN_INVALID');
     if (this.knownBot(input.userAgent)) return this.finish('REJECT', 'KNOWN_AUTOMATION');
-    const ipReason = this.ipSignal(input.ip);
     if (!input.sessionId) return this.finish('REJECT', 'SESSION_MISSING');
     if (!session) return this.finish('REJECT', 'SESSION_INVALID');
     if (session.expiresAt <= this.now()) return this.finish('REJECT', 'SESSION_EXPIRED');
@@ -220,7 +234,6 @@ export class LiveUsageBotProtection {
     session.events = session.events.slice(-(this.options.sessionReject + 1));
     if (count > this.options.sessionReject) return this.finish('REJECT', 'SESSION_ABUSE');
     if (this.hash(input.userAgent) !== session.ua) return this.finish('REVIEW', 'SESSION_UA_CHANGED');
-    if (ipReason) return this.finish('REVIEW', ipReason);
     if (!input.userAgent) return this.finish('REVIEW', 'UA_MISSING');
     if (count > this.options.sessionReview) return this.finish('REVIEW', 'SESSION_RATE');
     if (session.events.filter((event) => event.at > now - this.options.burstWindowMs).length > this.options.burstReview)
@@ -254,3 +267,115 @@ export const liveUsageBotProtection = new LiveUsageBotProtection(protectionOptio
 // Purge expired identifiers even when the server receives no further traffic.
 const cleanupTimer = setInterval(() => liveUsageBotProtection.cleanup(), 60_000);
 cleanupTimer.unref();
+
+/** Durable, privacy-preserving observations supplied by the shared store. */
+export interface DelayedObservation {
+  id: number;
+  sessionKey: string;
+  networkKey: string;
+  agentKey: string;
+  identityKey: string;
+  kind: string;
+  initialDecision: Classification;
+  initialReason: string;
+  receivedAt: Date;
+  sessionStartedAt: Date;
+  reviewAfter: Date;
+}
+export interface CoordinationPolicy {
+  coordinatedSessions: number;
+  sequenceLength: number;
+  synchronyMs: number;
+  freshSessionMs: number;
+}
+
+/** Pure reevaluation: no process-local session/counter lookup is used. Evidence
+ * after this event's review horizon cannot retroactively change an official row. */
+export function evaluateProvisionalEvent(
+  event: DelayedObservation,
+  observations: readonly DelayedObservation[],
+  thresholds: ProtectionOptions,
+  coordination: CoordinationPolicy,
+): Decision {
+  if (event.initialDecision !== 'ACCEPT') return { decision: event.initialDecision, reason: event.initialReason };
+  const start = event.receivedAt.getTime() - thresholds.windowMs;
+  const end = event.reviewAfter.getTime();
+  const evidence = observations
+    .filter((row) => row.receivedAt.getTime() >= start && row.receivedAt.getTime() <= end)
+    .sort((a, b) => a.receivedAt.getTime() - b.receivedAt.getTime() || a.id - b.id);
+  const session = evidence.filter((row) => row.sessionKey === event.sessionKey);
+  const taint = session.find((row) =>
+    ['KNOWN_AUTOMATION', 'SESSION_UA_CHANGED', 'SESSION_ABUSE'].includes(row.initialReason),
+  );
+  if (taint) return { decision: 'REVIEW', reason: `RETROSPECTIVE_${taint.initialReason}` };
+  if (new Set(session.map((row) => row.agentKey)).size > 1)
+    return { decision: 'REVIEW', reason: 'RETROSPECTIVE_SESSION_UA_CHANGED' };
+  for (const row of session) {
+    const at = row.receivedAt.getTime();
+    const window = session.filter(
+      (other) => other.receivedAt.getTime() <= at && other.receivedAt.getTime() > at - thresholds.windowMs,
+    );
+    if (window.length > thresholds.sessionReview) return { decision: 'REVIEW', reason: 'RETROSPECTIVE_SESSION_RATE' };
+    if (
+      window.filter((other) => other.receivedAt.getTime() > at - thresholds.burstWindowMs).length >
+      thresholds.burstReview
+    )
+      return { decision: 'REVIEW', reason: 'RETROSPECTIVE_EVENT_BURST' };
+    const recent = window.filter((other) => other.receivedAt.getTime() > at - thresholds.repeatWindowMs);
+    if (
+      recent.filter((other) => other.kind === row.kind && other.identityKey === row.identityKey).length >
+      thresholds.repeatReview
+    )
+      return { decision: 'REVIEW', reason: 'RETROSPECTIVE_EVENT_REPETITION' };
+    if (
+      new Set(recent.filter((other) => other.kind === 'ENTRY_CLICK').map((other) => other.identityKey)).size >
+      thresholds.distinctReview
+    )
+      return { decision: 'REVIEW', reason: 'RETROSPECTIVE_ENTRY_SWEEP' };
+  }
+  // Coordination is observable, not proof of automation. Only matching entry
+  // events receive the nonblocking reason; unrelated action types do not.
+  if (event.kind !== 'ENTRY_CLICK') return { decision: 'ACCEPT', reason: 'REVIEW_WINDOW_ELIGIBLE' };
+  // Require multiple matching ordered
+  // multi-item sequences AND tightly aligned per-step server receipt times.
+  const cohorts = new Map<string, DelayedObservation[]>();
+  for (const row of evidence) {
+    if (
+      row.networkKey !== event.networkKey ||
+      row.agentKey !== event.agentKey ||
+      row.kind !== 'ENTRY_CLICK' ||
+      row.receivedAt.getTime() - row.sessionStartedAt.getTime() > coordination.freshSessionMs
+    )
+      continue;
+    const rows = cohorts.get(row.sessionKey) || [];
+    rows.push(row);
+    cohorts.set(row.sessionKey, rows);
+  }
+  const target = cohorts.get(event.sessionKey)?.slice(0, coordination.sequenceLength);
+  if (
+    target?.length === coordination.sequenceLength &&
+    new Set(target.map((row) => row.identityKey)).size === coordination.sequenceLength
+  ) {
+    const peers = [...cohorts.entries()]
+      .map(([sessionKey, rows]) => ({ sessionKey, rows: rows.slice(0, coordination.sequenceLength) }))
+      .filter(
+        ({ rows }) =>
+          rows.length === target.length && rows.every((row, index) => row.identityKey === target[index].identityKey),
+      );
+    for (const anchor of peers) {
+      const matched = peers.filter(({ rows }) =>
+        rows.every(
+          (row, index) =>
+            Math.abs(row.receivedAt.getTime() - anchor.rows[index].receivedAt.getTime()) <=
+            coordination.synchronyMs / 2,
+        ),
+      );
+      if (
+        matched.length >= coordination.coordinatedSessions &&
+        matched.some((peer) => peer.sessionKey === event.sessionKey)
+      )
+        return { decision: 'ACCEPT', reason: 'COORDINATION_OBSERVED' };
+    }
+  }
+  return { decision: 'ACCEPT', reason: 'REVIEW_WINDOW_ELIGIBLE' };
+}

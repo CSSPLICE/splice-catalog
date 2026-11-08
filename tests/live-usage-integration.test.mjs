@@ -58,8 +58,8 @@ test('live event HTTP write path in enforce mode', { timeout: 30000 }, async (t)
   const app = express();
   app.use('/usage', usageJson, usagePayloadErrors);
   app.use(express.json({ limit: '50mb' }));
-  app.use('/usage', (req, res, next) => createUsageRouter(protection)(req, res, next));
-  app.post('/alternate-write', (req, res) => new UsageController(protection).recordEntryClick(req, res));
+  app.use('/usage', (req, res, next) => createUsageRouter(protection, null)(req, res, next));
+  app.post('/alternate-write', (req, res) => new UsageController(protection, null).recordEntryClick(req, res));
   app.get('/api/:catalog', (req, res) => new SearchController(protection).searchCatalogAPI(req, res));
   app.get(
     '/page',
@@ -71,6 +71,8 @@ test('live event HTTP write path in enforce mode', { timeout: 30000 }, async (t)
     const listener = app.listen(0, '127.0.0.1', () => done(listener));
   });
   const base = `http://127.0.0.1:${server.address().port}`;
+    const originalOrigin = process.env.LIVE_USAGE_ORIGIN;
+    process.env.LIVE_USAGE_ORIGIN = base;
   async function session(userAgent = ua) {
     const res = await fetch(`${base}/usage/session`, {
       method: 'POST',
@@ -376,5 +378,6 @@ test('live event HTTP write path in enforce mode', { timeout: 30000 }, async (t)
     AppDataSource.getRepository = originalRepository;
     meilisearchService.search = originalSearch;
     await mysql?.close();
+    if (originalOrigin === undefined) delete process.env.LIVE_USAGE_ORIGIN; else process.env.LIVE_USAGE_ORIGIN = originalOrigin;
   }
 });

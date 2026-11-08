@@ -1,4 +1,6 @@
-# Live usage bot protection — local review
+# Live usage bot protection — Phase 1 policy
+
+Phase 2 adds an opt-in durable provisional lifecycle. See [the Phase 2 design, setup and limits](live-usage-bot-protection-phase2.md) and [local learning simulations](../tests/local-bot-simulations/README.md). Immediate-write descriptions below describe Phase 1 (`LIVE_USAGE_PROVISIONAL_ENABLED=false`), which remains available for comparison.
 
 This change protects new live events only. It does not identify all humans, reinterpret existing rows, change aggregation queries, migrate schemas, import logs, or enable production enforcement. All application instances default to `LIVE_USAGE_MODE=off`.
 

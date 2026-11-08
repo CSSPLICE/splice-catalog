@@ -70,6 +70,8 @@
           keepalive: true,
         }).then((response) => {
           if (response.status === 401 && retry) return renew().then(() => post(false));
+          // The provisional ledger reconciles a retry of an ambiguously stored ID.
+          if (response.status === 503 && retry) return post(false);
         });
       }
       // HTML normally supplies credentials synchronously. Off mode needs none.

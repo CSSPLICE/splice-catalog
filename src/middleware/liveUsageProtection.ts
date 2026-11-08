@@ -94,6 +94,24 @@ export function classifyBrowserRequest(
   }
 }
 
+export function browserUsageContext(req: Request, protection: LiveUsageBotProtection) {
+  try {
+    if (!sameOrigin(req) || typeof req.body?.eventId !== 'string' || !/^[a-zA-Z0-9_-]{16,80}$/.test(req.body.eventId))
+      return null;
+    const session = protection.sessionContext(sessionId(req), req.get?.('x-usage-token'));
+    return session
+      ? {
+          ...session,
+          eventId: req.body.eventId as string,
+          ip: req.ip || req.socket?.remoteAddress || 'unknown',
+          userAgent: req.get?.('user-agent') || '',
+        }
+      : null;
+  } catch {
+    return null;
+  }
+}
+
 export function notCounted(res: Response, decision: Decision): Response {
   const renewable = ['SESSION_MISSING', 'SESSION_INVALID', 'SESSION_EXPIRED', 'TOKEN_INVALID'].includes(
     decision.reason,

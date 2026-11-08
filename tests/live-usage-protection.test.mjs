@@ -105,16 +105,23 @@ test('session rate review and abuse rejection boundaries; sliding window recover
   advance(service.options.windowMs);
   assert.equal(service.classifyBrowser(signal()).decision, 'ACCEPT');
 });
-test('IP threshold reviews shared NAT and cannot automatically reject it', () => {
-  const { service, signal, advance } = setup({ ipReview: 2 });
-  for (let i = 0; i < 2; i++) assert.equal(service.classifyBrowser(signal()).decision, 'ACCEPT');
-  const human = service.issueSession(undefined, ua);
-  assert.deepEqual(service.classifyBrowser(signal({ sessionId: human.id, csrf: human.csrf })), {
-    decision: 'REVIEW',
-    reason: 'IP_RATE',
-  });
-  advance(service.options.windowMs);
-  assert.equal(service.classifyBrowser(signal()).decision, 'ACCEPT');
+test('invalid requests, replay floods and credentialed volume never poison a shared-IP browser or API budget', () => {
+  const { service, signal } = setup();
+  for (let i = 0; i < 601; i++) {
+    assert.equal(service.classifyBrowser(signal({ sessionId: undefined })).reason, 'SESSION_MISSING');
+    assert.equal(service.classifyBrowser(signal({ csrf: 'invalid' })).reason, 'TOKEN_INVALID');
+  }
+  const repeated = signal();
+  service.classifyBrowser(repeated);
+  for (let i = 0; i < 601; i++) assert.equal(service.classifyBrowser(repeated).reason, 'EVENT_REPLAY');
+  for (let i = 0; i < 241; i++) service.classifyBrowser(signal({ identity: `item:${i}` }));
+  assert.equal(service.classifyBrowser(signal()).reason, 'SESSION_ABUSE');
+  for (let i = 0; i < 5; i++) {
+    const professor = service.issueSession(undefined, ua);
+    assert.equal(service.classifyBrowser(signal({ sessionId: professor.id, csrf: professor.csrf })).decision, 'ACCEPT');
+  }
+  assert.equal(service.snapshot().ips, 0);
+  assert.equal(service.classifyApi('192.0.2.1', 'curl/8').decision, 'ACCEPT');
 });
 test('event burst and rapid distinct-entry sweep are review signals', () => {
   for (const [options, expected] of [
@@ -140,7 +147,9 @@ test('session, IP and replay capacity are bounded; expired memory is purged', ()
   const { service, signal, advance } = setup({ maxSessions: 1, maxIps: 1, maxReplayIds: 2 });
   assert.equal(service.issueSession(undefined, ua), null);
   service.classifyBrowser(signal());
-  assert.equal(service.classifyBrowser(signal({ ip: 'other' })).reason, 'STATE_CAPACITY');
+  assert.equal(service.classifyBrowser(signal({ ip: 'other' })).decision, 'ACCEPT');
+  assert.equal(service.classifyApi('api-one', 'curl/8').decision, 'ACCEPT');
+  assert.equal(service.classifyApi('api-two', 'curl/8').reason, 'STATE_CAPACITY');
   assert.equal(service.classifyBrowser(signal()).reason, 'REPLAY_CAPACITY');
   assert.equal(service.snapshot().sessions, 1);
   assert.equal(service.snapshot().ips, 1);

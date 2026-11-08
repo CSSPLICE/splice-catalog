@@ -113,7 +113,7 @@ for (const [catalogType, itemIdentifier, expected] of [
 ]) {
   test(`entry click resolves canonical ${catalogType} metadata exactly once`, async () => {
     const res = response();
-    await new UsageController(regressionProtection).recordEntryClick(
+    await new UsageController(regressionProtection, null).recordEntryClick(
       { body: { catalogType, itemIdentifier, itemTitle: 'spoof', catalogPath: '/spoof' } },
       res,
     );
@@ -133,7 +133,7 @@ for (const [catalogType, itemIdentifier, linkType] of [
 ]) {
   test(`external click preserves ${linkType}`, async () => {
     const res = response();
-    await new UsageController(regressionProtection).recordExternalClick({ body: { catalogType, itemIdentifier, linkType } }, res);
+    await new UsageController(regressionProtection, null).recordExternalClick({ body: { catalogType, itemIdentifier, linkType } }, res);
     assert.equal(res.statusCode, 201);
     assert.equal(events.length, 1);
     assert.equal(events[0].eventType, 'EXTERNAL_CLICK');
@@ -141,7 +141,7 @@ for (const [catalogType, itemIdentifier, linkType] of [
   });
 }
 test('invalid/unknown identities and mismatched links create no events', async () => {
-  const controller = new UsageController(regressionProtection);
+  const controller = new UsageController(regressionProtection, null);
   for (const body of [
     {},
     { catalogType: 'toString', itemIdentifier: '8' },
@@ -181,7 +181,7 @@ test('normalization is minimal and invalid/overlong inputs are rejected', () => 
 test('WEB ingestion fixes source, ignores identifiers and records deliberate repetitions', async () => {
   for (let i = 0; i < 2; i++) {
     const res = response();
-    await new UsageController(regressionProtection).recordWebSearch(
+    await new UsageController(regressionProtection, null).recordWebSearch(
       { body: { query: '  binary   tree ', source: 'API', userId: 'do-not-store', resultCount: 999 } },
       res,
     );
@@ -191,7 +191,7 @@ test('WEB ingestion fixes source, ignores identifiers and records deliberate rep
   assert.deepEqual(searches[0], { source: 'WEB', query: 'binary tree', catalogType: 'SLC_ITEM', resultCount: null });
   for (const query of ['', '  ', [], 'x'.repeat(501)]) {
     const res = response();
-    await new UsageController(regressionProtection).recordWebSearch({ body: { query } }, res);
+    await new UsageController(regressionProtection, null).recordWebSearch({ body: { query } }, res);
     assert.equal(res.statusCode, 400);
   }
   assert.equal(searches.length, 2);

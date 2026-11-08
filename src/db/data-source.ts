@@ -14,6 +14,7 @@ import { ValidationJobConstraint } from './entities/ValidationJobConstraint.js';
 import { UsageEvent } from './entities/UsageEvent.js';
 import { HistoricalUsage } from './entities/HistoricalUsage.js';
 import { SearchEvent } from './entities/SearchEvent.js';
+import { ProvisionalUsageEvent, LiveUsagePipelineLock } from './entities/ProvisionalUsageEvent.js';
 
 dotenv.config();
 
@@ -46,6 +47,8 @@ export const AppDataSource: DataSource = new DataSource({
     UsageEvent,
     HistoricalUsage,
     SearchEvent,
+    ProvisionalUsageEvent,
+    LiveUsagePipelineLock,
   ],
   synchronize: false,
   subscribers: [],
