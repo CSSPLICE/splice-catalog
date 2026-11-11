@@ -15,6 +15,7 @@ import { UsageEvent } from './entities/UsageEvent.js';
 import { HistoricalUsage } from './entities/HistoricalUsage.js';
 import { SearchEvent } from './entities/SearchEvent.js';
 import { ProvisionalUsageEvent, LiveUsagePipelineLock } from './entities/ProvisionalUsageEvent.js';
+import { UsageEventAudit } from './entities/UsageEventAudit.js';
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ export const AppDataSource: DataSource = new DataSource({
     SearchEvent,
     ProvisionalUsageEvent,
     LiveUsagePipelineLock,
+    UsageEventAudit,
   ],
   synchronize: false,
   subscribers: [],

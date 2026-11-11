@@ -11,6 +11,8 @@ import {
 } from '../db/entities/ProvisionalUsageEvent.js';
 import { UsageEvent } from '../db/entities/UsageEvent.js';
 import { SearchEvent } from '../db/entities/SearchEvent.js';
+import { UsageEventAudit, UsageAuditStatus } from '../db/entities/UsageEventAudit.js';
+import { liveUsageAuditConfiguration, LiveUsageAuditConfiguration } from './LiveUsageAuditConfiguration.js';
 import {
   Decision,
   ProtectionOptions,
@@ -44,6 +46,18 @@ export const provisionalDefaults: ProvisionalOptions = {
 };
 // A versioned fingerprint fences code-only evaluator changes as well as settings.
 export const currentUsagePolicy = 'phase2.1-v1';
+// Exact reasons only: retrospective REVIEW evidence remains useful even when
+// another event in the session was known automation. Never remove provisional evidence.
+const excludedAuditReasons = new Set([
+  'KNOWN_AUTOMATION',
+  'ORIGIN_INVALID',
+  'SESSION_MISSING',
+  'SESSION_INVALID',
+  'SESSION_EXPIRED',
+  'TOKEN_INVALID',
+  'EVENT_ID_INVALID',
+  'CREDENTIAL_CONTEXT_UNAVAILABLE',
+]);
 export interface UsagePolicyConfiguration {
   policy: string;
   options: ProvisionalOptions;
@@ -103,6 +117,7 @@ export class MySqlProvisionalUsageStore implements ProvisionalUsageStore {
     private options: ProvisionalOptions,
     private thresholds: ProtectionOptions,
     readonly configurationId: string,
+    private auditConfiguration: Pick<LiveUsageAuditConfiguration, 'enabled'> = liveUsageAuditConfiguration,
   ) {}
 
   get dataSource() {
@@ -122,6 +137,43 @@ export class MySqlProvisionalUsageStore implements ProvisionalUsageStore {
         await repository.update(1, { configurationId: this.configurationId });
       }
       return work(manager);
+    });
+  }
+
+  private async auditFinalized(manager: EntityManager, row: ProvisionalUsageEvent): Promise<void> {
+    if (
+      !this.auditConfiguration.enabled ||
+      row.status === 'PENDING' ||
+      excludedAuditReasons.has(row.initialReason) ||
+      excludedAuditReasons.has(row.reason)
+    )
+      return;
+    if (!row.finalizedAt) throw new Error('PROVISIONAL_FINALIZATION_REQUIRED');
+    // Only the canonical payload staged by the server can supply display fields.
+    // Read it before redaction; never spread it into the audit insert (it may contain a query).
+    const payload = row.payload?.kind === row.kind ? row.payload : null;
+    const click = payload && payload.kind !== 'WEB_SEARCH' ? payload : null;
+    await manager.getRepository(UsageEventAudit).insert({
+      provisionalEventId: row.id,
+      eventKey: row.eventKey,
+      sessionKey: row.sessionKey,
+      networkKey: row.networkKey,
+      agentKey: row.agentKey,
+      identityKey: row.identityKey,
+      kind: row.kind,
+      initialDecision: row.initialDecision,
+      initialReason: row.initialReason,
+      status: row.status,
+      reason: row.reason,
+      policyVersion: currentUsagePolicy,
+      sessionStartedAt: row.sessionStartedAt,
+      receivedAt: row.receivedAt,
+      finalizedAt: row.finalizedAt,
+      officialEventId: row.officialEventId,
+      catalogType: payload?.catalogType ?? null,
+      linkType: click?.kind === 'EXTERNAL_CLICK' ? click.linkType ?? null : null,
+      itemPersistentID: click?.itemPersistentID ?? null,
+      itemTitle: click ? Array.from(click.itemTitle).slice(0, 255).join('') : null,
     });
   }
 
@@ -158,6 +210,7 @@ export class MySqlProvisionalUsageStore implements ProvisionalUsageStore {
       if (replayOnly) throw new Error('PROVISIONAL_REPLAY_NOT_STORED');
       if ((await repository.count()) >= this.options.maxRows) throw new Error('PROVISIONAL_CAPACITY');
       const row = await repository.save(repository.create(data));
+      await this.auditFinalized(manager, row);
       return { row, duplicate: false };
     });
   }
@@ -246,15 +299,17 @@ export class MySqlProvisionalUsageStore implements ProvisionalUsageStore {
             officialEventId = official.id;
           }
         }
+        const status: UsageAuditStatus =
+          decision.reason === 'PENDING_EXPIRED'
+            ? 'EXPIRED'
+            : decision.decision === 'ACCEPT'
+              ? 'ACCEPTED'
+              : decision.decision === 'REJECT'
+                ? 'REJECTED'
+                : 'REVIEW';
+        await this.auditFinalized(manager, { ...row, status, reason: decision.reason, finalizedAt: now, officialEventId });
         await repository.update(row.id, {
-          status:
-            decision.reason === 'PENDING_EXPIRED'
-              ? 'EXPIRED'
-              : decision.decision === 'ACCEPT'
-                ? 'ACCEPTED'
-                : decision.decision === 'REJECT'
-                  ? 'REJECTED'
-                  : 'REVIEW',
+          status,
           reason: decision.reason,
           payload: null,
           finalizedAt: now,
@@ -276,11 +331,15 @@ export class MySqlProvisionalUsageStore implements ProvisionalUsageStore {
         .orderBy('event.id')
         .limit(this.options.batchSize)
         .getMany();
-      if (overdue.length)
+      if (overdue.length) {
+        for (const row of overdue) {
+          await this.auditFinalized(manager, { ...row, status: 'EXPIRED', reason: 'PENDING_EXPIRED', finalizedAt: now });
+        }
         await repository.update(
           overdue.map((row) => row.id),
           { status: 'EXPIRED', reason: 'PENDING_EXPIRED', payload: null, finalizedAt: now },
         );
+      }
       const expired = await repository
         .createQueryBuilder('event')
         .where('event.purgeAfter <= :now AND event.status != :pending', { now, pending: 'PENDING' })
@@ -326,6 +385,7 @@ export class ProvisionalUsageService {
     options: Partial<ProvisionalOptions> = {},
     private now: () => number = Date.now,
     store?: ProvisionalUsageStore,
+    auditConfiguration: Pick<LiveUsageAuditConfiguration, 'enabled'> = liveUsageAuditConfiguration,
   ) {
     if (Buffer.byteLength(secret) < 32) throw new Error('LIVE_USAGE_STATE_SECRET must contain at least 32 bytes');
     this.options = { ...provisionalDefaults, ...options };
@@ -342,7 +402,7 @@ export class ProvisionalUsageService {
     this.configuration = { policy: currentUsagePolicy, options: this.options, thresholds };
     this.configurationId = usageConfigurationId(secret, this.configuration);
     this.key = (domain, value) => createHmac('sha256', secret).update(`${domain}\0${value}`).digest('hex');
-    this.store = store || new MySqlProvisionalUsageStore(db, this.options, thresholds, this.configurationId);
+    this.store = store || new MySqlProvisionalUsageStore(db, this.options, thresholds, this.configurationId, auditConfiguration);
   }
   private key: (domain: string, value: string) => string;
 

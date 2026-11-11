@@ -9,9 +9,11 @@ import { slc_tools_catalog } from '../../src/db/entities/SLCToolsCatalog.ts';
 import { dataset_catalog } from '../../src/db/entities/DatasetCatalog.ts';
 import { HistoricalUsage } from '../../src/db/entities/HistoricalUsage.ts';
 import { SearchEvent } from '../../src/db/entities/SearchEvent.ts';
+import { UsageEventAudit } from '../../src/db/entities/UsageEventAudit.ts';
+import { CreateUsageEventAudit1794100000000 } from '../../src/db/migrations/1794100000000-CreateUsageEventAudit.ts';
 
 // Explicit opt-in, localhost only, fresh random schema. Never use application DB_*.
-export async function optionalMysql({ phase2 = false } = {}) {
+export async function optionalMysql({ phase2 = false, audit = false } = {}) {
   if (process.env.LIVE_USAGE_TEST_MYSQL !== 'disposable') return null;
   const port = Number(process.env.LIVE_USAGE_TEST_MYSQL_PORT);
   if (!Number.isInteger(port) || port < 1024 || port > 65535 || port === 3306)
@@ -41,13 +43,20 @@ export async function optionalMysql({ phase2 = false } = {}) {
       logging: false,
     });
     await db.initialize();
-    if (phase2) {
+    if (phase2 || audit) {
       // Baseline fixture tables were synchronized only in this fresh schema.
-      // Phase 2 tables must be created by the actual production migration.
+      // Provisional/audit tables must be created by their actual production migrations.
       db.setOptions({
         synchronize: false,
-        entities: [...db.options.entities, ProvisionalUsageEvent, LiveUsagePipelineLock],
-        migrations: [CreateProvisionalUsageEvents1794000000000],
+        entities: [
+          ...db.options.entities,
+          ...(phase2 ? [ProvisionalUsageEvent, LiveUsagePipelineLock] : []),
+          ...(audit ? [UsageEventAudit] : []),
+        ],
+        migrations: [
+          ...(phase2 ? [CreateProvisionalUsageEvents1794000000000] : []),
+          ...(audit ? [CreateUsageEventAudit1794100000000] : []),
+        ],
       });
       await db.buildMetadatas();
       await db.runMigrations({ transaction: 'all' });
@@ -79,6 +88,7 @@ export async function optionalMysql({ phase2 = false } = {}) {
       };
     },
     async clear() {
+      if (audit) await db.getRepository(UsageEventAudit).clear();
       if (phase2) {
         await db.getRepository(ProvisionalUsageEvent).clear();
         await db.getRepository(LiveUsagePipelineLock).update(1, { configurationId: null });
