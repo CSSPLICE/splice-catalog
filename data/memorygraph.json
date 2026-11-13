@@ -1,0 +1,27 @@
+[
+  {
+    "catalog_type": "SLCToolsCatalog",
+    "platform_name": "Memory Graph",
+    "url": "https://github.com/bterwijn/memory_graph",
+    "description": "For program understanding and debugging, the memory_graph package can visualize your data, supporting many different data types.",
+    "contact_email": "b.terwijn@uva.nl"
+  },
+  {
+    "catalog_type": "SLCItem",
+    "platform_name": "Memory Graph",
+    "iframe_url": "https://memory-graph.com/embed/#code=import&timestep=1&play",
+    "persistentID": "https://github.com/bterwijn/memory_graph",
+    "protocol_url": [
+    ],
+    "protocol": [],
+    "license": "https://github.com/bterwijn/memory_graph?tab=BSD-2-Clause-1-ov-file",
+    "description": "For program understanding and debugging, the memory_graph package can visualize your data, supporting many different data types.",
+    "author": ["Bas Terwijn"],
+    "institution": [],
+    "keywords": ["Dynamic Storage Allocation", "Heap Memory"],
+    "features": ["Algorithm Visualization"],
+    "title": "Memory Graph",
+    "programming_language": ["Python"],
+    "natural_language": ["en"]
+  }
+]
