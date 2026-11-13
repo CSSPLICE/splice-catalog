@@ -1,7 +1,59 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { LiveUsageBotProtection, evaluateProvisionalEvent } from '../src/services/LiveUsageBotProtection.ts';
-import { ProvisionalUsageService, provisionalDefaults } from '../src/services/ProvisionalUsageService.ts';
+import { setImmediate as flushAsync } from 'node:timers/promises';
+import { LiveUsageBotProtection, evaluateProvisionalEvent, liveUsageBotProtection } from '../src/services/LiveUsageBotProtection.ts';
+import { ProvisionalUsageService, provisionalDefaults, startProvisionalWorker } from '../src/services/ProvisionalUsageService.ts';
+
+function startTestWorker(tick) {
+  const previousMode = liveUsageBotProtection.options.mode;
+  liveUsageBotProtection.options.mode = 'enforce';
+  try {
+    return startProvisionalWorker({ tick, options: { pollMs: 100 } });
+  } finally {
+    liveUsageBotProtection.options.mode = previousMode;
+  }
+}
+
+test('stopping an idle provisional worker is repeatable and clears its polling timer', { timeout: 2000 }, async (t) => {
+  t.mock.timers.enable({ apis: ['setInterval'] });
+  let calls = 0;
+  const stop = startTestWorker(async () => { calls++; });
+  await flushAsync();
+  assert.equal(calls, 1);
+  await stop();
+  await stop();
+  t.mock.timers.tick(1000);
+  await flushAsync();
+  assert.equal(calls, 1);
+});
+
+test('stopping the provisional worker waits for its active tick and prevents new ticks', { timeout: 2000 }, async (t) => {
+  t.mock.timers.enable({ apis: ['setInterval'] });
+  const tick = Promise.withResolvers();
+  let calls = 0;
+  const stop = startTestWorker(() => {
+    calls++;
+    return tick.promise;
+  });
+  try {
+    assert.equal(calls, 1);
+    let stopped = false;
+    const drained = Promise.all([stop(), stop()]).then(() => { stopped = true; });
+    t.mock.timers.tick(1000);
+    await flushAsync();
+    assert.equal(stopped, false);
+    assert.equal(calls, 1);
+    tick.resolve();
+    await drained;
+    t.mock.timers.tick(1000);
+    await flushAsync();
+    assert.equal(calls, 1);
+  } finally {
+    tick.resolve();
+    await stop();
+  }
+});
+
 const thresholds = new LiveUsageBotProtection({ mode: 'enforce' }).options;
 const start = Date.now();
 function observation(id, extra = {}) {

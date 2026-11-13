@@ -1,16 +1,26 @@
-# Browser usage audit — Steps 1 and 2
+# Browser usage audit
 
-Step 1 adds `usage_event_audit`, its registered TypeORM entity, and validated configuration. Step 2 integrates selected finalized browser events into the existing provisional pipeline transactions. Audit retention cleanup and administrative views/exports remain unimplemented. Detection decisions, official counting logic, the two-minute review window, and both migrations are unchanged by Step 2. Apply the existing `1794100000000-CreateUsageEventAudit.ts` migration before enabling audit collection.
+The provisional pipeline records selected finalized browser events in `usage_event_audit`. An independent worker removes expired audit history. Apply the existing `1794100000000-CreateUsageEventAudit.ts` migration before enabling collection. Application startup leaves schema management to the deployment migration step.
 
 ## Configuration and retention
 
-`LIVE_USAGE_AUDIT_ENABLED=false` defaults to disabled and accepts only `true` or `false`. When enabled, new eligible terminal transitions in the provisional browser pipeline write audit rows. When disabled, no audit repository access is required and existing counting/redaction behavior is preserved. Events already finalized while disabled are not backfilled by retries. `LIVE_USAGE_AUDIT_RETENTION_DAYS=90` defaults to 90 and accepts integer days from 1 through 365. Invalid settings fail validation at application startup, including when disabled. Audit settings are separate from `ProvisionalOptions` and the existing policy fingerprint; changing them does not require a detection-policy transition.
+`LIVE_USAGE_AUDIT_ENABLED=false` defaults to disabled and accepts `true` or `false`. The flag controls collection of new audit rows. Cleanup runs with either setting so previously collected history still expires. When collection is disabled and the table is absent, the worker skips that pass and checks again at the next scheduled run. An absent table with collection enabled is reported as a cleanup failure. Events finalized while collection was disabled are not backfilled.
 
-The pure `usageAuditRetentionCutoff(now, retentionDays)` helper subtracts the current retention in elapsed 24-hour days from the current time, preserving milliseconds. Future cleanup must use `WHERE finalizedAt <= :cutoff`, with the cutoff bound as a parameter. The existing `IDX_usage_audit_finalized(finalizedAt)` index supports this comparison without wrapping the indexed column in a function. No cleanup query or job is implemented yet.
+`LIVE_USAGE_AUDIT_RETENTION_DAYS=90` defaults to 90 and accepts integers from 1 through 365. Each pass computes a fresh cutoff from the configured number of elapsed 24-hour days. It deletes rows whose `finalizedAt` is at or before that cutoff, including equality to the millisecond.
 
-There is no per-row `expiresAt` or insertion-time retention snapshot. The active retention policy applies equally to all retained rows: changing 90 to 30 days makes rows finalized at least 30 days ago eligible for the next cleanup pass; increasing retention keeps still-present rows longer but cannot restore deleted rows. Settings are loaded at startup, so reload/restart all instances consistently after changing environment variables. Any future administrative view must calculate eligibility from the same active policy. No row rewrite or bot-policy transition is required.
+Changing 90 to 30 days makes existing rows finalized at least 30 days ago eligible on the next pass. Changing 90 to 180 days preserves still-present rows for longer. Deletions are permanent. Restart all instances with the same settings after changing retention because an instance still running with a shorter window can continue deleting according to that window. Audit settings are independent of the bot policy fingerprint.
 
-All audit timestamps use `datetime(3)`, matching provisional timestamps. `finalizedAt` is required without a database default: the future writer must supply the actual finalization time, including immediate REVIEW/REJECT and EXPIRED paths. Retention starts at finalization, not receipt. Use the same time convention as provisional events across application instances and database connections.
+All audit timestamps use `datetime(3)`, matching provisional timestamps. Retention starts at the `finalizedAt` time recorded by the audit writer. Use a consistent time convention across application instances and database connections.
+
+## Cleanup scheduling and batching
+
+The worker starts a pass asynchronously after HTTP begins listening and runs approximately every 24 hours thereafter. Shutdown clears the timer and waits for an active pass before closing the database connection. `LIVE_USAGE_AUDIT_MAX_ROWS_PER_PASS=20000` sets the maximum rows deleted per pass per instance. The application validates all audit settings at startup. The cap accepts integers from 1 through 100,000 to bound a pass to at most 100 delete statements. Restart the application to apply a new cap.
+
+Full batches delete up to 1,000 rows. When the remaining allowance is smaller, the worker uses it as the final batch size. A pass stops when it reaches the cap or a batch deletes fewer rows than requested. Larger backlogs drain across successive passes. Expiration determines when a row becomes eligible. Actual deletion depends on the schedule, backlog, and database availability.
+
+Each batch is a single autocommitted MySQL `DELETE` ordered by `finalizedAt` and then `id`. The existing finalization index supports the range query and InnoDB stores the primary key in that index for ties. MySQL selects and deletes the rows atomically without sending event data to the application. Within a process, a timer tick skips an active pass. Across instances, concurrent batches use normal InnoDB locking and recheck the expiration predicate. Each instance has its own pass limit.
+
+The worker logs the deleted count on success and a sanitized database error code on failure. Reaching the cap emits a warning with the deleted count because expired rows may remain. The warning contains no audit records or identifiers. A failed batch rolls back while earlier batches remain committed. The next scheduled pass or restart retries using the current cutoff. Cleanup targets only `usage_event_audit` and has no dependency on the provisional pipeline lock. Official clicks, searches, and aggregates survive because audit references have no foreign keys and the official data lives in separate tables.
 
 ## Schema
 
@@ -56,8 +66,16 @@ The shared InnoDB pipeline lock serializes admissions and finalizers. Admission 
 
 Audit errors propagate and roll back the entire transaction, including official inserts and provisional updates/redaction. Worker failures leave payloads pending for retry. Immediate admission failures leave no partial provisional/audit row; the existing HTTP failure handler releases its local replay reservation and returns a non-counting 503 so the same event ID can retry. Failures after the audit insert also roll that insert back. Skipped/disabled audits do not alter existing evidence, classification or counts.
 
-Step 3 must implement audit-retention cleanup using the active cutoff for each pass over all retained rows. Read-only administrative review remains separate work. Until cleanup is implemented, retained audit records are not automatically deleted at their retention age. Enable the flag consistently across instances; mixed enabled/disabled workers can leave audit gaps because finalized events are not backfilled.
+Use the same collection setting across instances to avoid audit gaps when workers finalize events.
+
+## Audit History
+
+Administrators can open **Audit History** in the Usage Statistics dashboard. The read-only tab loads retained finalized browser events on demand, including when collection is disabled. Existing retention settings determine how long records are available.
+
+Use the search field for titles, persistent IDs, and reason codes. Narrow results by status, event type, catalog, or finalized date. The default view covers up to 30 calendar days within the configured retention period. Custom ranges include both dates and use the server time zone. Results show 25 rows per page. Refine filters to reach older records once the 10,000-row pagination offset limit is reached.
+
+**Download JSON** and **Download CSV** export the same records for the applied filters, with up to 5,000 records per download. Larger exports ask you to narrow the filters. Audit History provides no controls to edit, delete, or reclassify events. Official usage totals and their exports use the dashboard’s global filters.
 
 ## Validation
 
-Run `npm run test:usage-audit`. Its default tests build TypeORM metadata without opening an application database connection and verify cutoff arithmetic, retention changes and the exact eligibility boundary. Optional schema and pipeline integration tests use the existing disposable-localhost helper, random schemas and actual migrations. They cover schema agreement, canonical metadata, query privacy, terminal decisions, both expiration paths, concurrent/reconnected retries, disabled operation without an audit table, injected audit/transition failures with rollback/recovery, and audit survival after provisional cleanup. They never use application DB_* variables. To run against a dedicated disposable MySQL instance, follow [the existing setup](live-usage-bot-protection.md) and set `LIVE_USAGE_TEST_MYSQL=disposable LIVE_USAGE_TEST_MYSQL_PORT=<dedicated non-3306 port>` before the command.
+Run `npm run test:usage-audit` for configuration, cutoff, scheduler, and schema checks. The optional integration tests use random schemas and the existing migrations on a dedicated disposable MySQL instance. They cover the audit pipeline, indexed cleanup of a large backlog, boundary and configuration changes, concurrent finalization, failed-batch retry, and server restarts with collection disabled. The server test takes its database connection from the disposable fixture. Set `LIVE_USAGE_TEST_MYSQL=disposable LIVE_USAGE_TEST_MYSQL_PORT=<dedicated non-3306 port>` to run them. [Disposable MySQL setup](live-usage-bot-protection.md)

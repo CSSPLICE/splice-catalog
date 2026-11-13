@@ -489,11 +489,9 @@ function configuredService(): ProvisionalUsageService | null {
 }
 export const provisionalUsageService = configuredService();
 export function startProvisionalWorker(service = provisionalUsageService) {
-  if (!service || liveUsageBotProtection.options.mode !== 'enforce') return () => {};
-  let running = false;
-  const run = async () => {
-    if (running) return;
-    running = true;
+  if (!service || liveUsageBotProtection.options.mode !== 'enforce') return async () => {};
+  let active: Promise<void> | undefined;
+  const tick = async () => {
     try {
       await service.tick();
     } catch (error) {
@@ -502,12 +500,17 @@ export function startProvisionalWorker(service = provisionalUsageService) {
           ? error.message
           : 'PROVISIONAL_UNAVAILABLE';
       console.error(`Provisional usage finalization failed: ${reason}; pending events retained for retry`);
-    } finally {
-      running = false;
     }
   };
-  void run();
-  const timer = setInterval(() => void run(), service.options.pollMs);
+  const run = () => {
+    if (active) return;
+    active = tick().finally(() => { active = undefined; });
+  };
+  run();
+  const timer = setInterval(run, service.options.pollMs);
   timer.unref();
-  return () => clearInterval(timer);
+  return async () => {
+    clearInterval(timer);
+    await active;
+  };
 }

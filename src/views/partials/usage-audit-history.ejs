@@ -1,0 +1,49 @@
+<div role="tabpanel" id="usage-panel-audit" aria-labelledby="usage-tab-audit" tabindex="0" data-statistics-table="audit" <%= activeTab !== 'audit' ? 'hidden' : '' %>>
+  <div class="usage-audit-note">
+    <strong class="catalog-type-badge catalog-type-badge--unknown">Read-only</strong>
+    <span>Finalized browser events are kept for the configured retention period.</span>
+    <span data-audit-disabled hidden>New audit collection is currently disabled.</span>
+  </div>
+
+  <form action="/admin/usage-statistics/audit" method="GET" data-audit-filters aria-label="Audit history filters">
+    <div class="usage-table-toolbar">
+      <label class="usage-search"><span class="usage-sr-only">Search audit history</span><input type="search" name="q" maxlength="200" autocomplete="off" placeholder="Search by item title, persistent ID, or reason..."></label>
+      <div class="usage-export-actions">
+        <button type="button" data-audit-download="json" disabled>Download JSON</button>
+        <button type="button" data-audit-download="csv" disabled>Download CSV</button>
+      </div>
+    </div>
+    <div class="usage-filter-form usage-audit-filters">
+      <label>Status<select name="status"><option value="">All statuses</option>
+      <% for (const status of ['ACCEPTED', 'REVIEW', 'REJECTED', 'EXPIRED']) { %><option><%= status %></option><% } %>
+      </select></label>
+      <label>Event Type<select name="kind"><option value="">All events</option>
+      <% for (const kind of ['ENTRY_CLICK', 'EXTERNAL_CLICK', 'WEB_SEARCH']) { %><option><%= kind %></option><% } %>
+      </select></label>
+      <label>Time Range<select name="period">
+      <% if (![7, 30, 90].includes(auditDefaultDays)) { %>
+        <option value="">Last <%= auditDefaultDays %> <%= auditDefaultDays === 1 ? 'day' : 'days' %></option>
+      <% } %>
+      <% for (const days of [7, 30, 90]) { %>
+        <option value="<%= days === auditDefaultDays ? '' : `${days}d` %>" <%= days === auditDefaultDays ? 'selected' : '' %>>Last <%= days %> days</option>
+      <% } %>
+      <option value="custom">Custom range</option>
+      </select></label>
+      <label>Catalog<select name="catalogType"><option value="">All catalogs</option><option value="SLC_ITEM">SLC Items</option><option value="TOOL">Tools</option><option value="DATASET">Datasets</option></select></label>
+      <label data-audit-date hidden>From<input type="date" name="from" disabled></label>
+      <label data-audit-date hidden>To<input type="date" name="to" disabled></label>
+      <div class="usage-filter-actions">
+        <button type="submit" class="usage-primary-button">Apply filters</button>
+        <button type="button" class="usage-reset" data-audit-reset>Reset</button>
+      </div>
+    </div>
+  </form>
+  <p class="usage-validation usage-audit-export-message" data-audit-export-message role="status" hidden></p>
+
+  <div class="usage-table-scroll" role="region" aria-label="Audit history table" tabindex="0"><table class="usage-table usage-audit-table">
+    <caption class="usage-sr-only">Finalized browser usage audit records</caption>
+    <thead><tr><th scope="col">Finalized At</th><th scope="col">Event Type</th><th scope="col">Status</th><th scope="col">Reason</th><th scope="col">Catalog / Item</th><th scope="col" class="usage-number">Official ID</th></tr></thead>
+    <tbody data-audit-rows><tr data-table-empty><td colspan="6" class="usage-empty">Open this tab to load audit history.</td></tr></tbody>
+  </table></div>
+  <div class="usage-table-footer"><p data-table-summary aria-live="polite"></p><nav class="usage-pagination" aria-label="Audit history pages" data-table-pagination></nav></div>
+</div>

@@ -1,18 +1,27 @@
 import 'reflect-metadata';
 import assert from 'node:assert/strict';
+import { spawn } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
+import { once } from 'node:events';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { test } from 'node:test';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
 import { AppDataSource } from '../src/db/data-source.ts';
 import { UsageEventAudit } from '../src/db/entities/UsageEventAudit.ts';
 import { ProvisionalUsageEvent, LiveUsagePipelineLock } from '../src/db/entities/ProvisionalUsageEvent.ts';
 import { UsageEvent } from '../src/db/entities/UsageEvent.ts';
 import { SearchEvent } from '../src/db/entities/SearchEvent.ts';
+import { HistoricalUsage } from '../src/db/entities/HistoricalUsage.ts';
 import { slc_item_catalog } from '../src/db/entities/SLCItemCatalog.ts';
 import { LiveUsageBotProtection } from '../src/services/LiveUsageBotProtection.ts';
 import { ProvisionalUsageService, currentUsagePolicy } from '../src/services/ProvisionalUsageService.ts';
-import { readLiveUsageAuditConfiguration } from '../src/services/LiveUsageAuditConfiguration.ts';
+import { readLiveUsageAuditConfiguration, usageAuditRetentionCutoff } from '../src/services/LiveUsageAuditConfiguration.ts';
+import { cleanupUsageEventAudit } from '../src/services/LiveUsageAuditRetention.ts';
 import { createUsageRouter } from '../src/routes/usage.ts';
+import dashboardRoutes from '../src/routes/usageDashboard.ts';
 import { optionalMysql } from './helpers/live-usage-mysql.mjs';
 
 const secret = 'audit-pipeline-fixture-secret-at-least-32-bytes';
@@ -21,6 +30,114 @@ const payload = {
   kind: 'ENTRY_CLICK', itemPersistentID: 'urn:audit:1', itemTitle: 'Canonical catalog title',
   catalogType: 'SLC_ITEM', catalogPath: '/catalog/item/1',
 };
+
+function shutdownProbe(firstWorker) {
+  const secondWorker = firstWorker === 'audit' ? 'provisional' : 'audit';
+  return `
+    await import(${JSON.stringify(import.meta.resolve('reflect-metadata'))});
+    const { Server } = await import('node:http');
+    const { AppDataSource } = await import(${JSON.stringify(new URL('../src/db/data-source.ts', import.meta.url).href)});
+    const { ProvisionalUsageService } = await import(${JSON.stringify(new URL('../src/services/ProvisionalUsageService.ts', import.meta.url).href)});
+    const workers = Object.fromEntries(['audit', 'provisional'].map(name => [name, {
+      release: Promise.withResolvers(), finished: Promise.withResolvers(),
+    }]));
+    const events = [];
+    async function pauseWorker(name, run) {
+      console.log('shutdown probe: ' + name + ' started');
+      await workers[name].release.promise;
+      try {
+        const result = await run();
+        events.push(name + ' finished');
+        return result;
+      } finally {
+        workers[name].finished.resolve();
+      }
+    }
+    const tick = ProvisionalUsageService.prototype.tick;
+    ProvisionalUsageService.prototype.tick = function () {
+      return pauseWorker('provisional', () => tick.call(this));
+    };
+    const query = AppDataSource.query.bind(AppDataSource);
+    AppDataSource.query = (sql, ...args) => sql.startsWith('DELETE FROM usage_event_audit')
+      ? pauseWorker('audit', () => query(sql, ...args))
+      : query(sql, ...args);
+    const close = Server.prototype.close;
+    Server.prototype.close = function (...args) {
+      this.once('close', () => {
+        const first = workers[${JSON.stringify(firstWorker)}];
+        first.release.resolve();
+        void first.finished.promise.then(() => setImmediate(workers[${JSON.stringify(secondWorker)}].release.resolve));
+      });
+      return close.apply(this, args);
+    };
+    const destroy = AppDataSource.destroy.bind(AppDataSource);
+    AppDataSource.destroy = async () => {
+      console.log('shutdown probe: ' + [...events, 'database destroy'].join(', '));
+      await destroy();
+    };
+  `;
+}
+
+async function runCatalog(db, expectedLog, {
+  retentionDays = '90', maxRowsPerPass, expectedExitCode = 0, firstWorkerToFinish,
+} = {}) {
+  const cwd = await mkdtemp(join(tmpdir(), 'splice-audit-start-'));
+  // The upload route creates its container-specific directory during import.
+  const uploadDirectoryFixture = `
+    import fs from 'node:fs';
+    const { mkdirSync } = fs;
+    fs.mkdirSync = (path, ...args) => mkdirSync(path === '/home/deploy/app/uploads' ? 'uploads' : path, ...args);
+  `;
+  const preload = uploadDirectoryFixture + (firstWorkerToFinish ? shutdownProbe(firstWorkerToFinish) : '');
+  const child = spawn(process.execPath, [
+    '--import', 'data:text/javascript,' + encodeURIComponent(preload),
+    '--loader', import.meta.resolve('ts-node/esm'), fileURLToPath(new URL('../src/index.ts', import.meta.url)),
+  ], {
+    cwd,
+    env: {
+      TS_NODE_PROJECT: fileURLToPath(new URL('../tsconfig.json', import.meta.url)),
+      TS_NODE_EXPERIMENTAL_RESOLVER: 'true', TS_NODE_TRANSPILE_ONLY: 'true',
+      APP_PORT: '0', LIVE_USAGE_MODE: 'off', LIVE_USAGE_AUDIT_RETENTION_DAYS: retentionDays,
+      ...(maxRowsPerPass === undefined ? {} : { LIVE_USAGE_AUDIT_MAX_ROWS_PER_PASS: maxRowsPerPass }),
+      ...(firstWorkerToFinish ? {
+        LIVE_USAGE_MODE: 'enforce', LIVE_USAGE_PROVISIONAL_ENABLED: 'true', LIVE_USAGE_STATE_SECRET: secret,
+      } : {}),
+      DB_HOST: db.options.host, DB_PORT: String(db.options.port), DB_DATABASE: db.options.database,
+      DB_USERNAME: db.options.username, DB_PASSWORD: db.options.password,
+      SECRET: secret, baseURL: 'http://127.0.0.1:3000', clientID: 'audit-test', issuerBaseURL: 'https://127.0.0.1:1',
+      MEILISEARCH_HOST: 'http://127.0.0.1:1',
+    },
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  const closed = once(child, 'close');
+  const ready = Promise.withResolvers();
+  let output = '';
+  child.stdout.on('data', (chunk) => {
+    output += chunk;
+    if (expectedExitCode === 0 && output.includes(expectedLog)) ready.resolve(true);
+  });
+  child.stderr.on('data', (chunk) => { output += chunk; });
+  const timeout = setTimeout(() => child.kill('SIGKILL'), 15_000);
+  try {
+    const started = await Promise.race([ready.promise, closed.then(() => false)]);
+    if (!started) {
+      for (const name of ['error.log', 'exceptions.log']) {
+        output += await readFile(join(cwd, 'logs', name), 'utf8').catch(() => '');
+      }
+    }
+    assert.equal(started, expectedExitCode === 0, output);
+    if (started) child.kill('SIGTERM');
+    assert.deepEqual(await closed, [expectedExitCode, null], output);
+    assert.ok(output.includes(expectedLog), output);
+    assert.doesNotMatch(output, /Usage audit retention cleanup failed/);
+    return output;
+  } finally {
+    clearTimeout(timeout);
+    if (child.exitCode === null && child.signalCode === null) child.kill('SIGKILL');
+    await closed.catch(() => {});
+    await rm(cwd, { recursive: true, force: true });
+  }
+}
 
 test('transactional browser audit pipeline on disposable MySQL', {
   skip: process.env.LIVE_USAGE_TEST_MYSQL !== 'disposable' ? 'Opt in to a disposable localhost MySQL schema' : false,
@@ -57,10 +174,22 @@ test('transactional browser audit pipeline on disposable MySQL', {
     await reset();
     const app = express();
     app.use('/usage', (req, res, next) => createUsageRouter(protection, service)(req, res, next));
+    app.use('/admin', (req, _res, next) => {
+      const role = req.get('x-fixture-role');
+      req.oidc = {
+        isAuthenticated: () => Boolean(role),
+        user: { 'https://roles': role === 'malformed' ? 'non-admin' : [role] },
+      };
+      next();
+    }, dashboardRoutes);
     server = await new Promise((resolve) => {
       const listener = app.listen(0, '127.0.0.1', () => resolve(listener));
     });
     const base = `http://127.0.0.1:${server.address().port}`;
+    const auditResponse = (query = '', { format, role = 'admin' } = {}) => fetch(
+      `${base}/admin/usage-statistics/audit${format ? `/export.${format}` : ''}?${query}`,
+      { headers: { 'x-fixture-role': role } },
+    );
     process.env.LIVE_USAGE_ORIGIN = base;
     async function credentials() {
       const response = await fetch(base + '/usage/session', {
@@ -169,6 +298,19 @@ test('transactional browser audit pipeline on disposable MySQL', {
       assert.equal(audit.linkType, null);
       assert.equal(audit.catalogType, 'SLC_ITEM');
       assert.ok(!JSON.stringify(audit).includes(query));
+      const date = audit.finalizedAt;
+      const day = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const response = await auditResponse(`kind=WEB_SEARCH&period=custom&from=${day}&to=${day}`, { format: 'json' });
+      assert.equal(response.status, 200);
+      const text = await response.text();
+      assert.deepEqual(JSON.parse(text), [{
+        finalizedAt: date.toISOString(), kind: 'WEB_SEARCH', status: audit.status, reason: audit.reason,
+        catalogType: 'SLC_ITEM', itemPersistentID: null, itemTitle: null, officialEventId: official.id,
+        policyVersion: currentUsagePolicy,
+      }]);
+      for (const secret of [query, audit.eventKey, audit.sessionKey, audit.networkKey, audit.agentKey, audit.identityKey]) {
+        assert.ok(!text.includes(secret));
+      }
       assert.equal((await rows())[0].payload, null);
       await post('web-search', body, auth);
       await service.tick();
@@ -419,6 +561,305 @@ test('transactional browser audit pipeline on disposable MySQL', {
       assert.deepEqual(await audits(), retained);
       assert.equal((await audits())[0].itemTitle, payload.itemTitle);
       assert.deepEqual(await mysql.counts(), { usage: 1, searches: 0 });
+      const date = retained[0].finalizedAt;
+      const day = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      const response = await auditResponse(`period=custom&from=${day}&to=${day}`);
+      assert.equal(response.status, 200);
+      const { rows: visible } = await response.json();
+      assert.deepEqual(visible.map((record) => record.itemTitle), [payload.itemTitle]);
+    });
+
+    const auditRepository = () => mysql.db.getRepository(UsageEventAudit);
+    const day = 86_400_000;
+    const retentionConfig = (days, enabled = false) => readLiveUsageAuditConfiguration({
+      LIVE_USAGE_AUDIT_ENABLED: String(enabled), LIVE_USAGE_AUDIT_RETENTION_DAYS: String(days),
+    });
+    const cleanup = (days = 90) => cleanupUsageEventAudit(mysql.db, retentionConfig(days), new Date(now));
+    async function seedAudit(firstReference, count, finalizedAt, fields = {}) {
+      for (let offset = 0; offset < count; offset += 500) {
+        await auditRepository().insert(Array.from({ length: Math.min(500, count - offset) }, (_, i) => {
+          const provisionalEventId = firstReference + offset + i;
+          return {
+            provisionalEventId, finalizedAt,
+            eventKey: provisionalEventId.toString(16).padStart(64, '0'),
+            sessionKey: 'b'.repeat(64), networkKey: 'c'.repeat(64), agentKey: 'd'.repeat(64), identityKey: 'e'.repeat(64),
+            kind: 'ENTRY_CLICK', initialDecision: 'ACCEPT', initialReason: 'ELIGIBLE_BROWSER_EVENT',
+            status: 'ACCEPTED', reason: 'REVIEW_WINDOW_ELIGIBLE', policyVersion: currentUsagePolicy,
+            sessionStartedAt: finalizedAt, receivedAt: finalizedAt,
+            ...fields,
+          };
+        }));
+      }
+    }
+    const refs = async () => (await audits()).map((audit) => audit.provisionalEventId);
+
+    await t.test('audit listing and both export endpoints require an authenticated administrator and validate filters', async () => {
+      for (const format of [undefined, 'csv', 'json']) {
+        for (const [role, status] of [['', 401], ['contributor', 403], ['malformed', 403]]) {
+          const response = await auditResponse('', { format, role });
+          assert.equal(response.status, status);
+          assert.equal(response.headers.get('cache-control'), 'no-store');
+        }
+        for (const query of [
+          'status=PENDING', 'kind=API_SEARCH', 'catalogType=OTHER', 'q=a&q=b', 'q%5Bterm%5D=x', 'sort=id',
+          'page=0', 'page=102&pageSize=100', 'pageSize=101', 'q=' + 'a'.repeat(201), 'itemPersistentID=' + 'a'.repeat(256),
+          'period=custom&from=2026-02-30&to=2026-03-01', 'period=custom&from=2026-04-02&to=2026-04-01',
+          'period=custom&from=2026-01-01&to=2027-01-02', 'period=custom&from=2026-01-01', 'period=7d&from=2026-01-01',
+        ]) {
+          const response = await auditResponse(query, { format });
+          assert.equal(response.status, 400, query);
+          assert.equal(response.headers.get('cache-control'), 'no-store');
+        }
+      }
+    });
+
+    await t.test('audit list filters actual rows, breaks timestamp ties by ID and projects only display fields', async () => {
+      await reset();
+      const start = new Date(2026, 0, 10);
+      const end = new Date(2026, 0, 11);
+      await seedAudit(1, 26, start, { catalogType: 'SLC_ITEM', itemTitle: 'Counted item' });
+      await seedAudit(27, 1, start, { catalogType: 'TOOL', itemPersistentID: 'urn:tool:7', itemTitle: 'Reviewed tool',
+        kind: 'EXTERNAL_CLICK', status: 'REVIEW', reason: 'SESSION_RATE', officialEventId: 17 });
+      await seedAudit(28, 1, new Date(end.getTime() - 1), { kind: 'WEB_SEARCH', status: 'REJECTED', reason: 'SESSION_ABUSE' });
+      await seedAudit(29, 1, end, { itemTitle: 'Following day' });
+      const date = 'period=custom&from=2026-01-10&to=2026-01-10';
+      const response = await auditResponse(date);
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      const first = await response.json();
+      assert.equal(first.matchingCount, 28);
+      assert.equal(first.pageSize, 25);
+      assert.equal(first.rows.length, 25);
+      assert.deepEqual(first.rows.slice(0, 2).map((row) => row.reason), ['SESSION_ABUSE', 'SESSION_RATE']);
+      assert.equal(first.rows[0].itemTitle, null);
+      assert.deepEqual(Object.keys(first.rows[0]).sort(), [
+        'catalogType', 'finalizedAt', 'itemPersistentID', 'itemTitle', 'kind', 'officialEventId', 'reason', 'status',
+      ]);
+      const second = await (await auditResponse(`${date}&page=2`)).json();
+      assert.equal(second.rows.length, 3);
+      assert.equal(second.page, 2);
+      for (const filter of ['status=REVIEW', 'kind=EXTERNAL_CLICK', 'q=SESSION_RATE', 'q=Reviewed%20tool', 'q=urn%3Atool%3A7', 'catalogType=TOOL&itemPersistentID=urn%3Atool%3A7']) {
+        const filtered = await (await auditResponse(`${date}&${filter}`)).json();
+        assert.equal(filtered.matchingCount, 1, filter);
+        assert.equal(filtered.rows[0].itemTitle, 'Reviewed tool');
+      }
+      assert.equal((await (await auditResponse(`${date}&q=%25`)).json()).matchingCount, 0);
+      assert.equal((await (await auditResponse(`${date}&q=urn%3Atool&catalogType=TOOL`)).json()).matchingCount, 1);
+      assert.equal((await (await auditResponse(date.replaceAll('2026-01-10', '2026-01-11'))).json()).rows[0].itemTitle, 'Following day');
+    });
+
+    await t.test('audit CSV and JSON export the same ordered, filtered records and enforce the same cap', async () => {
+      await reset();
+      await seedAudit(1, 5000, new Date(now));
+      await seedAudit(5001, 1, new Date(now), {
+        catalogType: 'DATASET', itemPersistentID: '@123', itemTitle: '  =SUM(1,2)', status: 'REVIEW', reason: 'SESSION_RATE',
+      });
+      await seedAudit(5002, 1, new Date(now), {
+        catalogType: 'DATASET', itemPersistentID: '@123', itemTitle: 'Reviewed dataset', status: 'REVIEW', reason: 'SESSION_RATE',
+      });
+      for (const format of ['csv', 'json']) {
+        const large = await auditResponse('', { format });
+        assert.equal(large.status, 422);
+        assert.equal(large.headers.get('content-disposition'), null);
+        assert.equal(large.headers.get('cache-control'), 'no-store');
+        assert.match((await large.json()).error, /5,000 records.*Narrow the audit filters/);
+      }
+
+      const query = 'period=7d&status=REVIEW&catalogType=DATASET&q=%40123';
+      const listing = await (await auditResponse(query)).json();
+      assert.equal(listing.matchingCount, 2);
+      assert.deepEqual(listing.rows.map((row) => row.itemTitle), ['Reviewed dataset', '  =SUM(1,2)']);
+      const json = await auditResponse(query, { format: 'json' });
+      assert.equal(json.status, 200);
+      assert.match(json.headers.get('content-type'), /^application\/json\b/);
+      assert.equal(json.headers.get('cache-control'), 'no-store');
+      assert.match(json.headers.get('content-disposition'), /attachment; filename="splice-audit-history.json"/);
+      assert.deepEqual(await json.json(), listing.rows.map((row) => ({ ...row, policyVersion: currentUsagePolicy })));
+
+      const response = await auditResponse(query, { format: 'csv' });
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('cache-control'), 'no-store');
+      assert.match(response.headers.get('content-disposition'), /attachment; filename="splice-audit-history.csv"/);
+      const [header, ...rows] = (await response.text()).split('\r\n');
+      assert.equal(header, 'Finalized At,Event Type,Status,Reason,Catalog Type,Item Persistent ID,Item Title,Official Event ID,Policy Version');
+      const prefix = `${listing.rows[0].finalizedAt},ENTRY_CLICK,REVIEW,SESSION_RATE,DATASET,'@123,`;
+      assert.deepEqual(rows, [
+        `${prefix}Reviewed dataset,,${currentUsagePolicy}`,
+        `${prefix}"'  =SUM(1,2)",,${currentUsagePolicy}`,
+      ]);
+    });
+
+    await t.test('default retention deletes through the exact cutoff and preserves official and pending data', async () => {
+      await reset();
+      await service.stage(input());
+      await service.stage(input({ sessionId: 'search-fixture', kind: 'WEB_SEARCH', identity: 'search fixture',
+        payload: { kind: 'WEB_SEARCH', query: 'search fixture', catalogType: 'SLC_ITEM' } }));
+      now += 120000;
+      await service.tick();
+      now += 91 * day;
+      await service.stage(input());
+      await mysql.db.getRepository(HistoricalUsage).insert({
+        catalogType: 'SLC_ITEM', legacyCatalogId: 1, viewCount: 42, source: 'retention-fixture',
+      });
+      const snapshot = async () => ({
+        officialClicks: await mysql.db.getRepository(UsageEvent).find(),
+        officialSearches: await mysql.db.getRepository(SearchEvent).find(),
+        historical: await mysql.db.getRepository(HistoricalUsage).find(),
+        provisional: await rows(),
+        pipelineLock: await mysql.db.getRepository(LiveUsagePipelineLock).find(),
+      });
+      const before = await snapshot();
+      assert.equal(before.provisional.at(-1).status, 'PENDING');
+      const cutoff = now - 90 * day;
+      await seedAudit(100, 1, new Date(cutoff - 1));
+      await seedAudit(101, 1, new Date(cutoff));
+      await seedAudit(102, 1, new Date(cutoff + 1));
+
+      const defaults = readLiveUsageAuditConfiguration({});
+      assert.deepEqual(await cleanupUsageEventAudit(mysql.db, defaults, new Date(now)), {
+        deleted: 4, tableMissing: false, limitReached: false,
+      });
+      assert.deepEqual(await refs(), [102]);
+      assert.deepEqual(await snapshot(), before);
+      assert.deepEqual(await mysql.counts(), { usage: 1, searches: 1 });
+      assert.equal((await cleanup()).deleted, 0);
+    });
+
+    await t.test('retention changes apply on the next pass after reconnect and never restore deletions', async () => {
+      await reset();
+      for (const age of [100, 75, 31, 29]) await seedAudit(age, 1, new Date(now - age * day));
+      assert.equal((await cleanup(90)).deleted, 1);
+      await mysql.reconnect();
+      assert.equal((await cleanup(180)).deleted, 0);
+      assert.deepEqual(await refs(), [29, 31, 75]);
+      assert.equal((await cleanup(30)).deleted, 2);
+      assert.deepEqual(await refs(), [29]);
+      assert.equal((await cleanup(180)).deleted, 0);
+      assert.deepEqual(await refs(), [29]);
+    });
+
+    await t.test('indexed batches drain the oldest rows first with deterministic ID ordering', async () => {
+      await reset();
+      await seedAudit(1, 2, new Date(now - 91 * day));
+      await seedAudit(3, 20_002, new Date(now - 92 * day));
+      await seedAudit(20_005, 1, new Date(now));
+      const statements = [];
+      let plan;
+      const db = {
+        async query(sql, params) {
+          if (statements.length === 0) [plan] = await mysql.db.query('EXPLAIN ' + sql, params);
+          statements.push({ sql, params });
+          return mysql.db.query(sql, params);
+        },
+      };
+      assert.deepEqual(await cleanupUsageEventAudit(db, retentionConfig(90), new Date(now)), {
+        deleted: 20_000, tableMissing: false, limitReached: true,
+      });
+      assert.equal(statements.length, 20);
+      assert.ok(statements.every(({ params }) => params[1] === 1000));
+      assert.deepEqual(await refs(), [1, 2, 20_003, 20_004, 20_005]);
+      assert.equal(plan.key, 'IDX_usage_audit_finalized');
+      assert.equal(plan.type, 'range');
+      assert.doesNotMatch(plan.Extra ?? '', /filesort/i);
+      assert.equal((await cleanup()).deleted, 4);
+      assert.equal((await cleanup()).deleted, 0);
+      assert.deepEqual(await refs(), [20_005]);
+    });
+
+    await t.test('scheduled cleanup honors a 1501-row cap and warns about a possible backlog', async () => {
+      await reset();
+      await seedAudit(1, 1503, new Date(now - 91 * day));
+      await seedAudit(1504, 1, new Date(now));
+      await runCatalog(mysql.db, 'Usage audit retention cleanup reached its row limit. Expired rows may remain', {
+        maxRowsPerPass: '1501',
+      });
+      assert.deepEqual(await refs(), [1502, 1503, 1504]);
+
+      const oneRow = readLiveUsageAuditConfiguration({ LIVE_USAGE_AUDIT_MAX_ROWS_PER_PASS: '1' });
+      assert.deepEqual(await cleanupUsageEventAudit(mysql.db, oneRow, new Date(now)), {
+        deleted: 1, tableMissing: false, limitReached: true,
+      });
+      assert.deepEqual(await refs(), [1503, 1504]);
+    });
+
+    await t.test('an invalid row cap fails startup before retention can delete anything', async () => {
+      await reset();
+      await seedAudit(1, 2, new Date(now - 91 * day));
+      await runCatalog(mysql.db, 'LIVE_USAGE_AUDIT_MAX_ROWS_PER_PASS must be an integer between 1 and 100000', {
+        maxRowsPerPass: '100001', expectedExitCode: 1,
+      });
+      assert.deepEqual(await refs(), [1, 2]);
+    });
+
+    await t.test('a failed delete rolls back its batch and a later pass resumes from committed progress', async () => {
+      await reset();
+      await seedAudit(1, 1003, new Date(now - 91 * day));
+      await mysql.db.query(`CREATE TRIGGER retention_fail BEFORE DELETE ON usage_event_audit FOR EACH ROW
+        BEGIN IF OLD.provisionalEventId = 1002 THEN
+          SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'injected retention failure';
+        END IF; END`);
+      try {
+        await assert.rejects(cleanup(), /injected retention failure/);
+        assert.deepEqual(await refs(), [1001, 1002, 1003]);
+      } finally {
+        await mysql.db.query('DROP TRIGGER retention_fail');
+      }
+      assert.equal((await cleanup()).deleted, 3);
+      assert.equal((await cleanup()).deleted, 0);
+    });
+
+    await t.test('concurrent cleanup passes and provisional finalization preserve fresh audit and official records', async () => {
+      await reset();
+      await service.stage(input());
+      await seedAudit(100, 1500, new Date(now - 91 * day));
+      now += 120000;
+      const [first, second, finalized] = await Promise.all([cleanup(), cleanup(), service.store.finalizeDue(new Date(now))]);
+      assert.equal(first.deleted + second.deleted, 1500);
+      assert.equal(finalized, 1);
+      assert.deepEqual(await refs(), [1]);
+      assert.deepEqual(await mysql.counts(), { usage: 1, searches: 0 });
+      assert.equal((await rows())[0].status, 'ACCEPTED');
+    });
+
+    await t.test('cleanup skips a missing table in disabled mode and retries when the table returns', async () => {
+      await reset();
+      await seedAudit(1, 1, usageAuditRetentionCutoff(new Date(now), 90));
+      await mysql.db.query('RENAME TABLE usage_event_audit TO audit_unavailable');
+      try {
+        assert.deepEqual(await cleanup(), { deleted: 0, tableMissing: true, limitReached: false });
+        await assert.rejects(cleanupUsageEventAudit(mysql.db, retentionConfig(90, true), new Date(now)), {
+          code: 'ER_NO_SUCH_TABLE',
+        });
+      } finally {
+        await mysql.db.query('RENAME TABLE audit_unavailable TO usage_event_audit');
+      }
+      assert.deepEqual(await cleanup(), { deleted: 1, tableMissing: false, limitReached: false });
+    });
+
+    await t.test('default-disabled server starts without the audit table and enforces retention after restart', async () => {
+      await reset();
+      await seedAudit(1, 1, new Date(now - 60 * day));
+      await seedAudit(2, 1, new Date(now - 15 * day));
+      await mysql.db.query('RENAME TABLE usage_event_audit TO audit_unavailable');
+      try {
+        await runCatalog(mysql.db, 'Server is running on port 0');
+      } finally {
+        await mysql.db.query('RENAME TABLE audit_unavailable TO usage_event_audit');
+      }
+      await runCatalog(mysql.db, 'Usage audit retention cleanup completed', { retentionDays: '30' });
+      assert.deepEqual(await refs(), [2]);
+      await runCatalog(mysql.db, 'Usage audit retention cleanup completed', { retentionDays: '180' });
+      assert.deepEqual(await refs(), [2]);
+    });
+
+    await t.test('server shuts down the database only after both active workers finish', async () => {
+      await reset();
+      for (const [first, second] of [['audit', 'provisional'], ['provisional', 'audit']]) {
+        const output = await runCatalog(mysql.db, 'shutdown probe: audit started', { firstWorkerToFinish: first });
+        assert.ok(output.includes('shutdown probe: provisional started'), output);
+        assert.ok(output.includes(`shutdown probe: ${first} finished, ${second} finished, database destroy`), output);
+        assert.doesNotMatch(output, /Provisional usage finalization failed|Failed to shut down server/);
+      }
     });
   } finally {
     if (server) await new Promise((resolve) => server.close(resolve));

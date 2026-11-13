@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { AppDataSource } from '../src/db/data-source.ts';
 import { UsageEventAudit } from '../src/db/entities/UsageEventAudit.ts';
+import { UsageAuditHistoryController } from '../src/controllers/UsageAuditHistoryController.ts';
 import { CreateUsageEventAudit1794100000000 } from '../src/db/migrations/1794100000000-CreateUsageEventAudit.ts';
 import {
   readLiveUsageAuditConfiguration,
@@ -10,15 +11,128 @@ import {
 } from '../src/services/LiveUsageAuditConfiguration.ts';
 import { LiveUsageBotProtection } from '../src/services/LiveUsageBotProtection.ts';
 import { ProvisionalUsageService } from '../src/services/ProvisionalUsageService.ts';
+import { cleanupUsageEventAudit, startAuditRetentionWorker } from '../src/services/LiveUsageAuditRetention.ts';
+import { setImmediate as flushAsync } from 'node:timers/promises';
 import { optionalMysql } from './helpers/live-usage-mysql.mjs';
 
-test('audit defaults to disabled and 90 days; accepts explicit independent settings', () => {
-  assert.deepEqual(readLiveUsageAuditConfiguration({}), { enabled: false, retentionDays: 90 });
+test('audit filter validation rejects ambiguous and oversized input before a database query', async (t) => {
+  const repository = t.mock.method(AppDataSource, 'getRepository', () => { throw new Error('Unexpected audit query'); });
+  const controller = new UsageAuditHistoryController();
+  for (const query of [
+    { status: ['REVIEW', 'REJECTED'] }, { q: { text: 'title' } }, { page: '0' }, { pageSize: '101' },
+    { page: '102', pageSize: '100' }, { kind: 'API_SEARCH' }, { catalogType: 'invalid' },
+    { period: 'custom', from: '2026-02-30', to: '2026-03-01' }, { itemPersistentID: 'x'.repeat(256) },
+  ]) {
+    for (const format of [undefined, 'csv', 'json']) {
+      const response = {
+        status(code) { this.code = code; return this; },
+        json(body) { return body; },
+      };
+      const body = format ? await controller.export({ query }, response, format) : await controller.page({ query }, response);
+      assert.equal(response.code, 400, JSON.stringify(query));
+      assert.equal(typeof body.error, 'string');
+    }
+  }
+  assert.equal(repository.mock.callCount(), 0);
+});
+
+test('retention scheduler runs daily, skips overlap, retries failures and drains on stop', async (t) => {
+  t.mock.timers.enable({ apis: ['setInterval'] });
+  const day = 86_400_000;
+  const first = Promise.withResolvers();
+  const last = Promise.withResolvers();
+  const failures = [];
+  const successes = [];
+  const warnings = [];
+  const skipped = { deleted: 0, tableMissing: true, limitReached: false };
+  let calls = 0;
+  const stop = startAuditRetentionWorker(async () => {
+    calls++;
+    if (calls === 1) return first.promise;
+    if (calls === 2) throw Object.assign(new Error('private query details'), { code: 'ER_LOCK_DEADLOCK' });
+    return last.promise;
+  }, {
+    info: (...args) => successes.push(args),
+    error: (...args) => failures.push(args),
+    warn: (...args) => warnings.push(args),
+  });
+  try {
+    await flushAsync();
+    assert.equal(calls, 1);
+    t.mock.timers.tick(day);
+    await flushAsync();
+    assert.equal(calls, 1);
+
+    first.resolve(skipped);
+    await flushAsync();
+    assert.deepEqual(successes, []);
+    assert.deepEqual(warnings, []);
+    t.mock.timers.tick(day - 1);
+    await flushAsync();
+    assert.equal(calls, 1);
+    t.mock.timers.tick(1);
+    await flushAsync();
+    assert.deepEqual(failures, [['Usage audit retention cleanup failed', { code: 'ER_LOCK_DEADLOCK' }]]);
+
+    t.mock.timers.tick(day);
+    await flushAsync();
+    assert.equal(calls, 3);
+    let stopped = false;
+    const drained = stop().then(() => { stopped = true; });
+    await flushAsync();
+    assert.equal(stopped, false);
+    last.resolve({ deleted: 1501, tableMissing: false, limitReached: true });
+    await drained;
+    assert.deepEqual(successes, [['Usage audit retention cleanup completed', { deleted: 1501 }]]);
+    assert.deepEqual(warnings, [
+      ['Usage audit retention cleanup reached its row limit. Expired rows may remain', { deleted: 1501 }],
+    ]);
+    t.mock.timers.tick(day);
+    await flushAsync();
+    assert.equal(calls, 3);
+  } finally {
+    first.resolve(skipped);
+    last.resolve(skipped);
+    await stop();
+  }
+});
+
+test('audit defaults to disabled, 90 days, and 20000 rows per pass', () => {
+  assert.deepEqual(readLiveUsageAuditConfiguration({}), { enabled: false, retentionDays: 90, maxRowsPerPass: 20000 });
   for (const days of [1, 90, 365])
     assert.deepEqual(
       readLiveUsageAuditConfiguration({ LIVE_USAGE_AUDIT_ENABLED: 'true', LIVE_USAGE_AUDIT_RETENTION_DAYS: String(days) }),
-      { enabled: true, retentionDays: days },
+      { enabled: true, retentionDays: days, maxRowsPerPass: 20000 },
     );
+});
+
+test('audit pass cap accepts integer limits through 100000 and rejects malformed or out-of-range values', () => {
+  for (const limit of [1, 1501, 100000]) {
+    assert.equal(readLiveUsageAuditConfiguration({ LIVE_USAGE_AUDIT_MAX_ROWS_PER_PASS: String(limit) }).maxRowsPerPass, limit);
+  }
+  for (const limit of ['', '0', '-1', '1500.5', '1e3', '0xff', ' 1501 ', '100001', '9007199254740993', 'NaN']) {
+    assert.throws(
+      () => readLiveUsageAuditConfiguration({ LIVE_USAGE_AUDIT_MAX_ROWS_PER_PASS: limit }),
+      /LIVE_USAGE_AUDIT_MAX_ROWS_PER_PASS must be an integer between 1 and 100000/,
+    );
+  }
+});
+
+test('audit cleanup requests only the remaining allowance and distinguishes an exhausted backlog', async () => {
+  const config = readLiveUsageAuditConfiguration({ LIVE_USAGE_AUDIT_MAX_ROWS_PER_PASS: '1501' });
+  for (const lastBatch of [500, 501]) {
+    const limits = [];
+    const db = {
+      async query(_sql, [, limit]) {
+        limits.push(limit);
+        return { affectedRows: limits.length === 1 ? 1000 : lastBatch };
+      },
+    };
+    assert.deepEqual(await cleanupUsageEventAudit(db, config), {
+      deleted: 1000 + lastBatch, tableMissing: false, limitReached: lastBatch === 501,
+    });
+    assert.deepEqual(limits, [1000, 501]);
+  }
 });
 
 test('audit configuration rejects malformed booleans and unsafe retention even when disabled', () => {

@@ -6,6 +6,8 @@ import {
   UsageStatisticsService,
 } from '../services/UsageStatisticsService.js';
 import { SearchStatisticsService } from '../services/SearchStatisticsService.js';
+import { auditDefaultDays } from '../services/UsageAuditHistoryService.js';
+import { csvField, parseCalendarDate } from '../utils/usageDashboardFormatting.js';
 
 const usageStatisticsService = new UsageStatisticsService();
 const searchStatisticsService = new SearchStatisticsService();
@@ -16,22 +18,6 @@ interface ParsedDateRange {
   dateRange?: UsageDateRange;
   error?: string;
   period: 'all' | '7d' | '30d' | 'custom';
-}
-
-function parseCalendarDate(value: unknown, label: string): { value: string; date?: Date; error?: string } {
-  if (value === undefined || value === '') return { value: '' };
-  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    return { value: typeof value === 'string' ? value : '', error: `${label} must use YYYY-MM-DD format.` };
-  }
-
-  const [year, month, day] = value.split('-').map(Number);
-  const date = new Date(0);
-  date.setFullYear(year, month - 1, day);
-  date.setHours(0, 0, 0, 0);
-  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-    return { value, error: `${label} must be a valid calendar date.` };
-  }
-  return { value, date };
 }
 
 function parseDateRange(req: Request, preserveResolvedPreset = false): ParsedDateRange {
@@ -227,13 +213,6 @@ async function loadDashboardSnapshot(parsed: ParsedDateRange, catalogType?: Usag
 
 type DashboardSnapshot = Awaited<ReturnType<typeof loadDashboardSnapshot>>;
 
-function csvField(value: unknown): string {
-  const text = String(value ?? '');
-  const safe =
-    typeof value === 'string' && (/^[\s\p{Cc}]*[=+\-@]/u.test(value) || /^[\t\r\n]/.test(value)) ? `'${text}` : text;
-  return /[",\r\n]/.test(safe) ? `"${safe.replace(/"/g, '""')}"` : safe;
-}
-
 function snapshotCsv(snapshot: DashboardSnapshot): string {
   const table = (headers: string[], rows: object[]) => [
     headers,
@@ -269,6 +248,9 @@ function snapshotCsv(snapshot: DashboardSnapshot): string {
 
 export class UsageDashboardController {
   async show(req: Request, res: Response): Promise<Response | void> {
+    const tab = req.query.tab;
+    const activeTab = tab === 'historical' || tab === 'terms' || tab === 'audit' ? tab : 'entries';
+    if (activeTab === 'audit') res.setHeader('Cache-Control', 'no-store');
     const parsed = parseDateRange(req);
     const catalogType = parseCatalogType(req.query.catalogType);
     const selectedCatalogType = catalogType ?? 'ALL';
@@ -292,7 +274,8 @@ export class UsageDashboardController {
         selectedCatalogType,
         period: parsed.period,
         today: calendarKey(new Date()),
-        activeTab: req.query.tab === 'historical' ? 'historical' : req.query.tab === 'terms' ? 'terms' : 'entries',
+        activeTab,
+        auditDefaultDays,
         catalogContextLabel: catalogType
           ? `Across ${catalogType === 'SLC_ITEM' ? 'SLC items' : catalogType === 'TOOL' ? 'tools' : 'datasets'}`
           : 'Across all catalogs',

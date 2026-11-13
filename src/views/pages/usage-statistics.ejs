@@ -120,6 +120,7 @@
         <button type="button" role="tab" id="usage-tab-entries" aria-controls="usage-panel-entries" aria-selected="<%= activeTab === 'entries' %>" tabindex="<%= activeTab === 'entries' ? 0 : -1 %>" data-tab="entries">Catalog Entry Statistics <span data-tab-count="entries"><%= itemStatistics.length.toLocaleString() %></span></button>
         <button type="button" role="tab" id="usage-tab-terms" aria-controls="usage-panel-terms" aria-selected="<%= activeTab === 'terms' %>" tabindex="<%= activeTab === 'terms' ? 0 : -1 %>" data-tab="terms">Frequent Search Terms <span data-tab-count="terms"><%= searchTerms.length.toLocaleString() %></span></button>
         <button type="button" role="tab" id="usage-tab-historical" aria-controls="usage-panel-historical" aria-selected="<%= activeTab === 'historical' %>" tabindex="<%= activeTab === 'historical' ? 0 : -1 %>" data-tab="historical">Historical Nginx Data <span data-tab-count="historical">—</span></button>
+        <button type="button" role="tab" id="usage-tab-audit" aria-controls="usage-panel-audit" aria-selected="<%= activeTab === 'audit' %>" tabindex="<%= activeTab === 'audit' ? 0 : -1 %>" data-tab="audit">Audit History <span data-tab-count="audit" hidden></span></button>
       </div>
       <% const exportBase = '/admin/usage-statistics/export' + (exportQuery ? '?' + exportQuery : ''); const csvBase = '/admin/usage-statistics/export.csv' + (exportQuery ? '?' + exportQuery : ''); %>
       <div role="tabpanel" id="usage-panel-entries" aria-labelledby="usage-tab-entries" tabindex="0" data-statistics-table="entries" <%= activeTab !== 'entries' ? 'hidden' : '' %>>
@@ -156,6 +157,7 @@
         </tbody></table></div>
         <div class="usage-table-footer"><p data-table-summary aria-live="polite"></p><nav class="usage-pagination" aria-label="Historical entry pages" data-table-pagination></nav></div>
       </div>
+      <%- include('../partials/usage-audit-history', { activeTab, auditDefaultDays }) %>
     </section>
 
   </main>
