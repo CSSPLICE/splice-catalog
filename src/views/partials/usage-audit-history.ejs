@@ -15,10 +15,15 @@
     </div>
     <div class="usage-filter-form usage-audit-filters">
       <label>Status<select name="status"><option value="">All statuses</option>
-      <% for (const status of ['ACCEPTED', 'REVIEW', 'REJECTED', 'EXPIRED']) { %><option><%= status %></option><% } %>
+        <option value="ACCEPTED">Accepted</option>
+        <option value="REVIEW">Review</option>
+        <option value="REJECTED">Rejected</option>
+        <option value="EXPIRED">Expired</option>
       </select></label>
       <label>Event Type<select name="kind"><option value="">All events</option>
-      <% for (const kind of ['ENTRY_CLICK', 'EXTERNAL_CLICK', 'WEB_SEARCH']) { %><option><%= kind %></option><% } %>
+        <option value="ENTRY_CLICK">Entry Click</option>
+        <option value="EXTERNAL_CLICK">External Click</option>
+        <option value="WEB_SEARCH">Web Search</option>
       </select></label>
       <label>Time Range<select name="period">
       <% if (![7, 30, 90].includes(auditDefaultDays)) { %>

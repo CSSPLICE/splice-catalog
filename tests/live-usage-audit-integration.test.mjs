@@ -617,27 +617,41 @@ test('transactional browser audit pipeline on disposable MySQL', {
       await reset();
       const start = new Date(2026, 0, 10);
       const end = new Date(2026, 0, 11);
-      await seedAudit(1, 26, start, { catalogType: 'SLC_ITEM', itemTitle: 'Counted item' });
-      await seedAudit(27, 1, start, { catalogType: 'TOOL', itemPersistentID: 'urn:tool:7', itemTitle: 'Reviewed tool',
+      for (let id = 1; id <= 12; id++) {
+        await seedAudit(id, 1, start, { catalogType: 'SLC_ITEM', itemTitle: 'Counted item', officialEventId: id });
+      }
+      await seedAudit(13, 1, start, { catalogType: 'TOOL', itemPersistentID: 'urn:tool:7', itemTitle: 'Reviewed tool',
         kind: 'EXTERNAL_CLICK', status: 'REVIEW', reason: 'SESSION_RATE', officialEventId: 17 });
-      await seedAudit(28, 1, new Date(end.getTime() - 1), { kind: 'WEB_SEARCH', status: 'REJECTED', reason: 'SESSION_ABUSE' });
-      await seedAudit(29, 1, end, { itemTitle: 'Following day' });
+      await seedAudit(14, 1, end, { itemTitle: 'Following day' });
+      await seedAudit(15, 1, new Date(end.getTime() - 1), { kind: 'WEB_SEARCH', status: 'REJECTED', reason: 'SESSION_ABUSE' });
       const date = 'period=custom&from=2026-01-10&to=2026-01-10';
       const response = await auditResponse(date);
       assert.equal(response.status, 200);
       assert.equal(response.headers.get('cache-control'), 'no-store');
       const first = await response.json();
-      assert.equal(first.matchingCount, 28);
-      assert.equal(first.pageSize, 25);
-      assert.equal(first.rows.length, 25);
+      assert.equal(first.matchingCount, 14);
+      assert.equal(first.pageSize, 6);
+      assert.equal(first.totalPages, 3);
+      assert.equal(first.page, 1);
+      assert.deepEqual(first.rows.map((row) => row.officialEventId), [null, 17, 12, 11, 10, 9]);
       assert.deepEqual(first.rows.slice(0, 2).map((row) => row.reason), ['SESSION_ABUSE', 'SESSION_RATE']);
       assert.equal(first.rows[0].itemTitle, null);
       assert.deepEqual(Object.keys(first.rows[0]).sort(), [
         'catalogType', 'finalizedAt', 'itemPersistentID', 'itemTitle', 'kind', 'officialEventId', 'reason', 'status',
       ]);
       const second = await (await auditResponse(`${date}&page=2`)).json();
-      assert.equal(second.rows.length, 3);
       assert.equal(second.page, 2);
+      assert.deepEqual(second.rows.map((row) => row.officialEventId), [8, 7, 6, 5, 4, 3]);
+      for (const requestedPage of [3, 4]) {
+        const last = await (await auditResponse(`${date}&page=${requestedPage}`)).json();
+        assert.equal(last.page, 3);
+        assert.deepEqual(last.rows.map((row) => row.officialEventId), [2, 1]);
+      }
+      const filteredPage = await (await auditResponse(`${date}&status=ACCEPTED&page=2`)).json();
+      assert.equal(filteredPage.matchingCount, 12);
+      assert.equal(filteredPage.totalPages, 2);
+      assert.equal(filteredPage.page, 2);
+      assert.deepEqual(filteredPage.rows.map((row) => row.officialEventId), [6, 5, 4, 3, 2, 1]);
       for (const filter of ['status=REVIEW', 'kind=EXTERNAL_CLICK', 'q=SESSION_RATE', 'q=Reviewed%20tool', 'q=urn%3Atool%3A7', 'catalogType=TOOL&itemPersistentID=urn%3Atool%3A7']) {
         const filtered = await (await auditResponse(`${date}&${filter}`)).json();
         assert.equal(filtered.matchingCount, 1, filter);
@@ -651,10 +665,13 @@ test('transactional browser audit pipeline on disposable MySQL', {
     await t.test('audit CSV and JSON export the same ordered, filtered records and enforce the same cap', async () => {
       await reset();
       await seedAudit(1, 5000, new Date(now));
-      await seedAudit(5001, 1, new Date(now), {
+      await seedAudit(5001, 6, new Date(now), {
+        catalogType: 'DATASET', itemPersistentID: '@123', itemTitle: 'Additional reviewed dataset', status: 'REVIEW', reason: 'SESSION_RATE',
+      });
+      await seedAudit(5007, 1, new Date(now), {
         catalogType: 'DATASET', itemPersistentID: '@123', itemTitle: '  =SUM(1,2)', status: 'REVIEW', reason: 'SESSION_RATE',
       });
-      await seedAudit(5002, 1, new Date(now), {
+      await seedAudit(5008, 1, new Date(now), {
         catalogType: 'DATASET', itemPersistentID: '@123', itemTitle: 'Reviewed dataset', status: 'REVIEW', reason: 'SESSION_RATE',
       });
       for (const format of ['csv', 'json']) {
@@ -663,20 +680,26 @@ test('transactional browser audit pipeline on disposable MySQL', {
         assert.equal(large.headers.get('content-disposition'), null);
         assert.equal(large.headers.get('cache-control'), 'no-store');
         assert.match((await large.json()).error, /5,000 records.*Narrow the audit filters/);
+        const atLimit = await auditResponse('status=ACCEPTED', { format });
+        assert.equal(atLimit.status, 200);
+        assert.equal(format === 'json' ? (await atLimit.json()).length : (await atLimit.text()).split('\r\n').length - 1, 5000);
       }
 
       const query = 'period=7d&status=REVIEW&catalogType=DATASET&q=%40123';
       const listing = await (await auditResponse(query)).json();
-      assert.equal(listing.matchingCount, 2);
-      assert.deepEqual(listing.rows.map((row) => row.itemTitle), ['Reviewed dataset', '  =SUM(1,2)']);
-      const json = await auditResponse(query, { format: 'json' });
+      assert.equal(listing.matchingCount, 8);
+      assert.deepEqual(listing.rows.slice(0, 2).map((row) => row.itemTitle), ['Reviewed dataset', '  =SUM(1,2)']);
+      const lastPage = await (await auditResponse(`${query}&page=2`)).json();
+      assert.equal(lastPage.rows.length, 2);
+      const exportQuery = `${query}&page=2&pageSize=1`;
+      const json = await auditResponse(exportQuery, { format: 'json' });
       assert.equal(json.status, 200);
       assert.match(json.headers.get('content-type'), /^application\/json\b/);
       assert.equal(json.headers.get('cache-control'), 'no-store');
       assert.match(json.headers.get('content-disposition'), /attachment; filename="splice-audit-history.json"/);
-      assert.deepEqual(await json.json(), listing.rows.map((row) => ({ ...row, policyVersion: currentUsagePolicy })));
+      assert.deepEqual(await json.json(), [...listing.rows, ...lastPage.rows].map((row) => ({ ...row, policyVersion: currentUsagePolicy })));
 
-      const response = await auditResponse(query, { format: 'csv' });
+      const response = await auditResponse(exportQuery, { format: 'csv' });
       assert.equal(response.status, 200);
       assert.equal(response.headers.get('cache-control'), 'no-store');
       assert.match(response.headers.get('content-disposition'), /attachment; filename="splice-audit-history.csv"/);
@@ -686,6 +709,7 @@ test('transactional browser audit pipeline on disposable MySQL', {
       assert.deepEqual(rows, [
         `${prefix}Reviewed dataset,,${currentUsagePolicy}`,
         `${prefix}"'  =SUM(1,2)",,${currentUsagePolicy}`,
+        ...Array(6).fill(`${prefix}Additional reviewed dataset,,${currentUsagePolicy}`),
       ]);
     });
 

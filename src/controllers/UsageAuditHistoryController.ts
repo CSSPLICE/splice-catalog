@@ -40,7 +40,7 @@ function parseAuditQuery(query: Request['query'], now: Date) {
     return number;
   };
 
-  const pageSize = integer('pageSize', 25, 100);
+  const pageSize = integer('pageSize', 6, 100);
   const page = integer('page', 1, Math.floor(auditPageOffsetLimit / pageSize) + 1);
   const period = choice('period', ['7d', '30d', '90d', 'custom'] as const);
   let from: Date;

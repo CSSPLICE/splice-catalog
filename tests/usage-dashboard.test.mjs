@@ -193,10 +193,13 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
   let auditEmpty = false, auditFailure = false, auditOversizedExport = false;
   const historicalCalls = [];
   const auditCalls = [], auditExports = [];
-  const auditRows = Array.from({ length: 28 }, (_, index) => ({
+  const auditRows = Array.from({ length: 14 }, (_, index) => ({
     finalizedAt: new Date('2026-11-10T15:30:00Z'), kind: index === 1 ? 'WEB_SEARCH' : index === 4 ? 'EXTERNAL_CLICK' : 'ENTRY_CLICK',
-    status: ['REVIEW', 'REVIEW', 'ACCEPTED', 'REJECTED', 'EXPIRED'][index] ?? 'ACCEPTED',
-    reason: ['SESSION_RATE', 'SESSION_RATE', 'REVIEW_WINDOW_ELIGIBLE', 'SESSION_ABUSE', 'PENDING_EXPIRED'][index] ?? 'REVIEW_WINDOW_ELIGIBLE',
+    status: ['REVIEW', 'REVIEW', 'ACCEPTED', 'REJECTED', 'EXPIRED', 'REVIEW', 'REVIEW', 'REVIEW'][index] ?? 'ACCEPTED',
+    reason: [
+      'SESSION_RATE', 'RETROSPECTIVE_EVENT_BURST', 'REVIEW_WINDOW_ELIGIBLE', 'SESSION_ABUSE', 'PENDING_EXPIRED',
+      'RETROSPECTIVE_KNOWN_AUTOMATION', 'constructor', '<img src=x onerror="window.auditXss=true">',
+    ][index] ?? 'REVIEW_WINDOW_ELIGIBLE',
     catalogType: index === 1 || index === 3 ? null : index === 4 ? 'DATASET' : 'SLC_ITEM',
     itemPersistentID: index === 1 || index === 3 ? null : `urn:fixture:${index + 1}`,
     itemTitle: index === 7 ? '<img src=x onerror="window.auditXss=true">' :
@@ -820,8 +823,8 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
       await t.test('audit tab loads on demand and filters and pages independently of official metrics', async () => {
         const panel = '#usage-panel-audit';
         const summary = `${panel} [data-table-summary]`;
-        const waitForSummary = (text) => page.waitForFunction(
-          (selector, value) => document.querySelector(selector).textContent.includes(value), {}, summary, text,
+        const waitForSummary = (range) => page.waitForFunction(
+          (selector, value) => document.querySelector(selector).textContent === `Showing ${value} audit records.`, {}, summary, range,
         );
         await page.setViewport({ width: 1500, height: 1100 });
         await open();
@@ -833,12 +836,20 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
         assert.equal(await page.$$eval(`${panel} [data-table-row]`, (rows) => rows.length), 0);
         assert.equal(auditCalls.length, before);
         await page.click('[data-tab="audit"]');
-        await waitForSummary('1–25 of 28');
+        await waitForSummary('1–6 of 14');
         assert.equal(auditCalls.length, before + 1);
-        assert.equal(await page.$eval('[data-tab-count="audit"]', (node) => node.textContent), '28');
+        assert.equal(auditCalls.at(-1).pageSize, 6);
+        assert.equal(await page.$eval('[data-tab-count="audit"]', (node) => node.textContent), '14');
         assert.equal(await page.$(`${panel} [name="itemPersistentID"]`), null);
         assert.equal(await page.$$eval(`${panel} input[type="search"]`, (nodes) => nodes.length), 1);
         assert.equal(await page.$eval(`${panel} [name="q"]`, (node) => node.placeholder), 'Search by item title, persistent ID, or reason...');
+        const filterOptions = await page.$$eval(`${panel} [name="status"], ${panel} [name="kind"]`, (selects) =>
+          selects.map((select) => Array.from(select.options, (option) => [option.value, option.label])),
+        );
+        assert.deepEqual(filterOptions, [
+          [['', 'All statuses'], ['ACCEPTED', 'Accepted'], ['REVIEW', 'Review'], ['REJECTED', 'Rejected'], ['EXPIRED', 'Expired']],
+          [['', 'All events'], ['ENTRY_CLICK', 'Entry Click'], ['EXTERNAL_CLICK', 'External Click'], ['WEB_SEARCH', 'Web Search']],
+        ]);
         const toolbar = await page.$eval(panel, (node) => {
           const search = node.querySelector('[name="q"]').getBoundingClientRect();
           const actions = node.querySelector('.usage-export-actions').getBoundingClientRect();
@@ -850,23 +861,57 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
             matchingButtons: buttons.every((button) => JSON.stringify(styles(button)) === JSON.stringify(styles(existing))) };
         });
         assert.deepEqual(toolbar, { searchLeft: true, aligned: true, matchingButtons: true });
+        const visible = await page.$$eval(`${panel} [data-table-row]`, (rows) => rows.map((row) => {
+          const badge = row.cells[2].firstElementChild;
+          const style = getComputedStyle(badge);
+          const luminance = (color) => {
+            const [r, g, b] = color.match(/\d+/g).map((channel) => {
+              const value = Number(channel) / 255;
+              return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+            });
+            return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+          };
+          return {
+            status: badge.textContent, reason: row.cells[3].textContent, background: style.backgroundColor,
+            contrast: (luminance(style.backgroundColor) + 0.05) / (luminance(style.color) + 0.05),
+            wrap: getComputedStyle(row.cells[3]).overflowWrap,
+          };
+        }));
+        assert.deepEqual(visible.map(({ status, reason, background }) => [status, reason, background]), [
+          ['Under review', 'High session activity rate', 'rgb(251, 245, 232)'],
+          ['Under review', 'Unusual activity burst', 'rgb(251, 245, 232)'],
+          ['Accepted', 'Eligible after review', 'rgb(240, 247, 242)'],
+          ['Rejected', 'Session activity limit exceeded', 'rgb(251, 239, 239)'],
+          ['Expired', 'Review period expired', 'rgb(242, 242, 242)'],
+          ['Under review', 'Automation activity detected', 'rgb(251, 245, 232)'],
+        ]);
+        assert.ok(visible.every(({ contrast, wrap }) => contrast >= 4.5 && wrap === 'normal'));
+        assert.equal(await page.$eval('[data-audit-disabled]', (node) => node.hidden), false);
+        if (process.env.USAGE_SCREENSHOTS === '1') await captureAudit('audit-toolbar-desktop.png', 690);
+        assert.equal(await page.$eval(`${panel} [aria-label="Previous page"]`, (node) => node.disabled), true);
+        await page.click(`${panel} [aria-label="Next page"]`);
+        await waitForSummary('7–12 of 14');
+        assert.equal(auditCalls.at(-1).requestedPage, 2);
+        assert.equal(await page.$$eval(`${panel} [data-table-row]`, (rows) => rows.length), 6);
+        assert.deepEqual(await page.$$eval(`${panel} .usage-audit-reason`, (cells) =>
+          cells.slice(0, 2).map((cell) => cell.textContent)), ['Unrecognized reason', 'Unrecognized reason']);
+        assert.match(await page.$eval(`${panel} [data-audit-rows]`, (node) => node.textContent), /<img src=x onerror=/);
         assert.equal(await page.$(`${panel} img`), null);
         assert.equal(await page.evaluate(() => window.auditXss), undefined);
-        const visible = await page.$$eval(`${panel} [data-table-row]`, (rows) => rows.slice(0, 2).map((row) =>
-          [...row.cells].map((cell) => cell.textContent),
-        ));
-        assert.match(await page.$eval(`${panel} [data-audit-rows]`, (node) => node.textContent), /<img src=x onerror=/);
-        assert.deepEqual(visible[1].slice(1), ['Web search', 'REVIEW', 'SESSION_RATE', '—', '—']);
-        assert.equal(await page.$eval('[data-audit-disabled]', (node) => node.hidden), false);
-        if (process.env.USAGE_SCREENSHOTS === '1') await captureAudit('audit-toolbar-desktop.png', 500);
-        await page.click(`${panel} [aria-label="Next page"]`);
-        await waitForSummary('26–28 of 28');
-        assert.equal(auditCalls.at(-1).requestedPage, 2);
+        await page.click(`${panel} [aria-label="Page 3"]`);
+        await waitForSummary('13–14 of 14');
+        assert.equal(auditCalls.at(-1).requestedPage, 3);
+        assert.equal(await page.$$eval(`${panel} [data-table-row]`, (rows) => rows.length), 2);
+        assert.equal(await page.$eval(`${panel} [aria-label="Next page"]`, (node) => node.disabled), true);
+        await page.click(`${panel} [aria-label="Previous page"]`);
+        await waitForSummary('7–12 of 14');
 
         const beforeFilter = auditCalls.length;
         await page.type(`${panel} [name="q"]`, 'urn:fixture:1');
         await page.select(`${panel} [name="status"]`, 'REVIEW');
         await page.select(`${panel} [name="kind"]`, 'ENTRY_CLICK');
+        assert.equal(await page.$eval(`${panel} [name="status"]`, (select) => select.selectedOptions[0].label), 'Review');
+        assert.equal(await page.$eval(`${panel} [name="kind"]`, (select) => select.selectedOptions[0].label), 'Entry Click');
         await page.select(`${panel} [name="catalogType"]`, 'SLC_ITEM');
         await page.select(`${panel} [name="period"]`, 'custom');
         await page.$eval(`${panel} [name="from"]`, (node) => { node.value = '2026-11-10'; });
@@ -874,13 +919,14 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
         assert.equal(auditCalls.length, beforeFilter);
         await page.click(`${panel} [type="submit"]`);
         await waitForSummary('1–1 of 1');
+        assert.equal(auditCalls.at(-1).requestedPage, 1);
         assert.equal(auditCalls.at(-1).filters.status, 'REVIEW');
         assert.equal(auditCalls.at(-1).filters.search, 'urn:fixture:1');
         assert.equal(auditCalls.at(-1).filters.kind, 'ENTRY_CLICK');
         assert.equal(auditCalls.at(-1).filters.catalogType, 'SLC_ITEM');
         assert.equal(auditCalls.at(-1).filters.from.getDate(), 10);
         assert.equal(auditCalls.at(-1).filters.toExclusive.getDate(), 11);
-        assert.equal(await page.$eval('[data-tab-count="audit"]', (node) => node.textContent), '28');
+        assert.equal(await page.$eval('[data-tab-count="audit"]', (node) => node.textContent), '14');
         auditOversizedExport = true;
         try {
           for (const format of ['json', 'csv']) {
@@ -906,6 +952,7 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
           const records = JSON.parse(files.json);
           assert.equal(records.length, 1);
           assert.equal(records[0].itemTitle, 'Graph traversal exercises');
+          assert.equal(records[0].reason, 'SESSION_RATE');
           assert.deepEqual(files.csv.split('\r\n').slice(1), [
             `${records[0].finalizedAt},ENTRY_CLICK,REVIEW,SESSION_RATE,SLC_ITEM,urn:fixture:1,Graph traversal exercises,,fixture-policy`,
           ]);
@@ -918,7 +965,7 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
         ), official);
         assert.equal(await page.$eval('[data-audit-reset]', (node) => node.textContent), 'Reset');
         await page.click('[data-audit-reset]');
-        await waitForSummary('1–25 of 28');
+        await waitForSummary('1–6 of 14');
         assert.equal(await page.$eval(`${panel} [name="from"]`, (node) => node.disabled), true);
         assert.deepEqual(await page.$eval(`${panel} form`, (form) => Array.from(new FormData(form).values())), ['', '', '', '', '']);
       });
@@ -963,8 +1010,11 @@ test('dashboard rendering, unified exports, filters and responsive interactions'
           assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
           if (width === 390 && process.env.USAGE_SCREENSHOTS === '1') await page.screenshot({ path: resolve('node_modules/.cache/usage-dashboard/historical-mobile.png'), fullPage: true });
           await page.click('[data-tab="audit"]');
-          await page.waitForFunction(() => document.querySelector('#usage-panel-audit [data-table-summary]').textContent.includes('1–25 of 28'));
+          await page.waitForFunction(() => document.querySelector('#usage-panel-audit [data-table-summary]').textContent.includes('1–6 of 14'));
           assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+          await page.$eval('#usage-panel-audit .usage-table-scroll', (node) => { node.scrollLeft = node.scrollWidth; });
+          assert.ok(await page.$eval('#usage-panel-audit .usage-table-scroll', (node) => node.scrollLeft > 0));
+          await page.$eval('#usage-panel-audit .usage-table-scroll', (node) => { node.scrollLeft = 0; });
           if (width === 390 && process.env.USAGE_SCREENSHOTS === '1') await captureAudit('audit-toolbar-mobile.png', 700);
         }
         assert.deepEqual(errors, []);

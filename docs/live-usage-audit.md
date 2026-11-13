@@ -72,9 +72,9 @@ Use the same collection setting across instances to avoid audit gaps when worker
 
 Administrators can open **Audit History** in the Usage Statistics dashboard. The read-only tab loads retained finalized browser events on demand, including when collection is disabled. Existing retention settings determine how long records are available.
 
-Use the search field for titles, persistent IDs, and reason codes. Narrow results by status, event type, catalog, or finalized date. The default view covers up to 30 calendar days within the configured retention period. Custom ranges include both dates and use the server time zone. Results show 25 rows per page. Refine filters to reach older records once the 10,000-row pagination offset limit is reached.
+Use the search field for titles, persistent IDs, and reason codes. Narrow results by status, event type, catalog, or finalized date. The default view covers up to 30 calendar days within the configured retention period. Custom ranges include both dates and use the server time zone. Results show six rows per page. Refine filters to reach older records once the 10,000-row pagination offset limit is reached.
 
-**Download JSON** and **Download CSV** export the same records for the applied filters, with up to 5,000 records per download. Larger exports ask you to narrow the filters. Audit History provides no controls to edit, delete, or reclassify events. Official usage totals and their exports use the dashboard’s global filters.
+**Download JSON** and **Download CSV** export all matching records for the applied filters, with up to 5,000 records per download. The table displays readable reason labels, and downloads retain the original reason codes. Larger exports ask you to narrow the filters. Audit History provides no controls to edit, delete, or reclassify events. Official usage totals and their exports use the dashboard’s global filters.
 
 ## Validation
 

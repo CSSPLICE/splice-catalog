@@ -228,7 +228,36 @@
     const exportMessage = panel.querySelector('[data-audit-export-message]');
     const kinds = { ENTRY_CLICK: 'Entry click', EXTERNAL_CLICK: 'External click', WEB_SEARCH: 'Web search' };
     const catalogs = { SLC_ITEM: 'SLC Item', TOOL: 'Tool', DATASET: 'Dataset' };
-    const statuses = { ACCEPTED: 'accepted', REVIEW: 'review', REJECTED: 'rejected', EXPIRED: 'expired' };
+    const statusLabels = new Map([
+      ['ACCEPTED', 'Accepted'],
+      ['REJECTED', 'Rejected'],
+      ['REVIEW', 'Under review'],
+      ['EXPIRED', 'Expired'],
+    ]);
+    const reasonLabels = new Map([
+      ['REVIEW_WINDOW_ELIGIBLE', 'Eligible after review'],
+      ['COORDINATION_OBSERVED', 'Coordinated activity observed'],
+      ['COORDINATION_CAPACITY_UNOBSERVED', 'Coordination check exceeded capacity'],
+      ['PENDING_EXPIRED', 'Review period expired'],
+      ['SESSION_EVIDENCE_CAPACITY', 'Session review exceeded capacity'],
+      ['EVENT_REPLAY', 'Duplicate event detected'],
+      ['REPLAY_CAPACITY', 'Session event tracking limit reached'],
+      ['SESSION_ABUSE', 'Session activity limit exceeded'],
+      ['RETROSPECTIVE_SESSION_ABUSE', 'Session activity limit exceeded'],
+      ['SESSION_UA_CHANGED', 'Browser signature changed during session'],
+      ['RETROSPECTIVE_SESSION_UA_CHANGED', 'Browser signature changed during session'],
+      ['UA_MISSING', 'Browser signature missing'],
+      ['STATE_UNAVAILABLE', 'Session checks unavailable'],
+      ['SESSION_RATE', 'High session activity rate'],
+      ['RETROSPECTIVE_SESSION_RATE', 'High session activity rate'],
+      ['EVENT_BURST', 'Unusual activity burst'],
+      ['RETROSPECTIVE_EVENT_BURST', 'Unusual activity burst'],
+      ['EVENT_REPETITION', 'Unusually frequent repeated activity'],
+      ['RETROSPECTIVE_EVENT_REPETITION', 'Unusually frequent repeated activity'],
+      ['ENTRY_SWEEP', 'Many distinct catalog entries opened in quick succession'],
+      ['RETROSPECTIVE_ENTRY_SWEEP', 'Many distinct catalog entries opened in quick succession'],
+      ['RETROSPECTIVE_KNOWN_AUTOMATION', 'Automation activity detected'],
+    ]);
     let applied = new URLSearchParams();
     let loaded = false, inFlight, exporting = false;
 
@@ -264,10 +293,13 @@
         row.insertCell().appendChild(time);
         row.insertCell().textContent = kinds[record.kind] || record.kind;
         const status = document.createElement('span');
-        status.className = `catalog-type-badge usage-audit-status--${statuses[record.status] || 'expired'}`;
-        status.textContent = record.status;
+        const statusLabel = statusLabels.get(record.status);
+        status.className = `catalog-type-badge usage-audit-status--${statusLabel ? record.status.toLowerCase() : 'unknown'}`;
+        status.textContent = statusLabel ?? 'Unknown status';
         row.insertCell().appendChild(status);
-        row.insertCell().textContent = record.reason;
+        const reason = row.insertCell();
+        reason.className = 'usage-audit-reason';
+        reason.textContent = reasonLabels.get(record.reason) ?? 'Unrecognized reason';
         const item = row.insertCell();
         item.textContent = record.itemTitle || record.itemPersistentID || '—';
         const details = [catalogs[record.catalogType], record.itemTitle && record.itemPersistentID].filter(Boolean);
@@ -312,8 +344,8 @@
         const offset = (data.page - 1) * data.pageSize;
         const start = data.rows.length ? offset + 1 : 0;
         const end = data.rows.length ? offset + data.rows.length : 0;
-        summary.textContent = `Showing ${start}–${end} of ${data.matchingCount.toLocaleString()} audit records`;
-        if (data.pageLimitReached) summary.textContent += '. Narrow the filters to see older results.';
+        summary.textContent = `Showing ${start}–${end} of ${data.matchingCount.toLocaleString()} audit records.`;
+        if (data.pageLimitReached) summary.textContent += ' Narrow the filters to see older results.';
         renderPagination(pagination, data.page, data.totalPages, (next) => { if (!inFlight) load(next, true); });
         if (focus && !panel.hidden) pagination.querySelector('[aria-current="page"]')?.focus({ preventScroll: true });
       } catch {

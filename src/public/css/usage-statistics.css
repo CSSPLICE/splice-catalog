@@ -876,15 +876,35 @@ body.usage-dashboard-body {
 .usage-page .usage-audit-table td {
   overflow-wrap: anywhere;
 }
+.usage-page .usage-audit-table .usage-audit-reason {
+  overflow-wrap: normal;
+}
 .usage-page .usage-audit-table small {
   display: block;
   color: var(--usage-muted);
   margin-top: 3px;
 }
-.usage-page .usage-audit-status--accepted { background: #f0f7f2; color: #365f42; }
-.usage-page .usage-audit-status--review { background: #fbf5e8; color: #745721; }
-.usage-page .usage-audit-status--rejected { background: #fbefef; color: #a33b3b; }
-.usage-page .usage-audit-status--expired { background: #f0f2f5; color: var(--usage-muted); }
+.usage-page .usage-audit-status--accepted {
+  background: #f0f7f2;
+  border-color: #d4e5d9;
+  color: #365f42;
+}
+.usage-page .usage-audit-status--rejected {
+  background: #fbefef;
+  border-color: #efd5d5;
+  color: #a33b3b;
+}
+.usage-page .usage-audit-status--review {
+  background: #fbf5e8;
+  border-color: #ebdfbf;
+  color: #745721;
+}
+.usage-page .usage-audit-status--expired,
+.usage-page .usage-audit-status--unknown {
+  background: #f2f2f2;
+  border-color: #dedede;
+  color: #575757;
+}
 
 @media (max-width: 900px) {
   .usage-page .usage-audit-filters { grid-template-columns: repeat(4, minmax(0, 1fr)); }
