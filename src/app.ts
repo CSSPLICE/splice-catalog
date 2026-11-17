@@ -1,4 +1,6 @@
 import cors from 'cors';
+import { startProvisionalWorker } from './services/ProvisionalUsageService.js';
+import { browserUsageSession, usageJson, usagePayloadErrors } from './middleware/liveUsageProtection.js';
 import helmet from 'helmet';
 import express, { Express } from 'express';
 import catalogRoutes from './routes/catalog.js';
@@ -21,24 +23,24 @@ import { EventEmitter } from 'events';
 import { checkRole, roles } from './middleware/middleware.js';
 
 const emitter = new EventEmitter();
-(async () => {
-  try {
-    if (!AppDataSource.isInitialized) {
-      await AppDataSource.initialize().then(() => {
-        emitter.emit('DataSourceInitialized');
-      });
-      console.log('Database connection initialized successfully!');
-    }
-  } catch (error) {
-    console.error('Error initializing database connection:', error);
-    process.exit(1); // Exit the process if the database fails to initialize
+export const databaseReady = (async () => {
+  if (!AppDataSource.isInitialized) {
+    await AppDataSource.initialize();
+    emitter.emit('DataSourceInitialized');
+    console.log('Database connection initialized successfully!');
   }
+  return startProvisionalWorker();
 })();
 
 dotenv.config();
 
 const app: Express = express();
 
+// Trust only explicitly configured proxy addresses/subnets, never arbitrary XFF.
+if (process.env.LIVE_USAGE_TRUSTED_PROXIES) {
+  app.set('trust proxy', process.env.LIVE_USAGE_TRUSTED_PROXIES.split(',').map((v) => v.trim()).filter(Boolean));
+}
+app.use('/usage', usageJson, usagePayloadErrors);
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -79,6 +81,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(browserUsageSession());
 app.use('/', viewRoutes);
 app.use('/about', aboutRoutes);
 app.use('/catalog', catalogRoutes);
