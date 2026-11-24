@@ -20,8 +20,8 @@ export function checkRole(role: roles): (req: Request, res: Response, next: Next
       res.status(401).send('Login Required');
       return;
     }
-    const rolesClaim = req.oidc?.user?.['https://roles'] as string[] | undefined;
-    if (rolesClaim?.includes(role)) {
+    const rolesClaim = req.oidc?.user?.['https://roles'];
+    if (Array.isArray(rolesClaim) && rolesClaim.includes(role)) {
       next();
     } else res.status(403).send(`Role ${role} required to access resource`);
   };

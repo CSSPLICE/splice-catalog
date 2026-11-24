@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { LiveUsageBotProtection, liveUsageBotProtection } from '../services/LiveUsageBotProtection.js';
 import { AppDataSource } from '../db/data-source.js';
 import { slc_item_catalog } from '../db/entities/SLCItemCatalog.js';
 import { slc_tools_catalog } from '../db/entities/SLCToolsCatalog.js';
@@ -72,6 +73,7 @@ const getItemFilterValues = (item: any, field: FilterFieldConfig): string[] => {
 };
 
 export class SearchController {
+  constructor(private protection: LiveUsageBotProtection = liveUsageBotProtection) {}
   async searchCatalog(req: Request, res: Response) {
     const { query, error: queryError } = parseSearchQuery(req.query.query);
     if (queryError) return res.status(400).send(queryError);
@@ -158,13 +160,26 @@ export class SearchController {
       ).map(normalizeCatalogItem);
       if (publicApi && query) {
         try {
-          await searchStatisticsService.recordSearch({
-            source: 'API',
-            query,
-            catalogType: 'SLC_ITEM',
-            resultCount: results.length,
-          });
+          const decision = this.protection.classifyApi(
+            req.ip || req.socket?.remoteAddress || 'unknown',
+            req.get?.('user-agent') || '',
+          );
+          res.setHeader('X-Usage-Decision', decision.decision);
+          res.setHeader('X-Usage-Reason', decision.reason);
+          res.setHeader('X-Usage-Counted', 'false');
+          if (decision.decision === 'ACCEPT') {
+            await searchStatisticsService.recordSearch({
+              source: 'API',
+              query,
+              catalogType: 'SLC_ITEM',
+              resultCount: results.length,
+            });
+            res.setHeader('X-Usage-Counted', 'true');
+          }
         } catch {
+          res.setHeader('X-Usage-Decision', 'REVIEW');
+          res.setHeader('X-Usage-Reason', 'ANALYTICS_UNAVAILABLE');
+          res.setHeader('X-Usage-Counted', 'false');
           // A completed search remains successful if analytics storage is unavailable.
           console.error('Failed to record public API search analytics');
         }
