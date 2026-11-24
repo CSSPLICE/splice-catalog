@@ -13,9 +13,13 @@ export function scriptsAssets() {
   return gulp.src('./src/scripts/**/*.txt').pipe(gulp.dest('./dist/scripts'));
 }
 
+export function adminComponents() {
+  return gulp.src('./src/admin-panel/components/**/*.jsx').pipe(gulp.dest('./dist/admin-panel/components'));
+}
+
 function finish(done) {
   console.log('gulp done');
   done();
 }
 
-export default gulp.series(assets, views, scriptsAssets, finish);
+export default gulp.series(assets, views, scriptsAssets, adminComponents, finish);

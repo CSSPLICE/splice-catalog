@@ -8,10 +8,12 @@ import { ItemClassification } from '../db/entities/ItemClassification.js';
 import { SearchAlias } from '../db/entities/SearchAlias.js';
 import { ValidationJob } from '../db/entities/ValidationJob.js';
 import { ValidationJobConstraint } from '../db/entities/ValidationJobConstraint.js';
-import { AdminJS, ResourceOptions, ActionRequest, ActionResponse } from 'adminjs';
+import { AdminJS, ComponentLoader, ResourceOptions, ActionRequest, ActionResponse } from 'adminjs';
 import { Database, Resource } from '@adminjs/typeorm';
-import { AppDataSource } from '../db/data-source.js';
 import AdminJSExpress from '@adminjs/express';
+import { fileURLToPath } from 'node:url';
+import { SlcItemAdminResource } from './SlcItemAdminResource.js';
+import { ItemClassificationAdminResource } from './ItemClassificationAdminResource.js';
 const { buildRouter } = AdminJSExpress;
 
 function buildOrigin(request: ActionRequest): string {
@@ -39,30 +41,25 @@ export function setup() {
           return request;
         },
       },
-      deleteAll: {
-        actionType: 'resource',
-        icon: 'TrashCan',
-        component: false,
-        variant: 'danger',
-        guard: 'Irreversible Delete Operation',
-        handler: async (request, response, context) => {
-          const { resource, h } = context;
-          console.log((resource as any).model);
-          await AppDataSource.getRepository((resource as any).model).delete({});
-          console.log(h.resourceUrl({ resourceId: resource.id() }));
-          return {
-            notice: { message: 'All records deleted', type: 'success' },
-            redirectUrl: `${h.resourceUrl({ resourceId: resource.id() })}?refresh=${Date.now()}`,
-          };
-        },
-      },
     },
   };
 
+  const componentLoader = new ComponentLoader();
+  for (const [name, file] of [
+    ['Application', 'SelectionPlacement'],
+    ['Breadcrumbs', 'SLCListDeleteSlot'],
+    ['RecordsTable', 'SLCSelectedDeleteTable'],
+    ['SelectedRecords', 'SLCSelectedDeleteToolbar'],
+  ]) {
+    componentLoader.override(name, fileURLToPath(new URL(`./components/${file}.jsx`, import.meta.url)));
+  }
+
+  const itemsResource = new SlcItemAdminResource(slc_item_catalog);
   const adminJs = new AdminJS({
+    componentLoader,
     resources: [
       {
-        resource: slc_item_catalog,
+        resource: itemsResource,
         options: customOptions,
       },
       {
@@ -76,7 +73,7 @@ export function setup() {
       { resource: OntologyClasses },
       { resource: OntologyRelations },
       { resource: OntologyAliases },
-      { resource: ItemClassification },
+      { resource: new ItemClassificationAdminResource(ItemClassification, itemsResource) },
       { resource: SearchAlias },
       {
         resource: ValidationJob,
@@ -147,6 +144,11 @@ export function setup() {
     ],
     rootPath: '/admin',
   });
+
+  // Rebuild custom components during development instead of serving a stale cached bundle.
+  if (process.env.NODE_ENV !== 'production') {
+    void adminJs.watch();
+  }
 
   return buildRouter(adminJs);
 }
