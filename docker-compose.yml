@@ -96,6 +96,8 @@ services:
       dockerfile: Dockerfile.prod
     env_file:
       - .env
+    environment:
+      - LIVE_USAGE_TRUSTED_PROXIES=${LIVE_USAGE_TRUSTED_PROXIES:-172.28.0.10}
     restart: always
     entrypoint: ["pm2-runtime", "./process.yml"]
     depends_on:
@@ -109,7 +111,8 @@ services:
     ports:
       - '127.0.0.1:3000:3000'
     networks:
-      - splice
+      splice:
+      proxy:
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:3000']
       interval: 1m30s
@@ -134,7 +137,9 @@ services:
     depends_on:
       - prod
     networks:
-      - splice
+      splice:
+      proxy:
+        ipv4_address: 172.28.0.10
 
   lti-validator:
     build:
@@ -158,4 +163,8 @@ volumes:
 
 networks:
   splice:
+  proxy:
+    ipam:
+      config:
+        - subnet: 172.28.0.0/28
 
